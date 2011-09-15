@@ -5,6 +5,7 @@
 \usepackage[a4paper]{geometry}
 \usepackage{makeidx}
 \usepackage[toc]{glossaries}
+\usepackage{hyperref}
 
 \geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
 
@@ -66,32 +67,32 @@
 \clearpage
         
 \section{Executive Summary}
-This document is intended to serve as a summary of the problem being addressed in the Siftables Emulator project.  Beginning with a brief summary of the clients and the current solution, or lack thereof, this document provides more detail about the stakeholders involved in the project and their primary concerns and needs.  An overview of the proposed product, as decided by the client and Singularity Software, and its key requirements and features follows before finishing with details about constraints involved in the project's development.  This document is to serve as a base for further development on the emulator software and will be further elaborated upon in future documentation. \\\\
-Developers of applications for the Sifteo Cubes rely on the use of the cube hardware itself to test programs.  With the release of the cubes and API still pending, many are left without a common interface with which to productively develop programs to deploy on the cubes without involving the hardware which requires more work for the common developer.  As Sifteo prepares for the release of both the cubes and the API for programs, it is becoming more necessary for an intuitive interface to make application development more efficient.
+This document is intended to serve as a summary of the problem being addressed in the Siftables\index{Siftables} Emulator\index{emulator} project.  Beginning with a brief summary of the clients and the current solution, or lack thereof, this document provides more detail about the stakeholders involved in the project and their primary concerns and needs.  An overview of the proposed product, as decided by the client and Singularity Software, and its key requirements and features follows before finishing with details about constraints involved in the project's development.  This document is to serve as a base for further development on the emulator software and will be further elaborated upon in future documentation. \\\\
+Developers of applications for the Sifteo\index{Sifteo} Cubes rely on the use of the cube hardware itself to test programs.  With the release of the cubes and API\index{API} still pending, many are left without a common interface with which to productively develop programs to deploy on the cubes without involving the hardware which requires more work for the common developer.  As Sifteo\index{Sifteo} prepares for the release of both the cubes and the API\index{API} for programs, it is becoming more necessary for an intuitive interface to make application development more efficient.
 
 \section{Introduction}
 This document begins the series which will further describe the Siftables Emulator software.
 
 \section{Client Background}
-Clients Tim Ekl and Eric Stokes are alumni of Rose-Hulman. Mr. Ekl is currently working on a M.S. degree in Engineering Management; Mr. Stokes is currently working for n\~ask Signal Processing Systems in Denver, Colorado. As (former) Rose-Hulman students, the clients are avid users of technology who follow new trends in the industry. As a result of this interest in new technology, both Mr. Stokes and Mr. Ekl discovered and purchased Sifteo Cubes\index{Sifteo Cubes}, a revolutionary product that consists of a set of (anywhere from 1 to 6) mini computers. While both clients have a set of 3 Sifteo Cubes, they realized that not everyone interested in the project could have the luxury of physical hardware to work with. As such, they asked Singularity Software \- via the Junior Project proposal process at Rose-Hulman \- to construct a software emulator\index{emulator} for the cubes. The emulator is intended to make the development of Sifteo applications easier, especially in the testing phase.
+Clients Tim Ekl and Eric Stokes are alumni of Rose-Hulman. Mr. Ekl is currently working on a M.S. degree in Engineering Management; Mr. Stokes is currently working for n\~ask Signal Processing Systems in Denver, Colorado. As (former) Rose-Hulman students, the clients are avid users of technology who follow new trends in the industry. As a result of this interest in new technology, both Mr. Stokes and Mr. Ekl discovered and purchased Sifteo Cubes\index{Sifteo Cubes}, a revolutionary product that consists of a set of (anywhere from 1 to 6) mini computers. While both clients have a set of 3 Sifteo Cubes, they realized that not everyone interested in the project could have the luxury of physical hardware to work with. As such, they asked Singularity Software \- via the Junior Project proposal process at Rose-Hulman \- to construct a software emulator\index{emulator} for the cubes. The emulator is intended to make the development of Sifteo\index{Sifteo} applications easier, especially in the testing phase.
 
 \section{Current System}
-Currently there is no way to simulate Sifteo Cubes. Mr. Ekl has developed a basic emulator in the past but asked that we not look at his code or in any way base the Siftables Emulator on his project.\\\\
-Sifteo has announced that they will be releasing their API\index{API} later this month; as of this printing, the API has not yet been made public.
+Currently there is no way to simulate Sifteo Cubes. Mr. Ekl has developed a basic emulator\index{emulator} in the past but that code will not in any way serve as a base for the Siftables Emulator.\\\\
+Sifteo has announced that they will be releasing their API\index{API} later this month; as of this printing, the API\index{API} has not yet been made public.
 
 \section{User/Stakeholder Description}
 
                \subsection{User/Stakeholder Profiles}
 
                           \subsubsection{Sifteo application developers}
-                          As the primary target audience of the system, developers targeting the Sifteo platform are assumed to have a reasonable amount of technical background; they are not novice computer users and are familiar with programming concepts like Object-Oriented Programming and Application Programming Interfaces. As developers may hail from platforms ranging from Windows to Mac to Linux, cross-platform support is an important consideration.\\\\
+                          As the primary target audience of the system, developers targeting the Sifteo\index{Sifteo} platform are assumed to have a reasonable amount of technical background; they are not novice computer users and are familiar with programming concepts like Object-Oriented Programming\index{Object-Oriented Programming} and Application Programming Interfaces\index{API}. As developers may hail from platforms ranging from Windows to Mac to Linux, cross-platform support is an important consideration.\\\\
                           Possible problems for this user type include an unstable or crash-prone system; as developers are writing and testing their own code, it is essential that the emulator does not contribute to the failures that the user must debug. Developers will deem the emulator project a success when they can successfully program and test software that uses any or all of the features of the Sifteo cubes on their development platform.
 
                           \subsubsection{Clients}
-                          The clients (Tim Ekl and Eric Stokes) are assumed to be a subset of the Sifteo application developers user class. However, their programming knowledge and knowledge of the Sifteo Cubes is known to be more advanced than that of the average application developer. As such, their needs require that the emulator is capable of being pushed to the same limits as the actual platform.
+                          The clients (Tim Ekl and Eric Stokes) are assumed to be a subset of the Sifteo\index{Sifteo} application developers user class. However, their programming knowledge and knowledge of the Sifteo\index{Sifteo} Cubes is known to be more advanced than that of the average application developer. As such, their needs require that the emulator is capable of being pushed to the same limits as the actual platform.
 
                           \subsubsection{Singularity Software}
-                          Singularity Software, as the team behind Siftables Emulator, is primarily interested in the creation of a finished product that can be delivered to the clients at the conclusion of the Rose-Hulman junior project cycle. As a team, we are less familiar with the Sifteo platform and are also relatively inexperienced with the scale of project the Emulator entails.
+                          Singularity Software, as the team behind Siftables Emulator\index{emulator}, is primarily interested in the creation of a finished product that can be delivered to the clients at the conclusion of the Rose-Hulman junior project cycle. As a team, we are less familiar with the Sifteo platform and are also relatively inexperienced with the scale of project the Emulator entails.
 
                           \subsubsection{Sriram Mohan (CSSE Department)}
                           As the advisor of the Junior Project, Dr. Mohan has a vested interest in the creation of a finished, deliverable product. His key responsibility is to review documents created within the scope of the Junior Project series of courses.
@@ -99,32 +100,32 @@ Sifteo has announced that they will be releasing their API\index{API} later this
                \subsection{User Environments}
 
                           \subsubsection{Sifteo application developers}
-						  The typical Sifteo application developer may be working on his own or he may be working with a team of developers; he or they will be working on workstations or powerful development laptops that have a significant amount of graphics horsepower. They may or may not be connected to the Internet during development, depending on the location in which they are developing. They may be Windows, Mac, or Linux users and will be using various Integrated Development Environments (IDEs) specific to their platform; integration between such IDEs and the Siftables Emulator, while possibly desirable, is not a requirement.
+                          The typical Sifteo application developer may be working on his own or he may be working with a team of developers; he or they will be working on workstations or powerful development laptops that have a significant amount of graphics horsepower. They may or may not be connected to the Internet during development, depending on the location in which they are developing. They may be Windows, Mac, or Linux users and will be using various Integrated Development Environments (IDEs) specific to their platform; integration between such IDEs and the Siftables Emulator, while possibly desirable, is not a requirement.
 
                           \subsubsection{Clients}
-						  Mr. Stokes and Mr. Ekl are both primarily Mac users, although both clients also own and occasionally use Windows machines as well. Their environment is essentially the same as that of the typical Sifteo application developer.
+			  Mr. Stokes and Mr. Ekl are both primarily Mac users, although both clients also own and occasionally use Windows machines as well. Their environment is essentially the same as that of the typical Sifteo\index{Sifteo} application developer.
 
                \subsection{Key Needs}
 
                           \subsubsection{Emulate Sifteo Cubes in a desktop GUI application}
-                          No emulator currently exists for the Sifteo platform; the need is currently filled by homebrew efforts like Mr. Ekl’s Java-based emulator, or developers simply use the Cubes themselves as a test environment. The clients envision a solution where all of the interactions possible with a set of Early Access Sifteo Cubes can be replicated in a software emulator.
+                          No emulator currently exists for the Sifteo\index{Sifteo} platform; the need is currently filled by homebrew efforts like Mr. Ekl’s Java-based emulator, or developers simply use the Cubes themselves as a test environment. The clients envision a solution where all of the interactions possible with a set of Early Access Sifteo Cubes can be replicated in a software emulator.
 
                           \subsubsection{Develop an API for creating applications in the emulator’s Cubes}
-                          An Application Programming Interface (API) is necessary to facilitate interaction with the virtual Sifteo Cubes. Currently, no API is made available by Sifteo for the physical cubes, and no emulator API exists because no emulator exists. The clients would like an API (that may or may not resemble the to-be-released Sifteo API) with which the virtual Cubes can be programmed.
+                          An Application Programming Interface (API)\index{API} is necessary to facilitate interaction with the virtual Sifteo Cubes. Currently, no API is made available by Sifteo for the physical cubes, and no emulator API exists because no emulator exists. The clients would like an API (that may or may not resemble the to-be-released Sifteo API) with which the virtual Cubes can be programmed.
 
                           \subsubsection{Provide several example games that showcase Cube/emulator functionalities}
                           Sifteo currently provides example games that run on the Cubes as a showcase of what can be achieved with the Cubes and what the Cubes’ unique futures offer to the programmer and to the user. The clients would like to have a similar showcase available for the emulator; such examples would aid in understanding both the emulator platform and the larger Sifteo Cubes programming platform.
 
               \subsection{Alternatives \& Competition}
-              Singularity Software’s Siftables Emulator will be the first software of its kind for the Cubes. The primary competition, then, is the Sifteo Cubes themselves. The Cubes have the advantage of physicality \- as tactile objects, they will always be superior in terms of user experience when compared to an emulator. However, they are expensive and only manufactured in limited quantities at the moment; the Siftables Emulator is, by contrast, infinitely available as an open source piece of software.
+              Singularity Software’s Siftables Emulator will be the first software of its kind for the Cubes. The primary competition, then, is the Sifteo Cubes themselves. The Cubes have the advantage of physicality \- as tactile objects, they will always be superior in terms of user experience when compared to an emulator. However, they are expensive and only manufactured in limited quantities at the moment; the Siftables Emulator\index{emulator} is, by contrast, infinitely available as an open source piece of software.
 
 \section{Product Overview}
 
               \subsection{Product perspective}
-              Siftables Emulator is a free independent system used to emulate the way Sifteo Cubes handle motions and interactions.
+              Siftables Emulator\index{emulator} is a free independent system used to emulate the way Sifteo Cubes handle motions and interactions.
 
               \subsection{Elevator statement}
-              Due to the limited availability of Sifteo Cubes, developers unable to obtain a set of Cubes have no good way to test the programs they create for the platform. At Singularity Software, our goal is to develop an emulator for the Cubes. The emulator, which will consist of the emulator platform, an API, and example games, will be able to emulate an arbitrary number of Sifteo Cubes and the way they handle physical motions and interactions.
+              Due to the limited availability of Sifteo Cubes, developers unable to obtain a set of Cubes have no good way to test the programs they create for the platform. At Singularity Software, our goal is to develop an emulator for the Cubes. The emulator, which will consist of the emulator platform, an API\index{API}, and example games, will be able to emulate an arbitrary number of Sifteo Cubes and the way they handle physical motions and interactions.
 \clearpage
               \subsection{Summary of capabilities}
               The main features of our emulator allow developers to quickly start Sifteo application development by making a virtual edition of the Cubes available for emulation and testing.
@@ -139,17 +140,19 @@ Sifteo has announced that they will be releasing their API\index{API} later this
                             & Makes the emulator functional for other than basic arrangement of cubes \\ \hline
                   Example games (requirement)
                             & Gets new emulator users started with the platform \\ \hline
-                  Open source  (requirement)
+                  Open source\index{Open source}  (requirement)
                             & Allows the community to contribute improvements to the emulator \\ \hline
-                  API (requirement)
+                  API\index{API} (requirement)
                             & A standard way of interacting with the virtual Cubes
                 \end{tabular}
               \end{table}
 
               \subsection{Assumptions and dependencies}
-              Sifteo has plans to release an API of their own for the Cubes; Singularity will attempt to make our API shadow much of the language and functionality of the official Sifteo API. 
+              Sifteo\index{Sifteo} has plans to release an API of their own for the Cubes; Singularity will attempt to make our API shadow much of the language and functionality of the official Sifteo API. 
 
               \subsection{Estimate of cost}
+              Someone needs to estimate the cost.
+
 \clearpage
 
 \section{Features}

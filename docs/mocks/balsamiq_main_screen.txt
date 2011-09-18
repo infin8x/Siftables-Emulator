@@ -1,0 +1,73 @@
+<mockup version="1.0" skin="sketch" measuredW="862" measuredH="611" mockupW="830" mockupH="578">
+  <controls>
+    <control controlID="88" controlTypeID="com.balsamiq.mockups::NumericStepper" x="787" y="536" w="-1" h="-1" measuredW="41" measuredH="24" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>3</text>
+      </controlProperties>
+    </control>
+    <control controlID="89" controlTypeID="com.balsamiq.mockups::Button" x="47" y="554" w="-1" h="-1" measuredW="93" measuredH="28" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Align%20to%20Grid</text>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="com.balsamiq.mockups::TitleWindow" x="32" y="33" w="830" h="578" measuredW="450" measuredH="400" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Siftables%20Emulator</text>
+      </controlProperties>
+    </control>
+    <control controlID="91" controlTypeID="com.balsamiq.mockups::HSlider" x="684" y="542" w="103" h="-1" measuredW="33" measuredH="11" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <value>41</value>
+      </controlProperties>
+    </control>
+    <control controlID="92" controlTypeID="com.balsamiq.mockups::NumericStepper" x="797" y="536" w="-1" h="-1" measuredW="41" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>3</text>
+      </controlProperties>
+    </control>
+    <control controlID="93" controlTypeID="com.balsamiq.mockups::Label" x="684" y="558" w="154" h="21" measuredW="106" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <size>13</size>
+        <text>Number%20of%20Cubes</text>
+        <underline>false</underline>
+      </controlProperties>
+    </control>
+    <control controlID="94" controlTypeID="com.balsamiq.mockups::Button" x="89" y="554" w="-1" h="-1" measuredW="95" measuredH="28" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Snap%20to%20Grid</text>
+      </controlProperties>
+    </control>
+    <control controlID="95" controlTypeID="com.balsamiq.mockups::Button" x="431" y="554" w="140" h="28" measuredW="116" measuredH="28" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Load%20a%20program</text>
+      </controlProperties>
+    </control>
+    <control controlID="96" controlTypeID="__group__" x="89" y="89" w="717" h="427" measuredW="717" measuredH="427" zOrder="8" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="1" w="183" h="183" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="96"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Canvas" x="267" y="0" w="183" h="183" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="96"/>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Canvas" x="534" y="0" w="183" h="183" measuredW="100" measuredH="70" zOrder="2" locked="false" isInGroup="96"/>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="244" w="183" h="183" measuredW="100" measuredH="70" zOrder="3" locked="false" isInGroup="96"/>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Canvas" x="267" y="243" w="183" h="183" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="96"/>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::Canvas" x="534" y="243" w="183" h="183" measuredW="100" measuredH="70" zOrder="5" locked="false" isInGroup="96"/>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="97" controlTypeID="com.balsamiq.mockups::Button" x="272" y="554" w="-1" h="-1" measuredW="140" measuredH="28" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Reload%20this%20program</text>
+      </controlProperties>
+    </control>
+    <control controlID="98" controlTypeID="com.balsamiq.mockups::VSlider" x="55" y="89" w="-1" h="447" measuredW="11" measuredH="33" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <value>0</value>
+      </controlProperties>
+    </control>
+    <control controlID="99" controlTypeID="com.balsamiq.mockups::Label" x="47" y="59" w="40" h="21" measuredW="40" measuredH="21" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Zoom</text>
+        <textOrientation>right</textOrientation>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

@@ -5,6 +5,7 @@
 \usepackage[a4paper]{geometry}
 \usepackage{makeidx}
 \usepackage[acronym]{glossaries}
+\usepackage{lscape}
 % \usepackage{hyperref} % Makes links from ToC
 
 \geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
@@ -70,8 +71,7 @@
 This document summarizes the problem addressed by the Siftables\index{Siftables} Emulator\index{emulator} project. After providing a brief summary of the clients---Tim Ekl and Eric Stokes---and the current solution, or lack thereof, it goes on to provide more detail about the stakeholders involved in the project and their primary concerns and needs. Those stakeholders include the clients and the developers of \index{Sifteo}Sifteo Cube programs, who will be the primary users of the software. Finally, an overview of the proposed product and its key requirements and features, as agreed upon by the client and Singularity Software, is detailed and the constraints surrounding the project's development are enumerated. Future documents will use the information contained herein as a starting point from which to provide more details of the final solution.
 
 \section{Introduction}
-Developers of applications for the \gls{Sifteo Cubes}\index{Sifteo} currently must test programs they create for the platform on the Cubes themselves.  With a full release of the Cubes and corresponding \gls{API}\index{API} still pending, developers unable to join the Sifteo Early Access program are left without a software-based interface within which to productively develop Sifteo programs. As such, Singularity Software will provide, in the form of the Siftables Emulator, a software-based emulator for the Sifteo Cubes that will allow any developer to try programming in the unqiue environment provided by the Cubes.
-
+Developers of applications for the \gls{Sifteo Cubes}\index{Sifteo} currently must test programs they create for the platform on the Cubes themselves.  With a full release of the Cubes and corresponding \gls{API}\index{API} still pending, developers unable to join the Sifteo Early Access program are left without a software-based interface within which to productively develop Sifteo programs. As such, Singularity Software will provide, in the form of the Siftables Emulator, a software-based emulator for the Sifteo Cubes that will allow any developer to try programming in the unqiue environment provided by the Cubes.\\\\
 This document is the first in a series of milestone documents that will accompany the planning of the Siftables Emulator. It will provide an overview of the current system, all involved clients and stakeholders, and a statement of the problem Singularity seeks to solve. Additionally, it will detail a list of high-level features as agreed upon with the clients. Future milestones will delve into the user cases, data flow diagrams, and prototypes necessary to convert those high-level features to a working system; as the project progresses, future milestones will also present plans for change control, coding standardization, and testing. Finally, design and usability reports will make up the core of milestones near the end of the quarter as the software stabilizes.
 
 \section{Client Background}
@@ -157,46 +157,84 @@ From a programming standpoint, Sifteo has announced that they will be releasing 
 
 \section{Features}
 Two attributes accompany each feature described below: \textbf{Status}, which is a measure of the feature's progress duing the project definition period, and \textbf{Priority}, which indicates the relative importance of each feature.
+    \begin{landscape}
     \begin{table}[h]
-      \begin{tabular}{p{1.5in} | p{1.75in} | p{1in} | p{1in}}
-        \textbf{Feature} & \textbf{Description} & \textbf{Status} & \textbf{Priority} \\ \hline
+      \begin{tabular}{p{1.5in} | p{1.75in} | p{.75in} | p{.75in} | p{.75in} | p{.75in} | p{1.75in} | p{.6in}}
+        \textbf{Feature} &
+        \textbf{Description} &
+        \textbf{Status} &
+        \textbf{Priority} &
+        \textbf{Risk} &
+        \textbf{Stability} &
+        \textbf{Reason} &
+        \textbf{Effort} \\ \hline
 
-        An individual, manipulable Cube &
-        The user will be able to manipulate a virtual Sifteo Cube with his mouse &
+        Individual, virtual Sifteo Cube &
+        A virtual representation of a single Sifteo cube &
         Approved &
-        Critical \\ \hline
+        Critical &
+        Low &
+        High &
+        Replicates physical Sifteo Cube &
+        Medium \\ \hline
 
-        A workspace with multiple Cubes &
-        The user will be able to place a number (1-6) of Cubes on the workspace and manipulate them &
+        Buttons to manipulate each virtual Cube &
+        Buttons on the virtual Cube will allow the user to flip and tilt it &
         Approved &
-        Critical \\ \hline
+        Critical &
+        Medium &
+        High &
+        Replaces physical actions where said actions would be impractical with a mouse &
+        Medium \\ \hline
 
-        Buttons to control the cubes &
-        The user will be able to click buttons that correspond to each manipulation possible with a physical Cube &
+        Workspace where multiple cubes can be emulated &
+        Multiple cubes will be displayed on a Workspace that replicates the free-form nature of physical Sifteo Cubes &
         Approved &
-        Critical \\ \hline
+        Critical &
+        Low &
+        High &
+        Replicates multiple Sifteo Cubes in a natural, free-form environment &
+        High \\ \hline
 
-        Cubes interact with each other &
-        Each Cube on the workspace will interact and communicate with neighboring Cubes &
+        Interactions between Cubes &
+        The Cubes present on the Workspace will communicate when they are neighbored &
         Approved &
-        Critical \\ \hline
+        Critical &
+        Low &
+        High &
+        Cubes can simulate the interactions possible with physical Cubes &
+        High \\ \hline
 
-        The ability to load programs into the cubes &
-        The user will be able to load a program of his creation onto the virtual Cubes in the workspace &
+        Load programs into the Cubes &
+        The user will load his own and example programs into the emulator’s Cubes &
         Approved &
-        Critical \\ \hline
+        Critical &
+        Medium &
+        High &
+        The ability to program programs for the emulator is dependent on a common interface &
+        High \\ \hline
 
-        Auto-align &
-        The user can activate a mechanism that aligns all Cubes on the workspace to a grid or other order &
+        Snap Cubes to invisible grid &
+        The Cubes will snap into an invisible grid when a button is clicked &
         Proposed &
-        Useful \\ \hline
+        Useful &
+        Medium &
+        High &
+        Increases productivity by allowing a quick reset if the Cubes are in disarray &
+        Low \\ \hline
 
-        Zoom ability &
-        The user will be able to zoom the workspace to focus on an individual cube, a group of cubes, or the whole space &
+        Zoom Workspace &
+        The Workspace will zoom to the level of an individual Cube or the whole space &
         Proposed &
-        Useful
+        Useful &
+        Low &
+        High &
+        Inspecting individual Cubes allows for precise checks of program GUIs &
+        Low \\ \hline
+
       \end{tabular}
     \end{table}
+    \end{landscape}
 
 \section{Constraints}
         While much of this project is open-ended, there are a few basic constraints. At the direction of the clients, all code should be open source and version-controlled. Mr. Ekl requested that the emulator run easily on Mac as well as Windows, with the stipulation that Linux compatibility would satisfy the Mac requirement for Singularity's testing purposes. In addition, the clients requested that an issue tracking system be put in place and used throughout the development process. Finally, the emulator must be completed by May 18th---the end of Spring Quarter 10th week---to satisfy the requirements of the clients and of Dr. Mohan.

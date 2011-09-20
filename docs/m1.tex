@@ -45,7 +45,50 @@
   description={are small machines capable of loading programs and interacting with one another as well as responding to predefined movements}
 }
 
-\newacronym{API}{API}{Application Programming Interface}
+\newglossaryentry{Object-Oriented Programming}
+{
+  name={Object-Oriented Programming},
+  description={is a programming paradigm using objects to design applications}
+}
+
+\newglossaryentry{Windows}
+{
+  name={Windows},
+  description={is a series of operating systems developed by Microsoft}
+}
+
+\newglossaryentry{Mac}
+{
+  name={Mac},
+  description={is a series of operating systems developed by Apple}
+}
+
+\newglossaryentry{Linux}
+{
+  name={Linux},
+  description={is a Unix-based operating system based on free and open source software}
+}
+
+\newglossaryentry{cross-platform support}
+{
+  name={cross-platform support},
+  description={is an attribute given to software implemented and operable on multiple computer platforms}
+}
+
+\newacronym{API}{API}{\glsadd{API}{Application Programming Interface}}
+
+\newglossaryentry{APIg}
+{
+  name={Application Programming Interface},
+  description={is an interface implemented by a software program that enables it to interact with other software}
+}
+\glsadd{APIg}
+
+\newglossaryentry{open source}
+{
+  name={open source},
+  description={is an attribute given to software for which the source code is freely available}
+}
 
 
 \renewcommand*\arraystretch{1.5}
@@ -86,7 +129,7 @@ From a programming standpoint, Sifteo has announced that they will be releasing 
                \subsection{User/Stakeholder Profiles}
 
                           \subsubsection{Sifteo application developers}
-                          As the primary target audience of the system, developers targeting the Sifteo\index{Sifteo} platform are assumed to have a reasonable amount of technical background; they are not novice computer users and are familiar with programming concepts like Object-Oriented Programming\index{Object-Oriented Programming} and \gls{API}\index{API}s. As developers may hail from platforms ranging from Windows to Mac to Linux, cross-platform support is an important consideration.\\\\
+                          As the primary target audience of the system, developers targeting the Sifteo\index{Sifteo} platform are assumed to have a reasonable amount of technical background; they are not novice computer users and are familiar with programming concepts like \gls{Object-Oriented Programming}\index{Object-Oriented Programming} and \gls{API}\index{API}s. As developers may hail from platforms ranging from \gls{Windows} to \gls{Mac} to \gls{Linux}, \gls{cross-platform support} is an important consideration.\\\\
                           Possible problems for this user type include an unstable or crash-prone system: as developers are writing and testing their own code, it is essential that the emulator does not contribute to the failures that the user must debug. Developers will deem the emulator project a success when they can successfully program and test software that uses any or all of the features of the Sifteo cubes on their development platform.
 
                           \subsubsection{Clients}
@@ -101,10 +144,10 @@ From a programming standpoint, Sifteo has announced that they will be releasing 
                \subsection{User Environments}
 
                           \subsubsection{Sifteo application developers}
-                          The typical Sifteo application developer may be working on his own, or he may be working with a team of developers; he or they will be working on workstations or powerful development laptops that have a significant amount of graphics horsepower. They may or may not be connected to the Internet during development, depending on the location in which they are developing. Additionally, they may be Windows, Mac, or Linux users and will be using various Integrated Development Environments (IDEs) specific to their platform; integration between such IDEs and the Siftables Emulator, while possibly desirable, is not a requirement.
+                          The typical Sifteo application developer may be working on his own, or he may be working with a team of developers; he or they will be working on workstations or powerful development laptops that have a significant amount of graphics horsepower. They may or may not be connected to the Internet during development, depending on the location in which they are developing. Additionally, they may be \gls{Windows}, \gls{Mac}, or \gls{Linux} users and will be using various Integrated Development Environments (IDEs) specific to their platform; integration between such IDEs and the Siftables Emulator, while possibly desirable, is not a requirement.
 
                           \subsubsection{Clients}
-			  Mr. Stokes and Mr. Ekl are both primarily Mac users, although both clients also own and occasionally use Windows machines as well. Their environment is essentially the same as that of the typical Sifteo\index{Sifteo} application developer.
+			  Mr. Stokes and Mr. Ekl are both primarily \gls{Mac} users, although both clients also own and occasionally use \gls{Windows} machines as well. Their environment is essentially the same as that of the typical Sifteo\index{Sifteo} application developer.
 
                \subsection{Key Needs}
 
@@ -112,13 +155,13 @@ From a programming standpoint, Sifteo has announced that they will be releasing 
                           No emulator currently exists for the Sifteo\index{Sifteo} platform; the need is currently either filled by homebrew efforts like Mr. Ekl's Java-based emulator, or circumvented by using the Cubes themselves as a testing platform. The clients envision a solution where all of the interactions possible with a set of Early Access Sifteo Cubes can be replicated in a software emulator.
 
                           \subsubsection{Develop an API for creating applications in the emulator’s Cubes}
-                          An \gls{API}\index{API} is necessary to facilitate interaction with the virtual Sifteo Cubes. Currently, no API is made available by Sifteo for the physical cubes, and no emulator API exists because no emulator exists. The clients would like an API with which the virtual Cubes can be programmed. Mr. Ekl stipulated that shadowing the official Sifteo API, while potentially beneficial for long-term development, is not a requirement.
+                          An \gls{API}\index{API} is necessary to facilitate interaction with the virtual Sifteo Cubes. Currently, no \gls{API} is made available by Sifteo for the physical cubes, and no emulator \gls{API} exists because no emulator exists. The clients would like an \gls{API} with which the virtual Cubes can be programmed. Mr. Ekl stipulated that shadowing the official Sifteo \gls{API}, while potentially beneficial for long-term development, is not a requirement.
 
                           \subsubsection{Showcase Cube/emulator functionalities with samples}
                           Sifteo currently provides example games that run on the Cubes as a showcase of what the platform can achieve and what unique features it can offer to the user. The clients would like to have a similar showcase available for the emulator as an aid in understanding both the emulator platform and the larger Sifteo Cubes programming platform.
 
               \subsection{Alternatives \& Competition}
-              Singularity Software's Siftables Emulator will be the first software of its kind for the Cubes. The only true competition is the Sifteo Cubes themselves. The Cubes have the advantage of physicality---as tactile objects, they will always be superior in terms of user experience when compared to an emulator. However, they are expensive and only manufactured in limited quantities at the moment; the Siftables Emulator\index{emulator} is, by contrast, infinitely available as an open source piece of software.
+              Singularity Software's Siftables Emulator will be the first software of its kind for the Cubes. The only true competition is the Sifteo Cubes themselves. The Cubes have the advantage of physicality---as tactile objects, they will always be superior in terms of user experience when compared to an emulator. However, they are expensive and only manufactured in limited quantities at the moment; the Siftables Emulator\index{emulator} is, by contrast, infinitely available as an \gls{open source} piece of software.
 
 \section{Product Overview}
 
@@ -126,7 +169,7 @@ From a programming standpoint, Sifteo has announced that they will be releasing 
               Siftables Emulator\index{emulator} is a free independent system used to emulate the way Sifteo Cubes handle motions and interactions.
 
               \subsection{Elevator Statement}
-              Due to the limited availability of Sifteo Cubes, developers unable to obtain a set of Cubes have no good way to test the programs they create for the platform. At Singularity Software, our goal is to develop an emulator for the Cubes that will be able to emulate an arbitrary number of Sifteo Cubes and the way they handle physical motions and interactions. Along with the emulator itself, Singularity will develop an API\index{API} and example games and programs.
+              Due to the limited availability of Sifteo Cubes, developers unable to obtain a set of Cubes have no good way to test the programs they create for the platform. At Singularity Software, our goal is to develop an emulator for the Cubes that will be able to emulate an arbitrary number of Sifteo Cubes and the way they handle physical motions and interactions. Along with the emulator itself, Singularity will develop an \gls{API}\index{API} and example games and programs.
 \clearpage
               \subsection{Summary of Capabilities}
               The main features of our emulator work together to allow developers to quickly start Sifteo application development by making a virtual edition of the Cubes available for emulation and testing.
@@ -141,18 +184,18 @@ From a programming standpoint, Sifteo has announced that they will be releasing 
                             & Allows the user to test his own programs and example programs in the emulator \\ \hline
                   Example games (requirement)
                             & Gets new emulator users started with the platform \\ \hline
-                  Open source\index{Open source}  (requirement)
+                  \gls{open source}\index{Open source}  (requirement)
                             & Allows the community to contribute improvements to the emulator \\ \hline
-                  API\index{API} (requirement)
+                  \gls{API}\index{API} (requirement)
                             & A standard way of interacting with the virtual Cubes
                 \end{tabular}
               \end{table}
 
               \subsection{Assumptions and Dependencies}
-              Sifteo\index{Sifteo} has plans to release an API of their own for the Cubes; Singularity will attempt to make our API shadow much of the language and functionality of the official Sifteo API. 
+              Sifteo\index{Sifteo} has plans to release an \gls{API} of their own for the Cubes; Singularity will attempt to make our \gls{API} shadow much of the language and functionality of the official Sifteo \gls{API}. 
 
               \subsection{Estimate of Cost}
-			  Because it is an open source piece of software, Singularity Software does not believe that the Siftables Emulator will incur any monetary costs throughout the project.
+			  Because it is an \gls{open source} piece of software, Singularity Software does not believe that the Siftables Emulator will incur any monetary costs throughout the project.
 \clearpage
 
 \section{Features}
@@ -246,7 +289,7 @@ Six attributes accompany each feature described below:
     \end{landscape}
 
 \section{Constraints}
-        While much of this project is open-ended, there are a few basic constraints. At the direction of the clients, all code should be open source and version-controlled. Mr. Ekl requested that the emulator run easily on Mac as well as Windows, with the stipulation that Linux compatibility would satisfy the Mac requirement for Singularity's testing purposes. In addition, the clients requested that an issue tracking system be put in place and used throughout the development process. Finally, the emulator must be completed by May 18th---the end of Spring Quarter 10th week---to satisfy the requirements of the clients and of Dr. Mohan.
+        While much of this project is open-ended, there are a few basic constraints. At the direction of the clients, all code should be \gls{open source} and version-controlled. Mr. Ekl requested that the emulator run easily on \gls{Mac} as well as \gls{Windows}, with the stipulation that \gls{Linux} compatibility would satisfy the \gls{Mac} requirement for Singularity's testing purposes. In addition, the clients requested that an issue tracking system be put in place and used throughout the development process. Finally, the emulator must be completed by May 18th---the end of Spring Quarter 10th week---to satisfy the requirements of the clients and of Dr. Mohan.
 
 \clearpage
 \addcontentsline{toc}{section}{Glossary}

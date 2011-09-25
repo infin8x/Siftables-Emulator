@@ -1,0 +1,88 @@
+A.	Name: Load program
+B.	Description: User selects program file and loads it into the emulator.
+C.	Actors: User
+D.	Basic flow
+	1.	User presses "Load a program" button.
+	2.	User selects *.siftem file in file dialog.
+	3.	User presses "Open" button.
+	4.	Emulator loads program on cubes in emulator.
+E.	Alternate flows
+	1.	User selects incompatible file.
+	2.	Error is detected in user's program file.
+	3.	User presses "Cancel" in file dialog.
+F.	Pre-conditions ???	
+G.	Post-conditions
+	1.	Program is loaded or user cancelled loading.
+H.	Special requirements
+	1.	Emulator should indicate when program is finished loading.
+
+
+A.	Name: Reload program
+B.	Description: User reloads the current program file in the emulator.
+C.	Actors: User
+D.	Basic flow
+	1.	User presses "Reload this program" button.
+	2.	User presses "Yes" on caution dialog.
+	4.	Emulator loads program on cubes in emulator.
+E.	Alternate flows
+	1.	User presses "No" on caution dialog.
+F.	Pre-conditions
+	1.	A program is loaded in the emulator.
+G.	Post-conditions
+	1.	Program is loaded or user cancelled loading.
+H.	Special requirements
+	1.	Emulator should indicate when program is finished loading.
+
+
+A.	Name: Zoom screen
+B.	Description: User selects program file and loads it into the emulator.
+C.	Actors: User
+D.	Basic flow
+	1.	User adjusts zoom slider.
+	4.	Emulator magnifies cubes in emulator according to zoom level.
+E.	Alternate flows ???
+F.	Pre-conditions ???
+G.	Post-conditions
+	1.	Emulator zoomed ???
+H.	Special requirements ???
+
+
+A.	Name: Add/remove cubes
+B.	Description: User adjusts the number of cubes present in the emulator.
+C.	Actors: User
+D.	Basic flow
+	1.	User adjusts "Number of cubes" slider or spinbox.
+	4.	Emulator adds/removes cubes in emulator.
+E.	Alternate flows ????
+F.	Pre-conditions ???
+G.	Post-conditions
+	1.	Number of cubes has been adjusted to number specified.
+H.	Special requirements
+	1.	Emulator should do something about the program currently loaded, if there is one.  But what?
+
+
+A.	Name: Snap to grid
+B.	Description: User resets the cubes to their initial positions in the emulator.
+C.	Actors: User
+D.	Basic flow
+	1.	User presses "Snap to Grid" button.
+	4.	Emulator moves cubes to their initial locations in emulator.
+E.	Alternate flows ???
+F.	Pre-conditions ???
+G.	Post-conditions
+	1.	Cubes are reset to their initial locations.
+H.	Special requirements ???
+
+
+A.	Name: Manipulate cube
+B.	Description: User manipulates a cube by clicking, moving, tilting, or flipping ???
+C.	Actors: User
+D.	Basic flow
+	1.	User manipulates a cube in the available ways.
+	4.	Emulator executes program's instructions in emulator.
+E.	Alternate flows ???
+F.	Pre-conditions
+	1.	A program is loaded in the emulator.
+G.	Post-conditions
+	1.	The emulator has updated the program's state based on the cube's change.
+H.	Special requirements ???

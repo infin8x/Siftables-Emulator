@@ -7,10 +7,13 @@ D.	Basic flow
 	3.	User presses "Open" button.
 	4.	Emulator loads program on cubes in emulator.
 E.	Alternate flows
-	1.	User selects incompatible file.
-	2.	Error is detected in user's program file.
-	3.	User presses "Cancel" in file dialog.
-F.	Pre-conditions ???	
+	When the user opens an incompatible file (i.e. any file without the .siftem extension), or
+	When the user opens a corrupt or unloadable file, or
+	When the user presses "Cancel" button:
+	1.	An error dialog summarizing the issue is presented to the user.
+	2.	The use case terminates and no program is loaded.
+F.	Pre-conditions 
+	1.	Emulator is running.
 G.	Post-conditions
 	1.	Program is loaded or user cancelled loading.
 H.	Special requirements
@@ -23,13 +26,14 @@ C.	Actors: User
 D.	Basic flow
 	1.	User presses "Reload this program" button.
 	2.	User presses "Yes" on caution dialog.
-	4.	Emulator loads program on cubes in emulator.
+	3.	Emulator loads program on cubes in emulator.
 E.	Alternate flows
-	1.	User presses "No" on caution dialog.
+	When User presses "no" on caution dialog:
+	1.	The use case terminates and the program is not reloaded.
 F.	Pre-conditions
 	1.	A program is loaded in the emulator.
 G.	Post-conditions
-	1.	Program is loaded or user cancelled loading.
+	1.	Program is loaded.
 H.	Special requirements
 	1.	Emulator should indicate when program is finished loading.
 
@@ -40,11 +44,12 @@ C.	Actors: User
 D.	Basic flow
 	1.	User adjusts zoom slider.
 	4.	Emulator magnifies cubes in emulator according to zoom level.
-E.	Alternate flows ???
-F.	Pre-conditions ???
+E.	Alternate flows 
+	None
+F.	Pre-conditions 
+	1. 	Emulator is running.
 G.	Post-conditions
-	1.	Emulator zoomed ???
-H.	Special requirements ???
+	1.	Program running at beginning of use case, if any, is still running.	
 
 
 A.	Name: Add/remove cubes
@@ -53,12 +58,13 @@ C.	Actors: User
 D.	Basic flow
 	1.	User adjusts "Number of cubes" slider or spinbox.
 	4.	Emulator adds/removes cubes in emulator.
-E.	Alternate flows ????
-F.	Pre-conditions ???
+E.	Alternate flows 
+	None
+F.	Pre-conditions
+	1.	Emulator is running.
 G.	Post-conditions
 	1.	Number of cubes has been adjusted to number specified.
-H.	Special requirements
-	1.	Emulator should do something about the program currently loaded, if there is one.  But what?
+	2.	Program running at beginning of use case, if any, is still running, but only on the cubes not newly added.
 
 
 A.	Name: Snap to grid
@@ -66,23 +72,28 @@ B.	Description: User resets the cubes to their initial positions in the emulator
 C.	Actors: User
 D.	Basic flow
 	1.	User presses "Snap to Grid" button.
-	4.	Emulator moves cubes to their initial locations in emulator.
-E.	Alternate flows ???
-F.	Pre-conditions ???
+	2.	Emulator moves cubes to a grid orientation based on their current positions.
+E.	Alternate flows 
+	None	
+F.	Pre-conditions 
+	1.	Emulator is running.
 G.	Post-conditions
-	1.	Cubes are reset to their initial locations.
-H.	Special requirements ???
+	1.	Cubes are arranged in a grid.
 
 
 A.	Name: Manipulate cube
-B.	Description: User manipulates a cube by clicking, moving, tilting, or flipping ???
+B.	Description: User manipulates a cube by clicking buttons or the cube itself.
 C.	Actors: User
 D.	Basic flow
-	1.	User manipulates a cube in the available ways.
-	4.	Emulator executes program's instructions in emulator.
-E.	Alternate flows ???
+	1.	User double clicks on cube.
+	2.	Cube responds as if a screen click occured.
+E.	Alternate flows 
+	1.	User clicks on buttons superimposed on cube edges.
+	2.	Cube executes appropriate action (i.e. flips, rotates, tilts).
+	1.	User drags cube next to another cube.
+	2.	Cube communicates ("neighbors") with the cube(s) it is adjacent to.
 F.	Pre-conditions
-	1.	A program is loaded in the emulator.
+	1.	Emulator is running.	
 G.	Post-conditions
-	1.	The emulator has updated the program's state based on the cube's change.
+	1.	If a program is running, the emulator has updated its state based on the cube's change.
 H.	Special requirements ???

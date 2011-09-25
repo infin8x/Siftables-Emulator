@@ -1,0 +1,192 @@
+\title{Singularity Software\\Milestone 2}
+\date{\today}
+
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{makeidx}
+\usepackage[acronym]{glossaries}
+\usepackage{lscape}
+\usepackage{amsmath}
+% \usepackage{hyperref} % Makes links from ToC
+
+\geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
+
+\setlength{\parindent}{0pt} % Fixes the paragraph spacing problem
+
+% This is all for formatting and making the Table of Contents according to 
+% spec. Don't play with it.
+\makeatletter
+\renewcommand\l@section[2]{%
+  \ifnum \c@tocdepth >\z@
+    \addpenalty\@secpenalty
+    \addvspace{1.0em \@plus\p@}%
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\ 
+      \leaders\hbox{$\m@th\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}
+     \hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+    \endgroup
+  \fi}
+\makeatother
+
+\makeindex
+
+% Construct the glossary here
+% Use the template below, then where the word appears (in the case below, computer), replace computer with \gls{computer}
+\makeglossaries
+
+\newglossaryentry{Sifteo Cubes}
+{
+  name={Sifteo Cubes},
+  description={are small machines capable of loading programs and interacting with one another as well as responding to predefined movements}
+}
+
+\newglossaryentry{Object-Oriented Programming}
+{
+  name={Object-Oriented Programming},
+  description={is a programming paradigm using objects to design applications}
+}
+
+\newglossaryentry{Windows}
+{
+  name={Windows},
+  description={is a series of operating systems developed by Microsoft}
+}
+
+\newglossaryentry{Mac}
+{
+  name={Mac},
+  description={is a series of operating systems developed by Apple}
+}
+
+\newglossaryentry{Linux}
+{
+  name={Linux},
+  description={is a Unix-based operating system based on free and open source software}
+}
+
+\newglossaryentry{cross-platform support}
+{
+  name={cross-platform support},
+  description={is an attribute given to software implemented and operable on multiple computer platforms}
+}
+
+\newacronym{API}{API}{\glsadd{API}{Application Programming Interface}}
+
+\newglossaryentry{APIg}
+{
+  name={Application Programming Interface},
+  description={is an interface implemented by a software program that enables it to interact with other software}
+}
+
+
+\newglossaryentry{open source}
+{
+  name={open source},
+  description={is an attribute given to software for which the source code is freely available}
+}
+
+\newacronym{IDE}{IDE}{\glsadd{IDE}{Integrated Development Environment}}
+
+\newglossaryentry{IDEa}
+{
+  name={Integrated Development Environment},
+  description={is software that provides a comprehensive work environment for computer programmers and software developers}
+}
+
+
+\newacronym{GUI}{GUI}{\glsadd{GUI}{Graphical User Interface}}
+
+\newglossaryentry{GUIa}
+{
+  name={Graphical User Interface},
+  description={is a visual way of allowing the user to interace with a computer program}
+}
+
+\newglossaryentry{version control}
+{
+  name={version control},
+  description={is the management of documents and programs for a project over many versions in a well-organized manner}
+}
+
+\newglossaryentry{issue tracking system}
+{
+  name={issue tracking system},
+  description={is a piece of software used to maintain a list of issues as generated during a project}
+}
+
+\renewcommand*\arraystretch{1.5}
+
+\begin{document}
+\vspace*{\fill}
+        \begin{center}
+                \LARGE{Singularity Software} \\
+                \LARGE{\textit{Milestone 2}} \\
+                \vspace{.15in}
+                \large{\today} \\
+                \vspace{4in}
+                By signing below, I approve the contents of the following document. \\
+                \begin{table}[h]
+                        \begin{tabular}{p{2in} p{5.5in}}
+%                \begin{align*}
+                        & \\
+                        Alex Mullans & \line(1,0){285} \\ & \\
+                        Ruben Rodriguez & \line(1,0){285} \\ & \\
+                        Ethan Veatch & \line(1,0){285} \\ & \\
+                        Kurtis Zimmerman & \line(1,0){285}
+                        \end{tabular}
+                \end{table}
+%                \end{align*}
+        \end{center}
+\vspace*{\fill}
+\thispagestyle{empty}
+
+\clearpage
+
+\tableofcontents
+
+\clearpage
+        
+\section{Executive Summary}
+This document summarizes the problem addressed by the Siftables\index{Siftables} Emulator\index{emulator} project. After providing a brief summary of the clients---Tim Ekl and Eric Stokes---and the current solution, or lack thereof, it goes on to provide more detail about the stakeholders involved in the project and their primary concerns and needs. Those stakeholders include the clients and the developers of \index{Sifteo}Sifteo Cube programs, who will be the primary users of the software. Finally, an overview of the proposed product and its key requirements and features, as agreed upon by the client and Singularity Software, is detailed, and the constraints surrounding the project's development are enumerated. Future documents will use the information contained herein as a starting point from which to provide more details of the final solution.
+
+\section{Introduction}
+Developers of applications for the \gls{Sifteo Cubes}\index{Sifteo} currently must test programs they create for the platform on the Cubes themselves.  With a full release of the Cubes and corresponding \gls{API}\index{API}\glsadd{APIg} still pending, developers unable to join the Sifteo Early Access program are left without a software-based interface within which to productively develop Sifteo programs. As such, Singularity Software will provide, in the form of the Siftables Emulator, a software-based emulator\index{emulator} for the Sifteo Cubes that will allow any developer to try programming in the unqiue environment provided by the Cubes.\\\\
+This document is the first in a series of milestone documents that will accompany the planning of the Siftables\index{Siftables} Emulator\index{emulator}. It will provide an overview of the current system, all involved clients and stakeholders, and a statement of the problem Singularity seeks to solve. Additionally, it will detail a list of high-level features as agreed upon with the clients. Future milestones will delve into the user cases, data flow diagrams, and prototypes necessary to convert those high-level features to a working system; as the project progresses, future milestones will also present plans for change control, coding standardization, and testing. Finally, design and usability reports will make up the core of milestones near the end of the quarter as the software stabilizes.
+
+\section{Project Background}
+
+
+\section{Use Cases}
+
+
+\section{Use Case Feature Mapping}
+
+
+\section{Storyboards}
+
+
+\clearpage
+\addcontentsline{toc}{section}{Glossary}
+\printglossaries
+\clearpage
+
+\addcontentsline{toc}{section}{References}
+\section*{References}
+
+        \begin{enumerate}
+                \item{Sifteo Inc. Online: http://www.sifteo.com}
+                \item{Tim Ekl.  Client Meeting.  12 September 2011 12:45 p.m.}
+        \end{enumerate}
+
+\clearpage
+
+\addcontentsline{toc}{section}{Index}
+\printindex
+
+\end{document}

@@ -160,10 +160,178 @@ Developers of applications for the \gls{Sifteo Cubes}\index{Sifteo} currently mu
 This document is the second in a series of milestone documents that will accompany the planning of the Siftables\index{Siftables} Emulator\index{emulator}. It provides coverage of functional features via uses cases and declarative statements before presenting initial design mockups. Future milestones will present plans for change control, coding standardization, and testing. Finally, design and usability reports will make up the core of milestones near the end of the quarter as the software stabilizes.
 
 \section{Project Background}
-The Siftables Emulator is being developed by Singularity Software as part of the Junior Project sequence of classes at Rose-Hulman Institute of Technology. When projects were solicited for the sequence, clients Tim Ekl and Eric Stokes (both Rose-Hulman alumni) submitted a request for an emulator for Sifteo Cubes, a new platform intended for \"intelligent play.\" After Singularity was chosen for the project, we met with Mr. Ekl to determine the three primary features of the Emulator: a Workspace where 1-6 cubes could mimic the manipulations possible with physical Cubes, an API to program those virtual cubes, and a set of example games designed to show off the first two features. Singularity's Emulator will be the first program of its kind on the market for Sifteo Cubes.
+The Siftables Emulator is being developed by Singularity Software as part of the Junior Project sequence of classes at Rose-Hulman Institute of Technology. When projects were solicited for the sequence, clients Tim Ekl and Eric Stokes (both Rose-Hulman alumni) submitted a request for an emulator for Sifteo Cubes, a new platform intended for "intelligent play." After Singularity was chosen for the project, we met with Mr. Ekl to determine the three primary features of the Emulator: a Workspace where 1-6 cubes could mimic the manipulations possible with physical Cubes, an API to program those virtual cubes, and a set of example games designed to show off the first two features. Singularity's Emulator will be the first program of its kind on the market for Sifteo Cubes.
+
+\clearpage
 
 \section{Use Cases}
 
+  \subsection{Load program}
+
+    \begin{description}
+      \item[A. Name:] Load program
+      \item[B. Description:] User selects program file and loads it into the emulator.
+      \item[C. Actors:] User
+      \item[D. Basic flow:] \hfill 
+        \begin{enumerate}
+	  \item{User presses "Load a program" button.}
+	  \item{User selects *.siftem file in file dialog.}
+	  \item{User presses "Open" button.}
+	  \item{Emulator loads program on cubes in emulator.}
+        \end{enumerate}
+      \item[E. Alternate flows:] \hfill \\
+	When the user opens an incompatible file (i.e. any file without the .siftem extension), or \\
+	When the user opens a corrupt or unloadable file, or \\
+	When the user presses "Cancel" button:
+        \begin{enumerate}
+	  \item{An error dialog summarizing the issue is presented to the user.}
+	  \item{The use case terminates and no program is loaded.}
+        \end{enumerate}
+      \item[F. Pre-conditions:] \hfill
+        \begin{enumerate}
+          \item{Emulator is running.}
+        \end{enumerate}
+      \item[G. Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{Program is loaded or user cancelled loading.}
+        \end{enumerate}
+      \item[H. Special requirements] \hfill
+        \begin{enumerate}
+          \item{Emulator should indicate when program is finished loading.}
+        \end{enumerate}
+    \end{description}
+
+  \subsection{Reload program}
+
+    \begin{description}
+      \item[A. Name:] Reload program
+      \item[B. Description:] User reloads the current program file in the emulator.
+      \item[C. Actors:] User
+      \item[D. Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{User presses "Reload this program" button.}
+	  \item{User presses "Yes" on caution dialog.}
+	  \item{Emulator loads program on cubes in emulator.}
+        \end{enumerate}
+      \item[E. Alternate flows:] \hfill \\
+	When User presses "no" on caution dialog:
+        \begin{enumerate}
+          \item{The use case terminates and the program is not reloaded.}
+        \end{enumerate}
+      \item[F. Pre-conditions:] \hfill
+        \begin{enumerate}
+	  \item{A program is loaded in the emulator.}
+        \end{enumerate}
+      \item[G. Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{Program is loaded.}
+        \end{enumerate}
+      \item[H. Special requirements:] \hfill
+        \begin{enumerate}
+	  \item{Emulator should indicate when program is finished loading.}
+        \end{enumerate}
+    \end{description}
+
+  \subsection{Zoom screen}
+
+    \begin{description}
+      \item[A. Name:] Zoom screen
+      \item[B. Description:] User selects program file and loads it into the emulator.
+      \item[C. Actors:] User
+      \item[D. Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{User adjusts zoom slider.}
+	  \item{Emulator magnifies cubes in emulator according to zoom level.}
+        \end{enumerate}
+      \item[E. Alternate flows:] \hfill \\
+	None
+      \item[F. Pre-conditions:] \hfill
+        \begin{enumerate}
+          \item{Emulator is running.}
+        \end{enumerate}
+      \item[G. Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{Program running at beginning of use case, if any, is still running.}
+        \end{enumerate}
+    \end{description}	
+
+  \subsection{Add/remove cubes}
+
+    \begin{description}
+      \item[A. Name:] Add/remove cubes
+      \item[B. Description:] User adjusts the number of cubes present in the emulator.
+      \item[C. Actors:] User
+      \item[D. Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{User adjusts "Number of cubes" slider or spinbox.}
+	  \item{Emulator adds/removes cubes in emulator.}
+        \end{enumerate}
+      \item[E. Alternate flows:] \hfill \\
+	None
+      \item[F. Pre-conditions:] \hfill
+        \begin{enumerate}
+	  \item{Emulator is running.}
+        \end{enumerate}
+      \item[G. Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{Number of cubes has been adjusted to number specified.}
+	  \item{Program running at beginning of use case, if any, is still running, but only on the cubes not newly added.}
+        \end{enumerate}
+    \end{description}
+
+  \subsection{Snap cubes to grid}
+
+    \begin{description}
+      \item[A. Name:] Snap to grid
+      \item[B. Description:] User resets the cubes to their initial positions in the emulator.
+      \item[C. Actors:] User
+      \item[D. Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{User presses "Snap to Grid" button.}
+	  \item{Emulator moves cubes to a grid orientation based on their current positions.}
+        \end{enumerate}
+      \item[E. Alternate flows:] \hfill \\
+	None	
+      \item[F. Pre-conditions:] \hfill
+        \begin{enumerate}
+	  \item{Emulator is running.}
+        \end{enumerate}
+      \item[G. Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{Cubes are arranged in a grid.}
+        \end{enumerate}
+    \end{description}
+
+  \subsection{Manipulate cube}
+
+    \begin{description}
+      \item[A. Name:] Manipulate cube
+      \item[B. Description:] User manipulates a cube by clicking buttons or the cube itself.
+      \item[C. Actors:] User
+      \item[D. Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{User double clicks on cube.}
+	  \item{Cube responds as if a screen click occured.}
+        \end{enumerate}
+      \item[E. Alternate flows:] \hfill
+        \begin{enumerate}
+	  \item{User clicks on buttons superimposed on cube edges.}
+	  \item{Cube executes appropriate action (i.e. flips, rotates, tilts).}
+        \end{enumerate}
+        \begin{enumerate}
+          \item{User drags cube next to another cube.}
+	  \item{Cube communicates ("neighbors") with the cube(s) it is adjacent to.}
+        \end{enumerate}
+      \item[F. Pre-conditions:] \hfill
+        \begin{enumerate}
+          \item{Emulator is running.}
+        \end{enumerate}
+      \item[G. Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{If a program is running, the emulator has updated its state based on the cube's change.}
+        \end{enumerate}
+      \item[H. Special requirements:] ???
+    \end{description}
 
 \section{Use Case Feature Mapping}
 

@@ -172,33 +172,33 @@ The Siftables Emulator is being developed by Singularity Software as part of the
   \subsection{Load program}
 
     \begin{description}
-      \item[A. Name:] Load program
-      \item[B. Description:] User selects program file and loads it into the emulator.
-      \item[C. Actors:] User
-      \item[D. Basic flow:] \hfill 
+      \item[Name:] Load program
+      \item[Description:] User selects program file and loads it into the emulator.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill 
         \begin{enumerate}
 	  \item{User presses "Load a program" button.}
 	  \item{User selects *.siftem file in file dialog.}
 	  \item{User presses "Open" button.}
 	  \item{Emulator loads program on cubes in emulator.}
         \end{enumerate}
-      \item[E. Alternate flows:] \hfill \\
+      \item[Alternate flows:] \hfill \\
 	When the user opens an incompatible file (i.e. any file without the .siftem extension), or \\
-	When the user opens a corrupt or unloadable file, or \\
+	When the user opens a corrupt or otherwise unloadable file, or \\
 	When the user presses "Cancel" button:
         \begin{enumerate}
 	  \item{An error dialog summarizing the issue is presented to the user.}
 	  \item{The use case terminates and no program is loaded.}
         \end{enumerate}
-      \item[F. Pre-conditions:] \hfill
+      \item[Pre-conditions:] \hfill
         \begin{enumerate}
           \item{Emulator is running.}
         \end{enumerate}
-      \item[G. Post-conditions:] \hfill
+      \item[Post-conditions:] \hfill
         \begin{enumerate}
 	  \item{Program is loaded or user cancelled loading.}
         \end{enumerate}
-      \item[H. Special requirements] \hfill
+      \item[Special requirements] \hfill
         \begin{enumerate}
           \item{Emulator should indicate when program is finished loading.}
         \end{enumerate}
@@ -207,29 +207,29 @@ The Siftables Emulator is being developed by Singularity Software as part of the
   \subsection{Reload program}
 
     \begin{description}
-      \item[A. Name:] Reload program
-      \item[B. Description:] User reloads the current program file in the emulator.
-      \item[C. Actors:] User
-      \item[D. Basic flow:] \hfill
+      \item[Name:] Reload program
+      \item[Description:] User reloads the current program file in the emulator.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
         \begin{enumerate}
 	  \item{User presses "Reload this program" button.}
 	  \item{User presses "Yes" on caution dialog.}
 	  \item{Emulator loads program on cubes in emulator.}
         \end{enumerate}
-      \item[E. Alternate flows:] \hfill \\
+      \item[Alternate flows:] \hfill \\
 	When User presses "no" on caution dialog:
         \begin{enumerate}
           \item{The use case terminates and the program is not reloaded.}
         \end{enumerate}
-      \item[F. Pre-conditions:] \hfill
+      \item[Pre-conditions:] \hfill
         \begin{enumerate}
 	  \item{A program is loaded in the emulator.}
         \end{enumerate}
-      \item[G. Post-conditions:] \hfill
+      \item[Post-conditions:] \hfill
         \begin{enumerate}
 	  \item{Program is loaded.}
         \end{enumerate}
-      \item[H. Special requirements:] \hfill
+      \item[Special requirements:] \hfill
         \begin{enumerate}
 	  \item{Emulator should indicate when program is finished loading.}
         \end{enumerate}
@@ -238,21 +238,21 @@ The Siftables Emulator is being developed by Singularity Software as part of the
   \subsection{Zoom screen}
 
     \begin{description}
-      \item[A. Name:] Zoom screen
-      \item[B. Description:] User selects program file and loads it into the emulator.
-      \item[C. Actors:] User
-      \item[D. Basic flow:] \hfill
+      \item[Name:] Zoom screen
+      \item[Description:] User selects program file and loads it into the emulator.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
         \begin{enumerate}
 	  \item{User adjusts zoom slider.}
 	  \item{Emulator magnifies cubes in emulator according to zoom level.}
         \end{enumerate}
-      \item[E. Alternate flows:] \hfill \\
+      \item[Alternate flows:] \hfill \\
 	None
-      \item[F. Pre-conditions:] \hfill
+      \item[Pre-conditions:] \hfill
         \begin{enumerate}
           \item{Emulator is running.}
         \end{enumerate}
-      \item[G. Post-conditions:] \hfill
+      \item[Post-conditions:] \hfill
         \begin{enumerate}
 	  \item{Program running at beginning of use case, if any, is still running.}
         \end{enumerate}
@@ -261,21 +261,21 @@ The Siftables Emulator is being developed by Singularity Software as part of the
   \subsection{Add/remove cubes}
 
     \begin{description}
-      \item[A. Name:] Add/remove cubes
-      \item[B. Description:] User adjusts the number of cubes present in the emulator.
-      \item[C. Actors:] User
-      \item[D. Basic flow:] \hfill
+      \item[Name:] Add/remove cubes
+      \item[Description:] User adjusts the number of cubes present in the emulator.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
         \begin{enumerate}
 	  \item{User adjusts "Number of cubes" slider or spinbox.}
 	  \item{Emulator adds/removes cubes in emulator.}
         \end{enumerate}
-      \item[E. Alternate flows:] \hfill \\
+      \item[Alternate flows:] \hfill \\
 	None
-      \item[F. Pre-conditions:] \hfill
+      \item[Pre-conditions:] \hfill
         \begin{enumerate}
 	  \item{Emulator is running.}
         \end{enumerate}
-      \item[G. Post-conditions:] \hfill
+      \item[Post-conditions:] \hfill
         \begin{enumerate}
 	  \item{Number of cubes has been adjusted to number specified.}
 	  \item{Program running at beginning of use case, if any, is still running, but only on the cubes not newly added.}
@@ -285,21 +285,21 @@ The Siftables Emulator is being developed by Singularity Software as part of the
   \subsection{Snap cubes to grid}
 
     \begin{description}
-      \item[A. Name:] Snap to grid
-      \item[B. Description:] User resets the cubes to their initial positions in the emulator.
-      \item[C. Actors:] User
-      \item[D. Basic flow:] \hfill
+      \item[Name:] Snap to grid
+      \item[Description:] User resets the cubes to their initial positions in the emulator.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
         \begin{enumerate}
 	  \item{User presses "Snap to Grid" button.}
 	  \item{Emulator moves cubes to a grid orientation based on their current positions.}
         \end{enumerate}
-      \item[E. Alternate flows:] \hfill \\
+      \item[Alternate flows:] \hfill \\
 	None	
-      \item[F. Pre-conditions:] \hfill
+      \item[Pre-conditions:] \hfill
         \begin{enumerate}
 	  \item{Emulator is running.}
         \end{enumerate}
-      \item[G. Post-conditions:] \hfill
+      \item[Post-conditions:] \hfill
         \begin{enumerate}
 	  \item{Cubes are arranged in a grid.}
         \end{enumerate}
@@ -308,15 +308,15 @@ The Siftables Emulator is being developed by Singularity Software as part of the
   \subsection{Manipulate cube}
 
     \begin{description}
-      \item[A. Name:] Manipulate cube
-      \item[B. Description:] User manipulates a cube by clicking buttons or the cube itself.
-      \item[C. Actors:] User
-      \item[D. Basic flow:] \hfill
+      \item[Name:] Manipulate cube
+      \item[Description:] User manipulates a cube by clicking buttons or the cube itself.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
         \begin{enumerate}
 	  \item{User double clicks on cube.}
 	  \item{Cube responds as if a screen click occured.}
         \end{enumerate}
-      \item[E. Alternate flows:] \hfill
+      \item[Alternate flows:] \hfill
         \begin{enumerate}
 	  \item{User clicks on buttons superimposed on cube edges.}
 	  \item{Cube executes appropriate action (i.e. flips, rotates, tilts).}
@@ -325,15 +325,15 @@ The Siftables Emulator is being developed by Singularity Software as part of the
           \item{User drags cube next to another cube.}
 	  \item{Cube communicates ("neighbors") with the cube(s) it is adjacent to.}
         \end{enumerate}
-      \item[F. Pre-conditions:] \hfill
+      \item[Pre-conditions:] \hfill
         \begin{enumerate}
           \item{Emulator is running.}
         \end{enumerate}
-      \item[G. Post-conditions:] \hfill
+      \item[Post-conditions:] \hfill
         \begin{enumerate}
 	  \item{If a program is running, the emulator has updated its state based on the cube's change.}
         \end{enumerate}
-      \item[H. Special requirements:] ???
+      \item[Special requirements:] ???
     \end{description}
 
   \subsection{API}
@@ -346,6 +346,101 @@ The Siftables Emulator is being developed by Singularity Software as part of the
 
 
 \section{Storyboards}
+
+    \begin{landscape}
+    \begin{table}[h]
+      \begin{tabular}{p{.5in} | p{2.25in} | p{2.75in} | p{3in}}
+        \textbf{ID} &
+        \textbf{Feature} &
+        \textbf{Description} &
+        %\textbf{Status} &
+        %\textbf{Priority} &
+        %\textbf{Risk} &
+        %\textbf{Stability} &
+        \textbf{Reason} 
+        %\textbf{Effort}
+        \\ \hline
+
+        F1 &
+        Individual, virtual Sifteo Cube &
+        A virtual representation of a single Sifteo cube &
+        %Approved &
+        %Critical &
+        %Low &
+        %High &
+        Replicates physical Sifteo Cube
+        %Medium 
+        \\ \hline
+
+        F2 &
+        Buttons to manipulate each virtual Cube &
+        Buttons on the virtual Cube will allow the user to flip and tilt it &
+        %Approved &
+        %Critical &
+        %Medium &
+        %High &
+        Replaces physical actions where said actions would be impractical with a mouse
+        %Medium
+        \\ \hline
+
+        F3 &
+        Workspace where multiple cubes can be emulated &
+        Multiple cubes will be displayed on a workspace that replicates the free-form nature of physical Sifteo Cubes\index{Sifteo Cubes} &
+        %Approved &
+        %Critical &
+        %Low &
+        %High &
+        Replicates multiple Sifteo Cubes\index{Sifteo Cubes} in a natural, free-form environment
+        %High
+        \\ \hline
+
+        F4 &
+        Interactions between Cubes &
+        The Cubes present on the workspace will communicate when they are neighbored &
+        %Approved &
+        %Critical &
+        %Low &
+        %High &
+        Cubes can simulate the interactions possible with physical Cubes
+        %High 
+        \\ \hline
+
+        F5 &
+        Load programs into the Cubes &
+        The user will load his own and example programs into the emulator’s\index{emulator} Cubes &
+        %Approved &
+        %Critical &
+        %Medium &
+        %High &
+        The ability to program programs for the emulator\index{emulator} is dependent on a common interface
+        %High
+        \\ \hline
+
+        F6 &
+        Snap Cubes to invisible grid &
+        The Cubes will snap into an invisible grid when a button is clicked &
+        %Proposed &
+        %Useful &
+        %Medium &
+        %High &
+        Increases productivity by allowing a quick reset if the Cubes are in disarray
+        %Low
+        \\ \hline
+
+        F7 &
+        Zoom Workspace &
+        The Workspace will zoom to the level of an individual Cube or the whole space &
+        %Proposed &
+        %Useful &
+        %Low &
+        %High &
+        Inspecting individual Cubes allows for precise checks of program \glspl{GUI}\index{GUI}\glsadd{GUIa}
+        %Low
+        \\ \hline
+
+      \end{tabular}
+    \end{table}
+    \end{landscape}
 
 
 \clearpage

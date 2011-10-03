@@ -5,9 +5,10 @@
 \usepackage[a4paper]{geometry}
 \usepackage{makeidx}
 \usepackage[acronym]{glossaries}
-\usepackage{lscape}
+\usepackage{pdflscape}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage[final]{pdfpages}
 % \usepackage{hyperref} % Makes links from ToC
 
 \geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
@@ -164,7 +165,7 @@ Milestone 2 lays the foundation of the Siftables Emulator specification based on
 
 
 \section{Project Background}
-The Siftables Emulator is being developed by Singularity Software as part of the Junior Project sequence of classes at Rose-Hulman Institute of Technology. When projects were solicited for the sequence, clients Tim Ekl and Eric Stokes (both Rose-Hulman alumni) submitted a request for an emulator for Sifteo Cubes, a new platform intended for ``intelligent play." After Singularity was chosen for the project, we met with Mr. Ekl to determine the three primary features of the Emulator: a Workspace where 1-6 Cubes could mimic the manipulations possible with physical Cubes, an \gls{API} to program those virtual Cubes, and a set of example games designed to show off the first two features. Singularity's Emulator will be the first program of its kind on the market for Sifteo Cubes.
+The Siftables Emulator is being developed by Singularity Software as part of the Junior Project sequence of classes at Rose-Hulman Institute of Technology. When projects were solicited for the sequence, clients Tim Ekl and Eric Stokes (both Rose-Hulman alumni) submitted a request for an emulator for Sifteo Cubes, a new platform intended for ``intelligent play." After Singularity was chosen for the project, we met with Mr. Ekl to determine the three primary features of the Emulator: a Workspace where 1-6 Cubes could mimic the manipulations possible with physical Cubes, an \gls{API} to program those virtual Cubes, and a set of example games designed to show off the first two features. Singularity's Emulator will be the first program of its kind on the market for Sifteo Cubes. \\
 
 A full feature listing and description can be found in Appendix A.
 
@@ -400,17 +401,11 @@ A full feature listing and description can be found in Appendix A.
 
 \section{Work/Data Flow Diagrams}
 The following pages contain work/data flow diagrams that elucidate the passage of control and data through the emulator. As there is not much pure data that flows through the emulator system aside from the user's program, Singularity Software has elected to combine the workflow and data flow diagrams.
-%\newpage
-        \includegraphics[angle=90,width=6.5in,height=9in]{pdfs/dfds/DFD0.pdf} \newpage
-        \includegraphics[angle=90,width=6.5in,height=9in]{pdfs/dfds/DFD1-1.pdf} \newpage
-        \includegraphics[angle=90,width=6.5in,height=9in]{pdfs/dfds/DFD1-2.pdf} \newpage
-        \includegraphics[angle=90,width=6.5in,height=9in]{pdfs/dfds/DFD1-3.pdf} \newpage
-        \includegraphics[angle=90,width=6.5in,height=9in]{pdfs/dfds/DFD1-4.pdf} \newpage
-        \includegraphics[angle=90,width=6.5in,height=9in]{pdfs/dfds/DFD1-5.pdf} \newpage
-        \includegraphics[angle=90,width=6.5in,height=9in]{pdfs/dfds/DFD1-6.pdf} \newpage
-\appendix
+
+\includepdf[pages={1-7},landscape]{pdfs/dfds.pdf}
 
     \begin{landscape}
+	\appendix
     \section{Features}
     \begin{table}[h]
       \begin{tabular}{p{.5in} | p{2.25in} | p{2.75in} | p{3in}}
@@ -505,7 +500,6 @@ The following pages contain work/data flow diagrams that elucidate the passage o
       \end{tabular}
     \end{table}
     \end{landscape}
-
 
 \clearpage
 \addcontentsline{toc}{section}{Glossary}

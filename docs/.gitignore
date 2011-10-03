@@ -1,1 +1,12 @@
 sketchflow
+*.acn
+*.aux
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.log
+*.toc

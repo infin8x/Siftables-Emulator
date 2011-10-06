@@ -1,0 +1,24 @@
+<mockup version="1.0" skin="sketch" measuredW="1075" measuredH="519" mockupW="641" mockupH="262">
+  <controls>
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::Alert" x="770" y="258" w="305" h="123" measuredW="200" measuredH="159" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Caution%0AReloading%20this%20program%20will%20clear%20all%20data%20from%20the%20previous%20program%20run.%20Proceed%3F%0ANo%2C%20Yes</text>
+      </controlProperties>
+    </control>
+    <control controlID="38" controlTypeID="com.balsamiq.mockups::Alert" x="434" y="257" w="305" h="123" measuredW="200" measuredH="143" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Caution%0ALoading%20this%20program%20will%20clear%20all%20data%20from%20the%20previous%20program%20run.%20Proceed%3F%0ANo%2C%20Yes</text>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::Alert" x="434" y="396" w="305" h="123" measuredW="200" measuredH="127" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Error%0AThe%20selected%20file%20is%20corrupt%20and%20cannot%20be%20loaded.%0AOK</text>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::Alert" x="770" y="395" w="305" h="123" measuredW="200" measuredH="143" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Error%0AThe%20selected%20file%20is%20not%20a%20.siftem%20emulator%20file%20and%20cannot%20be%20loaded.%0AOK</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

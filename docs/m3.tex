@@ -8,6 +8,7 @@
 \usepackage{lscape}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage[final]{pdfpages}
 % \usepackage{hyperref} % Makes links from ToC
 
 \geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
@@ -188,14 +189,18 @@ The clients have stated that this is to be an open source, version-controlled pr
 \section{Design Constraints}
 While much of this project is open-ended, there are a few basic design constraints.  At the direction of the clients, all code should be open source and version-controlled.  Mr. Ekl requested that the emulator run easily on Mac as well as Windows, with the stipulation that Linux compatibility would satisfy the Mac requirement for Singularity’s testing purposes.  In addition, the clients requested that an issue tracking system be put in place and used throughout the development process.  
 
-\section{User Interfaces}
+\section{User Interface Mockups}
+Preliminary mockups of the Siftables Emulator user interfaces are presented below. The mockups are rough sketches not intended to convey the product's final look. Rather, they present a simplified view of what Singularity thinks the emulator will look like when created in code.
+
+In order, the mockups display the main screen of the application, the ``Load a program" dialog, and the various warning and alert dialogs that the program can display.
+
+\includepdf[pages={1-3},landscape]{pdfs/mocks.pdf}
 
 \appendix
-
     \begin{landscape}
     \section{Features}
-    \begin{table}[h]
-      \begin{tabular}{p{.5in} | p{2.25in} | p{2.75in} | p{3in}}
+    \begin{table}[h!]
+      \begin{tabular}{p{.25in} | p{2.75in} | p{3in} | p{3in}}
         \textbf{ID} &
         \textbf{Feature} &
         \textbf{Description} &
@@ -209,7 +214,7 @@ While much of this project is open-ended, there are a few basic design constrain
 
         F1 &
         Individual, virtual Sifteo Cube &
-        A virtual representation of a single Sifteo cube &
+        A virtual representation of a single Sifteo Cube &
         %Approved &
         %Critical &
         %Low &
@@ -220,7 +225,7 @@ While much of this project is open-ended, there are a few basic design constrain
 
         F2 &
         Buttons to manipulate each virtual Cube &
-        Buttons on the virtual Cube will allow the user to flip and tilt it &
+        Buttons on the virtual Cube will allow the User to flip and tilt it &
         %Approved &
         %Critical &
         %Medium &
@@ -230,8 +235,8 @@ While much of this project is open-ended, there are a few basic design constrain
         \\ \hline
 
         F3 &
-        Workspace where multiple cubes can be emulated &
-        Multiple cubes will be displayed on a workspace that replicates the free-form nature of physical Sifteo Cubes\index{Sifteo Cubes} &
+        Workspace where multiple Cubes can be emulated &
+        Multiple Cubes will be displayed on a workspace that replicates the free-form nature of physical Sifteo Cubes\index{Sifteo Cubes} &
         %Approved &
         %Critical &
         %Low &
@@ -253,7 +258,7 @@ While much of this project is open-ended, there are a few basic design constrain
 
         F5 &
         Load programs into the Cubes &
-        The user will load his own and example programs into the emulator’s\index{emulator} Cubes &
+        The User will load his own and example programs into the emulator’s\index{emulator} Cubes &
         %Approved &
         %Critical &
         %Medium &
@@ -287,7 +292,6 @@ While much of this project is open-ended, there are a few basic design constrain
       \end{tabular}
     \end{table}
     \end{landscape}
-
 
 \clearpage
 \addcontentsline{toc}{section}{Glossary}

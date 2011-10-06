@@ -203,10 +203,10 @@ A full feature listing and description can be found in Appendix A.
         \end{enumerate}
 	When the User is already running a program,
 		\begin{enumerate}
-			\item{A warning dialog is presented to the User with the message: "The emulator is already running a program. Loading a new program will reset the emulator."}
-			\item{If the User presses ``Continue" on the warning dialog, flow returns to Step 2 of the basic flow.}
+			\item{A warning dialog is presented to the User with the message: "Loading this program will clear all data from the previous program run. Proceed?"}
+			\item{If the User presses ``Yes" on the warning dialog, flow returns to Step 2 of the basic flow.}
 		\end{enumerate}
-	When the User presses ``Cancel" on the warning dialog:
+	When the User presses ``No" on the warning dialog:
         \begin{enumerate}
           \item{The use case terminates and the program is not reloaded.}
         \end{enumerate}
@@ -233,11 +233,11 @@ A full feature listing and description can be found in Appendix A.
       \item[Actors:] User
       \item[Basic flow:] \hfill
         \begin{enumerate}
-			\item{A warning dialog is presented to the User with the message: "Reloading this program will reset the emulator."}
-			\item{If the User presses ``Continue" on the warning dialog, the Emulator loads the program onto the Cubes in the emulator.}
+			\item{A warning dialog is presented to the User with the message: "Reloading this program will clear all data from the previous program run. Proceed?"}
+			\item{If the User presses ``Yes" on the warning dialog, the Emulator loads the program onto the Cubes in the emulator.}
         \end{enumerate}
       \item[Alternate flows:] \hfill \\
-	When the User presses ``Cancel" on warning dialog:
+	When the User presses ``No" on warning dialog:
         \begin{enumerate}
           \item{The use case terminates and the program is not reloaded.}
         \end{enumerate}

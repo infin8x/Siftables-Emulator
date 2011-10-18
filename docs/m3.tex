@@ -195,13 +195,11 @@ The clients have stated that the emulator project is to be licensed under the BS
 The emulator\index{emulator} will be installable via an executable (on \gls{Windows}\index{Windows}) or disk image (on \gls{Mac}\index{Mac}) that will place the program's files in a user-specified directory and create shortcuts as appropriate.
 
 \section{Design Constraints}
-The emulator\index{emulator} must be able to be function on computers using the \gls{Windows}\index{Windows}, \gls{Mac}\index{Mac} OS, and \gls{Linux}\index{Linux} operating systems that satisfy the minimum system requirements of the previous OS version. In other words, the emulator should run smoothly on a computer that meets the requirements for \gls{Windows}\index{Windows} Vista, \gls{Mac}\index{Mac} OS X 10.6 (Snow Leopard), or Ubuntu 11.04\footnote{The Ubuntu machine should support graphics acceleration (i.e. it should be capable of running the GNOME 3 or Unity window managers).}.\\\\
+The emulator\index{emulator} must be able to be function on computers using the \gls{Windows}\index{Windows}, \gls{Mac}\index{Mac} OS, and \gls{Linux}\index{Linux} operating systems that satisfy the minimum system requirements of the previous OS version. In other words, the emulator should run smoothly on a computer that meets the requirements for \gls{Windows}\index{Windows} Vista, \gls{Mac}\index{Mac} OS X 10.6 (Snow Leopard), or Ubuntu 11.04\footnote{The Ubuntu machine should support graphics acceleration (i.e. it should be capable of running the GNOME 3 or Unity window managers).}.
 
 \section{User Interface Mockups}
-Preliminary mockups of the Siftables Emulator user interfaces are presented below. The mockups are rough sketches not intended to convey the product's final look. Rather, they present a simplified view of what Singularity thinks the emulator will look like when created in code.
-
-In order, the mockups display the main screen of the application, the ``Load a program" dialog, and the various warning and alert dialogs that the program can display.
-
+Preliminary mockups of the Siftables Emulator user interfaces are presented below. The mockups are rough sketches not intended to convey the product's final look. Rather, they present a simplified view of what Singularity thinks the emulator will look like when created in code.\\\\
+In order, the mockups display the main screen of the application, the ``Load a program" dialog, and the various warning and alert dialogs that the program can display.\\\\
 The Manipulate Cube use case (UC6) is not easily presented in mockup format. Essentially, it applies to any of the 6 Cubes in the first mockup; any of the actions described in the use case can be applied to each virtual Cube.
 
 \includepdf[pages={1-3},landscape]{pdfs/mocks.pdf}
@@ -210,97 +208,136 @@ The Manipulate Cube use case (UC6) is not easily presented in mockup format. Ess
     \begin{landscape}
     \section{Features}
     \begin{table}[h!]
-      \begin{tabular}{p{.25in} | p{2.75in} | p{3in} | p{3in}}
-        \textbf{ID} &
+      \begin{tabular}{p{1.5in} | p{2.25in} | p{.75in} | p{.75in} | p{.75in} | p{2.25in}}
         \textbf{Feature} &
         \textbf{Description} &
-        %\textbf{Status} &
-        %\textbf{Priority} &
-        %\textbf{Risk} &
+        \textbf{Status} &
+        \textbf{Priority} &
+        \textbf{Risk} &
         %\textbf{Stability} &
-        \textbf{Reason} 
-        %\textbf{Effort}
-        \\ \hline
+        \textbf{Reason} \\ \hline
+        %\textbf{Effort} \\ \hline
 
-        F1 &
         Individual, virtual Sifteo Cube &
-        A virtual representation of a single Sifteo Cube &
-        %Approved &
-        %Critical &
-        %Low &
+        A virtual representation of a single Sifteo cube &
+        Approved &
+        Critical &
+        Low &
         %High &
-        Replicates physical Sifteo Cube
-        %Medium 
-        \\ \hline
+        Replicates physical Sifteo Cube \\ \hline
+        %Medium \\ \hline
 
-        F2 &
         Buttons to manipulate each virtual Cube &
-        Buttons on the virtual Cube will allow the User to flip and tilt it &
-        %Approved &
-        %Critical &
-        %Medium &
+        Buttons on the virtual Cube will allow the user to flip and tilt it &
+        Approved &
+        Critical &
+        Medium &
         %High &
-        Replaces physical actions where said actions would be impractical with a mouse
-        %Medium
-        \\ \hline
+        Replaces physical actions where said actions would be impractical with a mouse \\ \hline
+        %Medium \\ \hline
 
-        F3 &
-        Workspace where multiple Cubes can be emulated &
-        Multiple Cubes will be displayed on a workspace that replicates the free-form nature of physical Sifteo Cubes\index{Sifteo Cubes} &
-        %Approved &
-        %Critical &
-        %Low &
+        Workspace where multiple cubes can be emulated &
+        Multiple cubes will be displayed on a workspace that replicates the free-form nature of physical Sifteo Cubes\index{Sifteo Cubes} &
+        Approved &
+        Critical &
+        Low &
         %High &
-        Replicates multiple Sifteo Cubes\index{Sifteo Cubes} in a natural, free-form environment
-        %High
-        \\ \hline
+        Replicates multiple Sifteo Cubes\index{Sifteo Cubes} in a natural, free-form environment \\ \hline
+        %High \\ \hline
 
-        F4 &
         Interactions between Cubes &
         The Cubes present on the workspace will communicate when they are neighbored &
-        %Approved &
-        %Critical &
-        %Low &
+        Approved &
+        Critical &
+        Low &
         %High &
-        Cubes can simulate the interactions possible with physical Cubes
-        %High 
-        \\ \hline
+        Cubes can simulate the interactions possible with physical Cubes \\ \hline
+        %High \\ \hline
 
-        F5 &
         Load programs into the Cubes &
-        The User will load his own and example programs into the emulator’s\index{emulator} Cubes &
-        %Approved &
-        %Critical &
-        %Medium &
+        The user will load his own and example programs into the emulator’s\index{emulator} Cubes &
+        Approved &
+        Critical &
+        Medium &
         %High &
-        The ability to program programs for the emulator\index{emulator} is dependent on a common interface
-        %High
-        \\ \hline
+        The ability to program programs for the emulator\index{emulator} is dependent on a common interface \\ \hline
+        %High \\ \hline
 
-        F6 &
         Snap Cubes to invisible grid &
         The Cubes will snap into an invisible grid when a button is clicked &
-        %Proposed &
-        %Useful &
-        %Medium &
+        Proposed &
+        Useful &
+        Medium &
         %High &
-        Increases productivity by allowing a quick reset if the Cubes are in disarray
-        %Low
-        \\ \hline
+        Increases productivity by allowing a quick reset if the Cubes are in disarray \\ \hline
+        %Low \\ \hline
 
-        F7 &
         Zoom Workspace &
         The Workspace will zoom to the level of an individual Cube or the whole space &
-        %Proposed &
-        %Useful &
-        %Low &
+        Proposed &
+        Useful &
+        Low &
         %High &
-        Inspecting individual Cubes allows for precise checks of program \glspl{GUI}\index{GUI}\glsadd{GUIa}
-        %Low
-        \\ \hline
+        Inspecting individual Cubes allows for precise checks of program \glspl{GUI}\index{GUI}\glsadd{GUIa} \\ \hline
+        %Low \\ \hline
 
       \end{tabular}
     \end{table}
+
+    \clearpage
+
+    \section{Use cases and functional requirements}
+    \begin{table}[h!]
+        \begin{tabular}{p{.4in} | p{1.75in} | p{6in} | p{.75in}}
+        \textbf{ID} &
+        \textbf{Name} &
+        \textbf{Description} &
+        \textbf{Features} \\ \hline
+
+        U1 &
+        Load program &
+        The User selects the program file to be loaded and run by the emulator. &
+        F5 \\ \hline
+
+        U2 &
+        Reload program &
+        The User reloads the program currently running in the emulator. &
+        F5 \\ \hline
+
+        U3 &
+        Zoom screen &
+        The User zooms the Workspace to the desired level. &
+        F7 \\ \hline
+
+        U4 &
+        Add/remove Cubes &
+        The User adjusts the number of Cubes present in the emulator. &
+        F3, F4 \\ \hline
+
+        U5 &
+        Snap Cubes to grid &
+        The User pulls the Cubes into a grid orientation. &
+        F6 \\ \hline
+
+        U6 &
+        Manipulate Cube &
+        The User manipulates a Cube by clicking the buttons or the Cube itself. &
+        F1, F2, F3 \\ \hline
+
+        OR1 &
+        API &
+        An API is included to define a set of rules and specifications via which Cube programs can be created. &
+        F2 \\ \hline
+
+        OR2 &
+        Example games &
+        Example games are included to demonstrate how the Cubes interact with each other. &
+        F3 \\ \hline
+
+        \end{tabular}
+    \end{table}
+    
+    
     \end{landscape}
 
 \clearpage

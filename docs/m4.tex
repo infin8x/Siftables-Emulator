@@ -180,8 +180,139 @@ The Siftables Emulator is being developed by Singularity Software as part of the
 
 \section{Change Control}
 
-
+\clearpage
 \section{Test Cases}
+
+\subsection{Load program}
+
+\begin{table}[h!]
+  \begin{tabular}{l | l | l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} &
+    \textbf{Alternate Flow} &
+    \textbf{Next Alternate} \\ \hline
+
+    1 &
+    Basic flow &
+    &
+    \\ \hline
+
+    2 &
+    Basic flow &
+    Alternate flow 1 &
+    \\ \hline
+
+    3 &
+    Basic flow &
+    Alternate flow 2 &
+    \\ \hline
+
+    4 &
+    Basic flow &
+    Alternate flow 3 &
+    \\ \hline
+
+    5 &
+    Basic flow &
+    Alternate flow 4 &
+    \\ \hline
+
+    6 &
+    Basic flow &
+    Alternate flow 4 &
+    Basic flow \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    A program is successfully loaded in the emulator. &
+    The Cubes run the selected program in the Workspace. \\ \hline
+
+    2 &
+    2 &
+    User selects incompatible file type. &
+    ``The selected file is not a .siftem emulator file and cannot be loaded.'' error is displayed. \\ \hline
+
+    3 &
+    3 &
+    User selects corrupt or unloadable file. &
+    ``The selected file is corrupt and cannot be loaded.'' error is displayed. \\ \hline
+
+    4 &
+    4 &
+    User cancels loading program. &
+    The emulator returns to its state before the basic flow was entered. \\ \hline
+
+    5 &
+    5 &
+    User loads a program when a program is already running and chooses ``Cancel''. &
+    Emulator displays warning message and the emulator returns to its state before the basic flow was entered after ``Cancel'' is chosen. \\ \hline
+
+    6 &
+    6 &
+    User loads a program when a program is already running and chooses ``Continue". &
+    Emulator displays warning message, and the Cubes run the selected program in the Workspace after ``Continue'' is chosen. \\ \hline
+  \end{tabular}
+\end{table}
+
+\subsection{Reload program}
+
+\begin{table}[h!]
+  \begin{tabular}{l | l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} &
+    \textbf{Alternate Flow} \\ \hline
+
+    1 &
+    Basic flow &
+    \\ \hline
+
+    2 &
+    Basic flow &
+    Alternate flow 1 \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    The program is successfully reloaded in the emulator. &
+    The Cubes run the selected program in the Workspace after the user presses ``Continue'' on the warning message. \\ \hline
+
+    2 &
+    2 &
+    The program is not reloaded in the emulator. &
+    The Cubes run the program as originally specified; no change should be made to emulator's state. \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\subsection{Zoom screen}
+
+
+\subsection{Add/remove Cubes}
+
+
+\subsection{Snap Cubes to grid}
+
+
+\subsection{Manipulate Cube}
 
 \appendix
     \begin{landscape}

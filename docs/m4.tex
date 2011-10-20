@@ -306,10 +306,72 @@ Changes to product documents (i.e. milestones) will be managed using the Git ver
 
 \subsection{Zoom screen}
 
+\begin{table}[h!]
+  \begin{tabular}{l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} \\ \hline
 
+    1 &
+    Basic flow \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    User zooms in fully. &
+    The Workspace view is centered on the first cube with the edges of the adjacent Cubes visible. \\ \hline
+
+    2 &
+    1 &
+    User zooms out fully. &
+    The entire Workspace is visible. \\ \hline
+
+    3 &
+    1 &
+    A zoom level in the middle is selected. &
+    The slider moves to the closest predefined increment and the correct zoom level is shown. \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\clearpage
 
 \subsection{Add/remove Cubes}
 
+\begin{table}[h!]
+  \begin{tabular}{l | l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} \\ \hline
+
+    1 &
+    Basic flow &
+    \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    The slider is moved to one of the predefined increments or the spinbox is changed to an integer in the range [1, 6]. &
+    The specified number of Cubes is shown in the Workspace. \\ \hline
+
+  \end{tabular}
+\end{table}
 
 \subsection{Snap Cubes to grid}
 
@@ -338,6 +400,8 @@ Changes to product documents (i.e. milestones) will be managed using the Git ver
 
   \end{tabular}
 \end{table}
+
+\clearpage
 
 \subsection{Manipulate Cube}
 

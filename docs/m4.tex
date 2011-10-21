@@ -174,13 +174,11 @@ Milestone 4 relies on previous milestones as it defines a change control plan, c
 The Siftables Emulator is being developed by Singularity Software as part of the Junior Project sequence of classes at Rose-Hulman Institute of Technology. When projects were solicited for the sequence, clients Tim Ekl and Eric Stokes (both Rose-Hulman alumni) submitted a request for an emulator for Sifteo Cubes, a new platform intended for ``intelligent play." After Singularity was chosen for the project, we met with Mr. Ekl to determine the three primary features of the Emulator: a Workspace where 1-6 Cubes could mimic the manipulations possible with physical Cubes, an \gls{API} to program those virtual Cubes, and a set of example games designed to show off the first two features. Singularity's Emulator is intended to build on the foundation of Sifteo, Inc.'s existing emulator by creating a more fluid and natural user interface.
 
 \section{Coding Standards}
-The developers of Singularity Software will adhere to a standardized coding ``style guide" based on the language chosen for development. In the case of Python, we will reference the official Style Guide for Python Code (Kurtis, can we cite this website in the references? http://www.python.org/dev/peps/pep-0008/) written by Guido van Rossum. In the case of C\#, where no Microsoft-standard coding standards exist, we will use the standards laid out at (cite: http://weblogs.asp.net/lhunt/pages/CSharp-Coding-Standards-document.aspx).
+The developers of Singularity Software will adhere to a standardized coding ``style guide" based on the language chosen for development. In the case of Python, we will reference the official Style Guide for Python Code [6]. In the case of C\#, where no Microsoft-standard coding standards exist, we will use the standards laid out at [7].
 
 \section{Change Control}
-Change requests may be submitted as issues on the project's GitHub repository\footnote{https://github.com/alexmullans/Siftables-Emulator/issues/new}. At a minimum, requests for change should mention the screen(s) to be changed, the new workflow that is desired (preferably in context with how it differs from the current workflow), the rationale for the change, and the priority the submitter assigns to the change.
-
-Changes submitted in the manner described will be considered by Singularity during our weekly project meeting. A majority vote (three of four team members) is required to accept a new feature into the system; however, a team member who feels very strongly may exercise a veto on the team's decision. Each team member will receive one veto for every four submitted changes.
-
+Change requests may be submitted as issues on the project's GitHub repository\footnote{https://github.com/alexmullans/Siftables-Emulator/issues/new}. At a minimum, requests for change should mention the screen(s) to be changed, the new workflow that is desired (preferably in context with how it differs from the current workflow), the rationale for the change, and the priority the submitter assigns to the change. \\\\
+Changes submitted in the manner described will be considered by Singularity during our weekly project meeting. A majority vote (three of four team members) is required to accept a new feature into the system; however, a team member who feels very strongly may exercise a veto on the team's decision. Each team member will receive one veto for every four submitted changes. \\\\
 Changes to product documents (i.e. milestones) will be managed using the Git version control framework within which the documents are currently stored. In the case of major changes, the team will consider the use of ``delta" documents if such documents will be easier to read than heavily modified original documents.
 
 \clearpage
@@ -308,14 +306,154 @@ Changes to product documents (i.e. milestones) will be managed using the Git ver
 
 \subsection{Zoom screen}
 
+\begin{table}[h!]
+  \begin{tabular}{l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} \\ \hline
+
+    1 &
+    Basic flow \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    User zooms in fully. &
+    The Workspace view is centered on the first cube with the edges of the adjacent Cubes visible. \\ \hline
+
+    2 &
+    1 &
+    User zooms out fully. &
+    The entire Workspace is visible. \\ \hline
+
+    3 &
+    1 &
+    A zoom level in the middle is selected. &
+    The slider moves to the closest predefined increment and the correct zoom level is shown. \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\clearpage
 
 \subsection{Add/remove Cubes}
 
+\begin{table}[h!]
+  \begin{tabular}{l | l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} \\ \hline
+
+    1 &
+    Basic flow &
+    \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    The slider is moved to one of the predefined increments or the spinbox is changed to an integer in the range [1, 6]. &
+    The specified number of Cubes is shown in the Workspace. \\ \hline
+
+  \end{tabular}
+\end{table}
 
 \subsection{Snap Cubes to grid}
 
+\begin{table}[h!]
+  \begin{tabular}{l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} \\ \hline
+
+    1 &
+    Basic flow \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    User presses the ``Snap to Grid'' button. &
+    The emulator aligns the Cubes in a grid based on their current positions.  \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\clearpage
 
 \subsection{Manipulate Cube}
+
+\begin{table}[h!]
+  \begin{tabular}{l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} \\ \hline
+
+    1 &
+    Basic flow \\ \hline
+
+    2 &
+    Alternate flow 1 \\ \hline
+
+    3 &
+    Alternate flow 2 \\ \hline
+
+    4 &
+    Alternate flow 3 \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    The user double clicks on a Cube.. &
+    The Cube responds as if a screen click occured. \\ \hline
+
+    2 &
+    2 &
+    The user clicks on one of the buttons on the Cube. &
+    The Cube executes and responds to the associated action (flip, rotate, or tilt). \\ \hline
+
+    3 &
+    3 &
+    The user drags a Cube next to another Cube. &
+    The Cube neighbors with the adjacent Cube. \\ \hline
+
+    4 &
+    4 &
+    The user drags a Cube back and forth in a shaking manner. &
+    The Cube responds as if shaken. \\ \hline
+
+  \end{tabular}
+\end{table}
 
 \appendix
     \begin{landscape}
@@ -467,6 +605,9 @@ Changes to product documents (i.e. milestones) will be managed using the Git ver
                 \item{Milestone 1.  Singularity Software.}
                 \item{Milestone 2.  Singularity Software.}
                 \item{Milestone 3.  Singularity Software.}
+                \item{Guido van Rossum.  ``PEP 8 Style Guide for Python Code.'' \\Online: http://www.python.org/dev/peps/pep-0008/}
+                \item{``C\# Coding Standards Document.'' \\Online: http://weblogs.asp.net/lhunt/pages/CSharp-Coding-Standards-document.aspx}
+
         \end{enumerate}
 
 \clearpage

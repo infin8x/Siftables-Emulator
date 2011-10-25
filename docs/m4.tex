@@ -541,63 +541,257 @@ Changes to product documents (i.e. milestones) will be managed using the Git ver
 
       \end{tabular}
     \end{table}
+    \end{landscape}
 
     \clearpage
 
-    \section{Use Cases and Other Requirements}
+\section{Use Cases}
+
+  \subsection{Load program}
+
+    \begin{description}
+      \item[Name:] Load program
+      \item[Description:] The User selects the program file to be loaded and run by the emulator\index{emulator}.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill 
+        \begin{enumerate}
+	  \item{The User presses the ``Load a program'' button.}
+	  \item{The User selects a *.siftem file in the file dialog.}
+	  \item{The User presses ``Open'' button.}
+	  \item{The emulator loads the selected program on the Cubes in the emulator.}
+        \end{enumerate}
+      \item[Alternate flows:] \hfill \\
+	When the User opens an incompatible file (i.e. any file without the .siftem extension),
+        \begin{enumerate}
+			\item{An error dialog is presented to the User with the message: ``The selected file is not a .siftem emulator file and cannot be loaded.''}
+			\item{The use case terminates and no program is loaded.}
+        \end{enumerate}
+	When the User opens a corrupt or otherwise unloadable file,
+        \begin{enumerate}
+			\item{An error dialog is presented to the User with the message: ``The selected file is corrupt and cannot be loaded.''}
+			\item{The use case terminates and no program is loaded.}
+        \end{enumerate}
+	When the User presses the ``Cancel'' button:
+        \begin{enumerate}
+			\item{The use case terminates and no program is loaded.}
+        \end{enumerate}
+	When the User is already running a program,
+		\begin{enumerate}
+			\item{A warning dialog is presented to the User with the message: ``Loading this program will clear all data from the previous program run. Proceed?''}
+			\item{If the User presses ``Yes'' on the warning dialog, flow returns to Step 2 of the basic flow.}
+		\end{enumerate}
+	When the User presses ``No'' on the warning dialog:
+        \begin{enumerate}
+          \item{The use case terminates and the program is not reloaded.}
+        \end{enumerate}
+      \item[Pre-conditions:] \hfill
+        \begin{enumerate}
+          \item{The emulator is running.}
+        \end{enumerate}
+      \item[Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The program is loaded or the User cancelled loading.}
+        \end{enumerate}
+      \item[Special requirements] \hfill
+        \begin{enumerate}
+          \item{The emulator should indicate that loading the program is in progress.}
+          \item{The emulator should indicate when the program is finished loading.}
+        \end{enumerate}
+    \end{description}
+%\newpage
+  \subsection{Reload program}
+
+    \begin{description}
+      \item[Name:] Reload program
+      \item[Description:] The User reloads the program currently running in the emulator.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
+        \begin{enumerate}
+			\item{A warning dialog is presented to the User with the message: "Reloading this program will clear all data from the previous program run. Proceed?"}
+			\item{If the User presses ``Yes" on the warning dialog, the Emulator loads the program onto the Cubes in the emulator.}
+        \end{enumerate}
+      \item[Alternate flows:] \hfill \\
+	When the User presses ``No" on warning dialog:
+        \begin{enumerate}
+          \item{The use case terminates and the program is not reloaded.}
+        \end{enumerate}
+      \item[Pre-conditions:] \hfill
+        \begin{enumerate}
+	  \item{A program is loaded in the emulator.}
+        \end{enumerate}
+      \item[Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The program is reloaded or the current program state remains on the Cubes.}
+        \end{enumerate}
+      \item[Special requirements:] \hfill
+        \begin{enumerate}
+          \item{The emulator should indicate that loading the program is in progress.}
+	  \item{The emulator should indicate when the program is finished loading.}
+        \end{enumerate}
+    \end{description}
+
+  \subsection{Zoom screen}
+
+    \begin{description}
+      \item[Name:] Zoom screen
+      \item[Description:] The User zooms the Workspace to the desired level.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{The User adjusts the zoom slider.}
+	  \item{The Emulator magnifies the Cubes in the emulator according to the zoom level.}
+        \end{enumerate}
+      \item[Alternate flows:] \hfill \\
+	None
+      \item[Pre-conditions:] \hfill
+        \begin{enumerate}
+          \item{The emulator is running.}
+        \end{enumerate}
+      \item[Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The program running at the beginning of this use case, if any, is still running.}
+        \end{enumerate}
+	  \item[Special requirements:] \hfill
+        \begin{enumerate}
+		\item{The zoom slider moves in discrete increments. The lowest (and default) level shows the whole workspace and the highest level shows one Cube with the edges of the surrounding Cubes visible for context.}
+		\end{enumerate}
+    \end{description}	
+
+  \subsection{Add/remove Cubes}
+
+    \begin{description}
+      \item[Name:] Add/remove Cubes
+      \item[Description:] The User adjusts the number of Cubes present in the emulator.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{The User drags the ``Number of Cubes" slider or uses the up/down arrows on the spinbox to increment or decrement the number of available Cubes by one.}
+	  \item{The emulator adds/removes Cubes in emulator and resets its Workspace.}
+	  \item{If Cubes are to be removed, the emulator starts with the bottom right-most of the Cubes (at their current positions) and works left. If more Cubes are to be removed after the second row is depleted, the emulator again starts at the bottom right-most of the remaining Cubes.}
+        \end{enumerate}
+      \item[Alternate flows:] \hfill \\
+	None
+      \item[Pre-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The emulator is running.}
+        \end{enumerate}
+      \item[Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The number of Cubes has been adjusted to the number specified.}
+	  \item{The running program, if any, is terminated.}
+        \end{enumerate}
+	  \item[Special requirements:] \hfill
+        \begin{enumerate}
+		\item{The ``Number of Cubes" slider moves in discrete increments. The leftmost level shows one Cube and the rightmost level shows six Cubes.}
+		\end{enumerate}
+    \end{description}
+
+  \subsection{Snap Cubes to grid}
+
+    \begin{description}
+      \item[Name:] Snap to grid
+      \item[Description:] The Users pulls the Cubes into a grid orientation.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{The User presses the ``Snap to Grid" button.}
+	  \item{The Emulator moves the Cubes to a grid orientation based on their current positions. It will maintain the Cubes' positions relative to other Cubes while doing so.}
+        \end{enumerate}
+      \item[Alternate flows:] \hfill \\
+	None	
+      \item[Pre-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The emulator is running.}
+        \end{enumerate}
+      \item[Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The Cubes are arranged in a grid.}
+        \end{enumerate}
+    \end{description}
+
+  \subsection{Manipulate Cube}
+
+    \begin{description}
+      \item[Name:] Manipulate Cube
+      \item[Description:] The User manipulates a Cube by clicking the buttons or the Cube itself.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{The User double clicks on a Cube.}
+	  \item{The Cube responds as if a screen click occured.}
+        \end{enumerate}
+      \item[Alternate flows:] \hfill
+        \begin{enumerate}
+	  \item{The User clicks on one of the buttons superimposed on the Cubes' edges.}
+	  \item{The Cube executes the appropriate action (i.e. flips, rotates, or tilts).}
+        \end{enumerate}
+        \begin{enumerate}
+          \item{The User drags a Cube next to another Cube.}
+	  \item{Cube communicates (``neighbors") with the Cube(s) it is adjacent to.}
+        \end{enumerate}
+	  \item{The User ``shakes" a Cube back and forth with the mouse (i.e. he laterally moves the Cube back and forth several times).}
+	  \item{The Cube responds as if shaken.}
+      \item[Pre-conditions:] \hfill
+        \begin{enumerate}
+          \item{The emulator is running.}
+        \end{enumerate}
+      \item[Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{If a program is running, the emulator has updated its state based on the Cube's change.}
+        \end{enumerate}
+    \end{description}
+	
+  \subsection{Other functional requirements}
+
+	\subsubsection{API}
+		The emulator will include an API in order to define a set of rules and specifications via which Cube programs can be created.
+	
+	\subsubsection{Example games}
+		The emulator will include games as examples that demonstrate to the User how the Cubes interact with each other.
+
+
+    \section{Feature Mapping}
     \begin{table}[h!]
-        \begin{tabular}{p{.4in} | p{1.75in} | p{6in} | p{.75in}}
+        \begin{tabular}{p{.4in} | p{1.75in} | p{.75in}}
         \textbf{ID} &
         \textbf{Name} &
-        \textbf{Description} &
         \textbf{Features} \\ \hline
 
         U1 &
         Load program &
-        The User selects the program file to be loaded and run by the emulator. &
         F5 \\ \hline
 
         U2 &
         Reload program &
-        The User reloads the program currently running in the emulator. &
         F5 \\ \hline
 
         U3 &
         Zoom screen &
-        The User zooms the Workspace to the desired level. &
         F7 \\ \hline
 
         U4 &
         Add/remove Cubes &
-        The User adjusts the number of Cubes present in the emulator. &
         F3, F4 \\ \hline
 
         U5 &
         Snap Cubes to grid &
-        The User pulls the Cubes into a grid orientation. &
         F6 \\ \hline
 
         U6 &
         Manipulate Cube &
-        The User manipulates a Cube by clicking the buttons or the Cube itself. &
         F1, F2, F3 \\ \hline
 
         OR1 &
         API &
-        An API is included to define a set of rules and specifications via which Cube programs can be created. &
         F2 \\ \hline
 
         OR2 &
         Example games &
-        Example games are included to demonstrate how the Cubes interact with each other. &
         F3 \\ \hline
 
         \end{tabular}
     \end{table}
     
-    
-    \end{landscape}
-
 \clearpage
 \addcontentsline{toc}{section}{Glossary}
 \printglossaries

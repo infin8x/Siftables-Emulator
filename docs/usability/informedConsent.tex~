@@ -1,0 +1,17 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{amsmath}
+\geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
+\setlength{\parindent}{0pt} % Fixes the paragraph spacing problem
+\renewcommand*\arraystretch{1.5}
+
+\begin{document}
+
+\begin{center}
+        \LARGE{\textbf{Informed Consent}}
+        \line(1,0){500}
+\end{center}
+
+You are invited to participate in a study conducted by Singularity Software.  We hope to learn
+
+\end{document}

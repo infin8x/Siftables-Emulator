@@ -1,0 +1,90 @@
+<html>
+
+<head>
+<title>Ovo Studios Virtual Picture-in-Picture, Copyright Scott A. Butler, 2004-2006, Ovo Studios, LLC 2007</title>
+<!--Ovo Studios Virtual Picture-in-Picture Version 5.0, Copyright Scott A. Butler, 2004-2006, Ovo Studios, LLC 2007-->
+<SCRIPT ID=clientEventHandlersJS LANGUAGE=vbscript>
+
+dim justPath, Path, FileScreen, FileVid, TimeScreen, TimeVid
+function initPlayers()
+
+    On Error Resume Next
+Path = cleanStrings(document.location,"%20")
+justPath = getPath(Path)
+splitParams(Path)
+document.PIPControl1.SetFilePIP(justPath & "Tapes\" & FileVid)
+    If Err.Number <> 0 Then
+      If Err.Number = 438 Then
+          MsgBox "You do not have the Ovo Studios Virtual Picture-in-Picture control installed, or it is not installed correctly.  Please contact your local lab manager for help."
+          Exit Function
+      End If
+    End If
+document.PIPControl1.SetFileMain (justPath & "Tapes\" & FileScreen)
+document.PIPControl1.SetTimePIP (TimeVid)
+document.PIPControl1.SetTimeMain (TimeScreen)
+document.PIPControl1.SetZOrder()
+end function
+
+function deinitPlayers()
+
+on error resume next
+document.PIPControl1.KillPlayers
+end function
+
+function cleanStrings(path, cleanParam)
+    Dim splitter, tempString
+    splitter = Split(path, cleanParam)
+    For X = 0 To UBound(splitter)
+        tempString = tempString & splitter(X) & " "
+    Next
+    tempString = Left(tempstring,Len(tempString)-1)
+    cleanStrings = tempString
+end function
+function getPath(locStr)
+    Dim curURL, splitter
+    curURL = locStr
+    If Left(curURL, 7) = "file:///" Then
+        curURL = Right(curURL, Len(curURL) - 8)
+        splitter = Split(curURL, "?")
+        curURL = splitter(0)
+        curURL = Left(curURL, Len(curURL) - 8)
+        getPath = curURL
+    Else
+        splitter = Split(curURL, "?")
+        curURL = splitter(0)
+        curURL = Left(curURL, Len(curURL) - 7)
+        getPath = curURL
+    End If
+end function
+function splitParams(locStr)
+    Dim temp, temp2, paramString, secondSplit, thirdSplit
+    temp = Split(locStr, "?")
+    paramString = temp(1)
+    secondSplit = Split(paramString, "&")
+    temp2 = Right(secondSplit(0),Len(secondsplit(0))-5)
+    thirdSplit = Split(temp2, "~")
+    FileVid = thirdSplit(0)
+    FileScreen = thirdSplit(1)
+    temp2 = Right(secondSplit(1),Len(secondSplit(1))-10)
+    thirdSplit = Split(temp2, "~")
+    TimeVid = thirdSplit(0)
+    TimeScreen = thirdSplit(1)
+End Function
+
+
+</script>
+</head>
+
+<body onLoad="initPlayers" onBeforeUnload="deInitPlayers">
+
+<OBJECT CLASSID="clsid:5220cb21-c88d-11cf-b347-00aa00a28331">
+<PARAM NAME="LPKPath" VALUE="PIPControl.lpk">
+</OBJECT>
+<object classid="clsid:00827D1A-4C26-4515-8A24-AB8A3B7B024F" id="PIPControl1" width="1024" height="768" codebase="http://www.ovostudios.com/download/PIPControl.cab#version=-1,-1,-1,-1">
+  <param name="_ExtentX" value="27093">
+  <param name="_ExtentY" value="20320">
+The Ovo Studios Virtual Picture-in-Picture is a licensed feature.  If it is not loading correctly, please contact Rich Gunther at rich@ovostudios.com
+</object>
+</body>
+
+</html>

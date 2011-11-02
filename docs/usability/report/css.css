@@ -1,0 +1,454 @@
+/*Ovo Studios Ovo Logger 6.0 HTML Report Generation, Copyright Scott A. Butler 1999-2006, Ovo Studios, LLC 2007*/
+/* Legacy classes*/
+.image       { text-align: Left }
+.image_caption { font-family: Arial; font-size: x-small; font-weight: bold; text-align: Left }
+.small       { font-family: Arial; font-size: xx-small }
+
+/*body tags, global and page-specific */
+body  {background-color:white}
+body.page_home   {}
+body.page_findings{}
+body.page_highlights {}
+body.page_tasktimes {}
+body.page_categories {}
+body.page_questionnaire {}
+body.page_scenariomaterials {}
+body.page_clickpath {}
+body.page_logs {}
+body.page_followup {}
+
+/* Paragraph text: global and page-specific*/
+p { font-family: Arial; font-size: x-small }
+p.page_home   { font-family: Times New Roman; font-size: large}
+p.page_findings{}
+p.page_highlights {}
+p.page_tasktimes {}
+p.page_categories {}
+p.page_questionnaire {}
+p.page_scenariomaterials {}
+/* paragraph tags for group profile and user profile informational sections, respectively.*/
+p.page_users_group {}
+p.page_users_user {}
+p.page_clickpath {}
+p.page_logs {}
+p.page_followup {}
+
+/* plain text style for introductory boilerplate text and specific page elements at the top of some pages.*/
+p.page_tasktimes_topText{}
+p.page_categories_topText {}
+p.page_clickpath_topText {}
+p.page_followup_topText {}
+p.logged_obs_in_results  {}
+p.page_findings_free_form_html {}
+
+/* RESULTS.HTM: style of text in logged observations section of results page*/
+span.results_findingNumber {} 
+span.results_recommendationNumber {} 
+span.results_loggedObsLabel {} 
+span.results_noteID {font-weight:bold} 
+span.results_user {} 
+span.results_scenario {} 
+span.results_categories {} 
+span.results_observationtext {} 
+
+/* USERS.HTM: style of text in user profile sections*/
+div.page_users_userprofile {font-family:Arial;font-size=10pt;margin-left:40px;}
+
+/* H1 styles, global and page-specific */
+h1 { font-family: Arial}
+h1.page_home_header   {}
+h1.page_findings{}
+h1.page_highlights {}
+h1.page_tasktimes {}
+h1.page_categories {}
+h1.page_questionnaire {}
+h1.page_scenariomaterials {}
+h1.page_clickpath {}
+h1.page_logs {}
+h1.page_followup {}
+
+/* H2 styles, global and page-specific */
+h2 { font-family: Arial}
+h2.page_home_sectionhead   {}
+h2.page_findings{}
+h2.page_highlights {}
+h2.page_tasktimes {}
+h2.page_categories {}
+h2.page_categories_summary_CatOne {}
+h2.page_categories_summary_CatTwo {}
+h2.page_categories_detail_CatOne {}
+h2.page_categories_detail_CatTwo {}
+h2.page_questionnaire {}
+h2.page_questionnaire_SUSHeader {}
+h2.page_scenariomaterials {}
+h2.page_clickpath {}
+h2.page_logs {}
+h2.page_followup {}
+
+/* H3 styles, global and page-specific */
+h3 { font-family: Arial}
+h3.page_home   {}
+h3.page_findings{}
+h3.page_highlights {}
+h3.page_tasktimes {}
+h3.page_categories {}
+/*Individual headings for category values in details section*/
+h3.page_categories_detail_CatOne_catheadings {}
+h3.page_categories_detail_CatTwo_catheadings {}
+h3.page_questionnaire {}
+h3.page_scenariomaterials {}
+h3.page_users {}
+h3.page_clickpath {}
+h3.page_logs {}
+h3.page_followup {}
+
+/* H4 styles, global and page-specific */
+h4 { font-family: Arial}
+h4.page_home   {}
+h4.page_findings{}
+h4.page_highlights {}
+h4.page_tasktimes {}
+h4.page_categories {}
+h4.page_questionnaire {}
+h4.page_scenariomaterials {}
+h4.page_users {}
+h4.page_clickpath {}
+h4.page_logs {}
+h4.page_followup {}
+
+/* H4 styles, global and page-specific */
+h5 { font-family: Arial}
+h5.page_home   {}
+h5.page_findings{}
+h5.page_highlights {}
+h5.page_tasktimes {}
+h5.page_categories {}
+h5.page_questionnaire {}
+h5.page_scenariomaterials {}
+h5.page_users {}
+h5.page_clickpath {}
+h5.page_logs {}
+h5.page_followup {}
+
+/* List styles, global and page-specific */
+li { font-family: Arial; font-size: x-small }
+li.page_home   {}
+li.page_findings{}
+li.page_highlights {}
+li.page_tasktimes {}
+li.page_categories {}
+li.page_questionnaire {}
+li.page_questionnaire_firstitem {margin-top: 0; margin-bottom: 0 }
+li.page_questionnaire_lastitem {margin-top: 0; margin-bottom: 50px }
+li.page_scenariomaterials {}
+ol.page_clickpath {}
+li.page_clickpath {}
+li.page_logs {}
+li.page_followup {}
+
+/***********************/
+/ Navigation Bar Styles /
+/***********************/
+a.page_home_navbar {}
+a.page_findings_navbar {}
+a.page_highlights_navbar {}
+a.page_scenariomaterials_navbar {}
+a.page_usersnavbar {}
+a.page_tasktimes_navbar {}
+a.page_categories_navbar {}
+a.page_questionnaire_navbar {}
+a.page_clickpath_navbar {}
+a.page_followup_navbar {}
+
+/*Each navbar is in a <td> table element.  Use the styles below*/
+/*to edit the alignment, background color, or border style of these columns.*/
+td.page_home_navbar {}
+td.page_findings_navbar {}
+td.page_highlights_navbar {}
+td.page_scenariomaterials_navbar {}
+td.page_tasktimes_navbar {}
+td.page_categories_navbar {}
+td.page_questionnaire_navbar {}
+td.page_clickpath_navbar {}
+td.page_followup_navbar {}
+
+/*You can use the navbar <table) class to edit the overall table which a navbar is placed in.*/
+table.navbar {}
+/******************/
+/ Hyperlink Styles /
+/******************/
+
+/* Hyperlink styles, global and as they show up on each page*/
+a {font-family:Arial;font-size:x-small}
+a.page_home   {}
+a.page_findings{}
+a.page_highlights {}
+a.page_scenariomaterials {}
+a.page_users {}
+a.page_tasktimes {}
+a.page_categories {}
+/*CATEGORIES.HTM: Hyperlinks in the Category Summary Table, in the first column*/
+a.page_categories_summary_CatLink {}
+a.page_questionnaire {}
+a.page_clickpath {}
+a.page_logs {}
+a.page_followup {}
+/* VIDEO LINKS: hyperlinks to video from all pages*/
+a.video_links { font-family: Arial; font-size: xx-small }
+a.screen_links { font-family: Arial; font-size: xx-small }
+a.pip_links { font-family: Arial; font-size: xx-small }
+a.matrix_links { font-family: Arial; font-size: xx-small }
+a.webmon_links { font-family: Arial; font-size: xx-small }
+
+/******************************************/
+/* TABLE styles, global and page-specific */
+/******************************************/
+table.page_home,
+table.page_findings,
+table.page_highlights,
+table.page_tasktimes,
+table.page_tasktimes_taskSummary,
+table.page_categories,
+table.page_categories_summary,
+table.page_categories_detail_contenttable,
+table.page_questionnaire,
+table.page_questionnaire_SUSTable,
+table.page_questionnaire_meanTable,
+table.page_questionnaire_detailsTable,
+table.page_scenariomaterials,
+table.page_clickpath,
+table.page_clickpath_tableByScenario,
+table.page_clickpath_tableByUser,
+table.page_logs,
+table.page_logs_tablebyscens,
+table.page_logs_tablebyusers,
+table.page_followup,
+table.page_followup_impSummaryTable,
+Table.page_followup_detailTable
+ {
+    font-family:Arial;
+    font-size:x-small;
+    width:100%;
+    border-collapse: collapse;}
+
+/***********************************************/
+/* TABLE CELL styles, global and page-specific */
+/***********************************************/
+/* Task Times Page Table Columns <td> */
+td.page_tasktimes,
+    font-family: Arial;
+    font-size: x-small;
+    border: 1px solid gray;
+    padding: 2px;
+    margin: 0px;}
+
+td.page_tasktimes_taskSummary_taskID_header {border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small; font-weight:bold;}
+td.page_tasktimes_taskSummary_meanTime_header {border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small; font-weight:bold;}
+td.page_tasktimes_taskSummary_stdDev_header {border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small; font-weight:bold;}
+td.page_tasktimes_taskSummary_minimum_header {border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small; font-weight:bold;}
+td.page_tasktimes_taskSummary_maximum_header {border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small; font-weight:bold;}
+td.page_tasktimes_taskSummary_resolution_header {border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small; font-weight:bold;}
+td.page_tasktimes_taskSummary_statVal_header {border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small; font-weight:bold;}
+td.page_tasktimes_taskSummary_frequency_header {border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small; font-weight:bold;}
+
+td.page_tasktimes_taskSummary_taskID_Content {text-align:left; border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small;}
+td.page_tasktimes_taskSummary_meanTime_Content_HHMMSS {text-align:right; border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small;}
+td.page_tasktimes_taskSummary_meanTime_Content_Seconds {text-align:right; border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small;}
+td.page_tasktimes_taskSummary_stdDev_Content_HHMMSS {text-align:right; border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small;}
+td.page_tasktimes_taskSummary_stdDev_Content_Seconds {text-align:right; border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small;}
+td.page_tasktimes_taskSummary_minimum_Content_HHMMSS {text-align:right; border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small;}
+td.page_tasktimes_taskSummary_minimum_Content_Seconds {text-align:right; border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small;}
+td.page_tasktimes_taskSummary_maximum_Content_HHMMSS {text-align:right; border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small;}
+td.page_tasktimes_taskSummary_maximum_Content_Seconds {text-align:right; border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small;}
+td.page_tasktimes_taskSummary_resolution_Content {text-align:left; border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small;}
+td.page_tasktimes_taskSummary_statVal_Content {text-align:right; border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small;}
+td.page_tasktimes_taskSummary_frequency_Content {text-align:right; border:1px solid gray; padding: 2px; margin: 0 px; font-family:Arial; font-size:x-small;}
+
+/* TABLE styles, global and page-specific */
+
+table {font-family:Arial;font-size:x-small}
+table.page_home   {}
+table.page_findings{width:100%; border: inset 2pt; border-spacing:0px; padding:4px}
+table.page_highlights {border: inset 2pt; padding:4px; width:100%}
+table.page_tasktimes {width:100%; border: inset 2pt; border-spacing:0px; padding:2px; border-color:#CCCCCC}
+table.page_categories {}
+
+/*CATEGORIES.HTM: Table format for Category One and Two summary and detail tables*/
+table.page_categories_summary {width:100%; border: inset 2 pt; border-spacing:0px; padding:2px; border-color:#CCCCCC}
+table.page_categories_detail_contenttable {width:100%; border: inset 2 pt; border-spacing:5px; padding:2px}
+
+table.page_questionnaire { background-color:#FFFFFF; WIDTH:100%}
+
+/*QUESTIONNAIRE.HTM: Table format for specific tables*/
+table.page_questionnaire_SUSTable {background-color:#FFFFFF; width:100%; border:inset 2pt; border-spacing:0px; padding:2px;border-color:#CCCCCC}
+table.page_questionnaire_meanTable {background-color:#FFFFFF; width:100%; border:inset 2pt; border-spacing:0px; padding:2px;border-color:#CCCCCC}
+table.page_questionnaire_detailsTable {}
+
+table.page_scenariomaterials {}
+table.page_clickpath {}
+
+/*CLICKPATH.HTM: Table format for Clickpath tables by Scenario or by User*/
+table.page_clickpath_tableByScenario {width:100%; border:0; border-spacing:0px; padding:0px}
+table.page_clickpath_tableByUser {width:100%; border:0; border-spacing:0px; padding:0px}
+
+table.page_logs {}
+/*LOGS.HTM:  Table format for Logs tables by Scenario or by User*/
+table.page_logs_tablebyscens {width:100%;border-width:0px; border-spacing:2px; padding:3px}
+table.page_logs_tablebyusers {width:100%;border-width:0px; border-spacing:2px; padding:3px}
+
+table.page_followup {}
+
+/*FOLLOW-UP.HTM: Table format for Followup Summary and Detail tables*/
+table.page_followup_impSummaryTable {width:100%; border: inset 2 pt; border-spacing:0px; padding:4px}
+table.page_followup_detailTable {width:100%; border: inset 2 pt; border-spacing:0px; padding:4px}
+
+
+/* TABLE CELL style, global*/
+td { font-family: Arial; font-size: x-small }
+
+/********************************/
+/* HOME_PAGE.HTM table styles */
+/********************************/
+
+/* _parameter = left-hand column of labels */
+/* _value = right-hand column of text */
+td.page_home   {}
+td.page_home_parameter   {width=35%}
+td.page_home_value   {width=65%}
+
+/*********************************/
+/* RESULTS.HTM table cell styles */
+/*********************************/
+
+/* findings cell when there are associated observations and recommendations */
+td.page_findings {column-span:2;vertical-align:top;border-width:1px;border-style:solid}
+
+/* findings cell when where are only associated observations */
+td.page_findings_observations_only {width:100%;vertical-align:top; border-width:1px; border-style:solid}
+
+/* findings cell when there are only associated recommendations */
+td.page_findings_recommendations_only {width:100%;vertical-align:top; border-width:1px; border-style:solid}
+
+/* observations cells */
+td.page_findings_observations {width:50%; vertical-align:top; border-width:1px; border-style:solid}
+
+/* recommendation cells */
+td.page_findings_recommendations {width:50%; vertical-align:top; border-width:1px;border-style:solid}
+
+/***********************************/
+/* HIGHLIGHTS.HTM table cell styles*/
+/***********************************/
+
+/*highlights page table column containing userID*/
+td.page_highlights_user {width:10%; border: inset 1pt}
+
+/*highlights page table column containing taskID*/
+td.page_highlights_task {width:10%; border: inset 1pt}
+
+/*highlights page table column containing category one information*/
+td.page_highlights_catOne {width:10%; border: inset 1pt}
+
+/*highlights page table column containing category two information*/
+td.page_highlights_catTwo {width:10%; border: inset 1pt}
+
+/*highlights page table column containing logged observation*/
+td.page_highlights_note {width:60%; border: inset 1pt}
+
+/*highlights page table column containing placeholder for highlights whose observations no longer exist*/
+td.page_highlights_note {border: inset 1pt}
+
+/***********************************/
+/* SCENARIO_TIMES.HTM table cell styles*/
+/***********************************/
+
+td.page_tasktimes {border: inset 1pt;}
+
+/*task times page table columns containing breakdown of task time by users*/
+td.page_tasktimes_userSummary {width:33%; vertical-align:top; border: inset 1pt}
+
+/*task times page table columns containing breakdown of task time by task*/
+td.page_tasktimes_taskSummary {width:25%;border: inset 1pt}
+
+/*task times page table columns containing task resolution details */
+td.page_tasktimes_taskDetail {width:25%;border: inset 1pt}
+
+/***********************************/
+/* CATEGORIES.HTM table cell styles*/
+/***********************************/
+
+td.page_categories {border: inset 1pt}
+
+/*Styles for setting table elements in summary sections at top of Categories page*/
+
+td.page_categories_summary_CatHeader {border: inset 1pt; font-weight:bold}
+td.page_categories_summary_CatName {border: inset 1pt}
+td.page_categories_summary_CatFreq {border: inset 1pt}
+td.page_categories_summary_CatFreqByScen {border: inset 1pt}
+td.page_categories_detail_tableheadings {border: inset 1pt; font-weight:bold}
+td.page_categories_detail_Scen {border: inset 1pt}
+td.page_categories_detail_User {border: inset 1pt}
+td.page_categories_detail_Note {border: inset 1pt}
+td.page_categories_detail_NoteID {border: inset 1pt}
+
+/***********************************/
+/* QUESTIONNAIRE.HTM table cell styles*/
+/***********************************/
+
+td.page_questionnaire_indent {text-align:center}
+td.page_questionnaire {border: inset 1pt;text-align:center}
+
+/*Table columns used in tallying SUS scores across users*/
+
+td.page_questionnaire_SUSTableHeader {font-weight:bold;width:50%;text-align:center;border:inset 1px}
+td.page_questionnaire_SUSTable {width:50%;text-align:center;border:inset 1px}
+
+/*Table columns used in showing mean questionnaire results*/
+
+td.page_questionnaire_meanTableHeader {width:10%;text-align:center;border:inset 1px}
+td.page_questionnaire_meanTableQuestionCol {width:50%;border:inset 1px}
+td.page_questionnaire_meanTableMinCol {width:10%;text-align:center;border:inset 1px}
+td.page_questionnaire_meanTableMaxCol {width:10%;text-align:center;border:inset 1px}
+td.page_questionnaire_meanTableNCol {width:10%;text-align:center;border:inset 1px}
+td.page_questionnaire_meanTableMeanCol {width:10%;text-align:center;border:inset 1px}
+td.page_questionnaire_meanTableSCol {width:10%;text-align:center;border:inset 1px}
+
+/*Table columns used in showing detailed questionnaire results*/
+
+td.page_questionnaire_detailsTable_QuestionCol {}
+td.page_questionnaire_detailsTable_AnswerCol {}
+
+/***********************************/
+/* SCENARIOS.HTM table cell styles*/
+/***********************************/
+
+td.page_scenariomaterials {border: inset 1pt}
+
+/***********************************/
+/* CLICKPATHS.HTM table cell styles*/
+/***********************************/
+
+td.page_clickpath {border: inset 1pt}
+td.page_clickpath_tableByScenario_UserIDCol {column-span:4; background-color:#C0C0C0; vertical-align:middle; font-weight:bold}
+td.page_clickpath_tableByUser_ScenIDCol {column-span:4; background-color:#C0C0C0; vertical-align:middle; font-weight:bold}
+
+/***********************************/
+/* LOGS.HTM table cell styles*/
+/***********************************/
+
+td.page_logs {}
+
+/***********************************/
+/* FOLLOWUP.HTM table cell styles*/
+/***********************************/
+
+td.page_followup {border: inset 1pt}
+td.page_followup_impSummaryTableHeader {vertical-align:top;text-align:center; border-width:1px; border-style:solid}
+td.page_followup_impSummaryTableValue {vertical-align:top;text-align:center;border-width:1px; border-style:solid}
+td.page_followup_detailTable_ChallCell {vertical-align:top;width:100%;font-weight:bold;border-width:1px; border-style:solid;column-span:5}
+td.page_followup_detailTable_ReccCell {width:40%;vertical-align:top;row-span:2;border-width:1px; border-style:solid}
+td.page_followup_detailTable_Header {border-width:1px; border-style:solid}
+td.page_followup_detailTable_PriorityCell {border-width:1px; border-style:solid}
+td.page_followup_detailTable_ResolutionCell {border-width:1px; border-style:solid}
+td.page_followup_detailTable_ContactCell {border-width:1px; border-style:solid}
+td.page_followup_detailTable_DateCell {border-width:1px; border-style:solid}
+td.page_followup_detailTable_NoteCell {column-span:6;border-width:1px; border-style:solid}

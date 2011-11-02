@@ -1,0 +1,819 @@
+\title{Singularity Software\\Milestone 4}
+\date{\today}
+
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{makeidx}
+\usepackage[acronym]{glossaries}
+\usepackage{lscape}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[final]{pdfpages}
+% \usepackage{hyperref} % Makes links from ToC
+
+\geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
+
+\setlength{\parindent}{0pt} % Fixes the paragraph spacing problem
+
+% This is all for formatting and making the Table of Contents according to 
+% spec. Don't play with it.
+\makeatletter
+\renewcommand\l@section[2]{%
+  \ifnum \c@tocdepth >\z@
+    \addpenalty\@secpenalty
+    \addvspace{1.0em \@plus\p@}%
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\ 
+      \leaders\hbox{$\m@th\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}
+     \hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+    \endgroup
+  \fi}
+\makeatother
+
+\makeindex
+
+% Construct the glossary here
+% Use the template below, then where the word appears (in the case below, computer), replace computer with \gls{computer}
+\makeglossaries
+
+\newglossaryentry{Sifteo Cubes}
+{
+  name={Sifteo Cubes},
+  description={are small machines capable of loading programs and interacting with one another as well as responding to predefined movements}
+}
+
+\newglossaryentry{Object-Oriented Programming}
+{
+  name={Object-Oriented Programming},
+  description={is a programming paradigm using objects to design applications}
+}
+
+\newglossaryentry{Windows}
+{
+  name={Windows},
+  description={is a series of operating systems developed by Microsoft}
+}
+
+\newglossaryentry{Mac}
+{
+  name={Mac},
+  description={is a series of lines of personal computers developed by Apple}
+}
+
+\newglossaryentry{Linux}
+{
+  name={Linux},
+  description={is a Unix-based operating system based on free and open source software}
+}
+
+\newglossaryentry{cross-platform support}
+{
+  name={cross-platform support},
+  description={is an attribute given to software implemented and operable on multiple computer platforms}
+}
+
+\newacronym{API}{API}{\glsadd{API}{Application Programming Interface}}
+
+\newglossaryentry{APIg}
+{
+  name={Application Programming Interface},
+  description={is an interface implemented by a software program that enables it to interact with other software}
+}
+
+
+\newglossaryentry{open source}
+{
+  name={open source},
+  description={is an attribute given to software for which the source code is freely available}
+}
+
+\newacronym{IDE}{IDE}{\glsadd{IDE}{Integrated Development Environment}}
+
+\newacronym{SDK}{SDK}{\glsadd{SDK}{Software Development Kit}}
+
+\newglossaryentry{SDKa}
+{
+  name={Software Development Kit},
+  description={is a collection of tools designed to help build software for a particular platform. It may include an \index{API} and an emulator of the target platform among other things.}
+}
+
+\newglossaryentry{IDEa}
+{
+  name={Integrated Development Environment},
+  description={is software that provides a comprehensive work environment for computer programmers and software developers}
+}
+
+
+\newacronym{GUI}{GUI}{\glsadd{GUI}{Graphical User Interface}}
+
+\newglossaryentry{GUIa}
+{
+  name={Graphical User Interface},
+  description={is a visual way of allowing the user to interace with a computer program}
+}
+
+\newglossaryentry{version control}
+{
+  name={version control},
+  description={is the management of documents and programs for a project over many versions in a well-organized manner}
+}
+
+\newglossaryentry{issue tracking system}
+{
+  name={issue tracking system},
+  description={is a piece of software used to maintain a list of issues as generated during a project}
+}
+
+\newglossaryentry{usability study}
+{
+  name={usability study},
+  description={is a manner of evaluating the design and user experience of a product by testing it on users}
+}
+
+\renewcommand*\arraystretch{1.5}
+
+\begin{document}
+\vspace*{\fill}
+        \begin{center}
+                \LARGE{Singularity Software} \\
+                \LARGE{\textit{Milestone 4}} \\
+                \vspace{.15in}
+                \large{\today} \\
+                \vspace{4in}
+                By signing below, I approve the contents of the following document. \\
+                \begin{table}[h]
+                        \begin{tabular}{p{2in} p{5.5in}}
+%                \begin{align*}
+                        & \\
+                        Alex Mullans & \line(1,0){285} \\ & \\
+                        Ruben Rodriguez & \line(1,0){285} \\ & \\
+                        Ethan Veatch & \line(1,0){285} \\ & \\
+                        Kurtis Zimmerman & \line(1,0){285}
+                        \end{tabular}
+                \end{table}
+%                \end{align*}
+        \end{center}
+\vspace*{\fill}
+\thispagestyle{empty}
+
+\clearpage
+
+\tableofcontents
+
+\clearpage
+        
+\section{Executive Summary}
+This document is the fourth in a series of milestone documents that will accompany the planning of the Siftables\index{Siftables} Emulator\index{emulator}. The Emulator project is an application that will allow developers of Sifteo applications to test the features of Sifteo Cubes --- miniature computers that interact and communicate when used in tandem --- in a virtual programming environment. There is currently an emulator from Sifteo, Inc. that comes as part of the \gls{SDK}\index{SDK}\glsadd{SDKa} for the Cubes. However, Singularity intends to come up with a more natural interface than the one currently provided in that application.\\\\
+This milestone defines the standards for code in the Siftables\index{Siftables} Emulator\index{emulator} project as well as the manner in which change will be controlled. It also elaborates the test cases that sufficiently cover the system. Future milestones will present design and usability reports as the software stabilizes.
+
+\section{Introduction}
+Developers of applications for the \gls{Sifteo Cubes}\index{Sifteo} currently must test programs they create for the platform within the emulator provided by Sifteo. While this emulator covers all  the functionality of the Sifteo Cubes, it presents a user interface that Singularity Software believes could be more naturally implemented. As such, Singularity Software will provide, in the form of the Siftables Emulator\index{emulator}, a new software-based emulator\index{emulator} for the Sifteo Cubes that will allow developers to more naturally interact with the platform.\\\\
+Milestone 4 relies on previous milestones as it defines a change control plan, coding standards, and test cases. It follows Milestones 2 and 3, which laid the foundation and elaborated the requirements of the Siftables Emulator specification based on the high-level design created in Milestone 1. Milestone 5 will elaborate on the upcoming \gls{usability study} comparing the proposed Siftables Emulator design to the Sifteo\index{Sifteo} emulator's design before presenting original and feedback-based interface designs for the Siftables\index{Siftables} Emulator\index{emulator}.
+
+\section{Project Background}
+The Siftables Emulator is being developed by Singularity Software as part of the Junior Project sequence of classes at Rose-Hulman Institute of Technology. When projects were solicited for the sequence, clients Tim Ekl and Eric Stokes (both Rose-Hulman alumni) submitted a request for an emulator\index{emulator} for Sifteo Cubes, a new platform intended for ``intelligent play." After Singularity was chosen for the project, we met with Mr. Ekl to determine the three primary features of the Emulator: a Workspace where 1-6 Cubes could mimic the manipulations possible with physical Cubes, an \gls{API} to program those virtual Cubes, and a set of example games designed to show off the first two features. Singularity's Emulator\index{emulator} is intended to build on the foundation of Sifteo, Inc.'s existing emulator by creating a more fluid and natural user interface.
+
+\section{Coding Standards}
+The developers of Singularity Software will adhere to a standardized coding ``style guide'' based on the language chosen for development. In the case of Python, we will reference the official Style Guide for Python Code [6]. Highlights of that document include 4-space indentation, a lack of extraneous space,  and camel case for class names. In the case of C\#, where no Microsoft-standard coding standards exist, we will use the standards laid out at [7], that emphasize the exclusive use of camel and Pascal case and ANSI-style bracing (where each brace gets its own line).
+
+\section{Change Control}
+Change requests may be submitted as issues on the project's GitHub repository\footnote{https://github.com/alexmullans/Siftables-Emulator/issues/new}. At a minimum, requests for change should mention the screen(s) to be changed, the new workflow that is desired (preferably in context with how it differs from the current workflow), the rationale for the change, and the priority the submitter assigns to the change. \\\\
+Changes submitted in the manner described will be considered by Singularity during our weekly project meeting. A majority vote (three of four team members) is required to accept a new feature into the system; however, a team member who feels very strongly may exercise a veto on the team's decision. Each team member will receive one veto for every four submitted changes. \\\\
+Changes to product documents (i.e. milestones) will be managed using the Git version control framework within which the documents are currently stored. In the case of major changes, the team will consider the use of ``delta'' documents if such documents will be easier to read than heavily modified original documents.
+
+\clearpage
+\section{Test Cases}
+
+\subsection{Load program}
+
+\begin{table}[h!]
+  \begin{tabular}{l | l | l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} &
+    \textbf{Alternate Flow} &
+    \textbf{Next Alternate} \\ \hline
+
+    1 &
+    Basic flow &
+    &
+    \\ \hline
+
+    2 &
+    Basic flow &
+    Alternate flow 1 &
+    \\ \hline
+
+    3 &
+    Basic flow &
+    Alternate flow 2 &
+    \\ \hline
+
+    4 &
+    Basic flow &
+    Alternate flow 3 &
+    \\ \hline
+
+    5 &
+    Basic flow &
+    Alternate flow 4 &
+    \\ \hline
+
+    6 &
+    Basic flow &
+    Alternate flow 4 &
+    Basic flow \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    A program is successfully loaded in the emulator. &
+    The Cubes run the selected program in the Workspace. \\ \hline
+
+    2 &
+    2 &
+    User selects incompatible file type. &
+    ``The selected file is not a .siftem emulator file and cannot be loaded.'' error is displayed. \\ \hline
+
+    3 &
+    3 &
+    User selects corrupt or unloadable file. &
+    ``The selected file is corrupt and cannot be loaded.'' error is displayed. \\ \hline
+
+    4 &
+    4 &
+    User cancels loading program. &
+    The emulator returns to its state before the basic flow was entered. \\ \hline
+
+    5 &
+    5 &
+    User loads a program when a program is already running and chooses ``Cancel'' on the warning prompt. &
+    Emulator returns to its state before the basic flow was entered after ``Cancel'' is chosen. \\ \hline
+
+    6 &
+    6 &
+    User loads a program when a program is already running and chooses ``Continue" on the warning prompt. &
+    Cubes run the selected program in the Workspace after ``Continue'' is chosen. \\ \hline
+  \end{tabular}
+\end{table}
+\clearpage
+
+\subsection{Reload program}
+
+\begin{table}[h!]
+  \begin{tabular}{l | l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} &
+    \textbf{Alternate Flow} \\ \hline
+
+    1 &
+    Basic flow &
+    \\ \hline
+
+    2 &
+    Basic flow &
+    Alternate flow 1 \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    The program is successfully reloaded in the emulator. &
+    The Cubes run the selected program in the Workspace after the user presses ``Continue'' on the warning message. \\ \hline
+
+    2 &
+    2 &
+    The user selects ``Cancel'' on the warning dialog (which specifies that the emulator will be reset). &
+    The Cubes run the program as originally specified; no change should be made to emulator's state. \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\subsection{Zoom screen}
+
+\begin{table}[h!]
+  \begin{tabular}{l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} \\ \hline
+
+    1 &
+    Basic flow \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    User zooms in fully. &
+    The Workspace view is centered on the first cube with the edges of the adjacent Cubes visible. \\ \hline
+
+    2 &
+    1 &
+    User zooms out fully. &
+    The entire Workspace is visible. \\ \hline
+
+    3 &
+    1 &
+    A zoom level in the middle is selected. &
+    The slider moves to the closest predefined increment and the correct zoom level is shown. \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\clearpage
+
+\subsection{Add/remove Cubes}
+
+\begin{table}[h!]
+  \begin{tabular}{l | l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} \\ \hline
+
+    1 &
+    Basic flow &
+    \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    The slider is moved to one of the predefined increments or the spinbox is changed to an integer in the range [1, 6]. &
+    The specified number of Cubes is shown in the Workspace. \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\subsection{Snap Cubes to grid}
+
+\begin{table}[h!]
+  \begin{tabular}{l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} \\ \hline
+
+    1 &
+    Basic flow \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    User presses the ``Snap to Grid'' button. &
+    The emulator aligns the Cubes in a grid based on their current positions.  \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\clearpage
+
+\subsection{Manipulate Cube}
+
+\begin{table}[h!]
+  \begin{tabular}{l | l}
+    \textbf{Scenario \#} &
+    \textbf{Originating Flow} \\ \hline
+
+    1 &
+    Basic flow \\ \hline
+
+    2 &
+    Alternate flow 1 \\ \hline
+
+    3 &
+    Alternate flow 2 \\ \hline
+
+    4 &
+    Alternate flow 3 \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \begin{tabular}{p{.5in} | p{.75in} | p{2.15in} | p{2.15in}}
+    \textbf{Test Case ID} &
+    \textbf{Scenario} &
+    \textbf{Description} &
+    \textbf{Expected Result} \\ \hline
+
+    1 &
+    1 &
+    The user double clicks on a Cube. &
+    The Cube responds as if a screen click occured. \\ \hline
+
+    2 &
+    2 &
+    The user clicks on one of the buttons on the Cube. &
+    The Cube executes and responds to the associated action (flip, rotate, or tilt). \\ \hline
+
+    3 &
+    3 &
+    The user drags a Cube next to another Cube. &
+    The Cube neighbors with the adjacent Cube, and the two recognize each other as neighbors. \\ \hline
+
+    4 &
+    4 &
+    The user drags a Cube back and forth in a shaking manner. &
+    The Cube responds as if shaken. \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\appendix
+    \begin{landscape}
+    \section{Features}
+    \begin{table}[h!]
+      \begin{tabular}{p{1.5in} | p{2.25in} | p{.75in} | p{.75in} | p{.75in} | p{2.25in}}
+        \textbf{Feature} &
+        \textbf{Description} &
+        \textbf{Status} &
+        \textbf{Priority} &
+        \textbf{Risk} &
+        %\textbf{Stability} &
+        \textbf{Reason} \\ \hline
+        %\textbf{Effort} \\ \hline
+
+        Individual, virtual Sifteo Cube &
+        A virtual representation of a single Sifteo cube &
+        Approved &
+        Critical &
+        Low &
+        %High &
+        Replicates physical Sifteo Cube \\ \hline
+        %Medium \\ \hline
+
+        Buttons to manipulate each virtual Cube &
+        Buttons on the virtual Cube will allow the user to flip and tilt it &
+        Approved &
+        Critical &
+        Medium &
+        %High &
+        Replaces physical actions where said actions would be impractical with a mouse \\ \hline
+        %Medium \\ \hline
+
+        Workspace where multiple cubes can be emulated &
+        Multiple cubes will be displayed on a workspace that replicates the free-form nature of physical Sifteo Cubes\index{Sifteo Cubes} &
+        Approved &
+        Critical &
+        Low &
+        %High &
+        Replicates multiple Sifteo Cubes\index{Sifteo Cubes} in a natural, free-form environment \\ \hline
+        %High \\ \hline
+
+        Interactions between Cubes &
+        The Cubes present on the workspace will communicate when they are neighbored &
+        Approved &
+        Critical &
+        Low &
+        %High &
+        Cubes can simulate the interactions possible with physical Cubes \\ \hline
+        %High \\ \hline
+
+        Load programs into the Cubes &
+        The user will load his own and example programs into the emulator’s\index{emulator} Cubes &
+        Approved &
+        Critical &
+        Medium &
+        %High &
+        The ability to program programs for the emulator\index{emulator} is dependent on a common interface \\ \hline
+        %High \\ \hline
+
+        Snap Cubes to invisible grid &
+        The Cubes will snap into an invisible grid when a button is clicked &
+        Proposed &
+        Useful &
+        Medium &
+        %High &
+        Increases productivity by allowing a quick reset if the Cubes are in disarray \\ \hline
+        %Low \\ \hline
+
+        Zoom Workspace &
+        The Workspace will zoom to the level of an individual Cube or the whole space &
+        Proposed &
+        Useful &
+        Low &
+        %High &
+        Inspecting individual Cubes allows for precise checks of program \glspl{GUI}\index{GUI}\glsadd{GUIa} \\ \hline
+        %Low \\ \hline
+
+      \end{tabular}
+    \end{table}
+    \end{landscape}
+
+    \clearpage
+
+\section{Use Cases}
+
+  \subsection{Load program}
+
+    \begin{description}
+      \item[Name:] Load program
+      \item[Description:] The User selects the program file to be loaded and run by the emulator\index{emulator}.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill 
+        \begin{enumerate}
+	  \item{The User presses the ``Load a program'' button.}
+	  \item{The User selects a *.siftem file in the file dialog.}
+	  \item{The User presses ``Open'' button.}
+	  \item{The emulator loads the selected program on the Cubes in the emulator.}
+        \end{enumerate}
+      \item[Alternate flows:] \hfill \\
+	When the User opens an incompatible file (i.e. any file without the .siftem extension),
+        \begin{enumerate}
+			\item{An error dialog is presented to the User with the message: ``The selected file is not a .siftem emulator file and cannot be loaded.''}
+			\item{The use case terminates and no program is loaded.}
+        \end{enumerate}
+	When the User opens a corrupt or otherwise unloadable file,
+        \begin{enumerate}
+			\item{An error dialog is presented to the User with the message: ``The selected file is corrupt and cannot be loaded.''}
+			\item{The use case terminates and no program is loaded.}
+        \end{enumerate}
+	When the User presses the ``Cancel'' button:
+        \begin{enumerate}
+			\item{The use case terminates and no program is loaded.}
+        \end{enumerate}
+	When the User is already running a program,
+		\begin{enumerate}
+			\item{A warning dialog is presented to the User with the message: ``Loading this program will clear all data from the previous program run. Proceed?''}
+			\item{If the User presses ``Yes'' on the warning dialog, flow returns to Step 2 of the basic flow.}
+		\end{enumerate}
+	When the User presses ``No'' on the warning dialog:
+        \begin{enumerate}
+          \item{The use case terminates and the program is not reloaded.}
+        \end{enumerate}
+      \item[Pre-conditions:] \hfill
+        \begin{enumerate}
+          \item{The emulator is running.}
+        \end{enumerate}
+      \item[Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The program is loaded or the User cancelled loading.}
+        \end{enumerate}
+      \item[Special requirements] \hfill
+        \begin{enumerate}
+          \item{The emulator should indicate that loading the program is in progress.}
+          \item{The emulator should indicate when the program is finished loading.}
+        \end{enumerate}
+    \end{description}
+%\newpage
+  \subsection{Reload program}
+
+    \begin{description}
+      \item[Name:] Reload program
+      \item[Description:] The User reloads the program currently running in the emulator.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
+        \begin{enumerate}
+			\item{A warning dialog is presented to the User with the message: "Reloading this program will clear all data from the previous program run. Proceed?"}
+			\item{If the User presses ``Yes" on the warning dialog, the Emulator loads the program onto the Cubes in the emulator.}
+        \end{enumerate}
+      \item[Alternate flows:] \hfill \\
+	When the User presses ``No" on warning dialog:
+        \begin{enumerate}
+          \item{The use case terminates and the program is not reloaded.}
+        \end{enumerate}
+      \item[Pre-conditions:] \hfill
+        \begin{enumerate}
+	  \item{A program is loaded in the emulator.}
+        \end{enumerate}
+      \item[Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The program is reloaded or the current program state remains on the Cubes.}
+        \end{enumerate}
+      \item[Special requirements:] \hfill
+        \begin{enumerate}
+          \item{The emulator should indicate that loading the program is in progress.}
+	  \item{The emulator should indicate when the program is finished loading.}
+        \end{enumerate}
+    \end{description}
+
+  \subsection{Zoom screen}
+
+    \begin{description}
+      \item[Name:] Zoom screen
+      \item[Description:] The User zooms the Workspace to the desired level.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{The User adjusts the zoom slider.}
+	  \item{The Emulator magnifies the Cubes in the emulator according to the zoom level.}
+        \end{enumerate}
+      \item[Alternate flows:] \hfill \\
+	None
+      \item[Pre-conditions:] \hfill
+        \begin{enumerate}
+          \item{The emulator is running.}
+        \end{enumerate}
+      \item[Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The program running at the beginning of this use case, if any, is still running.}
+        \end{enumerate}
+	  \item[Special requirements:] \hfill
+        \begin{enumerate}
+		\item{The zoom slider moves in discrete increments. The lowest (and default) level shows the whole workspace and the highest level shows one Cube with the edges of the surrounding Cubes visible for context.}
+		\end{enumerate}
+    \end{description}	
+
+  \subsection{Add/remove Cubes}
+
+    \begin{description}
+      \item[Name:] Add/remove Cubes
+      \item[Description:] The User adjusts the number of Cubes present in the emulator.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{The User drags the ``Number of Cubes" slider or uses the up/down arrows on the spinbox to increment or decrement the number of available Cubes by one.}
+	  \item{The emulator adds/removes Cubes in emulator and resets its Workspace.}
+	  \item{If Cubes are to be removed, the emulator starts with the bottom right-most of the Cubes (at their current positions) and works left. If more Cubes are to be removed after the second row is depleted, the emulator again starts at the bottom right-most of the remaining Cubes.}
+        \end{enumerate}
+      \item[Alternate flows:] \hfill \\
+	None
+      \item[Pre-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The emulator is running.}
+        \end{enumerate}
+      \item[Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The number of Cubes has been adjusted to the number specified.}
+	  \item{The running program, if any, is terminated.}
+        \end{enumerate}
+	  \item[Special requirements:] \hfill
+        \begin{enumerate}
+		\item{The ``Number of Cubes" slider moves in discrete increments. The leftmost level shows one Cube and the rightmost level shows six Cubes.}
+		\end{enumerate}
+    \end{description}
+
+  \subsection{Snap Cubes to grid}
+
+    \begin{description}
+      \item[Name:] Snap to grid
+      \item[Description:] The Users pulls the Cubes into a grid orientation.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{The User presses the ``Snap to Grid" button.}
+	  \item{The Emulator moves the Cubes to a grid orientation based on their current positions. It will maintain the Cubes' positions relative to other Cubes while doing so.}
+        \end{enumerate}
+      \item[Alternate flows:] \hfill \\
+	None	
+      \item[Pre-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The emulator is running.}
+        \end{enumerate}
+      \item[Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{The Cubes are arranged in a grid.}
+        \end{enumerate}
+    \end{description}
+
+  \subsection{Manipulate Cube}
+
+    \begin{description}
+      \item[Name:] Manipulate Cube
+      \item[Description:] The User manipulates a Cube by clicking the buttons or the Cube itself.
+      \item[Actors:] User
+      \item[Basic flow:] \hfill
+        \begin{enumerate}
+	  \item{The User double clicks on a Cube.}
+	  \item{The Cube responds as if a screen click occured.}
+        \end{enumerate}
+      \item[Alternate flows:] \hfill
+        \begin{enumerate}
+	  \item{The User clicks on one of the buttons superimposed on the Cubes' edges.}
+	  \item{The Cube executes the appropriate action (i.e. flips, rotates, or tilts).}
+        \end{enumerate}
+        \begin{enumerate}
+          \item{The User drags a Cube next to another Cube.}
+	  \item{Cube communicates (``neighbors") with the Cube(s) it is adjacent to.}
+        \end{enumerate}
+	  \item{The User ``shakes" a Cube back and forth with the mouse (i.e. he laterally moves the Cube back and forth several times).}
+	  \item{The Cube responds as if shaken.}
+      \item[Pre-conditions:] \hfill
+        \begin{enumerate}
+          \item{The emulator is running.}
+        \end{enumerate}
+      \item[Post-conditions:] \hfill
+        \begin{enumerate}
+	  \item{If a program is running, the emulator has updated its state based on the Cube's change.}
+        \end{enumerate}
+    \end{description}
+	
+  \subsection{Other functional requirements}
+
+	\subsubsection{API}
+		The emulator will include an API in order to define a set of rules and specifications via which Cube programs can be created.
+	
+	\subsubsection{Example games}
+		The emulator will include games as examples that demonstrate to the User how the Cubes interact with each other.
+
+
+    \section{Feature Mapping}
+    \begin{table}[h!]
+        \begin{tabular}{p{.4in} | p{1.75in} | p{.75in}}
+        \textbf{ID} &
+        \textbf{Name} &
+        \textbf{Features} \\ \hline
+
+        U1 &
+        Load program &
+        F5 \\ \hline
+
+        U2 &
+        Reload program &
+        F5 \\ \hline
+
+        U3 &
+        Zoom screen &
+        F7 \\ \hline
+
+        U4 &
+        Add/remove Cubes &
+        F3, F4 \\ \hline
+
+        U5 &
+        Snap Cubes to grid &
+        F6 \\ \hline
+
+        U6 &
+        Manipulate Cube &
+        F1, F2, F3 \\ \hline
+
+        OR1 &
+        API &
+        F2 \\ \hline
+
+        OR2 &
+        Example games &
+        F3 \\ \hline
+
+        \end{tabular}
+    \end{table}
+    
+\clearpage
+\addcontentsline{toc}{section}{Glossary}
+\printglossaries
+\clearpage
+
+\addcontentsline{toc}{section}{References}
+\section*{References}
+
+        \begin{enumerate}
+                \item{Sifteo Inc. Online: http://www.sifteo.com}
+                \item{Tim Ekl.  Client Meeting. 4 10 October 2011 4:15 p.m.}
+                \item{Milestone 1.  Singularity Software.  Online: https://github.com/alexmullans/Siftables-Emulator/blob/master/docs/pdfs/m1.pdf}
+                \item{Milestone 2.  Singularity Software.  Online: https://github.com/alexmullans/Siftables-Emulator/blob/master/docs/pdfs/m2.pdf}
+                \item{Milestone 3.  Singularity Software.  Online: https://github.com/alexmullans/Siftables-Emulator/blob/master/docs/pdfs/m3.pdf}
+                \item{Guido van Rossum.  ``PEP 8 Style Guide for Python Code.'' \\Online: http://www.python.org/dev/peps/pep-0008/}
+                \item{``C\# Coding Standards Document.'' \\Online: http://weblogs.asp.net/lhunt/pages/CSharp-Coding-Standards-document.aspx}
+
+        \end{enumerate}
+
+\clearpage
+
+\addcontentsline{toc}{section}{Index}
+\printindex
+
+\end{document}

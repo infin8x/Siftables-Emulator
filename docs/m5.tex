@@ -174,7 +174,7 @@ This milestone reports on the usability study that was conducted to compare the 
 
 \section{Introduction}
 Developers of applications for the \gls{Sifteo Cubes}\index{Sifteo} currently must test programs they create for the platform within the emulator provided by Sifteo. While this emulator covers all  the functionality of the Sifteo Cubes, it presents a user interface that Singularity Software believes could be more naturally implemented. As such, Singularity Software will provide, in the form of the Siftables Emulator\index{emulator}, a new software-based emulator\index{emulator} for the Sifteo Cubes that will allow developers to more naturally interact with the platform.\\\\
-Milestone 5 elaborates on the \gls{usability study} that compared the proposed Siftables Emulator design to the Siftulator's design before presenting original and feedback-based interface designs for the Siftables\index{Siftables} Emulator\index{emulator}. It follows Milestones 2, 3, and 4, which defined a change control plan, coding standards, and test cases and laid the foundation and elaborated the requirements of the Siftables Emulator specification based on the high-level design created in Milestone 1. 
+Milestone 5 elaborates on the \gls{usability study} that compared the proposed Siftables Emulator design to the Siftulator's design before presenting original and feedback-based interface designs for the Siftables\index{Siftables} Emulator\index{emulator}. It follows Milestones 2, 3, and 4, which defined a change control plan, coding standards, test cases, and requirements of the Siftables Emulator specification based on the high-level design created in Milestone 1. 
 
 \section{Project Background}
 The Siftables Emulator is being developed by Singularity Software as part of the Junior Project sequence of classes at Rose-Hulman Institute of Technology. When projects were solicited for the sequence, clients Tim Ekl and Eric Stokes (both Rose-Hulman alumni) submitted a request for an emulator\index{emulator} for Sifteo Cubes, a new platform intended for ``intelligent play." After Singularity was chosen for the project, we met with Mr. Ekl to determine the three primary features of the Emulator: a Workspace where 1-6 Cubes could mimic the manipulations possible with physical Cubes, an \gls{API} to program those virtual Cubes, and a set of example games designed to show off the first two features. Singularity's Emulator\index{emulator} is intended to build on the foundation of Sifteo, Inc.'s existing emulator by creating a more fluid and natural user interface.
@@ -182,19 +182,20 @@ The Siftables Emulator is being developed by Singularity Software as part of the
 \section{Usability Report}
 
 \subsection{Process}
-A basic prototype of the Siftables Emulator was developed using Flash in order to conduct the usability test. The prototype, which modeled the basic functionality intended for the final emulator, was then compared to the current Sifteo emulator, the Siftulator. The tests were conducted using CSSE students and faculty as subjects as they were found to be the best representation of the post-development use demographic. \\\\
-Participants in the study were first presented with an informed consent form and a pre-test questionnaire containing inquiries for personal criteria. Upon completion of these two documents, the user was then taken into the testing area and briefly given a basic set of verbal instructions by one of the team members. After the team member finished dictating the instructions and departed, the participant was asked to begin the study by watching a short video demonstrating the capabilities of the Sifteo Cubes. Singularity Software felt that this was the most efficient way to acquaint users with the product, a necessary task for them to be able to accurately judge the performance of an emulator. \\\\
-Upon completion of the video, participants were asked to complete a series of simple tasks in the current Siftulator platform. Because of the nature of this product and its lack of a help file, a list of action commands was located on the table next to the user. If they could not intuitively determine the correct way to complete a task, participants were told that this sheet could be used to help them. Users were then asked to switch to Siftables Emulator prototype and reminded that this product was in no way based on the software which they had just used. They were then asked to complete a similar set of tasks using the prototype. In the event that the user became stuck and was unable to complete their task at any time on either emulator, help was offered. This help was kept to a minimum degree, often consisting solely of asking the user a question to help them cogitate in a different fashion. \\\\
-At the conclusion of the technical portion of the study, participants were thanked for their time and assistance and asked to complete a posttest questionnaire. This questionnaire was designed to allow each user to express his or her opinion about the various aspects of both projects and suggest possible improvements to the interface of the Siftables Emulator prototype.
+In order to conduct the usability test, a basic prototype of the Siftables Emulator was developed using Adobe Flash CS5. The prototype, which modeled the basic functionality intended for the final emulator, was then compared to the current Sifteo Inc. emulator, the Siftulator. The tests were conducted using CSSE students and faculty as subjects, because the primary target demographic of the software is developers. \\\\
+Participants in the study were first presented with an informed consent form and a pre-test questionnaire that collected relevant personal information. Upon completion of these two documents, the user was then taken into the testing area and given a brief set of verbal instructions by one of the team members. After the team member finished presenting the instructions and left the room, the participant was asked to begin the study by watching a short video demonstrating the capabilities of the Sifteo Cubes. We felt that this was the most efficient way to acquaint users with the product and we believed that it was necessary for them to be able to accurately judge the performance of an emulator. \\\\
+Upon completion of the video, participants were asked to complete a series of simple tasks in the current Siftulator platform. Because of the nature of this product and its lack of a help file, a list of action commands from Sifteo's website was located on the table next to the user. If they could not intuitively determine the correct way to complete a task, participants were told that this sheet could be used to help them. Users were then asked to switch to Siftables Emulator prototype and reminded that this product was in no way based on the software which they had just used. They were then asked to complete a similar set of tasks using the prototype. In the event that the user became stuck and was unable to complete their task at any time on either emulator, help was offered. This help was kept to a minimum, often consisting solely of asking the user a question to help them cogitate in a different fashion. \\\\
+At the conclusion of the technical portion of the study, participants were thanked for their time and assistance and asked to complete a post-test questionnaire. This questionnaire was designed to allow each user to express his or her opinion about the various aspects of both projects and suggest possible improvements to the interface of the Siftables Emulator prototype.
 
 \subsection{Analysis}
 The results from the usability study can be found primarily in the usability report generated by the Ovo software. \\\\
 Additionally, a pre-test questionnaire and a post-test questionnaire were distributed to each participant to collect data regarding their overall experience as well as their prior knowledge of the product and similar systems. The informed consent form, pre-test questionnaire, and post-test questionnaire are all included as appendices at the end of this document. The results of the questionnaires are shown in the table following this section.
+
 \subsubsection{Pre-Test Results}
 \begin{enumerate}
-        \item{All of the participants reported that they had never heard of Sifteo nor their product, so they had no previous experience working with the product, which provided a clean slate on which to base our findings.}
+        \item{All of the participants reported that they had never heard of Sifteo nor their product. This lack of previous experience working with the product provided a clean slate on which to base our findings.}
         \item{All of the participants but one reported having never programmed for an embedded system before. This question does not directly reflect in any of the results, but it indicates that the emulator is still accessible to first-time programmers for embedded systems.}
-        \item{On average the participants felt somewhere between comfortable and uncomfortable using new software without documentation.  Considering that is the exact median of the possible values, these results are expected.}
+        \item{On average the participants felt somewhere between comfortable and uncomfortable using new software without documentation.  As  that is the exact median of the possible values, these results are expected.}
         \item{With documentation, all participants felt at least somewhat comfortable, and all but one reported feeling very comfortable using new software. Because the participants chosen were all from or had experience in the field of computer science/engineering or software engineering, this is expected.}
         \item{Similar results were found with the participants' comfort level with using an API.}
         \item{Half of the participants had used an emulator before, and half had not, indicating that our results would accurately depict the user experience on both ends of the spectrum.}
@@ -206,12 +207,12 @@ One notable difference was in the ``Load program'' task.  Using Sifteo's emulato
 
 \subsubsection{Post-Test Results}
 \begin{enumerate}
-        \item{All but one participant strongly agreed that the main screen of the emulator was accessible. The other participant agreed that the main screen was accessible but did not strongly agreed, indicating that the layout works well for efficient use.}
+        \item{All but one participant strongly agreed that the main screen of the emulator was accessible. The other participant agreed that the main screen was accessible but did not strongly agree, indicating that the layout works well for efficient use.}
         \item{All but two participants strongly agreed, and the other two agreed, that the commands were in easy-to-find locations, reinforcing that the layout of the main screen was well-designed.}
-        \item{Moving a Cube was not as straightforward, with the users on average agreeing that it was easy, and one participant strongly disagreeing.  Because the moving functionality was not fully implemented in the prototype but participants found it easy to use in Sifteo's emulator, we can ensure that the functionality will be easy to use because we plan on implementing movement in the same way.}
+        \item{Moving a Cube was not as straightforward; on average, users agreed that it was easy, but one participant strongly disagreed.  Because the moving functionality was not fully implemented in the prototype but participants found it easy to use in Sifteo's emulator, we can ensure that the functionality will be easy to use because we plan on implementing movement in the same way.}
         \item{Organizing Cubes on the screen on average was determined to be halfway between agreeing and strongly agreeing. Because only one Cube was present in the emulator, some found it less intuitive because they did not receive visual feedback, which is understandable and does not heavily indicate any lack of usability in the product.}
-        \item{Manipulating a cube on average was indicated to be fairly intuitive, but not all functionality was straightforward or immediately obvious.  As the study indicated, shaking and tilting took considerably longer than the other manipulations, due to the icons used as those who found it fairly unintuitive reported on their questionnaire.}
-        \item{On average the participants agreed that Singularity's emulator was easier to use than Sifteo's.  The participants who found Sifteo's emulator easier to use made extensive use of the help sheet provided, so they were able to complete the actions more quickly.}
+        \item{Manipulating a Cube on average was indicated to be fairly intuitive, but not all functionality was straightforward or immediately obvious.  As the study indicated, shaking and tilting took considerably longer than the other manipulations; some users found the icons associated with these movements unintuitive.}
+        \item{On average, the participants agreed that Singularity's emulator was easier to use than Sifteo's.  The participants who found Sifteo's emulator easier to use made extensive use of the help sheet provided, so they were able to complete the actions more quickly.}
 \end{enumerate}
 
 \begin{landscape}
@@ -353,10 +354,11 @@ One notable difference was in the ``Load program'' task.  Using Sifteo's emulato
 
 \subsection{Findings}
 Based on the post-test results, our emulator was regarded as having an accessible layout and fairly intuitive controls.  All the users at least agreed that the commands were in easy-to-find locations and that the main screen looked accessible. \\\\
-One aspect that the users saw that could be improved is in manipulating the Cube.  While rotating and flipping were not an issue for most users, they found tilting and shaking to be more difficult to comprehend.  For this reason, we made the edges of the Cube bolder to help inform the user where to grab the Cube for tilting and also changed the shake icon to be more recognizable.  However, since most of the users’ first instinct to shake the Cube was to drag it with the mouse, the shake icon is temporary and we plan to implement mouse control for the shake command in the future. \\\\
-The users, on average, completed the designated tasks quicker and with less help in comparison to Sifteo’s emulator.  Overall, the emulator was conceived as an improvement over Sifteo’s emulator by outperforming it in various tasks such as adding/removing cubes, loading programs, and controls.
+One aspect that the users saw could be improved is manipulating the Cube.  While rotating and flipping were not an issue for most users, they found tilting and shaking to be more difficult to comprehend.  For this reason, we made the edges of the Cube bolder to help inform the user where to grab the Cube for tilting and also changed the shake icon to be more recognizable.  However, since most of the users’ first instinct to shake the Cube was to drag it with the mouse, the shake icon is temporary and we plan to implement mouse control for the shake command in the future. \\\\
+Users, on average, completed the designated tasks quicker and with less help in comparison to Sifteo’s emulator.  Overall, the emulator was viewed as an improvement over Sifteo’s emulator by outperforming it in various tasks such as adding/removing Cubes, loading programs, and controlling the Cubes.
 
 \section{Interaction Architecture}
+\includepdf{interaction.pdf}
 
 \section{Initial Interface Design}
 \begin{center}
@@ -383,7 +385,7 @@ The users, on average, completed the designated tasks quicker and with less help
         %\textbf{Effort} \\ \hline
 
         Individual, virtual Sifteo Cube &
-        A virtual representation of a single Sifteo cube &
+        A virtual representation of a single Sifteo Cube &
         Approved &
         Critical &
         Low &
@@ -400,8 +402,8 @@ The users, on average, completed the designated tasks quicker and with less help
         Replaces physical actions where said actions would be impractical with a mouse \\ \hline
         %Medium \\ \hline
 
-        Workspace where multiple cubes can be emulated &
-        Multiple cubes will be displayed on a workspace that replicates the free-form nature of physical Sifteo Cubes\index{Sifteo Cubes} &
+        Workspace where multiple Cubes can be emulated &
+        Multiple Cubes will be displayed on a workspace that replicates the free-form nature of physical Sifteo Cubes\index{Sifteo Cubes} &
         Approved &
         Critical &
         Low &

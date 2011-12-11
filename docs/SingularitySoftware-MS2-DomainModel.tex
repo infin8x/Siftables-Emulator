@@ -9,7 +9,6 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[final]{pdfpages}
-% \usepackage{hyperref} % Makes links from ToC
 
 \geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
 
@@ -36,106 +35,6 @@
   \fi}
 \makeatother
 
-\makeindex
-
-% Construct the glossary here
-% Use the template below, then where the word appears (in the case below, computer), replace computer with \gls{computer}
-\makeglossaries
-
-\newglossaryentry{Sifteo Cubes}
-{
-  name={Sifteo Cubes},
-  description={are small machines capable of loading programs and interacting with one another as well as responding to predefined movements}
-}
-
-\newglossaryentry{Object-Oriented Programming}
-{
-  name={Object-Oriented Programming},
-  description={is a programming paradigm using objects to design applications}
-}
-
-\newglossaryentry{Windows}
-{
-  name={Windows},
-  description={is a series of operating systems developed by Microsoft}
-}
-
-\newglossaryentry{Mac}
-{
-  name={Mac},
-  description={is a series of lines of personal computers developed by Apple}
-}
-
-\newglossaryentry{Linux}
-{
-  name={Linux},
-  description={is a Unix-based operating system based on free and open source software}
-}
-
-\newglossaryentry{cross-platform support}
-{
-  name={cross-platform support},
-  description={is an attribute given to software implemented and operable on multiple computer platforms}
-}
-
-\newacronym{API}{API}{\glsadd{API}{Application Programming Interface}}
-
-\newglossaryentry{APIg}
-{
-  name={Application Programming Interface},
-  description={is an interface implemented by a software program that enables it to interact with other software}
-}
-
-
-\newglossaryentry{open source}
-{
-  name={open source},
-  description={is an attribute given to software for which the source code is freely available}
-}
-
-\newacronym{IDE}{IDE}{\glsadd{IDE}{Integrated Development Environment}}
-
-\newacronym{SDK}{SDK}{\glsadd{SDK}{Software Development Kit}}
-
-\newglossaryentry{SDKa}
-{
-  name={Software Development Kit},
-  description={is a collection of tools designed to help build software for a particular platform. It may include an \index{API} and an emulator of the target platform among other things.}
-}
-
-\newglossaryentry{IDEa}
-{
-  name={Integrated Development Environment},
-  description={is software that provides a comprehensive work environment for computer programmers and software developers}
-}
-
-
-\newacronym{GUI}{GUI}{\glsadd{GUI}{Graphical User Interface}}
-
-\newglossaryentry{GUIa}
-{
-  name={Graphical User Interface},
-  description={is a visual way of allowing the user to interace with a computer program}
-}
-
-\newglossaryentry{version control}
-{
-  name={version control},
-  description={is the management of documents and programs for a project over many versions in a well-organized manner}
-}
-
-\newglossaryentry{issue tracking system}
-{
-  name={issue tracking system},
-  description={is a piece of software used to maintain a list of issues as generated during a project}
-}
-
-\newglossaryentry{usability study}
-{
-  name={usability study},
-  description={is a manner of evaluating the design and user experience of a product by testing it on users}
-}
-
 \renewcommand*\arraystretch{1.5}
 
 \begin{document}
@@ -154,22 +53,43 @@
 \vspace*{\fill}
 \thispagestyle{empty}
 
-\clearpage
+\section{Domain Model}
+\includegraphics[scale=.8]{pdfs/DomainModel.pdf}
 
-\tableofcontents
+\section{Who Done What}
+\begin{center}
+\begin{tabular}{| c | c | c |}
+            \hline
 
-\clearpage
+            \textbf{Team Member} &
+            \textbf{Task} &
+            \textbf{Time (hours)} \\ \hline
 
-\addcontentsline{toc}{section}{Glossary}
-\printglossaries
-\clearpage
+            All &
+            Generated domain model &
+            1 \\ \hline
 
-\addcontentsline{toc}{section}{References}
-\section*{Who Done What}
-        
-\clearpage
+            Alex Mullans &
+            Diagrammed domain model &
+            1 \\ \hline
 
-\addcontentsline{toc}{section}{Index}
-\printindex
+            Kurtis Zimmerman &
+            Document layout &
+            .5 \\ \hline
+
+            Alex Mullans &
+            Updated engineering journal &
+            .5 \\ \hline
+
+            Eric Vernon &
+            Solicited feedback from PM &
+            .5 \\ \hline
+
+            Ethan Veatch &
+            Updated project plan &
+            .5 \\ \hline
+
+\end{tabular}
+\end{center}
         
 \end{document}

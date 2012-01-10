@@ -1,0 +1,363 @@
+\title{Singularity Software\\Milestone 3}
+\date{\today}
+
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{makeidx}
+\usepackage[acronym]{glossaries}
+\usepackage{lscape}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[final]{pdfpages}
+% \usepackage{hyperref} % Makes links from ToC
+
+\geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
+
+\setlength{\parindent}{0pt} % Fixes the paragraph spacing problem
+
+% This is all for formatting and making the Table of Contents according to 
+% spec. Don't play with it.
+\makeatletter
+\renewcommand\l@section[2]{%
+  \ifnum \c@tocdepth >\z@
+    \addpenalty\@secpenalty
+    \addvspace{1.0em \@plus\p@}%
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\ 
+      \leaders\hbox{$\m@th\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}
+     \hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+    \endgroup
+  \fi}
+\makeatother
+
+\makeindex
+
+% Construct the glossary here
+% Use the template below, then where the word appears (in the case below, computer), replace computer with \gls{computer}
+\makeglossaries
+
+\newglossaryentry{Sifteo Cubes}
+{
+  name={Sifteo Cubes},
+  description={are small machines capable of loading programs and interacting with one another as well as responding to predefined movements}
+}
+
+\newglossaryentry{Object-Oriented Programming}
+{
+  name={Object-Oriented Programming},
+  description={is a programming paradigm using objects to design applications}
+}
+
+\newglossaryentry{Windows}
+{
+  name={Windows},
+  description={is a series of operating systems developed by Microsoft}
+}
+
+\newglossaryentry{Mac}
+{
+  name={Mac},
+  description={is a series of lines of personal computers developed by Apple}
+}
+
+\newglossaryentry{Linux}
+{
+  name={Linux},
+  description={is a Unix-based operating system based on free and open source software}
+}
+
+\newglossaryentry{cross-platform support}
+{
+  name={cross-platform support},
+  description={is an attribute given to software implemented and operable on multiple computer platforms}
+}
+
+\newacronym{API}{API}{\glsadd{API}{Application Programming Interface}}
+
+\newglossaryentry{APIg}
+{
+  name={Application Programming Interface},
+  description={is an interface implemented by a software program that enables it to interact with other software}
+}
+
+
+\newglossaryentry{open source}
+{
+  name={open source},
+  description={is an attribute given to software for which the source code is freely available}
+}
+
+\newacronym{IDE}{IDE}{\glsadd{IDE}{Integrated Development Environment}}
+
+\newacronym{SDK}{SDK}{\glsadd{SDK}{Software Development Kit}}
+
+\newglossaryentry{SDKa}
+{
+  name={Software Development Kit},
+  description={is a collection of tools designed to help build software for a particular platform. It may include an \index{API} and an emulator of the target platform among other things.}
+}
+
+\newglossaryentry{IDEa}
+{
+  name={Integrated Development Environment},
+  description={is software that provides a comprehensive work environment for computer programmers and software developers}
+}
+
+
+\newacronym{GUI}{GUI}{\glsadd{GUI}{Graphical User Interface}}
+
+\newglossaryentry{GUIa}
+{
+  name={Graphical User Interface},
+  description={is a visual way of allowing the user to interace with a computer program}
+}
+
+\newglossaryentry{version control}
+{
+  name={version control},
+  description={is the management of documents and programs for a project over many versions in a well-organized manner}
+}
+
+\newglossaryentry{issue tracking system}
+{
+  name={issue tracking system},
+  description={is a piece of software used to maintain a list of issues as generated during a project}
+}
+
+\renewcommand*\arraystretch{1.5}
+
+\begin{document}
+\vspace*{\fill}
+        \begin{center}
+                \LARGE{Singularity Software} \\
+                \LARGE{\textit{Milestone 3}} \\
+                \vspace{.15in}
+                \large{\today} \\
+                \vspace{4in}
+                By signing below, I approve the contents of the following document. \\
+                \begin{table}[h]
+                        \begin{tabular}{p{2in} p{5.5in}}
+%                \begin{align*}
+                        & \\
+                        Alex Mullans & \line(1,0){285} \\ & \\
+                        Ruben Rodriguez & \line(1,0){285} \\ & \\
+                        Ethan Veatch & \line(1,0){285} \\ & \\
+                        Kurtis Zimmerman & \line(1,0){285}
+                        \end{tabular}
+                \end{table}
+%                \end{align*}
+        \end{center}
+\vspace*{\fill}
+\thispagestyle{empty}
+
+\clearpage
+
+\tableofcontents
+
+\clearpage
+        
+\section{Executive Summary}
+This document is the third in a series of milestone documents that will accompany the planning of the Siftables\index{Siftables} Emulator\index{emulator}. The Emulator project is an application that will allow developers of Sifteo applications to test the features of the Cubes in a virtual programming environment. There is currently an emulator from Sifteo, Inc. that comes as part of the \gls{SDK}\index{SDK}\glsadd{SDKa} for the Cubes. However, Singularity intends to come up with a more natural interface than the one currently provided in that application.\\\\
+This milestone enumerates all of the non-functional requirements of the the Siftables\index{Siftables} Emulator\index{emulator} project and presents low-fidelity user interface mockups. Discussed first are the requirements for usability, performance, reliability, and supportability. Following that are considerations related to other software and hardware systems as well as documentation and legal requirements. Finally, mockups of the Emulator's design are presented for consideration and to solicit client feedback.  Future milestones will present plans for change control, coding standardization, and testing. Finally, design and usability reports will make up the core of milestones near the end of the quarter as the software stabilizes.
+
+
+\section{Introduction}
+Developers of applications for the \gls{Sifteo Cubes}\index{Sifteo} currently must test programs they create for the platform within the emulator provided by Sifteo. While this emulator does cover all of the functionality of the Sifteo Cubes, it presents a user interface that Singularity Software believes could be more naturally implemented. As such, Singularity Software will provide, in the form of the Siftables Emulator\index{emulator}, a new software-based emulator\index{emulator} for the Sifteo Cubes that will allow developers to more naturally interact with the platform.\\\\
+Milestone 3 elaborates the non-functional requirements of the system and presents low-fidelity mockups of the user interface design. It follows Milestone 2, which laid the foundation of the Siftables Emulator specification based on the high-level design created in Milestone 1. Milestone 4 will rely on these early milestones as it defines a change control plan and test cases, and Milestone 5 will elaborate the usability guidelines and interface design that implement the features and use cases described in Milestone 2 to the non-functional requirements described herein.
+
+
+\section{Project Background}
+The Siftables Emulator is being developed by Singularity Software as part of the Junior Project sequence of classes at Rose-Hulman Institute of Technology. When projects were solicited for the sequence, clients Tim Ekl and Eric Stokes (both Rose-Hulman alumni) submitted a request for an emulator for Sifteo Cubes, a new platform intended for ``intelligent play." After Singularity was chosen for the project, we met with Mr. Ekl to determine the three primary features of the Emulator: a Workspace where 1-6 Cubes could mimic the manipulations possible with physical Cubes, an \gls{API} to program those virtual Cubes, and a set of example games designed to show off the first two features. Singularity's Emulator will be the first program of its kind on the market for Sifteo Cubes.
+
+\section{Usability Requirements}
+The client would like the emulator\index{emulator} to be accessible to new developers, but also efficient for experienced developers to use. The emulator\index{emulator} may have a familiarization time in order for users to be able to use it productively. It will include a help menu containing instructions for the various features. In addition, the client would like keyboard shortcuts and accelerators available for users who prefer keyboard-based controls. As the user must be able to understand how to interact with the Cubes relatively quickly, the Cubes' control motions must be intuitive. The user must also be able to switch between motions quickly.
+
+\section{Performance Requirements}
+The performance requirements for the system are fairly basic. When the user interacts with the system there must be no visible graphics delay. Additionally, games simulated on the Cubes must function with performance similar to that of the physical Cubes. Beyond these two key requirements, actions must be performed in a timely manner for all scenarios that may arise during use of the emulator\index{emulator}.
+
+\section{Reliability Requirements}
+As a system that emulates another system and runs user-created code, it is important that the Siftables Emulator does not contribute defects of its own to the application testing process. As such, Singularity Software will aim for a defect rate of 5 bugs/KLOC. As a predictor of this result, we will evaluate the cyclomatic complexity of our code at each development milestone, aiming for a score of 15 or less.\footnote{Expected cyclomatic complexity scores are based on the blog post at: http://gdub.wordpress.com/2006/07/09/cyclomatic-complexity-for-python-code/.} When evaluating the reliability of the emulator\index{emulator} prior to release, bugs will be analyzed for priority and severity. For example, misspelled words or other aesthetic issues will not be treated with the same severity as crash-inducing bugs.
+
+\section{Supportability Requirements}
+Because all support for Siftables Emulator will be done by the client after the project has ended, it is imperative that the emulator have well-documented code that is easy for developers unfamiliar with the project to follow. It will also need to follow a recognized coding standard for the language chosen. As a result, it must be in an object-oriented language like Python or C\# that is fairly well-known and frequently used.
+
+\section{Hardware and Software Interfaces}
+The Siftables Emulator will work as a standalone software package and will not interface with any other software or hardware. Singularity Software considered the integration of the emulator in an \gls{IDE} but decided that the emulator was best served as an independent tool to allow easy development across the supported platforms. Similarly, the purpose of the emulator is to serve as a method for developing applications for the Cubes without connecting to the physical Cubes, so it will not interface with any hardware either.
+
+\section{Documentation, Installation, Legal and Licensing Requirements}
+The clients have stated that the emulator project is to be licensed under the BSD 2-clause license\footnote{http://www.opensource.org/licenses/bsd-license.php}; therefore, many of the standard legal and licensing issues are eliminated. Mr. Ekl has requested that Singularity Software keep documentation of development actions according to project milestone standards as well as using error tracking and version tracking systems during the design process. He has also requested that the API developed for the project is documented in a well-accepted form like that produced by Javadoc.\\\\
+The emulator\index{emulator} will be installable via an executable (on \gls{Windows}\index{Windows}) or disk image (on \gls{Mac}\index{Mac}) that will place the program's files in a user-specified directory and create shortcuts as appropriate.
+
+\section{Design Constraints}
+The emulator\index{emulator} must be able to be function on computers using the \gls{Windows}\index{Windows}, \gls{Mac}\index{Mac} OS, and \gls{Linux}\index{Linux} operating systems that satisfy the minimum system requirements of the previous OS version. In other words, the emulator should run smoothly on a computer that meets the requirements for \gls{Windows}\index{Windows} Vista, \gls{Mac}\index{Mac} OS X 10.6 (Snow Leopard), or Ubuntu 11.04\footnote{The Ubuntu machine should support graphics acceleration (i.e. it should be capable of running the GNOME 3 or Unity window managers).}.
+
+\section{User Interface Mockups}
+Preliminary mockups of the Siftables Emulator user interfaces are presented below. The mockups are rough sketches not intended to convey the product's final look. Rather, they present a simplified view of what Singularity thinks the emulator will look like when created in code.\\\\
+In order, the mockups display the main screen of the application, the ``Load a program" dialog, and the various warning and alert dialogs that the program can display.\\\\
+The Manipulate Cube use case (UC6) is not easily presented in mockup format. Essentially, it applies to any of the 6 Cubes in the first mockup; any of the actions described in the use case can be applied to each virtual Cube.
+
+\includepdf[pages={1-3},landscape]{pdfs/mocks.pdf}
+
+\appendix
+    \begin{landscape}
+    \section{Features}
+    \begin{table}[h!]
+      \begin{tabular}{p{1.5in} | p{2.25in} | p{.75in} | p{.75in} | p{.75in} | p{2.25in}}
+        \textbf{Feature} &
+        \textbf{Description} &
+        \textbf{Status} &
+        \textbf{Priority} &
+        \textbf{Risk} &
+        %\textbf{Stability} &
+        \textbf{Reason} \\ \hline
+        %\textbf{Effort} \\ \hline
+
+        Individual, virtual Sifteo Cube &
+        A virtual representation of a single Sifteo cube &
+        Approved &
+        Critical &
+        Low &
+        %High &
+        Replicates physical Sifteo Cube \\ \hline
+        %Medium \\ \hline
+
+        Buttons to manipulate each virtual Cube &
+        Buttons on the virtual Cube will allow the user to flip and tilt it &
+        Approved &
+        Critical &
+        Medium &
+        %High &
+        Replaces physical actions where said actions would be impractical with a mouse \\ \hline
+        %Medium \\ \hline
+
+        Workspace where multiple cubes can be emulated &
+        Multiple cubes will be displayed on a workspace that replicates the free-form nature of physical Sifteo Cubes\index{Sifteo Cubes} &
+        Approved &
+        Critical &
+        Low &
+        %High &
+        Replicates multiple Sifteo Cubes\index{Sifteo Cubes} in a natural, free-form environment \\ \hline
+        %High \\ \hline
+
+        Interactions between Cubes &
+        The Cubes present on the workspace will communicate when they are neighbored &
+        Approved &
+        Critical &
+        Low &
+        %High &
+        Cubes can simulate the interactions possible with physical Cubes \\ \hline
+        %High \\ \hline
+
+        Load programs into the Cubes &
+        The user will load his own and example programs into the emulator’s\index{emulator} Cubes &
+        Approved &
+        Critical &
+        Medium &
+        %High &
+        The ability to program programs for the emulator\index{emulator} is dependent on a common interface \\ \hline
+        %High \\ \hline
+
+        Snap Cubes to invisible grid &
+        The Cubes will snap into an invisible grid when a button is clicked &
+        Proposed &
+        Useful &
+        Medium &
+        %High &
+        Increases productivity by allowing a quick reset if the Cubes are in disarray \\ \hline
+        %Low \\ \hline
+
+        Zoom Workspace &
+        The Workspace will zoom to the level of an individual Cube or the whole space &
+        Proposed &
+        Useful &
+        Low &
+        %High &
+        Inspecting individual Cubes allows for precise checks of program \glspl{GUI}\index{GUI}\glsadd{GUIa} \\ \hline
+        %Low \\ \hline
+
+      \end{tabular}
+    \end{table}
+
+    \clearpage
+
+    \section{Use Cases and Other Requirements}
+    \begin{table}[h!]
+        \begin{tabular}{p{.4in} | p{1.75in} | p{6in} | p{.75in}}
+        \textbf{ID} &
+        \textbf{Name} &
+        \textbf{Description} &
+        \textbf{Features} \\ \hline
+
+        U1 &
+        Load program &
+        The User selects the program file to be loaded and run by the emulator. &
+        F5 \\ \hline
+
+        U2 &
+        Reload program &
+        The User reloads the program currently running in the emulator. &
+        F5 \\ \hline
+
+        U3 &
+        Zoom screen &
+        The User zooms the Workspace to the desired level. &
+        F7 \\ \hline
+
+        U4 &
+        Add/remove Cubes &
+        The User adjusts the number of Cubes present in the emulator. &
+        F3, F4 \\ \hline
+
+        U5 &
+        Snap Cubes to grid &
+        The User pulls the Cubes into a grid orientation. &
+        F6 \\ \hline
+
+        U6 &
+        Manipulate Cube &
+        The User manipulates a Cube by clicking the buttons or the Cube itself. &
+        F1, F2, F3 \\ \hline
+
+        OR1 &
+        API &
+        An API is included to define a set of rules and specifications via which Cube programs can be created. &
+        F2 \\ \hline
+
+        OR2 &
+        Example games &
+        Example games are included to demonstrate how the Cubes interact with each other. &
+        F3 \\ \hline
+
+        \end{tabular}
+    \end{table}
+    
+    
+    \end{landscape}
+
+\clearpage
+\addcontentsline{toc}{section}{Glossary}
+\printglossaries
+\clearpage
+
+\addcontentsline{toc}{section}{References}
+\section*{References}
+
+        \begin{enumerate}
+                \item{Sifteo Inc. Online: http://www.sifteo.com}
+                \item{Tim Ekl.  Client Meeting. 4 10 October 2011 4:15 p.m.}
+                \item{Milestone 1.  Singularity Software.}
+                \item{Milestone 2.  Singularity Software.}
+        \end{enumerate}
+
+\clearpage
+
+\addcontentsline{toc}{section}{Index}
+\printindex
+
+\end{document}

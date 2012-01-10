@@ -1,0 +1,73 @@
+<html>
+<head>
+<!--Ovo Studios Ovo Logger 6.0 HTML Report Generation, Copyright Scott A. Butler 1999-2006, Ovo Studios, LLC 2007-->
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Ovo Studios Video Player</title>
+<link rel="stylesheet" type="text/css" href="css.css">
+</head>
+<script language="JavaScript" src="popMediaWindow.js"></script>
+<body>
+<p class = "small">
+<b>Note:</b> Video starts playing 5 seconds before logged event time.<br>
+<b>Tip:</b> If you right click on the player, you can set zoom options.
+</p>
+<FORM NAME="joe">
+<INPUT TYPE="hidden" NAME="burns">
+</FORM>
+<OBJECT ID="Player"
+  CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
+  <PARAM name="autoStart" value="True">
+
+
+<param name="AudioStream" value="-1">
+<param name="AutoSize" value="-1">
+<param name="AutoStart" value="-1">
+<param name="AllowScan" value="-1">
+<param name="AllowChangeDisplaySize" value="-1">
+<param name="Balance" value="0">
+<param name="BaseURL" value>
+<param name="BufferingTime" value="5">
+<param name="ClickToPlay" value="0">
+<param name="CursorType" value="0">
+<param name="ShowStatusBar" value="-1">
+<param name="Enabled" value="-1">
+<param name="EnablePositionControls" value="-1">
+<param name="InvokeURLs" value="-1">
+<param name="Language" value="-1">
+<param name="Mute" value="0">
+<param name="PlayCount" value="1">
+<param name="Rate" value="1">
+<param name="SelectionEnd" value="0">
+<param name="ShowCaptioning" value="0">
+<param name="ShowControls" value="-1">
+<param name="ShowAudioControls" value="-1">
+<param name="ShowDisplay" value="0">
+<param name="ShowGotoBar" value="-1">
+<param name="ShowPositionControls" value="-1">
+</object>
+<SCRIPT LANGUAGE="javascript">
+var txt = new String();
+txt = document.location.href;
+
+function delineate(str) {
+var foo = new String();
+foo = str.replace(/%20/g," ");
+var theLeft = foo.indexOf("=") + 1;
+var theRight = foo.indexOf("&");
+var goo = new String();
+goo = foo.substring(theLeft,theRight);
+return(goo);
+}
+
+function delineate2(str) {
+point = str.lastIndexOf("=");
+return(str.substring(point+1,str.length));
+}
+Player.Controls.CurrentPosition = delineate2(txt);
+Player.URL = delineate(txt);
+Player.Controls.CurrentPosition = delineate2(txt);
+Player.Controls.play();
+</SCRIPT>
+</body></html>

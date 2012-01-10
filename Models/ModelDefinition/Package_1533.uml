@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+  dslVersion="1.0.0.0"
+  Id="9fde4184-0659-40d9-b6d3-82c618093a09"
+  name="UI" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="15bc6ef6-8fc7-449f-93f4-a47b1a87df0f"
+        name="Cube"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="c71c9bc3-186e-4354-bb99-6abc6854e5e6"
+        name="Workspace"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="98a45807-ff16-44f7-948e-e01a68fc1509"
+            isDerived="false"
+            sourceEndRoleName="Workspace"
+            targetEndRoleName="Cube"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="c987ba7a-393c-401f-89f7-df413b8be297"
+              LastKnownName="Cube"
+              LastKnownLocation="Package_1533.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9616037c-84bb-463a-b7a7-12fb0d0cda61"
+                  name="Workspace"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8df1f30d-9742-4576-823e-4fc68151c64d"
+                  name="Cube"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="33ff6601-4fca-49b6-9a4a-d24620529bdc"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="2fd92563-6011-4234-986f-d78a78ec49f8"
+                      name="Upper"
+                      value="6" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="ae0d8e5a-444a-4e93-9908-c2c9413bb4ef"
+            name="cubes[]"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <classMoniker
+                Id="15bc6ef6-8fc7-449f-93f4-a47b1a87df0f"
+                LastKnownName="Cube"
+                LastKnownLocation="Package_1533.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="89b5aea4-0b6b-4af1-8c0f-15754c471812"
+            name="zoomLevel"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="e85a77eb-af55-413c-808b-272cc5bfa4bc"
+                LastKnownName="int"
+                LastKnownLocation="Package_1533.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="a1b21657-2d89-4b3f-8e30-435d77f041e5"
+            name="programHalt"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="538ceddd-2394-404c-82ab-9be46335e1e9"
+                LastKnownName="bool"
+                LastKnownLocation="Package1_1533.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="2c14cf91-4f02-46c8-93f9-dfd8a0a91852"
+            name="SnapCubesToGrid"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="4c717ee1-1f04-47a7-bd15-fe59c38566a2"
+            name="Zoom"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e4db35c8-b5db-4a68-bbce-611a20867d97"
+                  name="ZoomLevel"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="97e46fcc-8e09-4d5c-befa-a28afcb03fee"
+        name="SiftablesLauncher"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="d1791218-b0cd-4c46-a7aa-e0e28ccd5a10"
+            isDerived="false"
+            sourceEndRoleName="SiftablesLauncher"
+            targetEndRoleName="Workspace"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="c71c9bc3-186e-4354-bb99-6abc6854e5e6"
+              LastKnownName="Workspace"
+              LastKnownLocation="Package_1533.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9438b567-1b3f-4e47-b059-9ae96dbd47f8"
+                  name="SiftablesLauncher"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="484e3864-421e-4cf1-b7b2-cc39f1febfa5"
+                  name="Workspace"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="ba1a0dab-7502-4063-b016-4cbe9febc4c0"
+            name="workspace"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <classMoniker
+                Id="c71c9bc3-186e-4354-bb99-6abc6854e5e6"
+                LastKnownName="Workspace"
+                LastKnownLocation="Package_1533.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="c987ba7a-393c-401f-89f7-df413b8be297"
+        name="Cube"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="7e0ae59d-2b0d-4403-9c60-e9f7f2b0a5ec"
+            name="userData"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="23f6cb37-7b3f-4c15-a8ed-0ca1326fcfb9"
+                LastKnownName="object"
+                LastKnownLocation="Package_1533.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="53addb4b-ff59-49ec-b0b5-018498da1f1c"
+            name="SCREEN_WIDTH = 128"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="2f3f4fdb-1bbb-4780-beaf-4d696678dd1d"
+                LastKnownName="const int"
+                LastKnownLocation="Package_1533.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="183c5ec5-df7f-4c01-b7a7-6e19e03cbb3b"
+            name="SCREEN_HEIGHT = 128"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="23f6cb37-7b3f-4c15-a8ed-0ca1326fcfb9"
+                LastKnownName="object"
+                LastKnownLocation="Package_1533.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="0047bee7-c31e-4412-908f-bd8ecd3d0672"
+            name="ButtonEventHandler"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="e26233fa-e12c-49d9-990c-c1b99d3d7a69"
+            name="TiltEventHandler"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="35682f78-82d2-40a7-a952-566f66a171e6"
+            name="ShakeStartedHandler"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="461289f7-bfb6-4ef0-a88c-15d0d402dc8b"
+            name="ShakeStoppedHandler"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="82c6beb3-465a-465b-8af2-265dcd28cb73"
+            name="FlipEventHandler"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="468c043d-a93d-4b1a-a8f0-1d7cc75c6573"
+            name="NeighborAddEventHandler"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="c21a36b8-eb30-4b75-8ca7-61ae842ac33e"
+            name="NeighborRemoveEventHandler"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="bcb58e7a-95fc-4e7f-bcd6-2c580a091887"
+            name="ClearEvents"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="3eddf53d-f906-406f-985f-81acd6f99446"
+            name="OrientTo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="02fca614-0375-4c97-818f-7fadf3b61091"
+                  name="Cube neighbor"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="152a0b75-a31d-4b9a-927d-1c5f2caf860c"
+            name="FillScreen"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d1801426-9423-4dc5-852a-9b7b0aea5a55"
+                  name="Color c"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="a5aa70e2-360e-4216-8213-bf21072c09f7"
+            name="Paint"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="907d00e3-2adb-4ce0-b6c2-a0772fe2b9f3"
+            name="FillRect"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3a8d9f43-dcce-4f50-8aaf-72950b046858"
+                  name="Color c"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="13fd6483-734b-4b2a-9ee2-b94cdcec8807"
+                  name="int x"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7be849f7-035e-4cf9-9bff-97fa62cad9ce"
+                  name="int y"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6ff9a45e-2d7d-445b-8f2d-5937ed5393db"
+                  name="int w"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="625e6677-0987-45ff-8146-591ff80be122"
+                  name="int h"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="23f6cb37-7b3f-4c15-a8ed-0ca1326fcfb9"
+        name="object" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="2f3f4fdb-1bbb-4780-beaf-4d696678dd1d"
+        name="const int" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="e85a77eb-af55-413c-808b-272cc5bfa4bc"
+        name="int" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

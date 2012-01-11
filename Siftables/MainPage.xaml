@@ -34,7 +34,7 @@
             <Slider Name="zoomSlider" Margin="10" Grid.Column="3" VerticalAlignment="Top" />
             <sdk:Label Grid.Column="3" Margin="2" VerticalAlignment="Bottom">Zoom</sdk:Label>
             <Slider Name="numberOfCubesSlider" Margin="10" Grid.Column="4" VerticalAlignment="Top" />
-            <sdk:Label Grid.Column="4" Margin="2" VerticalAlignment="Bottom">Number of Buttons</sdk:Label>    
+            <sdk:Label Grid.Column="4" Margin="2" VerticalAlignment="Bottom">Number of Cubes</sdk:Label>    
             
         </Grid>
     </Grid>

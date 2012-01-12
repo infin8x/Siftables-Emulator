@@ -15,75 +15,27 @@ namespace Siftables
 {
     public partial class MainWindow : UserControl
     {
-        bool isMouseCaptured;
-        double mouseVerticalPosition;
-        double mouseHorizontalPosition;
-
+        List<Cube> cubes = new List<Cube>();
+        int numCubes = 0;
         public MainWindow()
         {
             InitializeComponent();
 
-            // When the window is resized, set new proportions with ContentResized
-            App.Current.Host.Content.Resized += new EventHandler(ContentResized);
-
-            Rectangle cube = new Rectangle();
-            cube.Width = 50;
-            cube.Height = 50;
-            cube.Fill = new SolidColorBrush(Colors.Red);
-            cube.Visibility = Visibility.Visible;
-            cube.MouseLeftButtonDown += Handle_MouseDownRect;
-            cube.MouseMove += Handle_MouseMoveRect;
-            cube.MouseLeftButtonUp += Handle_MouseUpRect;
-            workspace.Children.Add(cube);
-            Canvas.SetLeft(cube, 50);
-            Canvas.SetTop(cube, 80);
-            OpenFileDialog d = new OpenFileDialog();
-            
-        }
-
-        private void Handle_MouseUpRect(object sender, MouseEventArgs args)
-        {
-            Rectangle item = sender as Rectangle;
-            isMouseCaptured = false;
-            item.ReleaseMouseCapture();
-            mouseVerticalPosition = -1;
-            mouseHorizontalPosition = -1;
-        }
-
-        private void Handle_MouseMoveRect(object sender, MouseEventArgs args)
-        {
-            Rectangle item = sender as Rectangle;
-            if (isMouseCaptured)
+            Dispatcher.BeginInvoke(() =>
             {
-
-                // Calculate the current position of the object.
-                double deltaV = args.GetPosition(null).Y - mouseVerticalPosition;
-                double deltaH = args.GetPosition(null).X - mouseHorizontalPosition;
-                double newTop = deltaV + (double)item.GetValue(Canvas.TopProperty);
-                double newLeft = deltaH + (double)item.GetValue(Canvas.LeftProperty);
-
-                // Set new position of object.
-                item.SetValue(Canvas.TopProperty, newTop);
-                item.SetValue(Canvas.LeftProperty, newLeft);
-
-                // Update position global variables.
-                mouseVerticalPosition = args.GetPosition(null).Y;
-                mouseHorizontalPosition = args.GetPosition(null).X;
-            }
-        }
-
-        private void Handle_MouseDownRect(object sender, MouseEventArgs args)
-        {
-            Rectangle item = sender as Rectangle;
-            mouseVerticalPosition = args.GetPosition(null).Y;
-            mouseHorizontalPosition = args.GetPosition(null).X;
-            isMouseCaptured = true;
-            item.CaptureMouse();
-        }
-
-        void ContentResized(object sender, EventArgs e) {
-            //workspaceBorder.Width = App.Current.Host.Content.ActualWidth * .95;
-            //workspaceBorder.Height = App.Current.Host.Content.ActualHeight * .9;
+                double width = workspace.ActualWidth;
+                double height = workspace.ActualHeight;
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        double left = (width / 3) * j;
+                        double top = (height / 2) * i;
+                        cubes.Add(new Cube(workspace, left, top));
+                        numCubes++;
+                    }
+                }
+            });
         }
     }
 }

@@ -12,7 +12,7 @@
             <RowDefinition />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <sdk:Label Margin="5" Foreground="SkyBlue" FontSize="24">Siftables Emulator</sdk:Label>
+        <sdk:Label Name="title" Margin="5" Foreground="SkyBlue" FontSize="24">Siftables Emulator</sdk:Label>
         <Border Name="workspaceBorder" BorderBrush="Black" BorderThickness="3" Margin="5" Grid.Row="1">
             <Canvas Background="SkyBlue" Margin="0" Name="workspace" />
         </Border>
@@ -34,9 +34,9 @@
                 <sdk:Label>Reload This Program</sdk:Label>
             </Button>
             <Slider Name="zoomSlider" Margin="10" Grid.Column="3" VerticalAlignment="Top" />
-            <sdk:Label Grid.Column="3" Margin="2" VerticalAlignment="Bottom">Zoom</sdk:Label>
+            <sdk:Label Grid.Column="3" Margin="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White">Zoom</sdk:Label>
             <Slider Name="numberOfCubesSlider" Margin="10" Grid.Column="4" VerticalAlignment="Top" />
-            <sdk:Label Grid.Column="4" Margin="2" VerticalAlignment="Bottom">Number of Cubes</sdk:Label>    
+            <sdk:Label Grid.Column="4" Margin="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White"># of Cubes</sdk:Label>    
         </Grid>
     </Grid>
 </UserControl>

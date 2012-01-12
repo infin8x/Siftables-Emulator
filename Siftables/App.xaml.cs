@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace SLDemo
+namespace Siftables
 {
     public partial class App : Application
     {
@@ -26,7 +26,7 @@ namespace SLDemo
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            this.RootVisual = new MainPage();
+            this.RootVisual = new MainWindow();
         }
 
         private void Application_Exit(object sender, EventArgs e)

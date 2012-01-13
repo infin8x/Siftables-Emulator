@@ -64,11 +64,17 @@ Additional operation contracts for the remaining use cases were not pursued beca
 \begin{center}
         \includegraphics[scale=1]{./pdfs/Models/Class Diagram.pdf}
 \end{center}
+At this stage in the design of the emulator, there are a few basic entities designed to show the relationship between the UI objects and the domain layer. Cube in the UI layer is responsible for rendering the graphics on a screen; applications, which must extend BaseApp, are responsible for sending messages to the Cubes to make changes.
 
 \section{Sequence Diagrams}
+The following sequence diagrams, despite appearing fairly trivial, depict the general functionality of the system in a level of detail sufficient to begin implementation. 
 \begin{center}
         \includegraphics[scale=1]{./pdfs/Models/SD - AppRun.pdf}
+\end{center}
+The AppRun SD shows the pattern followed by about 75 percent of the system commands and is thus crucial for moving into product development.
+\begin{center}
         \includegraphics[scale=1]{./pdfs/Models/SD - ErrorAnnounce.pdf}
 \end{center}
+The ErrorAnnounce SD shows the error handling lifecycle pattern we expect to use throughout the project.
         
 \end{document}

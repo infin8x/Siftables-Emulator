@@ -18,11 +18,12 @@ namespace Siftables
         private bool isMouseCaptured;
         private double mouseVerticalPosition;
         private double mouseHorizontalPosition;
+
+        List<Shape> Children = new List<Shape>();
         
         public Cube(Canvas canvas, double left, double top)
         {
             _canvas = canvas;
-            
             // Initialize rectangle properties
             _rect.Width = 128;
             _rect.Height = 128;

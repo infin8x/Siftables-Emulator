@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Shapes;
 using System.Windows.Media;
+
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows;
@@ -14,6 +16,8 @@ namespace Siftables
     {
         private Rectangle _rect = new Rectangle();
         private Canvas _canvas;
+
+        private List<Shape> _shapes = new List<Shape>();
 
         // Click and drag behavior
         private bool isMouseCaptured;
@@ -39,6 +43,29 @@ namespace Siftables
             _canvas.Children.Add(_rect);
             Canvas.SetLeft(_rect, left);
             Canvas.SetTop(_rect, top);
+        }
+
+        public void addShape(Shape s)
+        {
+            this._shapes.Add(s);
+        }
+
+        public void addRectangle(int x1, int y1, int x2, int y2, Color c)
+        {
+            Rectangle r = new Rectangle();
+            r.Width = Math.Abs(x1 - x2);
+            r.Height = Math.Abs(y1 - y2);
+            r.Fill = new SolidColorBrush(c);
+            r.Stroke = new SolidColorBrush(Colors.Black);
+            this.addShape(r);
+        }
+
+        /**
+         * Set the background fill of this cube.  Works by creating a big rectangle.
+         */
+        public void setFill(Color c)
+        {
+            // todo
         }
 
         private void Handle_MouseUpRect(object sender, MouseEventArgs args)

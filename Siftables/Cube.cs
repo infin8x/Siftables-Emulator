@@ -13,7 +13,8 @@ namespace Siftables
     class Cube
     {
         private Rectangle _rect = new Rectangle();
-        private Canvas _canvas;
+        private Canvas _parent;
+        private Canvas _screen;
 
         // Click and drag behavior
         private bool isMouseCaptured;
@@ -22,12 +23,23 @@ namespace Siftables
         private double canvasTopPosition;
         private double canvasLeftPosition;
 
+        UIElementCollection Children;
 
-        List<Shape> Children = new List<Shape>();
-
-        public Cube(Canvas canvas, double left, double top)
+        public Cube(Canvas parent, double left, double top)
         {
-            _canvas = canvas;
+            _parent = parent;
+            _screen = new Canvas();
+            Children = _screen.Children;
+            _screen.Background = new SolidColorBrush(Colors.Green);
+            _screen.Width = 128;
+            _screen.Height = 128;
+            _parent.Children.Add(_screen);
+            _screen.MouseLeftButtonDown += Handle_MouseDownRect;
+            _screen.MouseMove += Handle_MouseMoveRect;
+            _screen.MouseLeftButtonUp += Handle_MouseUpRect;
+
+
+
             // Initialize rectangle properties
             _rect.Width = 128;
             _rect.Height = 128;
@@ -36,14 +48,14 @@ namespace Siftables
             _rect.MouseLeftButtonDown += Handle_MouseDownRect;
             _rect.MouseMove += Handle_MouseMoveRect;
             _rect.MouseLeftButtonUp += Handle_MouseUpRect;
-            _canvas.Children.Add(_rect);
+            _parent.Children.Add(_rect);
             Canvas.SetLeft(_rect, left);
             Canvas.SetTop(_rect, top);
         }
 
         private void Handle_MouseUpRect(object sender, MouseEventArgs args)
         {
-            Rectangle item = sender as Rectangle;
+            UIElement item = sender as UIElement;
             isMouseCaptured = false;
             item.ReleaseMouseCapture();
             mouseVerticalPosition = -1;
@@ -52,7 +64,8 @@ namespace Siftables
 
         private void Handle_MouseMoveRect(object sender, MouseEventArgs args)
         {
-            Rectangle item = sender as Rectangle;
+            UIElement item = sender as UIElement;
+
             if (isMouseCaptured)
             {
                 // Calculate the current position of the object.
@@ -81,11 +94,11 @@ namespace Siftables
 
         private void Handle_MouseDownRect(object sender, MouseEventArgs args)
         {
-            Rectangle item = sender as Rectangle;
+            UIElement item = sender as UIElement;
             mouseVerticalPosition = args.GetPosition(null).Y;
             mouseHorizontalPosition = args.GetPosition(null).X;
-            canvasLeftPosition = _canvas.TransformToVisual(null).Transform(new Point()).X;
-            canvasTopPosition = _canvas.TransformToVisual(null).Transform(new Point()).Y;
+            canvasLeftPosition = _parent.TransformToVisual(null).Transform(new Point()).X;
+            canvasTopPosition = _parent.TransformToVisual(null).Transform(new Point()).Y;
             isMouseCaptured = true;
             item.CaptureMouse();
         }

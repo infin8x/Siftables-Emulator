@@ -14,6 +14,8 @@ namespace Siftables
 {
     class Cube
     {
+        public static int dimension = 128;
+
         private Rectangle _rect = new Rectangle();
         private Canvas _parent;
         private Canvas _screen;
@@ -35,14 +37,12 @@ namespace Siftables
             _screen = new Canvas();
             Children = _screen.Children;
             _screen.Background = new SolidColorBrush(Colors.Green);
-            _screen.Width = 128;
-            _screen.Height = 128;
+            _screen.Width = Cube.dimension;
+            _screen.Height = Cube.dimension;
             _parent.Children.Add(_screen);
             _screen.MouseLeftButtonDown += Handle_MouseDownRect;
             _screen.MouseMove += Handle_MouseMoveRect;
             _screen.MouseLeftButtonUp += Handle_MouseUpRect;
-
-
 
             // Initialize rectangle properties
             _rect.Width = 128;
@@ -64,6 +64,7 @@ namespace Siftables
 
         public void addRectangle(int x1, int y1, int x2, int y2, Color c)
         {
+            // @TODO positioning once paint gets worked out
             Rectangle r = new Rectangle();
             r.Width = Math.Abs(x1 - x2);
             r.Height = Math.Abs(y1 - y2);
@@ -77,7 +78,7 @@ namespace Siftables
          */
         public void setFill(Color c)
         {
-            // todo
+            // Honestly I have no idea how to do this in the context of silverlight
         }
 
         private void Handle_MouseUpRect(object sender, MouseEventArgs args)
@@ -108,9 +109,11 @@ namespace Siftables
 
                 // Set new position of object.
                 if (newTop < 0) { item.SetValue(Canvas.TopProperty, 0.0); }
+                else if (newTop + Cube.dimension > _parent.ActualHeight) { item.SetValue(Canvas.TopProperty, _parent.ActualHeight - Cube.dimension); }
                 else { item.SetValue(Canvas.TopProperty, newTop); }
 
                 if (newLeft < 0) { item.SetValue(Canvas.LeftProperty, 0.0); }
+                else if (newLeft + Cube.dimension > _parent.ActualWidth) { item.SetValue(Canvas.LeftProperty, _parent.ActualWidth - Cube.dimension); }
                 else { item.SetValue(Canvas.LeftProperty, newLeft); }
 
                 // Update position global variables.

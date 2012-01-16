@@ -1,0 +1,15 @@
+{
+	"app": {
+		"title": "Game",
+		"version": "0.0.1",
+		"runtime": "executable",
+		"server": "127.0.0.1:7000",
+		"description": "A freshly generated game.",
+		"appModule": "UNUSED",
+		"coverArt": "cover.png",
+	    "requiredSiftCount" : 3,
+	    "soundsPath": "assets/sounds",
+	    "imagesPath": "assets/images"
+	}
+
+}

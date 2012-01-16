@@ -6,6 +6,7 @@ using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace Siftables
 {
@@ -18,9 +19,12 @@ namespace Siftables
         private bool isMouseCaptured;
         private double mouseVerticalPosition;
         private double mouseHorizontalPosition;
+        private double canvasTopPosition;
+        private double canvasLeftPosition;
+
 
         List<Shape> Children = new List<Shape>();
-        
+
         public Cube(Canvas canvas, double left, double top)
         {
             _canvas = canvas;
@@ -51,16 +55,23 @@ namespace Siftables
             Rectangle item = sender as Rectangle;
             if (isMouseCaptured)
             {
-
                 // Calculate the current position of the object.
-                double deltaV = args.GetPosition(null).Y - mouseVerticalPosition;
-                double deltaH = args.GetPosition(null).X - mouseHorizontalPosition;
+                double deltaV;
+                if (args.GetPosition(null).Y < canvasTopPosition) { deltaV = 0; }
+                else { deltaV = args.GetPosition(null).Y - mouseVerticalPosition; }
+
+                double deltaH;
+                if (args.GetPosition(null).X < canvasLeftPosition) { deltaH = 0; }
+                else { deltaH = args.GetPosition(null).X - mouseHorizontalPosition; }
                 double newTop = deltaV + (double)item.GetValue(Canvas.TopProperty);
                 double newLeft = deltaH + (double)item.GetValue(Canvas.LeftProperty);
 
                 // Set new position of object.
-                item.SetValue(Canvas.TopProperty, newTop);
-                item.SetValue(Canvas.LeftProperty, newLeft);
+                if (newTop < 0) { item.SetValue(Canvas.TopProperty, 0.0); }
+                else { item.SetValue(Canvas.TopProperty, newTop); }
+
+                if (newLeft < 0) { item.SetValue(Canvas.LeftProperty, 0.0); }
+                else { item.SetValue(Canvas.LeftProperty, newLeft); }
 
                 // Update position global variables.
                 mouseVerticalPosition = args.GetPosition(null).Y;
@@ -73,6 +84,8 @@ namespace Siftables
             Rectangle item = sender as Rectangle;
             mouseVerticalPosition = args.GetPosition(null).Y;
             mouseHorizontalPosition = args.GetPosition(null).X;
+            canvasLeftPosition = _canvas.TransformToVisual(null).Transform(new Point()).X;
+            canvasTopPosition = _canvas.TransformToVisual(null).Transform(new Point()).Y;
             isMouseCaptured = true;
             item.CaptureMouse();
         }

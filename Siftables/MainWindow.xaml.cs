@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Browser;
+using System.Runtime.InteropServices;
 
 namespace Siftables
 {
@@ -20,7 +21,6 @@ namespace Siftables
         public MainWindow()
         {
             InitializeComponent();
-
             Dispatcher.BeginInvoke(() =>
             {
                 double width = workspace.ActualWidth;

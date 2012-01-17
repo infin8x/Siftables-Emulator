@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Siftables.MainWindow"
+﻿<UserControl xmlns:Sift="clr-namespace:Siftables"  x:Class="Siftables.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,7 +15,12 @@
         <sdk:Label Name="title" Margin="5" Foreground="SkyBlue" FontSize="24">Siftables Emulator</sdk:Label>
         <Border Name="workspaceBorder" BorderBrush="Black" BorderThickness="3" Margin="5" Grid.Row="1">
             <Canvas Background="SkyBlue" Margin="0" Name="workspace">
-                
+                <Sift:CubeSL />
+                <Sift:CubeSL Canvas.Top="200" />
+                <Sift:CubeSL Canvas.Top="0" Canvas.Left="200" />
+                <Sift:CubeSL Canvas.Top="200" Canvas.Left="200" />
+                <Sift:CubeSL Canvas.Top="0" Canvas.Left="400" />
+                <Sift:CubeSL Canvas.Top="200" Canvas.Left="400" />
             </Canvas>
         </Border>
         <Grid x:Name="controlsGrid" Background="Gray" Grid.Row="2">

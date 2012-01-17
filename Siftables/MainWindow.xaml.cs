@@ -17,7 +17,7 @@ namespace Siftables
     public partial class MainWindow : UserControl
     {
         List<Cube> cubes = new List<Cube>();
-        int numCubes = 0;
+        //int numCubes = 0;
         public MainWindow()
         {
             InitializeComponent();

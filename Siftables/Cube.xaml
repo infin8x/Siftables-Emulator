@@ -6,27 +6,26 @@
     mc:Ignorable="d" Height="196" Width="196">
 
     <Grid x:Name="LayoutRoot">
-        <Grid Height="168" HorizontalAlignment="Center" Margin="0,0,0,0" Name="cube" VerticalAlignment="Center" Width="168">
-            <Grid.Background>
+        <Canvas Height="168" HorizontalAlignment="Center" Margin="0,0,0,0" Name="cube" VerticalAlignment="Center" Width="168">
+            <Canvas.Background>
                 <ImageBrush ImageSource="/Siftables;component/Images/cube.png" Stretch="Uniform" />
-            </Grid.Background>
+            </Canvas.Background>
             
             <!--Emulator Screen-->
             <Canvas Height="128" Width="128" Name="screen" Margin="20" Background="White"></Canvas>
-        </Grid>
+        </Canvas>
         <!--Emulator Buttons-->
-        <Button Height="32" Name="flipButton" Width="32" AllowDrop="False" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ImageButton}">
+        <Button Height="32" Name="flipButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ImageButton}">
             <Button.Background>
                 <ImageBrush ImageSource="/Siftables;component/Images/flip.png" Stretch="UniformToFill" />
             </Button.Background>
         </Button>
-        <Button Height="32" Name="rotateCcwButton" Width="32" AllowDrop="False" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}">
+        <Button Height="32" Name="rotateCcwButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}">
             <Button.Background>
                 <ImageBrush ImageSource="/Siftables;component/Images/rotate_ccw.png" Stretch="UniformToFill" />
             </Button.Background>
         </Button>
-        <Button Height="32" Name="rotateCwButton" Width="32" AllowDrop="False" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}">
+        <Button Height="32" Name="rotateCwButton" Width="32" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}">
             <Button.Background>
                 <ImageBrush ImageSource="/Siftables;component/Images/rotate_cw.png" Stretch="UniformToFill" />
             </Button.Background>

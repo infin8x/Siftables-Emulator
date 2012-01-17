@@ -9,7 +9,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid x:Name="RootElement" Background="{TemplateBinding Background}">
-                            <Grid.Resources>
+                            <!--<Grid.Resources>
                                 <Storyboard x:Key="MouseOverState">
                                     <DoubleAnimation Storyboard.TargetName="buttonScale"
                                                Storyboard.TargetProperty="ScaleX"
@@ -44,7 +44,7 @@
                                                To="1.4"
                                                Duration="00:00:00.25" />
                                 </Storyboard>
-                            </Grid.Resources>
+                            </Grid.Resources>-->
                             <!--<ContentPresenter Content="{TemplateBinding Content}"
                                           RenderTransformOrigin="0.5,0.5">
                                 <ContentPresenter.RenderTransform>

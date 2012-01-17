@@ -1,4 +1,5 @@
-﻿<UserControl xmlns:Sift="clr-namespace:Siftables"  x:Class="Siftables.MainWindow"
+﻿<UserControl xmlns:Sift="clr-namespace:Siftables"  x:Class="Siftables.MainWindow" 
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -43,7 +44,7 @@
             <Slider Name="zoomSlider" Margin="10" Grid.Column="3" VerticalAlignment="Top" />
             <sdk:Label Grid.Column="3" Margin="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White">Zoom</sdk:Label>
             <Slider Name="numberOfCubesSlider" Margin="10" Grid.Column="4" VerticalAlignment="Top" />
-            <sdk:Label Grid.Column="4" Margin="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White"># of Cubes</sdk:Label>    
+            <sdk:Label Grid.Column="4" Margin="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White"># of Cubes</sdk:Label>
         </Grid>
     </Grid>
 </UserControl>

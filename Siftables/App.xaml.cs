@@ -31,7 +31,7 @@ namespace Siftables
 
         private void Application_Exit(object sender, EventArgs e)
         {
-
+            Console.WriteLine("Exiting");
         }
 
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)

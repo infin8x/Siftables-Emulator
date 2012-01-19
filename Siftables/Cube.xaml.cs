@@ -21,7 +21,26 @@ namespace Siftables
             InitializeComponent();
 
             Interaction.GetBehaviors(this).Add(new DragAndDropBehavior());
+        }
 
+        public void FillScreen(Color c)
+        {
+            this.screen.Children.Clear();
+            this.screen.Background = new SolidColorBrush(c);
+        }
+
+        public void FillRect(Color c, int x, int y, int w, int h)
+        {
+            Rectangle r = new Rectangle();
+
+            r.Width = w;
+            r.Height = h;
+            r.Fill = new SolidColorBrush(c);
+
+            Canvas.SetTop(r, x);
+            Canvas.SetLeft(r, y);
+
+            this.screen.Children.Add(r);
         }
     }
 }

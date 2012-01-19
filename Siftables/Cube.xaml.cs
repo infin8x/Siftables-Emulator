@@ -31,12 +31,25 @@ namespace Siftables
 
         public void FillRect(Color c, int x, int y, int w, int h)
         {
+            if ((x > this.screen.Width) || (y > this.screen.Height)) return;
+
             Rectangle r = new Rectangle();
+            r.Fill = new SolidColorBrush(c);
+
+            if (x < 0)
+            {
+                w += x;
+                x = 0;
+            }
+
+            if (y < 0)
+            {
+                h += y;
+                y = 0;
+            }
 
             r.Width = w;
             r.Height = h;
-            r.Fill = new SolidColorBrush(c);
-
             Canvas.SetTop(r, x);
             Canvas.SetLeft(r, y);
 

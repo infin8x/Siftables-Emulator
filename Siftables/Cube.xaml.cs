@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Windows.Interactivity;
+using Siftables;
 
 namespace Siftables
 {
@@ -17,6 +19,9 @@ namespace Siftables
         public CubeSL()
         {
             InitializeComponent();
+
+            Interaction.GetBehaviors(this).Add(new DragAndDropBehavior());
+
         }
     }
 }

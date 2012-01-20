@@ -8,20 +8,41 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Collections.Generic;
 
 namespace Siftables
 {
     public class BaseApp
     {
 
-        public void setup()
+        private List<CubeSL> Cubes;
+        public int FrameRate;
+
+        public BaseApp(List<CubeSL> cubes)
         {
-            // Override this method with information to initialize the application
+            this.Cubes = cubes;
+            this.FrameRate = 20;
         }
 
-        public void tick()
+        public void Setup()
+        {
+            // Override this method with information to initialize the application
+            foreach (CubeSL cube in this.Cubes)
+            {
+                cube.FillScreen(Color.FromArgb(255, 0, 255, 0));
+            }
+        }
+
+        public void Tick()
         {
             // Override this method with periodic changes that are made when the application is running
+            Random rand = new Random();
+            int cubeIndex = rand.Next(this.Cubes.Count);
+            foreach (CubeSL cube in this.Cubes)
+            {
+                cube.FillScreen(Color.FromArgb(255, 0, 0, 0));
+            }
+            this.Cubes.ToArray()[cubeIndex].FillScreen(Color.FromArgb(255, 255, 255, 255));
         }
     }
 }

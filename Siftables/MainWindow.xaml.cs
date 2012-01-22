@@ -37,5 +37,31 @@ namespace Siftables
             //    }
             //});
         }
+
+        private void loadAProgramButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Create an instance of the open file dialog box.
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            // Set filter options and filter index.
+            openFileDialog.Filter = "C# Files (.cs)|*.cs|All Files (*.*)|*.*";
+            openFileDialog.FilterIndex = 1;
+
+            openFileDialog.Multiselect = false;
+
+            // Call the ShowDialog method to show the dialog box.
+            bool? userClickedOK = openFileDialog.ShowDialog();
+
+            // Process input if the user clicked OK.
+            CubeSL cube1 = (CubeSL)this.workspace.Children.ToArray()[0];
+            if (userClickedOK == true)
+            {
+                cube1.FillScreen(Color.FromArgb(255, 0, 255, 0));
+            }
+            else
+            {
+                cube1.FillScreen(Color.FromArgb(255, 255, 0, 0));
+            }
+        }
     }
 }

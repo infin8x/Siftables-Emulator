@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace Siftables
 {
@@ -27,6 +28,17 @@ namespace Siftables
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             this.RootVisual = new MainWindow();
+            MainWindow mw = (MainWindow) this.RootVisual;
+
+            List<CubeSL> cubes = new List<CubeSL>();
+            foreach (UIElement elem in mw.workspace.Children)
+            {
+                cubes.Add((CubeSL) elem);
+            }
+            BaseApp app = new BaseApp(cubes);
+            app.Setup();
+            Thread.Sleep(1000);
+            app.Tick();
         }
 
         private void Application_Exit(object sender, EventArgs e)

@@ -12,8 +12,10 @@ using System.Windows;
 
 namespace Siftables
 {
-    class Cube
+    public class Cube
     {
+        public enum Side { Top, Right, Bottom, Left, None };
+
         public static int dimension = 128;
 
         private List<Shape> _shapes = new List<Shape>();

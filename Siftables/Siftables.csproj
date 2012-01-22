@@ -75,6 +75,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseApp.cs" />
+    <Compile Include="Neighbors.cs" />
     <Compile Include="DragAndDropBehavior.cs" />
     <Compile Include="Cube.cs" />
     <Compile Include="MainWindow.xaml.cs">

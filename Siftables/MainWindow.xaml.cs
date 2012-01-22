@@ -16,7 +16,7 @@ namespace Siftables
 {
     public partial class MainWindow : UserControl
     {
-        List<Cube> cubes = new List<Cube>();
+        List<OldCube> cubes = new List<OldCube>();
         //int numCubes = 0;
         public MainWindow()
         {
@@ -31,7 +31,7 @@ namespace Siftables
             //        {
             //            double left = (width / 3) * j;
             //            double top = (height / 2) * i;
-            //            cubes.Add(new Cube(workspace, left, top));
+            //            cubes.Add(new OldCube(workspace, left, top));
             //            numCubes++;
             //        }
             //    }

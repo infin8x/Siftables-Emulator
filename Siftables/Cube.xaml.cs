@@ -14,9 +14,9 @@ using Siftables;
 
 namespace Siftables
 {
-    public partial class CubeSL : UserControl
+    public partial class Cube : UserControl
     {
-        public CubeSL()
+        public Cube()
         {
             InitializeComponent();
 

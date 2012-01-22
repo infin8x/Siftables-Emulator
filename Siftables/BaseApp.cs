@@ -15,10 +15,10 @@ namespace Siftables
     public class BaseApp
     {
 
-        private List<CubeSL> Cubes;
+        private List<Cube> Cubes;
         public int FrameRate;
 
-        public BaseApp(List<CubeSL> cubes)
+        public BaseApp(List<Cube> cubes)
         {
             this.Cubes = cubes;
             this.FrameRate = 20;
@@ -27,7 +27,7 @@ namespace Siftables
         public void Setup()
         {
             // Override this method with information to initialize the application
-            foreach (CubeSL cube in this.Cubes)
+            foreach (Cube cube in this.Cubes)
             {
                 cube.FillScreen(Color.FromArgb(255, 0, 255, 0));
             }
@@ -38,7 +38,7 @@ namespace Siftables
             // Override this method with periodic changes that are made when the application is running
             Random rand = new Random();
             int cubeIndex = rand.Next(this.Cubes.Count);
-            foreach (CubeSL cube in this.Cubes)
+            foreach (Cube cube in this.Cubes)
             {
                 cube.FillScreen(Color.FromArgb(255, 0, 0, 0));
             }

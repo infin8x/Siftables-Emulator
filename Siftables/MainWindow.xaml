@@ -16,12 +16,12 @@
         <sdk:Label Name="title" Margin="5" Foreground="SkyBlue" FontSize="24">Siftables Emulator</sdk:Label>
         <Border Name="workspaceBorder" BorderBrush="Black" BorderThickness="3" Margin="5" Grid.Row="1">
             <Canvas Background="SkyBlue" Margin="0" Name="workspace">
-                <Sift:CubeSL />
-                <Sift:CubeSL Canvas.Top="200" />
-                <Sift:CubeSL Canvas.Top="0" Canvas.Left="200" />
-                <Sift:CubeSL Canvas.Top="200" Canvas.Left="200" />
-                <Sift:CubeSL Canvas.Top="0" Canvas.Left="400" />
-                <Sift:CubeSL Canvas.Top="200" Canvas.Left="400" />
+                <Sift:Cube />
+                <Sift:Cube Canvas.Top="200" />
+                <Sift:Cube Canvas.Top="0" Canvas.Left="200" />
+                <Sift:Cube Canvas.Top="200" Canvas.Left="200" />
+                <Sift:Cube Canvas.Top="0" Canvas.Left="400" />
+                <Sift:Cube Canvas.Top="200" Canvas.Left="400" />
             </Canvas>
         </Border>
         <Grid x:Name="controlsGrid" Background="Gray" Grid.Row="2">

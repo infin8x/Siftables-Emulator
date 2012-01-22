@@ -35,7 +35,7 @@
             <Button Name="snapToGridButton" Margin="10" Grid.Column="0">
                 <sdk:Label>Snap To Grid</sdk:Label>
             </Button>
-            <Button Name="loadAProgramButton" Margin="10" Grid.Column="1">
+            <Button Name="loadAProgramButton" Margin="10" Grid.Column="1" Click="loadAProgramButton_Click">
                 <sdk:Label>Load A Program</sdk:Label>
             </Button>
             <Button Name="reloadThisProgramButton" Margin="10" Grid.Column="2" IsEnabled="False">

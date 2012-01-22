@@ -13,10 +13,10 @@ using System.Threading;
 
 namespace Siftables
 {
-    public partial class App : Application
+    public partial class Siftables : Application
     {
 
-        public App()
+        public Siftables()
         {
             this.Startup += this.Application_Startup;
             this.Exit += this.Application_Exit;
@@ -30,10 +30,10 @@ namespace Siftables
             this.RootVisual = new MainWindow();
             MainWindow mw = (MainWindow) this.RootVisual;
 
-            List<CubeSL> cubes = new List<CubeSL>();
+            List<Cube> cubes = new List<Cube>();
             foreach (UIElement elem in mw.workspace.Children)
             {
-                cubes.Add((CubeSL) elem);
+                cubes.Add((Cube) elem);
             }
             BaseApp app = new BaseApp(cubes);
             app.Setup();

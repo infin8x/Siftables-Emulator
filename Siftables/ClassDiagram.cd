@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Siftables.Siftables">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAEAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Siftables.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.BaseApp">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAACAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAQAA=</HashCode>
+      <FileName>BaseApp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.Cube">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Siftables.Cube.Side" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Cube.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQABAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Cube.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.DragAndDropBehavior">
+    <Position X="5.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAFAAAAAgAAAQAAAAAAAgAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>DragAndDropBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.MainWindow">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.Neighbors">
+    <Position X="3" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAACAAAAAAAAARAAQAAAAIAAAACACCAAAQAEA=</HashCode>
+      <FileName>Neighbors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

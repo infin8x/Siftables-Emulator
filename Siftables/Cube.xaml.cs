@@ -16,6 +16,10 @@ namespace Siftables
 {
     public partial class Cube : UserControl
     {
+        public enum Side { Top, Right, Bottom, Left, None };
+
+        public static int dimension = 128;
+
         public Cube()
         {
             InitializeComponent();

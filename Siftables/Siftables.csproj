@@ -71,13 +71,12 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
+    <Compile Include="Siftables.xaml.cs">
+      <DependentUpon>Siftables.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseApp.cs" />
     <Compile Include="Neighbors.cs" />
     <Compile Include="DragAndDropBehavior.cs" />
-    <Compile Include="Cube.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -87,7 +86,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Siftables.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
@@ -101,6 +100,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>

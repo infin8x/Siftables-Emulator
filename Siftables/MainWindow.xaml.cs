@@ -16,26 +16,10 @@ namespace Siftables
 {
     public partial class MainWindow : UserControl
     {
-        List<OldCube> cubes = new List<OldCube>();
         //int numCubes = 0;
         public MainWindow()
         {
             InitializeComponent();
-            //Dispatcher.BeginInvoke(() =>
-            //{
-            //    double width = workspace.ActualWidth;
-            //    double height = workspace.ActualHeight;
-            //    for (int i = 0; i < 2; i++)
-            //    {
-            //        for (int j = 0; j < 3; j++)
-            //        {
-            //            double left = (width / 3) * j;
-            //            double top = (height / 2) * i;
-            //            cubes.Add(new OldCube(workspace, left, top));
-            //            numCubes++;
-            //        }
-            //    }
-            //});
         }
 
         private void loadAProgramButton_Click(object sender, RoutedEventArgs e)
@@ -53,7 +37,7 @@ namespace Siftables
             bool? userClickedOK = openFileDialog.ShowDialog();
 
             // Process input if the user clicked OK.
-            CubeSL cube1 = (CubeSL)this.workspace.Children.ToArray()[0];
+            Cube cube1 = (Cube)this.workspace.Children.ToArray()[0];
             if (userClickedOK == true)
             {
                 cube1.FillScreen(Color.FromArgb(255, 0, 255, 0));

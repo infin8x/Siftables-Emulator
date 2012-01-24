@@ -42,7 +42,7 @@ namespace Siftables
             {
                 cube.FillScreen(Color.FromArgb(255, 0, 0, 0));
             }
-            this.Cubes.ToArray()[cubeIndex].FillScreen(Color.FromArgb(255, 255, 255, 255));
+            //this.Cubes.ToArray()[cubeIndex].FillScreen(Color.FromArgb(255, 255, 255, 255));
         }
     }
 }

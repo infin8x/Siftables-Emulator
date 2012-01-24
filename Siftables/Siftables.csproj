@@ -21,7 +21,7 @@
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>Siftables.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>Siftables.App</SilverlightAppEntry>
+    <SilverlightAppEntry>Siftables.Siftables</SilverlightAppEntry>
     <TestPageFileName>SLDemoTestPage.html</TestPageFileName>
     <CreateTestPage>true</CreateTestPage>
     <ValidateXaml>true</ValidateXaml>

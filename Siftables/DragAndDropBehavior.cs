@@ -17,6 +17,7 @@ namespace Siftables
         // This code comes largely from: http://shirl9141.wordpress.com/2010/01/16/silverlight-drag-n-drop-behaviors-and-custom-controls/
         private Point mouseClickPosition;
         private bool _isDragging;
+        private DependencyObject parent;
 
         protected override void OnAttached()
         {
@@ -33,20 +34,25 @@ namespace Siftables
             this.AssociatedObject.MouseMove -= AssociatedObject_MouseMove;
         }
 
-        void AssociatedObject_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (_isDragging)
-            {
-                this.AssociatedObject.ReleaseMouseCapture();
-                this._isDragging = false;
-            }
-        }
-
         void AssociatedObject_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            this.parent = VisualTreeHelper.GetParent(AssociatedObject);
+            ((Canvas)this.parent).MouseLeave += new MouseEventHandler(DragAndDropBehavior_MouseLeave);
+            ((Canvas)this.parent).MouseEnter += new MouseEventHandler(DragAndDropBehavior_MouseEnter);
             this._isDragging = true;
             this.mouseClickPosition = e.GetPosition(this.AssociatedObject);
             this.AssociatedObject.CaptureMouse();
+        }
+
+        void DragAndDropBehavior_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this._isDragging = true;
+        }
+
+        void DragAndDropBehavior_MouseLeave(object sender, MouseEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("in mouseleave.");
+            this._isDragging = false;
         }
 
 
@@ -57,6 +63,15 @@ namespace Siftables
                 Point point = e.GetPosition(null);
                 AssociatedObject.SetValue(Canvas.TopProperty, point.Y - this.mouseClickPosition.Y);
                 AssociatedObject.SetValue(Canvas.LeftProperty, point.X - this.mouseClickPosition.X);
+            }
+        }
+
+        void AssociatedObject_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (_isDragging)
+            {
+                this.AssociatedObject.ReleaseMouseCapture();
+                this._isDragging = false;
             }
         }
     }

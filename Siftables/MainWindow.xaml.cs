@@ -16,10 +16,29 @@ namespace Siftables
 {
     public partial class MainWindow : UserControl
     {
+        List<Cube> cubes;
         //int numCubes = 0;
         public MainWindow()
         {
             InitializeComponent();
+            cubes = new List<Cube>(9);
+            workspace.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+            //numberOfCubesSlider.DataBinding = cubes.Count;
+        }
+
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Cube cube = new Cube();
+                    Canvas.SetLeft(cube, 200 * j);
+                    Canvas.SetTop(cube, 200 * i);
+                    workspace.Children.Add(cube);
+                    cubes.Add(cube);
+                }
+            }
         }
 
         private void loadAProgramButton_Click(object sender, RoutedEventArgs e)

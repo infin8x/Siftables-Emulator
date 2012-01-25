@@ -56,7 +56,7 @@ namespace Siftables
             bool? userClickedOK = openFileDialog.ShowDialog();
 
             // Process input if the user clicked OK.
-            Cube cube1 = (Cube)this.workspace.Children.ToArray()[0];
+            Cube cube1 = this.cubes.ToArray()[0];
             if (userClickedOK == true)
             {
                 cube1.FillScreen(Color.FromArgb(255, 0, 255, 0));

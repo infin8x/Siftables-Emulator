@@ -28,17 +28,6 @@ namespace Siftables
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             this.RootVisual = new MainWindow();
-            MainWindow mw = (MainWindow) this.RootVisual;
-
-            List<Cube> cubes = new List<Cube>();
-            foreach (UIElement elem in mw.workspace.Children)
-            {
-                cubes.Add((Cube) elem);
-            }
-            BaseApp app = new BaseApp(cubes);
-            app.Setup();
-            Thread.Sleep(1000);
-            app.Tick();
         }
 
         private void Application_Exit(object sender, EventArgs e)

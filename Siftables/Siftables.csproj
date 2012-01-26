@@ -71,6 +71,8 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CubeSet.cs" />
+    <Compile Include="MyApp.cs" />
     <Compile Include="Siftables.xaml.cs">
       <DependentUpon>Siftables.xaml</DependentUpon>
     </Compile>

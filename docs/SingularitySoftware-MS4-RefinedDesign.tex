@@ -108,7 +108,10 @@ The \textit{Neighbors} entity does not exist in the physical domain, but it is u
 
 \subsection{High Cohesion}
 The \textit{Cube}, \textit{Neighbors}, and \textit{CubeSet} class all emphasize high cohesion by abstracting out specific, distinct responsibilities to separate entities. The \textit{Cube} acts primarily as a graphical interface to the cube objects, while \textit{Neighbors} has the responsibility of maintaining neihborhood relationships between \textit{Cube} objects. The \textit{CubeSet} responsibilities are mentioned above.
+
+\subsection{Protected Variations}
+While our system does not directly intereact with third-party interfaces, and therefore does not directly use the Protected Variations pattern, the project as a whole is itself a Protected Varation that implements the Sifteo API. An overriding goal of our design going forward will be to remain fully compatible with that API so that applications written for the actual Sifteo Cube platform can also be run on our emulator.
 \\\\
-\textbf{Note}: Because our system does not interact with third-party interfaces, there are not clear examples of the \textbf{Indirection} or \textbf{Protected Variations} patterns.
+\textbf{Note}: Because our system does not interact with third-party interfaces, there are not clear examples of the \textbf{Indirection} pattern.
         
 \end{document}

@@ -11,19 +11,33 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Browser;
 using System.Runtime.InteropServices;
+using System.Windows.Interactivity;
 
 namespace Siftables
 {
     public partial class MainWindow : UserControl
     {
-        List<Cube> cubes;
-        //int numCubes = 0;
+        CubeSet cubes;
         public MainWindow()
         {
             InitializeComponent();
-            cubes = new List<Cube>(9);
+
+            cubes = new CubeSet(workspace);
             workspace.Loaded += new RoutedEventHandler(MainWindow_Loaded);
             //numberOfCubesSlider.DataBinding = cubes.Count;
+        }
+
+        void numberOfCubesUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int numToChange = Convert.ToInt32(Math.Abs(e.OldValue - e.NewValue));
+            if (e.NewValue < e.OldValue) // removing cubes
+            { 
+                cubes.RemoveCubes(numToChange);
+            }
+            else if (e.NewValue > e.OldValue) // adding cubes
+            {
+                cubes.AddCubes(numToChange);
+            }
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -39,6 +53,8 @@ namespace Siftables
                     cubes.Add(cube);
                 }
             }
+            numberOfCubesUpDown.Value = cubes.Count;
+            numberOfCubesUpDown.ValueChanged += new RoutedPropertyChangedEventHandler<double>(numberOfCubesUpDown_ValueChanged);
         }
 
         private void loadAProgramButton_Click(object sender, RoutedEventArgs e)
@@ -63,6 +79,23 @@ namespace Siftables
             else
             {
                 MessageBox.Show("Cancel was pressed.");
+            }
+        }
+
+        private void snapToGridButton_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < Math.Ceiling(cubes.Count/4.0); i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    try
+                    {
+                        Canvas.SetLeft(cubes[(i * 4) + j], 200 * j);
+                        Canvas.SetTop(cubes[(i * 4) + j], 200 * i);
+                    } catch (ArgumentOutOfRangeException exception) {
+                        break;
+                    }
+                }
             }
         }
     }

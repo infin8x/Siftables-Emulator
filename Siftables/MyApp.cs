@@ -11,8 +11,8 @@ using System.Windows.Shapes;
 
 namespace Siftables
 {
-    public class MyApp : BaseApp
-    {
+    //public class MyApp : BaseApp
+    //{
 
-    }
+    //}
 }

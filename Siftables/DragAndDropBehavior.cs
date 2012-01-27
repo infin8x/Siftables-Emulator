@@ -37,8 +37,8 @@ namespace Siftables
         void AssociatedObject_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.parent = VisualTreeHelper.GetParent(AssociatedObject);
-            ((Canvas)this.parent).MouseLeave += new MouseEventHandler(DragAndDropBehavior_MouseLeave);
-            ((Canvas)this.parent).MouseEnter += new MouseEventHandler(DragAndDropBehavior_MouseEnter);
+            //((Canvas)this.parent).MouseLeave += new MouseEventHandler(DragAndDropBehavior_MouseLeave);
+            //((Canvas)this.parent).MouseEnter += new MouseEventHandler(DragAndDropBehavior_MouseEnter);
             this._isDragging = true;
             this.mouseClickPosition = e.GetPosition(this.AssociatedObject);
             this.AssociatedObject.CaptureMouse();

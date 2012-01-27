@@ -1,24 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
   <Comment CommentText="This is a generic class that represents any application developed for the emulator or the actual cube platform.">
-    <Position X="0.593" Y="4.305" Height="1.01" Width="1.7" />
+    <Position X="7.141" Y="10.25" Height="1.01" Width="1.7" />
   </Comment>
   <Class Name="Siftables.Siftables">
-    <Position X="5.5" Y="4.5" Width="6.25" />
+    <Position X="0.5" Y="6.5" Width="6.25" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAEAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
       <FileName>Siftables.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Siftables.BaseApp">
-    <Position X="0.5" Y="0.5" Width="2.25" />
+    <Position X="7" Y="6.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAEAAAACAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAQAA=</HashCode>
       <FileName>BaseApp.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Siftables.Cube">
-    <Position X="3" Y="0.5" Width="3.25" />
+    <Position X="0.5" Y="11.75" Width="3.25" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -30,43 +30,43 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQABAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAQQBgAAAAABAAAAgAAAAAgAA=</HashCode>
       <FileName>Cube.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Siftables.DragAndDropBehavior">
-    <Position X="11.25" Y="1" Width="5.75" />
+    <Position X="0.5" Y="17.25" Width="5.75" />
     <TypeIdentifier>
       <HashCode>ACAAAAAAFAAAAAhAAAQAgAAAAAgAAAAAQAAAAgAAAAA=</HashCode>
       <FileName>DragAndDropBehavior.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Siftables.MainWindow">
-    <Position X="6.5" Y="0.5" Width="4.5" />
+    <Position X="0.5" Y="9" Width="4.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAABBAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAABBAAAAAACAAAAAAAAAAAAAACAAABAAAAAAAA=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Siftables.Neighbors">
-    <Position X="2.75" Y="4.5" Width="2.5" />
+    <Position X="6.5" Y="11.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAACAAAAAAAAARAAQAAAAIAAAACACCAAAQAEA=</HashCode>
       <FileName>Neighbors.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Siftables.CubeSet">
+    <Position X="4" Y="11.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAABAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>CubeSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="Siftables.MyApp">
-    <Position X="0.75" Y="3.5" Width="1.5" />
+    <Position X="7.25" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MyApp.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Siftables.CubeSet">
-    <Position X="7.75" Y="3" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>CubeSet.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

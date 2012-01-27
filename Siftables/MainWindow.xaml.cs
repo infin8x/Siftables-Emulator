@@ -17,13 +17,29 @@ namespace Siftables
     public partial class MainWindow : UserControl
     {
         List<Cube> cubes;
-        //int numCubes = 0;
         public MainWindow()
         {
             InitializeComponent();
             cubes = new List<Cube>(9);
             workspace.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+
+            
+
+            numberOfCubesUpDown.ValueChanged += new RoutedPropertyChangedEventHandler<double>(numberOfCubesUpDown_ValueChanged);
             //numberOfCubesSlider.DataBinding = cubes.Count;
+        }
+
+        void numberOfCubesUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int numToChange = Convert.ToInt32(Math.Abs(e.OldValue - e.NewValue));
+            if (e.NewValue < e.OldValue) // removing cubes
+            { 
+                cubes.RemoveRange(cubes.Count - numToChange, numToChange);
+            }
+            else if (e.NewValue > e.OldValue) // adding cubes
+            {
+
+            }
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -39,6 +55,7 @@ namespace Siftables
                     cubes.Add(cube);
                 }
             }
+            numberOfCubesUpDown.Value = cubes.Count;
         }
 
         private void loadAProgramButton_Click(object sender, RoutedEventArgs e)

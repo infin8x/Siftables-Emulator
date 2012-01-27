@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="600" d:DesignWidth="800" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk">
+    d:DesignHeight="600" d:DesignWidth="800" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit">
 
     <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
@@ -43,8 +43,9 @@
             </Button>
             <Slider Name="zoomSlider" Margin="10" Grid.Column="3" VerticalAlignment="Top" />
             <sdk:Label Grid.Column="3" Margin="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White">Zoom</sdk:Label>
-            <Slider Name="numberOfCubesSlider" Margin="10" Grid.Column="4" VerticalAlignment="Top" Minimum="1" Maximum="6" LargeChange="2" SmallChange="1" />
+            <toolkit:NumericUpDown Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Name="numberOfCubesUpDown" IsEnabled="True" Maximum="9" Minimum="1" DataContext="{Binding}" />
             <sdk:Label Grid.Column="4" Margin="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White"># of Cubes</sdk:Label>
+            
         </Grid>
     </Grid>
 </UserControl>

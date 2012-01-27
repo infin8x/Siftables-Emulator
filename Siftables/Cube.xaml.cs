@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Interactivity;
 using Siftables;
+using System.Windows.Media.Imaging;
 
 namespace Siftables
 {
@@ -19,6 +20,18 @@ namespace Siftables
         public enum Side { Top, Right, Bottom, Left, None };
 
         public static int dimension = 128;
+
+        public const int SCREEN_WIDTH = 128;
+
+        public const int SCREEN_HEIGHT = 128;
+
+        public const int SCREEN_MAX_X = SCREEN_WIDTH - 1;
+
+        public const int SCREEN_MAX_Y = SCREEN_HEIGHT - 1;
+
+        public const int SCREEN_MIN_X = 0;
+
+        public const int SCREEN_MIN_Y = 0;
 
         public Cube()
         {
@@ -40,24 +53,52 @@ namespace Siftables
             Rectangle r = new Rectangle();
             r.Fill = new SolidColorBrush(c);
 
-            if (x < 0)
+            if (x < SCREEN_MIN_X)
             {
                 w += x;
                 x = 0;
             }
 
-            if (y < 0)
+            if (y < SCREEN_MIN_Y)
             {
                 h += y;
                 y = 0;
             }
 
+            if (w > SCREEN_WIDTH)
+            {
+                w = SCREEN_WIDTH;
+            }
+
+            if (y > SCREEN_HEIGHT)
+            {
+                h = SCREEN_HEIGHT;
+            }
+
             r.Width = w;
             r.Height = h;
-            Canvas.SetTop(r, x);
-            Canvas.SetLeft(r, y);
+            Canvas.SetTop(r, y);
+            Canvas.SetLeft(r, x);
 
             this.screen.Children.Add(r);
         }
+
+        // scale and rotation not taken into account yet
+        public void Image(String name, int x = 0, int y = 0, int sourceX = 0, int sourceY = 0, int w = SCREEN_WIDTH, int h = SCREEN_HEIGHT, int scale = 1, int rotation = 0)
+        {
+            Image newImg = new Image();
+            newImg.Source = new BitmapImage(new Uri(@"/Siftables;component/Images/" + name, UriKind.RelativeOrAbsolute));
+            newImg.Width = w;
+            newImg.Height = h;
+            Canvas.SetLeft(newImg, x);
+            Canvas.SetTop(newImg, y);
+            RectangleGeometry clip = new RectangleGeometry();
+            clip.Rect = new Rect(sourceX, sourceY, w, h);
+            newImg.Clip = clip;
+
+            this.screen.Children.Add(newImg);
+        }
+
+        
     }
 }

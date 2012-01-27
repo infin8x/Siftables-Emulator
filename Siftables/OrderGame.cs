@@ -8,9 +8,9 @@ public class OrderGame : BaseApp
     private Color _green;
     private Color _red;
 
-	public OrderGame()
+    public OrderGame(List<Cube> cubes)
 	{
-//        super(cubes?);
+        super(cubes);
         this._green = Color.FromArgb(255, 0, 0, 255);
         this._red = Color.FromArgb(255, 255, 0, 0);
 	}

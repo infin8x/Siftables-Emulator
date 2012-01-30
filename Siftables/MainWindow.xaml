@@ -11,9 +11,6 @@
     d:DesignHeight="600" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <!--<DataTemplate x:Key="Cubes">
-
-        </DataTemplate>-->
         <vm:MainWindowViewModel x:Key="MainWindowViewModel"></vm:MainWindowViewModel>
     </UserControl.Resources>
 

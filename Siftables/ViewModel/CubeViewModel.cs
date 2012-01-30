@@ -11,8 +11,6 @@ using System.Windows.Shapes;
 
 namespace Siftables.ModelView
 {
-    public class CubeViewModel
-    {
+    public class CubeViewModel { }
 
-    }
 }

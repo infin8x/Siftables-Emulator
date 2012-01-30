@@ -9,10 +9,10 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace Siftables
+namespace Siftables.Sifteo
 {
-    //public class MyApp : BaseApp
-    //{
-
-    //}
+    public class CubeSift
+    {
+        public enum Side { TOP = 0, LEFT = 1, BOTTOM = 2, RIGHT = 3, NONE = 4 };
+    }
 }

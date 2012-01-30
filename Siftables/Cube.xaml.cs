@@ -12,12 +12,13 @@ using System.Windows.Shapes;
 using System.Windows.Interactivity;
 using Siftables;
 using System.Windows.Media.Imaging;
+using Siftables.Behaviors;
 
 namespace Siftables
 {
     public partial class Cube : UserControl
     {
-        public enum Side { Top, Right, Bottom, Left, None };
+
 
         public static int dimension = 128;
 
@@ -42,13 +43,13 @@ namespace Siftables
 
         public void FillScreen(Color c)
         {
-            this.screen.Children.Clear();
-            this.screen.Background = new SolidColorBrush(c);
+            //this.screen.Children.Clear();
+            //this.screen.Background = new SolidColorBrush(c);
         }
 
         public void FillRect(Color c, int x, int y, int w, int h)
         {
-            if ((x > this.screen.Width) || (y > this.screen.Height)) return;
+            //if ((x > this.screen.Width) || (y > this.screen.Height)) return;
 
             Rectangle r = new Rectangle();
             r.Fill = new SolidColorBrush(c);
@@ -80,7 +81,7 @@ namespace Siftables
             Canvas.SetTop(r, y);
             Canvas.SetLeft(r, x);
 
-            this.screen.Children.Add(r);
+            //this.screen.Children.Add(r);
         }
 
         // scale and rotation not taken into account yet
@@ -96,7 +97,7 @@ namespace Siftables
             clip.Rect = new Rect(sourceX, sourceY, w, h);
             newImg.Clip = clip;
 
-            this.screen.Children.Add(newImg);
+            //this.screen.Children.Add(newImg);
         }
 
         

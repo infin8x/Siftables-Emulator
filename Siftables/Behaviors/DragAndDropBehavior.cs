@@ -10,7 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Interactivity;
 
-namespace Siftables
+namespace Siftables.Behaviors
 {
     public class DragAndDropBehavior : Behavior<UIElement>
     {

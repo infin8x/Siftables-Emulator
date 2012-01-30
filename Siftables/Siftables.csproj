@@ -62,6 +62,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.Extras.SL5, Version=3.0.0.19980, Culture=neutral, PublicKeyToken=8266053d975393a1, processorArchitecture=MSIL" />
+    <Reference Include="GalaSoft.MvvmLight.SL5, Version=3.0.0.19982, Culture=neutral, PublicKeyToken=11b8c0bb43c5592a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="mscorlib" />
     <Reference Include="System.Windows" />
@@ -77,14 +79,15 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CubeSet.cs" />
-    <Compile Include="MyApp.cs" />
+    <Compile Include="Sifteo\CubeSet.cs" />
+    <Compile Include="Sifteo\Cube.cs" />
+    <Compile Include="ViewModel\CubeViewModel.cs" />
     <Compile Include="Siftables.xaml.cs">
       <DependentUpon>Siftables.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BaseApp.cs" />
-    <Compile Include="Neighbors.cs" />
-    <Compile Include="DragAndDropBehavior.cs" />
+    <Compile Include="Sifteo\BaseApp.cs" />
+    <Compile Include="Sifteo\Neighbors.cs" />
+    <Compile Include="Behaviors\DragAndDropBehavior.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -92,6 +95,7 @@
     <Compile Include="Cube.xaml.cs">
       <DependentUpon>Cube.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="Siftables.xaml">

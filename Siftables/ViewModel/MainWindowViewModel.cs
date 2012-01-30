@@ -41,33 +41,22 @@ namespace Siftables.ViewModel
 
         public MainWindowViewModel()
         {
-            Cubes = new ObservableCollection<Cube>();
-            for (int i = 0; i < 2; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    Cube cube = new Cube();
-                    Canvas.SetLeft(cube, 200 * j);
-                    Canvas.SetTop(cube, 200 * i);
-
-                    Cubes.Add(cube);
-                }
-            }
-
+            #region RelayCommandDefinitions
             ChangeNumberOfCubesCommand = new RelayCommand<EventArgs>(e =>
-                {
-                    RoutedPropertyChangedEventArgs<double> args = e as RoutedPropertyChangedEventArgs<double>;
-                    int numToChange = Convert.ToInt32(Math.Abs(Cubes.Count - args.NewValue));
-                    if (args.NewValue < Cubes.Count) // removing cubes
-                    {
-                        for (int i = 0; i < numToChange; i++) { Cubes.RemoveAt(Cubes.Count - 1); }
+    {
+        RoutedPropertyChangedEventArgs<double> args = e as RoutedPropertyChangedEventArgs<double>;
+        int numToChange = Convert.ToInt32(Math.Abs(Cubes.Count - args.NewValue));
+        if (args.NewValue < Cubes.Count) // removing cubes
+        {
+            for (int i = 0; i < numToChange; i++) { Cubes.RemoveAt(Cubes.Count - 1); }
 
-                    }
-                    else if (args.NewValue > Cubes.Count) // adding cubes
-                    {
-                        for (int i = 0; i < numToChange; i++) { Cubes.Add(new Cube()); }
-                    }
-                });
+        }
+        else if (args.NewValue > Cubes.Count) // adding cubes
+        {
+            for (int i = 0; i < numToChange; i++) { Cubes.Add(new Cube()); }
+            SnapToGridCommand.Execute(null);
+        }
+    });
 
             SnapToGridCommand = new RelayCommand(() =>
               {
@@ -75,15 +64,9 @@ namespace Siftables.ViewModel
                   {
                       for (int j = 0; j < 4; j++)
                       {
-                          try
-                          {
-                              //Canvas.SetLeft(cubes[(i * 4) + j], 200 * j);
-                              //Canvas.SetTop(cubes[(i * 4) + j], 200 * i);
-                          }
-                          catch (ArgumentOutOfRangeException exception)
-                          {
-                              break;
-                          }
+                          if ((i * 4) + j > Cubes.Count - 1) { return; }
+                          Canvas.SetLeft(Cubes[(i * 4) + j], 200 * j);
+                          Canvas.SetTop(Cubes[(i * 4) + j], 200 * i);
                       }
                   }
               });
@@ -112,6 +95,13 @@ namespace Siftables.ViewModel
                         MessageBox.Show("Cancel was pressed.");
                     }
                 });
+            #endregion
+
+            #region CreateCubes
+            Cubes = new ObservableCollection<Cube>();
+            for (int i = 0; i < 6; i++) { Cubes.Add(new Cube()); }
+            SnapToGridCommand.Execute(null);
+            #endregion
         }
     }
 }

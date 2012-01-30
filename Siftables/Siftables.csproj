@@ -62,8 +62,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GalaSoft.MvvmLight.Extras.SL5, Version=3.0.0.19980, Culture=neutral, PublicKeyToken=8266053d975393a1, processorArchitecture=MSIL" />
-    <Reference Include="GalaSoft.MvvmLight.SL5, Version=3.0.0.19982, Culture=neutral, PublicKeyToken=11b8c0bb43c5592a, processorArchitecture=MSIL" />
+    <Reference Include="GalaSoft.MvvmLight.Extras.SL5">
+      <HintPath>References\GalaSoft.MvvmLight.Extras.SL5.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.SL5">
+      <HintPath>References\GalaSoft.MvvmLight.SL5.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="mscorlib" />
     <Reference Include="System.Windows" />

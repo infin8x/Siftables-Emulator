@@ -43,33 +43,33 @@ namespace Siftables.ViewModel
         {
             #region RelayCommandDefinitions
             ChangeNumberOfCubesCommand = new RelayCommand<EventArgs>(e =>
-    {
-        RoutedPropertyChangedEventArgs<double> args = e as RoutedPropertyChangedEventArgs<double>;
-        int numToChange = Convert.ToInt32(Math.Abs(Cubes.Count - args.NewValue));
-        if (args.NewValue < Cubes.Count) // removing cubes
-        {
-            for (int i = 0; i < numToChange; i++) { Cubes.RemoveAt(Cubes.Count - 1); }
+                {
+                    RoutedPropertyChangedEventArgs<double> args = e as RoutedPropertyChangedEventArgs<double>;
+                    int numToChange = Convert.ToInt32(Math.Abs(Cubes.Count - args.NewValue));
+                    if (args.NewValue < Cubes.Count) // removing cubes
+                    {
+                        for (int i = 0; i < numToChange; i++) { Cubes.RemoveAt(Cubes.Count - 1); }
 
-        }
-        else if (args.NewValue > Cubes.Count) // adding cubes
-        {
-            for (int i = 0; i < numToChange; i++) { Cubes.Add(new Cube()); }
-            SnapToGridCommand.Execute(null);
-        }
-    });
+                    }
+                    else if (args.NewValue > Cubes.Count) // adding cubes
+                    {
+                        for (int i = 0; i < numToChange; i++) { Cubes.Add(new Cube()); }
+                        SnapToGridCommand.Execute(null);
+                    }
+                });
 
             SnapToGridCommand = new RelayCommand(() =>
-              {
-                  for (int i = 0; i < Math.Ceiling(Cubes.Count / 4.0); i++)
-                  {
-                      for (int j = 0; j < 4; j++)
-                      {
-                          if ((i * 4) + j > Cubes.Count - 1) { return; }
-                          Canvas.SetLeft(Cubes[(i * 4) + j], 200 * j);
-                          Canvas.SetTop(Cubes[(i * 4) + j], 200 * i);
-                      }
-                  }
-              });
+                {
+                    for (int i = 0; i < Math.Ceiling(Cubes.Count / 4.0); i++)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if ((i * 4) + j > Cubes.Count - 1) { return; }
+                            Canvas.SetLeft(Cubes[(i * 4) + j], 200 * j);
+                            Canvas.SetTop(Cubes[(i * 4) + j], 200 * i);
+                        }
+                    }
+                });
 
             LoadAFileCommand = new RelayCommand(() =>
                 {

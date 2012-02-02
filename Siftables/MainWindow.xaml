@@ -18,6 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition />
+            <RowDefinition Height="25" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <sdk:Label x:Name="title" Margin="5" Foreground="SkyBlue" FontSize="24" Content="Siftables Emulator"/>
@@ -36,7 +37,8 @@
                 </ItemsControl.Style>-->
             </ItemsControl>
         </Border>
-        <Grid x:Name="controlsGrid" Background="Gray" Grid.Row="2">
+        <sdk:Label x:Name="status" Padding="5" Background="LightGray" FontSize="12" Grid.Row="2" Content="{Binding Status}"/>
+        <Grid x:Name="controlsGrid" Background="Gray" Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="1.5*" />

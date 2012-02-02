@@ -89,7 +89,7 @@
     <Compile Include="Siftables.xaml.cs">
       <DependentUpon>Siftables.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sifteo\BaseApp.cs" />
+    <None Include="Sifteo\BaseApp.cs" />
     <Compile Include="Sifteo\Neighbors.cs" />
     <Compile Include="Behaviors\DragAndDropBehavior.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>

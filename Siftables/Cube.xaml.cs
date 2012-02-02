@@ -19,28 +19,13 @@ namespace Siftables
     public partial class Cube : UserControl
     {
 
-
-        public static int dimension = 128;
-
-        public const int SCREEN_WIDTH = 128;
-
-        public const int SCREEN_HEIGHT = 128;
-
-        public const int SCREEN_MAX_X = SCREEN_WIDTH - 1;
-
-        public const int SCREEN_MAX_Y = SCREEN_HEIGHT - 1;
-
-        public const int SCREEN_MIN_X = 0;
-
-        public const int SCREEN_MIN_Y = 0;
-
         public Cube()
         {
             InitializeComponent();
 
             Interaction.GetBehaviors(this).Add(new DragAndDropBehavior());
         }
-
+        /*
         public void FillScreen(Color c)
         {
             //this.screen.Children.Clear();
@@ -99,7 +84,7 @@ namespace Siftables
 
             //this.screen.Children.Add(newImg);
         }
-
+        */
         
     }
 }

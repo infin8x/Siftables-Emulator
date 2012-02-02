@@ -11,15 +11,16 @@ using System.Windows.Shapes;
 using Siftables.Sifteo;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight.Command;
+using System.ComponentModel;
 
 namespace Siftables.ViewModel
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region BindingDefinitions
-        private ObservableCollection<Cube> _cubes;
+        private CubeSet _cubes;
 
-        public ObservableCollection<Cube> Cubes
+        public CubeSet Cubes
         {
             get { return _cubes; }
 
@@ -37,6 +38,32 @@ namespace Siftables.ViewModel
 
         public RelayCommand<EventArgs> ChangeNumberOfCubesCommand { get; private set; }
 
+        private String _status;
+
+        public String Status
+        {
+            get { return _status; }
+
+            set
+            {
+                if (_status == value) { return; }
+                _status = value;
+                NotifyPropertyChanged("Status");
+            }
+        }
+
+        public const String ReadyStatus = "Ready";
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
         #endregion
 
         public MainWindowViewModel()
@@ -44,6 +71,7 @@ namespace Siftables.ViewModel
             #region RelayCommandDefinitions
             ChangeNumberOfCubesCommand = new RelayCommand<EventArgs>(e =>
                 {
+                    Status = "Changing number of cubes";
                     RoutedPropertyChangedEventArgs<double> args = e as RoutedPropertyChangedEventArgs<double>;
                     int numToChange = Convert.ToInt32(Math.Abs(Cubes.Count - args.NewValue));
                     if (args.NewValue < Cubes.Count) // removing cubes
@@ -54,25 +82,30 @@ namespace Siftables.ViewModel
                     else if (args.NewValue > Cubes.Count) // adding cubes
                     {
                         for (int i = 0; i < numToChange; i++) { Cubes.Add(new Cube()); }
+                        Status = ReadyStatus;
                         SnapToGridCommand.Execute(null);
                     }
+                    Status = ReadyStatus;
                 });
 
             SnapToGridCommand = new RelayCommand(() =>
                 {
+                    Status = "Snapping to grid";
                     for (int i = 0; i < Math.Ceiling(Cubes.Count / 4.0); i++)
                     {
                         for (int j = 0; j < 4; j++)
                         {
-                            if ((i * 4) + j > Cubes.Count - 1) { return; }
+                            if ((i * 4) + j > Cubes.Count - 1) { Status = ReadyStatus;  return; }
                             Canvas.SetLeft(Cubes[(i * 4) + j], 200 * j);
                             Canvas.SetTop(Cubes[(i * 4) + j], 200 * i);
                         }
                     }
+                    Status = ReadyStatus;
                 });
 
             LoadAFileCommand = new RelayCommand(() =>
                 {
+                    Status = "Loading a file";
                     // Create an instance of the open file dialog box.
                     OpenFileDialog openFileDialog = new OpenFileDialog();
 
@@ -88,20 +121,22 @@ namespace Siftables.ViewModel
                     // Process input if the user clicked OK.
                     if (userClickedOK == true)
                     {
-                        MessageBox.Show("File " + openFileDialog.File.Name + " was selected.");
+                        Status = openFileDialog.File.Name + " was loaded.";
                     }
                     else
                     {
-                        MessageBox.Show("Cancel was pressed.");
+                        Status = "Program loader was closed.";
                     }
                 });
             #endregion
 
             #region CreateCubes
-            Cubes = new ObservableCollection<Cube>();
+            Cubes = new CubeSet();
             for (int i = 0; i < 6; i++) { Cubes.Add(new Cube()); }
             SnapToGridCommand.Execute(null);
             #endregion
+
+            Status = ReadyStatus;
         }
     }
 }

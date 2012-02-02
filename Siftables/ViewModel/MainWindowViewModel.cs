@@ -12,6 +12,7 @@ using Siftables.Sifteo;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight.Command;
 using System.ComponentModel;
+using System.Threading;
 
 namespace Siftables.ViewModel
 {
@@ -29,7 +30,6 @@ namespace Siftables.ViewModel
                 if (_cubes == value) { return; }
                 _cubes = value;
             }
-
         }
 
         public RelayCommand SnapToGridCommand { get; private set; }
@@ -53,7 +53,7 @@ namespace Siftables.ViewModel
         }
 
         public const String ReadyStatus = "Ready";
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(String info)
@@ -95,7 +95,7 @@ namespace Siftables.ViewModel
                     {
                         for (int j = 0; j < 4; j++)
                         {
-                            if ((i * 4) + j > Cubes.Count - 1) { Status = ReadyStatus;  return; }
+                            if ((i * 4) + j > Cubes.Count - 1) { Status = ReadyStatus; return; }
                             Canvas.SetLeft(Cubes[(i * 4) + j], 200 * j);
                             Canvas.SetTop(Cubes[(i * 4) + j], 200 * i);
                         }

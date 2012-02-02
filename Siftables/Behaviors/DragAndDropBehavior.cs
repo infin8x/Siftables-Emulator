@@ -12,9 +12,9 @@ using System.Windows.Interactivity;
 
 namespace Siftables.Behaviors
 {
+    // This code comes largely from: http://shirl9141.wordpress.com/2010/01/16/silverlight-drag-n-drop-behaviors-and-custom-controls/
     public class DragAndDropBehavior : Behavior<UIElement>
     {
-        // This code comes largely from: http://shirl9141.wordpress.com/2010/01/16/silverlight-drag-n-drop-behaviors-and-custom-controls/
         private Point mouseClickPosition;
         private bool _isDragging;
         private DependencyObject parent;
@@ -37,8 +37,6 @@ namespace Siftables.Behaviors
         void AssociatedObject_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.parent = VisualTreeHelper.GetParent(AssociatedObject);
-            //((Canvas)this.parent).MouseLeave += new MouseEventHandler(DragAndDropBehavior_MouseLeave);
-            //((Canvas)this.parent).MouseEnter += new MouseEventHandler(DragAndDropBehavior_MouseEnter);
             this._isDragging = true;
             this.mouseClickPosition = e.GetPosition(this.AssociatedObject);
             this.AssociatedObject.CaptureMouse();

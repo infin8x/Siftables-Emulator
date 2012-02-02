@@ -83,6 +83,7 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\ClipBehavior.cs" />
     <Compile Include="Sifteo\CubeSet.cs" />
     <Compile Include="Sifteo\Cube.cs" />
     <Compile Include="ViewModel\CubeViewModel.cs" />
@@ -117,7 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,7 @@
     xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"  x:Class="Siftables.MainWindow"
     xmlns:vm="clr-namespace:Siftables.ViewModel"
     xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.SL5" 
+    xmlns:behave="clr-namespace:Siftables.Behaviors"
     mc:Ignorable="d"
     d:DesignHeight="600" d:DesignWidth="900">
 
@@ -18,27 +19,29 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition />
+            <RowDefinition Height="45" />
             <RowDefinition Height="25" />
-            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
+        <!--Row 0-->
         <sdk:Label x:Name="title" Margin="5" Foreground="SkyBlue" FontSize="24" Content="Siftables Emulator"/>
-        <Border x:Name="workspaceBorder" BorderBrush="Black" BorderThickness="3" Margin="5" Grid.Row="1">
-            <ItemsControl ItemsSource="{Binding Path=Cubes}" Margin="0" x:Name="workspace">
+
+        <!--Row 1-->
+        <Border x:Name="workspaceBorder" BorderBrush="Black" BorderThickness="3" Margin="5" Grid.Row="1" behave:ClipBehavior.ToBounds="True">
+            <ItemsControl ItemsSource="{Binding Path=Cubes}" Margin="0" x:Name="workspace" behave:ClipBehavior.ToBounds="True">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas Background="SkyBlue" Margin="0"  />
+                        <Canvas Background="SkyBlue" Margin="0">
+                            <Canvas.RenderTransform>
+                            <ScaleTransform x:Name="zoomTransform" ScaleX="{Binding ElementName=zoomSlider, Path=Value}" ScaleY="{Binding ElementName=zoomSlider, Path=Value}"></ScaleTransform>
+                            </Canvas.RenderTransform>
+                        </Canvas>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <!--<ItemsControl.Style>
-                    <Style TargetType="Sift:Cube">
-                        <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
-                        <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
-                    </Style>
-                </ItemsControl.Style>-->
             </ItemsControl>
         </Border>
-        <sdk:Label x:Name="status" Padding="5" Background="LightGray" FontSize="12" Grid.Row="2" Content="{Binding Status}"/>
-        <Grid x:Name="controlsGrid" Background="Gray" Grid.Row="3">
+
+        <!--Row 2-->
+        <Grid x:Name="controlsGrid" Background="Gray" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="1.5*" />
@@ -55,18 +58,22 @@
             <Button x:Name="reloadThisProgramButton" Margin="10" Grid.Column="2" IsEnabled="False">
                 <sdk:Label Content="Reload This Program"/>
             </Button>
-            <Slider x:Name="zoomSlider" Margin="10" Grid.Column="3" VerticalAlignment="Top" />
+            <Slider x:Name="zoomSlider" Margin="10" Grid.Column="3" VerticalAlignment="Top" LargeChange="0.1" Minimum="1" Maximum="2" Value="1" SmallChange="0.05" />
             <sdk:Label Grid.Column="3" Margin="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White" Content="Zoom"/>
-            <toolkit:NumericUpDown Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" x:Name="numberOfCubesUpDown"
-                                   IsEnabled="True" Maximum="9" Minimum="1" Value="6">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="ValueChanged">
-                        <cmd:EventToCommand Command="{Binding ChangeNumberOfCubesCommand}" PassEventArgsToCommand="True"></cmd:EventToCommand>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </toolkit:NumericUpDown>
-            <sdk:Label Grid.Column="4" Margin="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"># of Cubes</sdk:Label>
 
+            <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+                <sdk:Label Margin="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"># of Cubes:</sdk:Label>
+                <toolkit:NumericUpDown x:Name="numberOfCubesUpDown" IsEnabled="True" Maximum="9" Minimum="1" Style="{StaticResource ButtonSpinnerHorizontalStyle}" Value="{Binding Path=Cubes.Count}" Height="30" FontSize="14">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="ValueChanged">
+                            <cmd:EventToCommand Command="{Binding ChangeNumberOfCubesCommand}" PassEventArgsToCommand="True"></cmd:EventToCommand>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </toolkit:NumericUpDown>
+            </StackPanel>
         </Grid>
+
+        <!--Row 3-->
+        <sdk:Label x:Name="status" Padding="15,0" Background="LightGray" BorderThickness="0,3,0,0" BorderBrush="Black" FontSize="12" Grid.Row="3" Content="{Binding Status}"/>
     </Grid>
 </UserControl>

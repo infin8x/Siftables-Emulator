@@ -28,14 +28,9 @@
                         <Canvas Background="{Binding BackgroundColor}" Width="{Binding Width}" Height="{Binding Height}"  />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <!--<ItemsControl.Style>
-                    <Style TargetType="FrameworkElement">
-                        <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
-                        <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
-                    </Style>
-                </ItemsControl.Style>-->
             </ItemsControl>
         </Canvas>
+        
         <!--Emulator Buttons-->
         <Button Height="32" x:Name="flipButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ImageButton}" Command="{Binding DoFillScreen, Mode=OneWay}">
             <Button.Background>

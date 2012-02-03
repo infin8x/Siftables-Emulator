@@ -83,27 +83,10 @@ namespace Siftables.Sifteo
 
         }
 
-        // Using these commands as a way of testing FillScreen and FillRect currently
-        public RelayCommand DoFillScreen { get; private set; }
-
-        public RelayCommand DoFillRect { get; private set; }
-
         public CubeSift()
         {
             BackgroundColor = new SolidColorBrush(Colors.White);
             ScreenItems = new ObservableCollection<FrameworkElement>();
-
-            DoFillScreen = new RelayCommand(() =>
-            {
-                Color c = Color.FromArgb(255, 255, 0, 0);
-                FillScreen(c);
-            });
-
-            DoFillRect = new RelayCommand(() =>
-            {
-                Color c = Color.FromArgb(255, 0, 255, 0);
-                FillRect(c, 50, 50, 25, 50);
-            });
         }
 
         public void FillScreen(Color color)

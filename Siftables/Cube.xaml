@@ -16,7 +16,7 @@
         <sift:CubeSift x:Key="CubeSift"></sift:CubeSift>
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource CubeSift}}" >
+    <Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource CubeSift}}">
         <Canvas Height="168" HorizontalAlignment="Center" Margin="0,0,0,0" x:Name="cube" VerticalAlignment="Center" Width="168">
             <Canvas.Background>
                 <ImageBrush ImageSource="/Siftables;component/Images/cube.png" Stretch="Uniform" />

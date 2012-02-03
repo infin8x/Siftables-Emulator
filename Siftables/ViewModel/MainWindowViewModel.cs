@@ -134,6 +134,7 @@ namespace Siftables.ViewModel
             Cubes = new CubeSet();
             for (int i = 0; i < 6; i++) { Cubes.Add(new Cube()); }
             SnapToGridCommand.Execute(null);
+            //PropertyChanged(Cubes, new PropertyChangedEventArgs("Count"));
             #endregion
 
             Status = ReadyStatus;

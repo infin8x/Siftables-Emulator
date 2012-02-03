@@ -90,7 +90,7 @@
     <Compile Include="Siftables.xaml.cs">
       <DependentUpon>Siftables.xaml</DependentUpon>
     </Compile>
-    <None Include="Sifteo\BaseApp.cs" />
+    <Compile Include="Sifteo\BaseApp.cs" />
     <Compile Include="Sifteo\Neighbors.cs" />
     <Compile Include="Behaviors\DragAndDropBehavior.cs" />
     <Compile Include="MainWindow.xaml.cs">

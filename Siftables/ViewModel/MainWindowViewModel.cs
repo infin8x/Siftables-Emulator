@@ -19,9 +19,9 @@ namespace Siftables.ViewModel
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region BindingDefinitions
-        private CubeSet _cubes;
+        private ObservableCollection<Cube> _cubes;
 
-        public CubeSet Cubes
+        public ObservableCollection<Cube> Cubes
         {
             get { return _cubes; }
 
@@ -36,6 +36,8 @@ namespace Siftables.ViewModel
 
         public RelayCommand LoadAFileCommand { get; private set; }
 
+        public RelayCommand ReloadAFileCommand { get; private set; }
+
         public RelayCommand<EventArgs> ChangeNumberOfCubesCommand { get; private set; }
 
         private String _status;
@@ -49,6 +51,20 @@ namespace Siftables.ViewModel
                 if (_status == value) { return; }
                 _status = value;
                 NotifyPropertyChanged("Status");
+            }
+        }
+
+        private bool _programRunning;
+
+        public bool ProgramLoaded
+        {
+            get { return _programRunning; }
+
+            set
+            {
+                if (_programRunning == value) { return; }
+                _programRunning = value;
+                NotifyPropertyChanged("ProgramLoaded");
             }
         }
 
@@ -105,6 +121,12 @@ namespace Siftables.ViewModel
 
             LoadAFileCommand = new RelayCommand(() =>
                 {
+                    if (ProgramLoaded)
+                    {
+                        ProgramLoaded = false;
+                        this._programRunner.Join();
+                    }
+
                     Status = "Loading a file";
                     // Create an instance of the open file dialog box.
                     OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -122,22 +144,77 @@ namespace Siftables.ViewModel
                     if (userClickedOK == true)
                     {
                         Status = openFileDialog.File.Name + " was loaded.";
+                        this._programRunner = new Thread(RunProgram);
+                        ProgramLoaded = true;
+                        this._programRunner.Start();
                     }
                     else
                     {
                         Status = "Program loader was closed.";
                     }
                 });
+
+            // This does nothing more than restart the thread, so right now it looks like nothing is happening
+            ReloadAFileCommand = new RelayCommand(() =>
+            {
+                if (ProgramLoaded)
+                {
+                    ProgramLoaded = false;
+                    this._programRunner.Join();
+                }
+
+                Status = "Reloading application";
+
+                // Do actual program reloading here
+                Status = "Application was reloaded.";
+                this._programRunner = new Thread(RunProgram);
+                ProgramLoaded = true;
+                this._programRunner.Start();
+            });
             #endregion
 
             #region CreateCubes
-            Cubes = new CubeSet();
+            Cubes = new ObservableCollection<Cube>();
             for (int i = 0; i < 6; i++) { Cubes.Add(new Cube()); }
             SnapToGridCommand.Execute(null);
-            //PropertyChanged(Cubes, new PropertyChangedEventArgs("Count"));
             #endregion
 
             Status = ReadyStatus;
+        }
+
+        public CubeSet SiftCubeSet
+        {
+            get
+            {
+                CubeSet cubes = new CubeSet();
+                foreach (Cube cube in Cubes)
+                {
+                    cubes.Add(((CubeViewModel)cube.LayoutRoot.DataContext).CubeModel);
+                }
+
+                return cubes;
+            }
+        }
+
+        private Thread _programRunner;
+        private BaseApp _app;
+
+        public void RunProgram()
+        {
+            Cubes[0].Dispatcher.BeginInvoke(delegate()
+            {
+                this._app = new BaseApp(SiftCubeSet);
+                this._app.Setup();
+            });
+            Random rand = new Random();
+            while (this._programRunning)
+            {
+                Cubes[0].Dispatcher.BeginInvoke(delegate()
+                {
+                    this._app.Tick();
+                });
+                Thread.Sleep(50);
+            }
         }
     }
 }

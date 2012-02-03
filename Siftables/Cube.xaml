@@ -7,6 +7,7 @@
     xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
     xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
     xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:vm="clr-namespace:Siftables.ViewModel"
     x:Class="Siftables.Cube"
     xmlns:sift="clr-namespace:Siftables.Sifteo"
     xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.SL5" 
@@ -14,9 +15,10 @@
 
     <UserControl.Resources>
         <sift:CubeSift x:Key="CubeSift"></sift:CubeSift>
+        <vm:CubeViewModel x:Key="CubeViewModel"></vm:CubeViewModel>
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource CubeSift}}">
+    <Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource CubeViewModel}}" >
         <Canvas Height="168" HorizontalAlignment="Center" Margin="0,0,0,0" x:Name="cube" VerticalAlignment="Center" Width="168">
             <Canvas.Background>
                 <ImageBrush ImageSource="/Siftables;component/Images/cube.png" Stretch="Uniform" />
@@ -25,19 +27,19 @@
             <ItemsControl ItemsSource="{Binding Path=ScreenItems}" Margin="20">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas Background="{Binding BackgroundColor}" Width="{Binding Width}" Height="{Binding Height}"  />
+                        <Canvas Background="{Binding BackgroundColor}" Width="128" Height="128"  />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </Canvas>
         
         <!--Emulator Buttons-->
-        <Button Height="32" x:Name="flipButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ImageButton}" Command="{Binding DoFillScreen, Mode=OneWay}">
+        <Button Height="32" x:Name="flipButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ImageButton}">
             <Button.Background>
                 <ImageBrush ImageSource="/Siftables;component/Images/flip.png" Stretch="UniformToFill" />
             </Button.Background>
         </Button>
-        <Button Height="32" x:Name="rotateCcwButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}" Command="{Binding DoFillRect, Mode=OneWay}">
+        <Button Height="32" x:Name="rotateCcwButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}">
             <Button.Background>
                 <ImageBrush ImageSource="/Siftables;component/Images/rotate_ccw.png" Stretch="UniformToFill" />
             </Button.Background>

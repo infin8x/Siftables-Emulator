@@ -15,10 +15,10 @@ namespace Siftables.Sifteo
     public class BaseApp
     {
 
-        private List<Cube> Cubes;
+        private CubeSet Cubes;
         public int FrameRate;
 
-        public BaseApp(List<Cube> cubes)
+        public BaseApp(CubeSet cubes)
         {
             this.Cubes = cubes;
             this.FrameRate = 20;
@@ -29,7 +29,7 @@ namespace Siftables.Sifteo
             // Override this method with information to initialize the application
             foreach (Cube cube in this.Cubes)
             {
-                cube.FillScreen(Color.FromArgb(255, 0, 255, 0));
+                cube.FillScreen(Colors.Red);
             }
         }
 
@@ -37,12 +37,13 @@ namespace Siftables.Sifteo
         {
             // Override this method with periodic changes that are made when the application is running
             Random rand = new Random();
-            int cubeIndex = rand.Next(this.Cubes.Count);
-            foreach (Cube cube in this.Cubes)
+            foreach (Cube cube in Cubes)
             {
-                cube.FillScreen(Color.FromArgb(255, 0, 0, 0));
+                cube.FillScreen(Color.FromArgb(255, (byte)rand.Next(256), (byte)rand.Next(256), (byte)rand.Next(256)));
+                cube.FillRect(Color.FromArgb(255, (byte)rand.Next(256), (byte)rand.Next(256), (byte)rand.Next(256)), 25, 25, 25, 25);
+                cube.FillRect(Color.FromArgb(255, (byte)rand.Next(256), (byte)rand.Next(256), (byte)rand.Next(256)), 78, 25, 25, 25);
+                cube.FillRect(Color.FromArgb(255, (byte)rand.Next(256), (byte)rand.Next(256), (byte)rand.Next(256)), 25, 85, 78, 15);
             }
-            //this.Cubes.ToArray()[cubeIndex].FillScreen(Color.FromArgb(255, 255, 255, 255));
         }
     }
 }

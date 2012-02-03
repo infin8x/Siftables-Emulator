@@ -16,10 +16,10 @@ using Siftables.Behaviors;
 
 namespace Siftables
 {
-    public partial class Cube : UserControl
+    public partial class CubeView : UserControl
     {
 
-        public Cube()
+        public CubeView()
         {
             InitializeComponent();
 

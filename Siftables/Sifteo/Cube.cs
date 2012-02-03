@@ -1,23 +1,16 @@
 ﻿using System;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight.Command;
 
 namespace Siftables.Sifteo
 {
-    public class CubeSift : INotifyPropertyChanged
+    public class Cube
     {
 
-        #region Sifteo
+        #region Public Sifteo Members
         public static int dimension = 128;
 
         public const int SCREEN_WIDTH = 128;
@@ -35,69 +28,53 @@ namespace Siftables.Sifteo
         public enum Side { TOP = 0, LEFT = 1, BOTTOM = 2, RIGHT = 3, NONE = 4 };
         #endregion
 
-        private Brush _backgroundColor;
+        #region Private Implementation Members
 
-        public Brush BackgroundColor
+        private Color _backgroundColor;
+
+        public Color BackgroundColor
         {
             get
             {
                 return this._backgroundColor;
             }
-
-            set {
-                if (value != this._backgroundColor)
-                {
-                    this._backgroundColor = value;
-                    NotifyPropertyChanged("BackgroundColor");
-                }
-            }
         }
 
-        public int Width
+        private Collection<FrameworkElement> _screenItems;
+
+        public Collection<FrameworkElement> ScreenItems
         {
             get
             {
-                return SCREEN_WIDTH;
+                return this._screenItems;
             }
         }
 
-        public int Height
+        #endregion
+
+        #region Member Change Event Handling
+
+        public delegate void EventHandler(object sender, EventArgs args);
+        public event EventHandler NotifyBackgroundColorChanged = delegate { };
+        public event EventHandler NotifyScreenItemsChanged = delegate { };
+        #endregion
+        public Cube()
         {
-            get
-            {
-                return SCREEN_HEIGHT;
-            }
-        }
-
-        private ObservableCollection<FrameworkElement> _screenItems;
-
-        public ObservableCollection<FrameworkElement> ScreenItems
-        {
-            get { return _screenItems; }
-
-            set
-            {
-                if (_screenItems == value) { return; }
-                _screenItems = value;
-            }
-
-        }
-
-        public CubeSift()
-        {
-            BackgroundColor = new SolidColorBrush(Colors.White);
-            ScreenItems = new ObservableCollection<FrameworkElement>();
+            this._backgroundColor = Colors.White;
+            this._screenItems = new ObservableCollection<FrameworkElement>();
         }
 
         public void FillScreen(Color color)
         {
             ScreenItems.Clear();
-            BackgroundColor = new SolidColorBrush(color);
+            NotifyScreenItemsChanged(this, new EventArgs());
+            this._backgroundColor = color;
+            NotifyBackgroundColorChanged(this, new EventArgs());
         }
 
         public void FillRect(Color c, int x, int y, int w, int h)
         {
-            if ((x > Width) || (y > Height)) return;
+            if ((x > SCREEN_WIDTH) || (y > SCREEN_HEIGHT)) return;
 
             Rectangle r = new Rectangle();
             r.Fill = new SolidColorBrush(c);
@@ -130,16 +107,7 @@ namespace Siftables.Sifteo
             Canvas.SetLeft(r, x);
 
             ScreenItems.Add(r);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
+            NotifyScreenItemsChanged(this, new EventArgs());
         }
     }
 }

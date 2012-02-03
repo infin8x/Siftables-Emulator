@@ -27,7 +27,7 @@ namespace Siftables
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            this.RootVisual = new MainWindow();
+            this.RootVisual = new MainWindowView();
         }
 
         private void Application_Exit(object sender, EventArgs e)

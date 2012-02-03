@@ -7,13 +7,14 @@
     xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
     xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
     xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-    x:Class="Siftables.Cube"
+    xmlns:vm="clr-namespace:Siftables.ViewModel"
+    x:Class="Siftables.CubeView"
     xmlns:sift="clr-namespace:Siftables.Sifteo"
     xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.SL5" 
     mc:Ignorable="d" Height="196" Width="196">
 
     <UserControl.Resources>
-        <sift:CubeSift x:Key="CubeSift"></sift:CubeSift>
+        <sift:Cube x:Key="CubeSift"></sift:Cube>
         <Storyboard x:Name="FlipStoryboard"/>
         <Storyboard x:Name="RotateCcwStoryboard">
             <DoubleAnimation Duration="0:0:0.5" By="-90" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="cube">
@@ -31,7 +32,7 @@
         </Storyboard>
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource CubeSift}}">
+    <Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource CubeViewModel}}" >
         <Canvas Height="168" HorizontalAlignment="Center" Margin="0,0,0,0" x:Name="cube" VerticalAlignment="Center" Width="168" RenderTransformOrigin="0.5,0.5">
             <Canvas.RenderTransform>
                 <CompositeTransform/>
@@ -43,7 +44,7 @@
             <ItemsControl ItemsSource="{Binding Path=ScreenItems}" Margin="20">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas Background="{Binding BackgroundColor}" Width="{Binding Width}" Height="{Binding Height}"  />
+                        <Canvas Background="{Binding BackgroundColor}" Width="128" Height="128"  />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>

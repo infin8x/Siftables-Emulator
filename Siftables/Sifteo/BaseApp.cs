@@ -15,19 +15,31 @@ namespace Siftables.Sifteo
     public class BaseApp
     {
 
-        private CubeSet Cubes;
+        private CubeSet _cubes;
+        public CubeSet Cubes
+        {
+            get { return this._cubes; }
+            set
+            {
+                if (this._cubes == value) { return; }
+                else
+                {
+                    this._cubes = value;
+                }
+            }
+        }
         public int FrameRate;
 
         public BaseApp(CubeSet cubes)
         {
-            this.Cubes = cubes;
+            Cubes = cubes;
             this.FrameRate = 20;
         }
 
         public void Setup()
         {
             // Override this method with information to initialize the application
-            foreach (Cube cube in this.Cubes)
+            foreach (Cube cube in Cubes)
             {
                 cube.FillScreen(Colors.Red);
             }

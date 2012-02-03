@@ -54,20 +54,6 @@ namespace Siftables.ViewModel
             }
         }
 
-        private bool _programRunning;
-
-        public bool ProgramLoaded
-        {
-            get { return _programRunning; }
-
-            set
-            {
-                if (_programRunning == value) { return; }
-                _programRunning = value;
-                NotifyPropertyChanged("ProgramLoaded");
-            }
-        }
-
         public const String ReadyStatus = "Ready";
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -82,9 +68,28 @@ namespace Siftables.ViewModel
 
         #endregion
 
+        private AppRunner _appRunner;
+
+        public AppRunner ARunner
+        {
+            get
+            {
+                return this._appRunner;
+            }
+            set
+            {
+                if (this._appRunner == value) { return; }
+                else
+                {
+                    this._appRunner = value;
+                }
+            }
+        }
+
         public MainWindowViewModel()
         {
             #region RelayCommandDefinitions
+            #region ChangeNumberOfCubesCommand
             ChangeNumberOfCubesCommand = new RelayCommand<EventArgs>(e =>
                 {
                     Status = "Changing number of cubes";
@@ -103,7 +108,8 @@ namespace Siftables.ViewModel
                     }
                     Status = ReadyStatus;
                 });
-
+            #endregion
+            #region SnapToGridCommand
             SnapToGridCommand = new RelayCommand(() =>
                 {
                     Status = "Snapping to grid";
@@ -118,15 +124,14 @@ namespace Siftables.ViewModel
                     }
                     Status = ReadyStatus;
                 });
-
+            #endregion
+            #region LoadAFileCommand
             LoadAFileCommand = new RelayCommand(() =>
                 {
-                    if (ProgramLoaded)
+                    if (ARunner.Running)
                     {
-                        ProgramLoaded = false;
-                        this._programRunner.Join();
+                        ARunner.PauseExecution();
                     }
-
                     Status = "Loading a file";
                     // Create an instance of the open file dialog box.
                     OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -144,33 +149,21 @@ namespace Siftables.ViewModel
                     if (userClickedOK == true)
                     {
                         Status = openFileDialog.File.Name + " was loaded.";
-                        this._programRunner = new Thread(RunProgram);
-                        ProgramLoaded = true;
-                        this._programRunner.Start();
+                        ARunner.StartExecution();
                     }
                     else
                     {
                         Status = "Program loader was closed.";
                     }
                 });
-
+            #endregion
             // This does nothing more than restart the thread, so right now it looks like nothing is happening
+            #region ReloadAFileCommand
             ReloadAFileCommand = new RelayCommand(() =>
             {
-                if (ProgramLoaded)
-                {
-                    ProgramLoaded = false;
-                    this._programRunner.Join();
-                }
-
-                Status = "Reloading application";
-
-                // Do actual program reloading here
-                Status = "Application was reloaded.";
-                this._programRunner = new Thread(RunProgram);
-                ProgramLoaded = true;
-                this._programRunner.Start();
+                // Redo based on LoadAFileCommand
             });
+            #endregion
             #endregion
 
             #region CreateCubes
@@ -179,6 +172,7 @@ namespace Siftables.ViewModel
             SnapToGridCommand.Execute(null);
             #endregion
 
+            ARunner = new AppRunner(SiftCubeSet, Cubes[0].Dispatcher);
             Status = ReadyStatus;
         }
 
@@ -193,27 +187,6 @@ namespace Siftables.ViewModel
                 }
 
                 return cubes;
-            }
-        }
-
-        private Thread _programRunner;
-        private BaseApp _app;
-
-        public void RunProgram()
-        {
-            Cubes[0].Dispatcher.BeginInvoke(delegate()
-            {
-                this._app = new BaseApp(SiftCubeSet);
-                this._app.Setup();
-            });
-            Random rand = new Random();
-            while (this._programRunning)
-            {
-                Cubes[0].Dispatcher.BeginInvoke(delegate()
-                {
-                    this._app.Tick();
-                });
-                Thread.Sleep(50);
             }
         }
     }

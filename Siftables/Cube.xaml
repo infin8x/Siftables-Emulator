@@ -14,7 +14,7 @@
     mc:Ignorable="d" Height="196" Width="196">
 
     <UserControl.Resources>
-        <sift:Cube x:Key="CubeSift"></sift:Cube>
+        <vm:CubeViewModel x:Key="CubeViewModel"/>
         <Storyboard x:Name="FlipStoryboard"/>
         <Storyboard x:Name="RotateCcwStoryboard">
             <DoubleAnimation Duration="0:0:0.5" By="-90" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="cube">

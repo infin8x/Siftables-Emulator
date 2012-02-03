@@ -63,9 +63,9 @@ namespace Siftables.ViewModel
         }
         #endregion
 
-        private CubeSift _cube;
+        private Cube _cube;
 
-        public CubeSift CubeModel
+        public Cube CubeModel
         {
             get
             {
@@ -75,7 +75,7 @@ namespace Siftables.ViewModel
 
         public CubeViewModel()
         {
-            this._cube = new CubeSift();
+            this._cube = new Cube();
             this._cube.NotifyBackgroundColorChanged += (sender, args) => { UpdateBackgroundColor(); };
             this._cube.NotifyScreenItemsChanged += (sender, args) => { UpdateScreenItems(); };
             this._cube.FillScreen(Colors.White);

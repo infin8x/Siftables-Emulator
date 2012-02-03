@@ -19,9 +19,9 @@ namespace Siftables.ViewModel
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region BindingDefinitions
-        private ObservableCollection<Cube> _cubes;
+        private ObservableCollection<CubeView> _cubes;
 
-        public ObservableCollection<Cube> Cubes
+        public ObservableCollection<CubeView> Cubes
         {
             get { return _cubes; }
 
@@ -97,7 +97,7 @@ namespace Siftables.ViewModel
                     }
                     else if (args.NewValue > Cubes.Count) // adding cubes
                     {
-                        for (int i = 0; i < numToChange; i++) { Cubes.Add(new Cube()); }
+                        for (int i = 0; i < numToChange; i++) { Cubes.Add(new CubeView()); }
                         Status = ReadyStatus;
                         SnapToGridCommand.Execute(null);
                     }
@@ -174,8 +174,8 @@ namespace Siftables.ViewModel
             #endregion
 
             #region CreateCubes
-            Cubes = new ObservableCollection<Cube>();
-            for (int i = 0; i < 6; i++) { Cubes.Add(new Cube()); }
+            Cubes = new ObservableCollection<CubeView>();
+            for (int i = 0; i < 6; i++) { Cubes.Add(new CubeView()); }
             SnapToGridCommand.Execute(null);
             #endregion
 
@@ -187,7 +187,7 @@ namespace Siftables.ViewModel
             get
             {
                 CubeSet cubes = new CubeSet();
-                foreach (Cube cube in Cubes)
+                foreach (CubeView cube in Cubes)
                 {
                     cubes.Add(((CubeViewModel)cube.LayoutRoot.DataContext).CubeModel);
                 }

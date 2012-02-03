@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace Siftables.Sifteo
 {
-    public class CubeSet : Collection<CubeSift>
+    public class CubeSet : Collection<Cube>
     {
 
         public CubeSet()
@@ -24,9 +24,9 @@ namespace Siftables.Sifteo
             throw new NotImplementedException();
         }
 
-        public CubeSift[] toArray()
+        public Cube[] toArray()
         {
-            CubeSift[] cubeArr = new CubeSift[Count];
+            Cube[] cubeArr = new Cube[Count];
             for (int i = 0; i < Count; i++)
             {
                 cubeArr[i++] = this[i];
@@ -36,7 +36,7 @@ namespace Siftables.Sifteo
         }
 
         // Currently always returns the first Cube
-        public CubeSift CubeByID(String id)
+        public Cube CubeByID(String id)
         {
             return this[0];
         }

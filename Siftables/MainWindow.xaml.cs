@@ -13,9 +13,9 @@ using System.Windows.Browser;
 
 namespace Siftables
 {
-    public partial class MainWindow : UserControl
+    public partial class MainWindowView : UserControl
     {
-        public MainWindow()
+        public MainWindowView()
         {
             InitializeComponent();
         }

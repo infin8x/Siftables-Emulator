@@ -27,7 +27,7 @@ namespace Siftables.Sifteo
         public void Setup()
         {
             // Override this method with information to initialize the application
-            foreach (CubeSift cube in this.Cubes)
+            foreach (Cube cube in this.Cubes)
             {
                 cube.FillScreen(Colors.Red);
             }
@@ -37,7 +37,7 @@ namespace Siftables.Sifteo
         {
             // Override this method with periodic changes that are made when the application is running
             Random rand = new Random();
-            foreach (CubeSift cube in Cubes)
+            foreach (Cube cube in Cubes)
             {
                 cube.FillScreen(Color.FromArgb(255, (byte)rand.Next(256), (byte)rand.Next(256), (byte)rand.Next(256)));
                 cube.FillRect(Color.FromArgb(255, (byte)rand.Next(256), (byte)rand.Next(256), (byte)rand.Next(256)), 25, 25, 25, 25);

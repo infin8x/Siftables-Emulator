@@ -8,13 +8,13 @@
     xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
     xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
     xmlns:vm="clr-namespace:Siftables.ViewModel"
-    x:Class="Siftables.Cube"
+    x:Class="Siftables.CubeView"
     xmlns:sift="clr-namespace:Siftables.Sifteo"
     xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.SL5" 
     mc:Ignorable="d" Height="196" Width="196">
 
     <UserControl.Resources>
-        <sift:CubeSift x:Key="CubeSift"></sift:CubeSift>
+        <sift:Cube x:Key="CubeSift"></sift:Cube>
         <vm:CubeViewModel x:Key="CubeViewModel"></vm:CubeViewModel>
     </UserControl.Resources>
 

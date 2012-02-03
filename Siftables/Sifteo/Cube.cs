@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace Siftables.Sifteo
 {
-    public class CubeSift
+    public class Cube
     {
 
         #region Public Sifteo Members
@@ -62,7 +62,7 @@ namespace Siftables.Sifteo
 
         #endregion
 
-        public CubeSift()
+        public Cube()
         {
             this._backgroundColor = Colors.White;
             this._screenItems = new ObservableCollection<FrameworkElement>();

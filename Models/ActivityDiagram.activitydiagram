@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm11="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="77f0dc7e-b8f7-483c-bb5c-e9043c947466" name="ActivityDiagram" linkedPackageId="786cebab-2179-4034-9c3d-5d3cc17e8617" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="1a0ea020-bb92-4464-9794-b7824e532b4a">
+      <elementDefinition Id="7e885b04-2a86-4071-85e6-32b8edef7ac8" />
+      <body>User</body>
+    </comment>
+    <comment Id="fc02617b-6ad4-4907-b25f-5002aa9ce880">
+      <elementDefinition Id="29402587-751a-48c8-a3b2-1218b6ec595b" />
+      <body>System</body>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="10c52d14-bcee-4c45-8c60-d946c318d32e">
+      <profileInstance Id="144b8db1-e84d-441c-8b6c-a8841a5651fa" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="35486176-21b5-40d1-882e-ae4f76ed4bc7">
+      <profileInstance Id="2d26a816-01f7-450a-b6fa-27351463196a" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="42350682-992a-46b1-8385-f9a064859034" name="ActivityDiagram" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="f25206f1-3c1e-4f4f-b146-f7da5931b319" />
+        <nodes>
+          <initialNode Id="fd2db011-61ce-416b-85a5-6ac6679534e3" name="Initial1" isLeaf="false">
+            <elementDefinition Id="0d950bbe-99eb-4ef8-ac42-2d80728e8d30" />
+            <flowNodeTargets>
+              <controlFlow Id="a885b65b-c050-43ed-be05-3da4df1c946d" isLeaf="false">
+                <opaqueActionMoniker Id="3276bf0d-856e-4174-a6c1-2edbdf102893" LastKnownName="Load A Program" />
+                <elementDefinition Id="b6718e08-eadb-4a9e-ba00-1ef6969db2ec" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction Id="3276bf0d-856e-4174-a6c1-2edbdf102893" name="Load A Program" isLeaf="false">
+            <elementDefinition Id="866fc112-fc21-4794-9866-72a7cdb5aad3" />
+            <flowNodeTargets>
+              <controlFlow Id="6389a844-19f3-4a32-8d49-33677bd9c2a2" isLeaf="false">
+                <opaqueActionMoniker Id="1263e506-3b18-4b87-b4c1-53e9518351ac" LastKnownName="Compile Program" />
+                <elementDefinition Id="ca3542a6-dcbd-4cb3-a232-1fdcdf018b72" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="1263e506-3b18-4b87-b4c1-53e9518351ac" name="Compile Program" isLeaf="false">
+            <elementDefinition Id="129aeac7-462e-4299-9415-288903740fb6" />
+            <flowNodeTargets>
+              <controlFlow Id="1c4e1847-7fec-4078-929a-afefb2e903a4" isLeaf="false">
+                <opaqueActionMoniker Id="4ebb60f5-040c-4cc4-b16a-c1992c8f506f" LastKnownName="Begin Emulation" />
+                <elementDefinition Id="a5cded53-a29f-4472-8626-351b7f577509" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="4ebb60f5-040c-4cc4-b16a-c1992c8f506f" name="Begin Emulation" isLeaf="false">
+            <elementDefinition Id="bc897ea4-32b3-49f1-bce7-323f1e65c5e2" />
+            <flowNodeTargets>
+              <controlFlow Id="8fa13b30-a452-475a-85c9-992aaf4f03a4" isLeaf="false">
+                <forkNodeMoniker Id="0afc5fdc-fa05-4da3-af3b-a0f20bc91372" LastKnownName="Fork1" />
+                <elementDefinition Id="56914eaa-cd37-4730-a120-d40e01766808" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="f08588d8-a7d8-498d-a565-cc6480be7427" name="Manipulate Cubes" isLeaf="false">
+            <elementDefinition Id="0eeabaf2-7545-4235-b178-e60b7344d48c" />
+            <flowNodeTargets>
+              <controlFlow Id="8f859afa-1fa7-4731-8024-fce50c667fca" isLeaf="false">
+                <joinNodeMoniker Id="80229a2f-3098-4e93-ae67-019d43d0150b" LastKnownName="Join1" />
+                <elementDefinition Id="25895aa7-17b3-412a-94e9-5d133f0efcd0" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="4c045a49-8d9f-48e2-8543-4e68dfb07024" name="Close Emulator" isLeaf="false">
+            <elementDefinition Id="6b6a811c-bd50-4626-b6d1-f596fa6dd7fc" />
+            <flowNodeTargets>
+              <controlFlow Id="f6716ed5-e766-4dc2-ab6f-5f134fb9b84a" isLeaf="false">
+                <activityFinalNodeMoniker Id="71069e2a-db4e-40ea-97e7-b549e3797d02" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="6b43718a-f6db-4f63-871d-0c8447eaecee" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <activityFinalNode Id="71069e2a-db4e-40ea-97e7-b549e3797d02" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="79264003-87b8-493b-8b2e-6399b6ec2ef1" />
+          </activityFinalNode>
+          <opaqueAction Id="3ce585b9-a429-49d0-a707-40c82db4c478" name="Respond to Emulation" isLeaf="false">
+            <elementDefinition Id="fc608f46-88e8-427b-9a4a-75a9ab27384a" />
+            <flowNodeTargets>
+              <controlFlow Id="a0b4d478-15d4-4e4c-8a16-504c35fd61ae" isLeaf="false">
+                <joinNodeMoniker Id="80229a2f-3098-4e93-ae67-019d43d0150b" LastKnownName="Join1" />
+                <elementDefinition Id="fd16f720-f2f4-4ed1-b81b-ebda83436e26" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <forkNode Id="0afc5fdc-fa05-4da3-af3b-a0f20bc91372" name="Fork1" isLeaf="false">
+            <elementDefinition Id="af9cf370-c433-4e88-8b23-daf648e663bb" />
+            <flowNodeTargets>
+              <controlFlow Id="6c99a52c-a4c3-4e81-a7fc-e9b820d1b447" isLeaf="false">
+                <opaqueActionMoniker Id="f08588d8-a7d8-498d-a565-cc6480be7427" LastKnownName="Manipulate Cubes" />
+                <elementDefinition Id="32dbcb00-2e95-4408-b310-35c801b4afb2" />
+              </controlFlow>
+              <controlFlow Id="4d846d9d-37d5-4723-a0d6-c36bf7323843" isLeaf="false">
+                <opaqueActionMoniker Id="3ce585b9-a429-49d0-a707-40c82db4c478" LastKnownName="Respond to Emulation" />
+                <elementDefinition Id="f3b30bd4-3164-46b6-9e62-aa57021187f9" />
+              </controlFlow>
+            </flowNodeTargets>
+          </forkNode>
+          <joinNode Id="80229a2f-3098-4e93-ae67-019d43d0150b" name="Join1" isLeaf="false">
+            <elementDefinition Id="82eb1b14-c714-400f-9b1a-01601e4d1e65" />
+            <flowNodeTargets>
+              <controlFlow Id="802a69ae-7d15-403a-8d6a-53ed29b79838" isLeaf="false">
+                <opaqueActionMoniker Id="4c045a49-8d9f-48e2-8543-4e68dfb07024" LastKnownName="Close Emulator" />
+                <elementDefinition Id="974677d4-1518-490e-8ba9-dca981133b55" />
+              </controlFlow>
+            </flowNodeTargets>
+          </joinNode>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="786cebab-2179-4034-9c3d-5d3cc17e8617" name="374Models">
+    <elementDefinition Id="d65f91ad-8cd0-4eda-b930-7fccd34b2651" />
+  </package>
+</activityRootModel>

@@ -1,72 +1,108 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
-  <Comment CommentText="This is a generic class that represents any application developed for the emulator or the actual cube platform.">
-    <Position X="7.141" Y="10.25" Height="1.01" Width="1.7" />
-  </Comment>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Siftables.AppRunner">
+    <Position X="3.75" Y="0.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEBAAAAAAIAAAAAIAAAQCAAEAAAAAIAAAAAIAAAAI=</HashCode>
+      <FileName>AppRunner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.CubeView">
+    <Position X="0.5" Y="9.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cube.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.MainWindowView">
+    <Position X="0.5" Y="4.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.MyApp">
+    <Position X="0.5" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MyApp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="Siftables.Siftables">
-    <Position X="0.5" Y="6.5" Width="6.25" />
+    <Position X="0.5" Y="0.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAEAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
       <FileName>Siftables.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Siftables.BaseApp">
-    <Position X="7" Y="6.5" Width="2.25" />
+  <Class Name="Siftables.Behaviors.ClipBehavior">
+    <Position X="8.25" Y="4.5" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAACAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAQAA=</HashCode>
-      <FileName>BaseApp.cs</FileName>
+      <HashCode>AABAAQAAAAAAAAAAAAACIAAAAAAIBIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Behaviors\ClipBehavior.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Siftables.Cube">
-    <Position X="0.5" Y="11.75" Width="3.25" />
-    <Compartments>
-      <Compartment Name="Nested Types" Collapsed="false" />
-    </Compartments>
-    <NestedTypes>
-      <Enum Name="Siftables.Cube.Side">
-        <TypeIdentifier>
-          <NewMemberFileName>Cube.xaml.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
-    <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAAAAAAAAAQQBgAAAAABAAAAgAAAAAgAA=</HashCode>
-      <FileName>Cube.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Siftables.DragAndDropBehavior">
-    <Position X="0.5" Y="17.25" Width="5.75" />
+  <Class Name="Siftables.Behaviors.DragAndDropBehavior">
+    <Position X="8.25" Y="9.25" Width="3.5" />
     <TypeIdentifier>
       <HashCode>ACAAAAAAFAAAAAhAAAQAgAAAAAgAAAAAQAAAAgAAAAA=</HashCode>
-      <FileName>DragAndDropBehavior.cs</FileName>
+      <FileName>Behaviors\DragAndDropBehavior.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Siftables.MainWindow">
-    <Position X="0.5" Y="9" Width="4.5" />
+  <Class Name="Siftables.Sifteo.BaseApp">
+    <Position X="0.5" Y="13.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAABBAAAAAACAAAAAAAAAAAAAACAAABAAAAAAAA=</HashCode>
-      <FileName>MainWindow.xaml.cs</FileName>
+      <HashCode>AAAEAAAACAAAAAAAAAAAAAAAAAAAAAAAACAAAIAAQAA=</HashCode>
+      <FileName>Sifteo\BaseApp.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Siftables.Neighbors">
-    <Position X="6.5" Y="11.75" Width="2.5" />
+  <Class Name="Siftables.Sifteo.Cube">
+    <Position X="3.75" Y="13.25" Width="4.25" />
+    <NestedTypes>
+      <Enum Name="Siftables.Sifteo.Cube.Side" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Sifteo\Cube.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Delegate Name="Siftables.Sifteo.Cube.EventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Sifteo\Cube.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AABAAAAAACAAAAAAAAARAAQAAAAIAAAACACCAAAQAEA=</HashCode>
-      <FileName>Neighbors.cs</FileName>
+      <HashCode>AAICAAAAAgAACAAAAAAAQQBgCAAAEAAAAAwAAAAAgAA=</HashCode>
+      <FileName>Sifteo\Cube.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Siftables.CubeSet">
-    <Position X="4" Y="11.75" Width="2.25" />
+  <Class Name="Siftables.Sifteo.CubeSet">
+    <Position X="8.25" Y="13.25" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAQAAAAABAAAAAAAAAAAAAAAAAAAg=</HashCode>
-      <FileName>CubeSet.cs</FileName>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAEAABAEAAAAAAAAAAA=</HashCode>
+      <FileName>Sifteo\CubeSet.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Siftables.MyApp">
-    <Position X="7.25" Y="9.5" Width="1.5" />
+  <Class Name="Siftables.ViewModel.CubeViewModel" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="9.25" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>MyApp.cs</FileName>
+      <HashCode>AAACAAgAAAAACIAAAAgAAAAAiAAAAAAAAAQAAIAAAIA=</HashCode>
+      <FileName>ViewModel\CubeViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Siftables.ViewModel.MainWindowViewModel" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="4.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>IEAEAAEEIAAAAoAAAAAAAAAAgAAAQAAAAAAAAIAAAAA=</HashCode>
+      <FileName>ViewModel\MainWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Siftables.Sifteo.Neighbors">
+    <Position X="8.25" Y="15.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAACAIAgAAABABAAQAAAAAAAAgCAACAAAQAEA=</HashCode>
+      <FileName>Sifteo\Neighbors.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

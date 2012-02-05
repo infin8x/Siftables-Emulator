@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="Behaviors\ClipBehavior.cs" />
     <Compile Include="AppRunner.cs" />
+    <Compile Include="MyApp.cs" />
     <Compile Include="Sifteo\CubeSet.cs" />
     <Compile Include="Sifteo\Cube.cs" />
     <Compile Include="ViewModel\CubeViewModel.cs" />

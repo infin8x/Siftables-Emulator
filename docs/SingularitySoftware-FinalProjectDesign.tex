@@ -59,10 +59,10 @@ The initial RunProgram system sequence diagram had a duplicate step which was an
 
 \subsection{Sequence Diagrams}
 
-The \textit{Setup()} operation is necessary in addition to a constructor because this is the way in which initialization of an application is handled per Sifteo's API. No changes were made to this sequence diagram because it is consistent with the way in which the system behaves during this operation.
+The \textit{Setup()} operation is necessary in addition to a constructor because this is the way in which initialization of an application is handled per Sifteo's API. An \textit{AppRuner} entity was added to illustrate the way in which our current system handles application execution and to show that the call to \textit{StopExecution} in the workspace propagates to the \textit{AppRunner} object.
 
 \begin{center}
-        \includegraphics[scale=1]{./pdfs/MS4Models/ReflexGame.pdf}
+        \includegraphics{./pdfs/MS5Models/AppRun.pdf}
 \end{center}
 
 \clearpage

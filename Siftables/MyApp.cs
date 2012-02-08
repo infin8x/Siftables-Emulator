@@ -14,6 +14,8 @@ namespace Siftables
 {
     public class MyApp : BaseApp
     {
-
+        public MyApp(CubeSet cubes) : base(cubes)
+        {
+        }
     }
 }

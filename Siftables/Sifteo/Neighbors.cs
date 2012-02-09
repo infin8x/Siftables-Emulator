@@ -13,12 +13,20 @@ namespace Siftables.Sifteo
 
         public Cube.Side SideOf(Cube c)
         {
+            if (this._neighbors[(int)Cube.Side.TOP] == c) return Cube.Side.TOP;
+            if (this._neighbors[(int)Cube.Side.RIGHT] == c) return Cube.Side.RIGHT;
+            if (this._neighbors[(int)Cube.Side.LEFT] == c) return Cube.Side.LEFT;
+            if (this._neighbors[(int)Cube.Side.BOTTOM] == c) return Cube.Side.BOTTOM;
             return Cube.Side.NONE;
-
         }
 
         public bool Contains(Cube c)
         {
+            for (int i = 0; i < 4; i++)
+            {
+                if (this._neighbors[i] == c)
+                    return true;
+            }
             return false;
         }
 

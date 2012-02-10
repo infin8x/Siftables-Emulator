@@ -3,6 +3,7 @@ using Siftables.Sifteo;
 using System.Windows.Threading;
 using System.Threading;
 using System.Reflection;
+using System.Windows;
 
 namespace Siftables
 {
@@ -57,11 +58,20 @@ namespace Siftables
 
         public delegate void TickMethod();
 
-        public AppRunner(CubeSet cubes, Dispatcher uiDispatcher)
+        private AppRunner()
         {
-            Cubes = cubes;
-            this._uiDispatcher = uiDispatcher;
             this._isRunning = false;
+        }
+
+        private static AppRunner _appRunner;
+
+        public static AppRunner getInstance()
+        {
+            if (_appRunner == null)
+            {
+                _appRunner = new AppRunner();
+            }
+            return _appRunner;
         }
 
         public void Run()
@@ -87,25 +97,29 @@ namespace Siftables
         {
             this._appPath = appPath;
             // Where the generated assembly will reside
-            /*String pathToAppDLL = @"C:\Users\zimmerka\App.dll";
+            /*String pathToAppDLL = @"C:\Users\zimmerka\Siftables-Emulator\Applications\ChangingColorsApp\ChangingColorsApp\bin\Debug\ChangingColorsApp.dll";
 
-            Assembly app = Assembly.LoadFrom(pathToAppDLL);
+            AssemblyPart ap = new AssemblyPart();
+            Assembly appSpace = Assembly.Load("ChangingColorsApp");
+            Type baseApp = typeof(Sifteo.BaseApp);
 
-            Type appType = helloworld.GetType();
-            foreach (Type type in helloworld.GetTypes())
+            Type appType = appSpace.GetType();
+            foreach (Type type in appSpace.GetTypes())
             {
                 // Look for any classes which subclass BaseApp - this is the application code
                 if (type.IsSubclassOf(baseApp))
                 {
-                    Console.WriteLine("Found " + type.FullName);
-                    //var app = Activator.CreateInstance(type);
+                    MessageBox.Show("Found " + type.FullName);
+                    this._app = (BaseApp) Activator.CreateInstance(type);
                     appType = type;
                 }
             }*/
         }
 
-        public void StartExecution()
+        public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher)
         {
+            Cubes = cubes;
+            this._uiDispatcher = uiDispatcher;
             if (!_isRunning)
             {
                 this._runner = new Thread(Run);

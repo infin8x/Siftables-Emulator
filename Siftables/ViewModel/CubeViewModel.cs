@@ -4,6 +4,8 @@ using System.Windows.Media;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Siftables.Sifteo;
+using System.Windows.Shapes;
+using System.Windows.Controls;
 
 namespace Siftables.ViewModel
 {
@@ -71,18 +73,24 @@ namespace Siftables.ViewModel
             this._cube = new Cube();
             ScreenItems = new ObservableCollection<FrameworkElement>();
             this._cube.NotifyBackgroundColorChanged += (sender, args) => { UpdateBackgroundColor((BackgroundEventArgs) args); };
-            this._cube.NotifyScreenItemsChanged += (sender, args) => { UpdateScreenItems((ScreenItemsEventArgs) args); };
+            this._cube.NotifyScreenItemsChanged += (sender, args) => { UpdateScreenItems((RectangleEventArgs) args); };
             this._cube.NotifyScreenItemsEmptied += (sender, args) => { EmptyScreenItems(); };
         }
 
         public void UpdateBackgroundColor(BackgroundEventArgs bArgs)
         {
-            BackgroundColor = new SolidColorBrush(bArgs.BackgroundColor);
+            BackgroundColor = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, bArgs.BackgroundColor.R, bArgs.BackgroundColor.G, bArgs.BackgroundColor.B));
         }
 
-        public void UpdateScreenItems(ScreenItemsEventArgs sArgs)
+        public void UpdateScreenItems(RectangleEventArgs sArgs)
         {
-            ScreenItems.Add(sArgs.ScreenItem);
+            Rectangle r = new Rectangle();
+            r.Fill = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, sArgs.C.R, sArgs.C.G, sArgs.C.B));
+            r.Width = sArgs.W;
+            r.Height = sArgs.H;
+            Canvas.SetTop(r, sArgs.Y);
+            Canvas.SetLeft(r, sArgs.X);
+            ScreenItems.Add(r);
         }
 
         public void EmptyScreenItems()

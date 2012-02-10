@@ -11,7 +11,7 @@
     x:Class="Siftables.CubeView"
     xmlns:sift="clr-namespace:Siftables.Sifteo"
     xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.SL5" 
-    mc:Ignorable="d" Height="196" Width="196">
+    mc:Ignorable="d" Height="196" Width="196"><!-- Loaded="UserControl_Loaded">-->
 
     <UserControl.Resources>
         <vm:CubeViewModel x:Key="CubeViewModel"/>

@@ -149,7 +149,8 @@ namespace Siftables.ViewModel
                     if (userClickedOK == true)
                     {
                         Status = openFileDialog.File.Name + " was loaded.";
-                        ARunner.StartExecution();
+                        ARunner.LoadAssembly(openFileDialog.File.FullName);
+                        ARunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
                     }
                     else
                     {
@@ -161,18 +162,21 @@ namespace Siftables.ViewModel
             #region ReloadAFileCommand
             ReloadAFileCommand = new RelayCommand(() =>
             {
-                // Redo based on LoadAFileCommand
+                ARunner.StopExecution();
+                ARunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
             });
             #endregion
             #endregion
 
             #region CreateCubes
             Cubes = new ObservableCollection<CubeView>();
-            for (int i = 0; i < 6; i++) { Cubes.Add(new CubeView()); }
+            for (int i = 0; i < 6; i++) {
+                Cubes.Add(new CubeView());
+            }
             SnapToGridCommand.Execute(null);
             #endregion
 
-            ARunner = new AppRunner(SiftCubeSet, Cubes[0].Dispatcher);
+            ARunner = AppRunner.getInstance();
             Status = ReadyStatus;
         }
 

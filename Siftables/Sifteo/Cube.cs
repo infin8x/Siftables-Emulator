@@ -62,9 +62,23 @@ namespace Siftables.Sifteo
 
         public const int SCREEN_MIN_Y = 0;
 
-        public enum Side { TOP = 0, LEFT = 1, BOTTOM = 2, RIGHT = 3, NONE = 4 };
+        public enum Side { TOP = 0, LEFT = 1, BOTTOM = 2, RIGHT = 3, NONE = 4 }
 
         #endregion
+
+        private Neighbors _neighbors;
+        public Neighbors Neighbors
+        {
+            get
+            {
+                if (this._neighbors == null) this._neighbors = new Neighbors();
+                return this._neighbors;
+            }
+            set
+            {
+                this._neighbors = value;
+            }
+        }
 
         #region Member Change Event Handling
 
@@ -72,6 +86,7 @@ namespace Siftables.Sifteo
         public event EventHandler NotifyBackgroundColorChanged = delegate { };
         public event EventHandler NotifyScreenItemsChanged = delegate { };
         public event EventHandler NotifyScreenItemsEmptied = delegate { };
+        public event EventHandler NotifyCubeMoved = delegate { };
 
         #endregion
         
@@ -116,6 +131,11 @@ namespace Siftables.Sifteo
             Canvas.SetLeft(r, x);
 
             NotifyScreenItemsChanged(this, new ScreenItemsEventArgs(r));
+        }
+
+        public void OnMove()
+        {
+            NotifyCubeMoved(this, new EventArgs());
         }
     }
 }

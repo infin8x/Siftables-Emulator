@@ -21,5 +21,19 @@ namespace Siftables
                 cube.FillScreen(Colors.White);
             }
         }
+
+        public override void Tick()
+        {
+            base.Tick();
+            foreach (Cube c in this.Cubes)
+            {
+                int num = c.Neighbors.Count;
+                if (num == 0) c.FillScreen(Colors.Black);
+                else if (num == 1) c.FillScreen(Colors.Red);
+                else if (num == 2) c.FillScreen(Colors.Yellow);
+                else if (num == 3) c.FillScreen(Colors.Blue);
+                else if (num == 4) c.FillScreen(Colors.Green);
+            }
+        }
     }
 }

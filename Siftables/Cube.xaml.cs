@@ -24,6 +24,7 @@ namespace Siftables
             InitializeComponent();
 
             Interaction.GetBehaviors(this).Add(new DragAndDropBehavior());
+            Interaction.GetBehaviors(this).Add(new NeighborRefreshBehavior());
         }
         /*
         // scale and rotation not taken into account yet

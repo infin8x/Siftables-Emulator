@@ -26,6 +26,14 @@ namespace Siftables
 
         private BaseApp _app;
 
+        public BaseApp App
+        {
+            get
+            {
+                return this._app;
+            }
+        }
+
         private bool _isRunning;
 
         public bool Running

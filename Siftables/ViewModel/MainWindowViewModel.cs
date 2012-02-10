@@ -40,6 +40,8 @@ namespace Siftables.ViewModel
 
         public RelayCommand<EventArgs> ChangeNumberOfCubesCommand { get; private set; }
 
+        public RelayCommand RefreshNeighborsCommand { get; private set; }
+
         private String _status;
 
         public String Status
@@ -97,14 +99,21 @@ namespace Siftables.ViewModel
                     int numToChange = Convert.ToInt32(Math.Abs(Cubes.Count - args.NewValue));
                     if (args.NewValue < Cubes.Count) // removing cubes
                     {
-                        for (int i = 0; i < numToChange; i++) { Cubes.RemoveAt(Cubes.Count - 1); }
-
+                        for (int i = 0; i < numToChange; i++) {
+                            Cubes.RemoveAt(Cubes.Count - 1);
+                        }
+                        this.CalculateNeighbors();
                     }
                     else if (args.NewValue > Cubes.Count) // adding cubes
                     {
-                        for (int i = 0; i < numToChange; i++) { Cubes.Add(new CubeView()); }
+                        for (int i = 0; i < numToChange; i++) {
+                            CubeView cv = new CubeView();
+                            ((CubeViewModel)cv.LayoutRoot.DataContext).CubeModel.NotifyCubeMoved += (sender, arguments) => { this.CalculateNeighbors(); };
+                            Cubes.Add(cv); 
+                        }
                         Status = ReadyStatus;
                         SnapToGridCommand.Execute(null);
+                        this.ARunner.App.AssociateCubes(SiftCubeSet);
                     }
                     Status = ReadyStatus;
                 });
@@ -117,11 +126,12 @@ namespace Siftables.ViewModel
                     {
                         for (int j = 0; j < 4; j++)
                         {
-                            if ((i * 4) + j > Cubes.Count - 1) { Status = ReadyStatus; return; }
+                            if ((i * 4) + j > Cubes.Count - 1) { this.CalculateNeighbors(); Status = ReadyStatus; return; }
                             Canvas.SetLeft(Cubes[(i * 4) + j], 200 * j);
                             Canvas.SetTop(Cubes[(i * 4) + j], 200 * i);
                         }
                     }
+                    this.CalculateNeighbors();
                     Status = ReadyStatus;
                 });
             #endregion
@@ -168,7 +178,11 @@ namespace Siftables.ViewModel
 
             #region CreateCubes
             Cubes = new ObservableCollection<CubeView>();
-            for (int i = 0; i < 6; i++) { Cubes.Add(new CubeView()); }
+            for (int i = 0; i < 6; i++) {
+                CubeView cv = new CubeView();
+                ((CubeViewModel)cv.LayoutRoot.DataContext).CubeModel.NotifyCubeMoved += (sender, arguments) => { CalculateNeighbors(); };
+                Cubes.Add(cv); 
+            }
             SnapToGridCommand.Execute(null);
             #endregion
 
@@ -189,5 +203,59 @@ namespace Siftables.ViewModel
                 return cubes;
             }
         }
+
+        public void CalculateNeighbors()
+        {
+            int count = Cubes.Count;
+            // I'd like to eliminate this loop... but we have to reset everything before we can start processing neighbors
+            for (int i = 0; i < count; i++)
+            {
+                Cube c = ((CubeViewModel)Cubes[i].LayoutRoot.DataContext).CubeModel;
+                c.Neighbors = new Neighbors();
+            }
+            for (int i = 0; i < count - 1; i++)
+            {
+                CubeView aV = Cubes[i];
+                for (int j = i + 1; j < count; j++)
+                {
+                    CubeView bV = Cubes[j];
+                    // If anybody knows a better way to do this, please fix it.  The only way I could get
+                    // the DP to expose its value is through its ToString method...
+                    int aLeft = Int32.Parse(aV.GetValue(Canvas.LeftProperty).ToString());
+                    int aTop = Int32.Parse(aV.GetValue(Canvas.TopProperty).ToString());
+                    int bLeft = Int32.Parse(bV.GetValue(Canvas.LeftProperty).ToString());
+                    int bTop = Int32.Parse(bV.GetValue(Canvas.TopProperty).ToString());
+                    Cube aC = ((CubeViewModel)aV.LayoutRoot.DataContext).CubeModel;
+                    Cube bC = ((CubeViewModel)bV.LayoutRoot.DataContext).CubeModel;
+                    if ((Math.Abs(aLeft - bLeft) <= (Neighbors.GAP_TOLERANCE + Cube.dimension)) && (Math.Abs(aTop - bTop) <= (Cube.dimension - Neighbors.SHARED_EDGE_MINIMUM)))
+                    {
+                        if (aLeft < bLeft)
+                        {
+                            aC.Neighbors.RIGHT = bC;
+                            bC.Neighbors.LEFT = aC;
+                        }
+                        else
+                        {
+                            aC.Neighbors.LEFT = bC;
+                            bC.Neighbors.RIGHT = aC;
+                        }
+                    }
+                    if ((Math.Abs(aTop - bTop) <= (Neighbors.GAP_TOLERANCE + Cube.dimension)) && (Math.Abs(aLeft - bLeft) <= (Cube.dimension - Neighbors.SHARED_EDGE_MINIMUM)))
+                    {
+                        if (aTop < bTop)
+                        {
+                            aC.Neighbors.TOP = bC;
+                            bC.Neighbors.BOTTOM = aC;
+                        }
+                        else
+                        {
+                            aC.Neighbors.BOTTOM = bC;
+                            bC.Neighbors.TOP = aC;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

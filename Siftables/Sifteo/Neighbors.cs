@@ -3,12 +3,18 @@ namespace Siftables.Sifteo
 {
     public class Neighbors
     {
+        // The maximunm distance apart two cubes can be and still be considered neighbors
+        public static int GAP_TOLERANCE = (int) (Cube.dimension / 1.5);
+        // The minimum length of a shared edge required for cubes to be considered neighbors
+        public static int SHARED_EDGE_MINIMUM = (int) (Cube.dimension / 1.5);
+
         private int _numNeighbors;
-        private Cube[] _neighbors = new Cube[4];
+        private Cube[] _neighbors;
 
         public Neighbors()
         {
             this._numNeighbors = 0;
+            this._neighbors = new Cube[4];
         }
 
         public Cube.Side SideOf(Cube c)

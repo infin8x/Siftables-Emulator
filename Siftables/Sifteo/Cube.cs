@@ -25,21 +25,27 @@ namespace Siftables.Sifteo
         }
     }
 
-    public class ScreenItemsEventArgs : EventArgs
+    public class RectangleEventArgs : EventArgs
     {
-        private FrameworkElement _screenItem;
+        private int _x;
+        private int _y;
+        private int _w;
+        private int _h;
+        private Color _c;
 
-        public FrameworkElement ScreenItem
-        {
-            get
-            {
-                return this._screenItem;
-            }
-        }
+        public int X { get { return this._x; } }
+        public int Y { get { return this._y; } }
+        public int W { get { return this._w; } }
+        public int H { get { return this._h; } }
+        public Color C { get { return this._c; } }
 
-        public ScreenItemsEventArgs(FrameworkElement screenItem)
+        public RectangleEventArgs(Color c, int x, int y, int w, int h)
         {
-            this._screenItem = screenItem;
+            this._c = c;
+            this._x = x;
+            this._y = y;
+            this._w = w;
+            this._h = h;
         }
     }
 
@@ -62,9 +68,23 @@ namespace Siftables.Sifteo
 
         public const int SCREEN_MIN_Y = 0;
 
-        public enum Side { TOP = 0, LEFT = 1, BOTTOM = 2, RIGHT = 3, NONE = 4 };
+        public enum Side { TOP = 0, LEFT = 1, BOTTOM = 2, RIGHT = 3, NONE = 4 }
 
         #endregion
+
+        private Neighbors _neighbors;
+        public Neighbors Neighbors
+        {
+            get
+            {
+                if (this._neighbors == null) this._neighbors = new Neighbors();
+                return this._neighbors;
+            }
+            set
+            {
+                this._neighbors = value;
+            }
+        }
 
         #region Member Change Event Handling
 
@@ -72,6 +92,7 @@ namespace Siftables.Sifteo
         public event EventHandler NotifyBackgroundColorChanged = delegate { };
         public event EventHandler NotifyScreenItemsChanged = delegate { };
         public event EventHandler NotifyScreenItemsEmptied = delegate { };
+        public event EventHandler NotifyCubeMoved = delegate { };
 
         #endregion
         
@@ -86,7 +107,7 @@ namespace Siftables.Sifteo
             if ((x > SCREEN_WIDTH) || (y > SCREEN_HEIGHT)) return;
 
             Rectangle r = new Rectangle();
-            r.Fill = new SolidColorBrush(c);
+            r.Fill = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, c.R, c.G, c.B));
 
             if (x < SCREEN_MIN_X)
             {
@@ -115,7 +136,28 @@ namespace Siftables.Sifteo
             Canvas.SetTop(r, y);
             Canvas.SetLeft(r, x);
 
-            NotifyScreenItemsChanged(this, new ScreenItemsEventArgs(r));
+            NotifyScreenItemsChanged(this, new RectangleEventArgs(c, x, y, w, h));
+        }
+
+        // scale and rotation not taken into account yet
+        public void Image(String name, int x = 0, int y = 0, int sourceX = 0, int sourceY = 0, int w = SCREEN_WIDTH, int h = SCREEN_HEIGHT, int scale = 1, int rotation = 0)
+        {
+            /* This needs to be abstracted like rectangle and background are at this level, and propagated via events to the viewmodel
+            Image newImg = new Image();
+            newImg.Source = new BitmapImage(new Uri(@"/Siftables;component/Images/" + name, UriKind.RelativeOrAbsolute));
+            newImg.Width = w;
+            newImg.Height = h;
+            Canvas.SetLeft(newImg, x);
+            Canvas.SetTop(newImg, y);
+            RectangleGeometry clip = new RectangleGeometry();
+            clip.Rect = new Rect(sourceX, sourceY, w, h);
+            newImg.Clip = clip;
+            */
+        }
+
+        public void OnMove()
+        {
+            NotifyCubeMoved(this, new EventArgs());
         }
     }
 }

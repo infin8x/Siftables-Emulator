@@ -1,4 +1,4 @@
-using Sifteo;
+using SifteoDomain;
 using System;
 
 namespace ChangingColorsApp
@@ -13,10 +13,10 @@ namespace ChangingColorsApp
     {
         this.currentCubeIndex = 0;
 
-        foreach (Cube cube in this.CubeSet)
+        foreach (Cube cube in this.Cubes)
         {
             cube.FillScreen(Color.Black);
-            cube.Paint();
+            //cube.Paint();
         }
     }
 
@@ -26,18 +26,14 @@ namespace ChangingColorsApp
         int r = rand.Next(0, 256);
         int g = rand.Next(0, 256);
         int b = rand.Next(0, 256);
-        Color color = new Color(r, g, b);
+        Color color = new Color((byte) r, (byte) g, (byte) b);
 
-        Cube nextCube = this.CubeSet.toArray()[this.currentCubeIndex];
+        Cube nextCube = this.Cubes[this.currentCubeIndex];
         nextCube.FillScreen(color);
-        nextCube.Paint();
+        //nextCube.Paint();
 
-        this.currentCubeIndex = (this.currentCubeIndex + 1) % this.CubeSet.Count;
+        this.currentCubeIndex = (this.currentCubeIndex + 1) % this.Cubes.Count;
     }
-
-    // development mode only
-    // start ChangingColorsApp as an executable and run it, waiting for Siftrunner to connect
-    static void Main(string[] args) { new ChangingColorsApp().Run(); }
   }
 }
 

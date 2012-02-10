@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Siftables.Sifteo;
 using System.Windows.Threading;
 using System.Threading;
+using System.Reflection;
 
 namespace Siftables
 {
@@ -43,6 +35,20 @@ namespace Siftables
 
         private Thread _runner;
 
+        private String _appPath;
+
+        public String AppPath
+        {
+            get
+            {
+                return this._appPath;
+            }
+        }
+
+        private delegate void SetupMethod();
+
+        public delegate void TickMethod();
+
         public AppRunner(CubeSet cubes, Dispatcher uiDispatcher)
         {
             Cubes = cubes;
@@ -52,12 +58,13 @@ namespace Siftables
 
         public void Run()
         {
+            this._app = new MyApp();
+            this._app.AssociateCubes(Cubes);
             _uiDispatcher.BeginInvoke(delegate()
             {
-                this._app = new BaseApp(Cubes);
                 this._app.Setup();
             });
-            Random rand = new Random();
+
             while (this._isRunning)
             {
                 _uiDispatcher.BeginInvoke(delegate()
@@ -66,6 +73,27 @@ namespace Siftables
                 });
                 Thread.Sleep(500);
             }
+        }
+
+        public void LoadAssembly(String appPath)
+        {
+            this._appPath = appPath;
+            // Where the generated assembly will reside
+            /*String pathToAppDLL = @"C:\Users\zimmerka\App.dll";
+
+            Assembly app = Assembly.LoadFrom(pathToAppDLL);
+
+            Type appType = helloworld.GetType();
+            foreach (Type type in helloworld.GetTypes())
+            {
+                // Look for any classes which subclass BaseApp - this is the application code
+                if (type.IsSubclassOf(baseApp))
+                {
+                    Console.WriteLine("Found " + type.FullName);
+                    //var app = Activator.CreateInstance(type);
+                    appType = type;
+                }
+            }*/
         }
 
         public void StartExecution()

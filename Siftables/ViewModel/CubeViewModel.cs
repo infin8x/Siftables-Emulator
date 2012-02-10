@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Siftables.Sifteo;
@@ -76,19 +69,25 @@ namespace Siftables.ViewModel
         public CubeViewModel()
         {
             this._cube = new Cube();
-            this._cube.NotifyBackgroundColorChanged += (sender, args) => { UpdateBackgroundColor(); };
-            this._cube.NotifyScreenItemsChanged += (sender, args) => { UpdateScreenItems(); };
-            this._cube.FillScreen(Colors.White);
+            ScreenItems = new ObservableCollection<FrameworkElement>();
+            this._cube.NotifyBackgroundColorChanged += (sender, args) => { UpdateBackgroundColor((BackgroundEventArgs) args); };
+            this._cube.NotifyScreenItemsChanged += (sender, args) => { UpdateScreenItems((ScreenItemsEventArgs) args); };
+            this._cube.NotifyScreenItemsEmptied += (sender, args) => { EmptyScreenItems(); };
         }
 
-        public void UpdateBackgroundColor()
+        public void UpdateBackgroundColor(BackgroundEventArgs bArgs)
         {
-            BackgroundColor = new SolidColorBrush(this._cube.BackgroundColor);
+            BackgroundColor = new SolidColorBrush(bArgs.BackgroundColor);
         }
 
-        public void UpdateScreenItems()
+        public void UpdateScreenItems(ScreenItemsEventArgs sArgs)
         {
-            ScreenItems = (ObservableCollection<FrameworkElement>) this._cube.ScreenItems;
+            ScreenItems.Add(sArgs.ScreenItem);
+        }
+
+        public void EmptyScreenItems()
+        {
+            ScreenItems.Clear();
         }
     }
 

@@ -14,8 +14,12 @@ namespace Siftables
 {
     public class MyApp : BaseApp
     {
-        public MyApp(CubeSet cubes) : base(cubes)
+        override public void Setup()
         {
+            foreach (Cube cube in Cubes)
+            {
+                cube.FillScreen(Colors.White);
+            }
         }
     }
 }

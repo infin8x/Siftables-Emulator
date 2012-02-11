@@ -4,6 +4,7 @@ using System.Windows.Threading;
 using System.Threading;
 using System.Reflection;
 using System.Windows;
+using System.IO;
 
 namespace Siftables
 {
@@ -98,9 +99,10 @@ namespace Siftables
             this._appPath = appPath;
             // Where the generated assembly will reside
             /*String pathToAppDLL = @"C:\Users\zimmerka\Siftables-Emulator\Applications\ChangingColorsApp\ChangingColorsApp\bin\Debug\ChangingColorsApp.dll";
+            //File.Move(pathToAppDLL, "ChangingColorsApp.dll");
 
             AssemblyPart ap = new AssemblyPart();
-            Assembly appSpace = Assembly.Load("ChangingColorsApp");
+            Assembly appSpace = Assembly.Load("ChangingColorsApp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
             Type baseApp = typeof(Sifteo.BaseApp);
 
             Type appType = appSpace.GetType();

@@ -127,9 +127,6 @@
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\OutOfBrowserSettings.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\cube.png" />
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +134,6 @@
     <Resource Include="Images\rotate_ccw.png" />
     <Resource Include="Images\rotate_cw.png" />
     <Resource Include="Images\tilt.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\InBrowserSettings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

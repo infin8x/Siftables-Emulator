@@ -3,5 +3,8 @@
   <OutOfBrowserSettings.WindowSettings>
     <WindowSettings Title="Siftables Emulator" Height="800" Width="900" />
   </OutOfBrowserSettings.WindowSettings>
+  <OutOfBrowserSettings.SecuritySettings>
+    <SecuritySettings ElevatedPermissions="Required" />
+  </OutOfBrowserSettings.SecuritySettings>
   <OutOfBrowserSettings.Icons />
 </OutOfBrowserSettings>

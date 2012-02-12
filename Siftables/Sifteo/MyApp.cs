@@ -18,7 +18,6 @@ namespace Siftables
 
         public override void Tick()
         {
-            base.Tick();
             foreach (Cube c in this.Cubes)
             {
                 int num = c.Neighbors.Count;

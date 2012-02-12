@@ -113,7 +113,10 @@ namespace Siftables.ViewModel
                         }
                         Status = ReadyStatus;
                         SnapToGridCommand.Execute(null);
-                        this.ARunner.App.AssociateCubes(SiftCubeSet);
+                        if (ARunner.Running)
+                        {
+                            this.ARunner.App.AssociateCubes(SiftCubeSet);
+                        }
                     }
                     Status = ReadyStatus;
                 });
@@ -147,7 +150,7 @@ namespace Siftables.ViewModel
                     OpenFileDialog openFileDialog = new OpenFileDialog();
 
                     // Set filter options and filter index.
-                    openFileDialog.Filter = "C# Files (.cs)|*.cs|All Files (*.*)|*.*";
+                    openFileDialog.Filter = "C# Library (*.dll)|*.dll|All Files (*.*)|*.*";
                     openFileDialog.FilterIndex = 1;
 
                     openFileDialog.Multiselect = false;

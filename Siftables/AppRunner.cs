@@ -5,6 +5,7 @@ using System.Threading;
 using System.Reflection;
 using System.Windows;
 using System.IO;
+using System.Net;
 
 namespace Siftables
 {
@@ -94,11 +95,23 @@ namespace Siftables
             }
         }
 
+        private void OnAssemblyOpened(object sender, OpenReadCompletedEventArgs e)
+        {
+            AssemblyPart assemblyPart = new AssemblyPart();
+            MessageBox.Show(e.Error.ToString());
+        }
+
         public void LoadAssembly(String appPath)
         {
             this._appPath = appPath;
+            //String pathToAppDLL = @"C:\Users\zimmerka\Siftables-Emulator\Applications\ChangingColorsApp\ChangingColorsApp\bin\Debug\ChangingColorsApp.dll";
+            /*String pathToAppDLL = "ChangingColorsApp.dll";
+
+            WebClient downloader = new WebClient();
+            downloader.OpenReadCompleted += new OpenReadCompletedEventHandler(OnAssemblyOpened);
+            downloader.OpenReadAsync(new Uri(pathToAppDLL, UriKind.Relative));
             // Where the generated assembly will reside
-            /*String pathToAppDLL = @"C:\Users\zimmerka\Siftables-Emulator\Applications\ChangingColorsApp\ChangingColorsApp\bin\Debug\ChangingColorsApp.dll";
+            String pathToAppDLL = @"C:\Users\zimmerka\Siftables-Emulator\Applications\ChangingColorsApp\ChangingColorsApp\bin\Debug\ChangingColorsApp.dll";
             //File.Move(pathToAppDLL, "ChangingColorsApp.dll");
 
             AssemblyPart ap = new AssemblyPart();

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using Siftables.Sifteo;
 using System.Windows.Shapes;
 using System.Windows.Controls;
+using GalaSoft.MvvmLight.Command;
 
 namespace Siftables.ViewModel
 {
@@ -47,6 +48,10 @@ namespace Siftables.ViewModel
 
         }
 
+        public RelayCommand RotateCCWCommand { get; private set; }
+        public RelayCommand RotateCWCommand { get; private set; }
+        public RelayCommand CubeFlipCommand { get; private set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(String info)
@@ -70,6 +75,26 @@ namespace Siftables.ViewModel
 
         public CubeViewModel()
         {
+            #region RelayCommandDefinitions
+            #region CubeFlipCommand
+            CubeFlipCommand = new RelayCommand(() =>
+            {
+                this._cube.OnFlip();
+            });
+            #endregion
+            #region RotateCWCommand
+            RotateCWCommand = new RelayCommand(() =>
+            {
+                
+            });
+            #endregion
+            #region RotateCCWCommand
+            RotateCCWCommand = new RelayCommand(() =>
+            {
+                
+            });
+            #endregion
+            #endregion
             this._cube = new Cube();
             ScreenItems = new ObservableCollection<FrameworkElement>();
             this._cube.NotifyBackgroundColorChanged += (sender, args) => { UpdateBackgroundColor((BackgroundEventArgs) args); };

@@ -93,7 +93,9 @@ namespace Siftables.Sifteo
         public event EventHandler NotifyScreenItemsChanged = delegate { };
         public event EventHandler NotifyScreenItemsEmptied = delegate { };
         public event EventHandler NotifyCubeMoved = delegate { };
-
+        public delegate void FlipEventHandler(Cube c, bool newOrientationIsUp);
+        public event FlipEventHandler NotifyCubeFlip = delegate { };
+        
         #endregion
         
         public void FillScreen(Color color)
@@ -159,5 +161,13 @@ namespace Siftables.Sifteo
         {
             NotifyCubeMoved(this, new EventArgs());
         }
+
+        public void OnFlip()
+        {
+            NotifyCubeFlip(this, true);
+        }
+
+        
+
     }
 }

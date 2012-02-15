@@ -23,7 +23,7 @@
             <RowDefinition Height="25" />
         </Grid.RowDefinitions>
         <!--Row 0-->
-        <sdk:Label x:Name="title" Margin="5" Foreground="SkyBlue" FontSize="24" Content="Siftables Emulator"/>
+        <sdk:Label x:Name="title" Margin="5" Foreground="SkyBlue" FontSize="24" Content="Siftables Emulator" FontFamily="Arial Black"/>
 
         <!--Row 1-->
         <Border x:Name="workspaceBorder" BorderBrush="Black" BorderThickness="3" Margin="5" Grid.Row="1" behave:ClipBehavior.ToBounds="True">

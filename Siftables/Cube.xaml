@@ -118,7 +118,7 @@
             </Button.Background>
         </Button>
 
-        <Button Height="100" Width="25" Margin="5" x:Name="tiltLeftButton" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ImageButton}">
+        <Button Height="32" Width="32" x:Name="tiltLeftButton" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ImageButton}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource TiltLeftStoryboard}"/>
@@ -128,17 +128,21 @@
                 <ImageBrush ImageSource="/Siftables;component/Images/tilt.png" Stretch="UniformToFill"/>
             </Button.Background>
         </Button>
-        <Button Height="25" Width="100" Margin="5" x:Name="tiltUpButton" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource ImageButton}">
+        <Button Height="32" Width="32" x:Name="tiltUpButton" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource ImageButton}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource TiltUpStoryboard}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <Button.Background>
-                <ImageBrush ImageSource="/Siftables;component/Images/tilt_vertical.png" Stretch="UniformToFill"/>
+                <ImageBrush ImageSource="/Siftables;component/Images/tilt.png" Stretch="UniformToFill">
+                    <ImageBrush.Transform>
+                        <RotateTransform Angle="90" CenterX="16" CenterY="16"/>
+                    </ImageBrush.Transform>
+                </ImageBrush>
             </Button.Background>
         </Button>
-        <Button Height="100" Width="25" Margin="5" x:Name="tiltRightButton" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource ImageButton}">
+        <Button Height="32" Width="32" x:Name="tiltRightButton" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource ImageButton}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource TiltRightStoryboard}"/>
@@ -147,21 +151,21 @@
             <Button.Background>
                 <ImageBrush ImageSource="/Siftables;component/Images/tilt.png" Stretch="UniformToFill">
                     <ImageBrush.Transform>
-                        <RotateTransform Angle="180" CenterX="12.5" CenterY="50"/>
+                        <RotateTransform Angle="180" CenterX="16" CenterY="16"/>
                     </ImageBrush.Transform>
                 </ImageBrush>
             </Button.Background>
         </Button>
-        <Button Height="25" Width="100" Margin="5" x:Name="tiltDownButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ImageButton}">
+        <Button Height="32" Width="32" x:Name="tiltDownButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ImageButton}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource TiltDownStoryboard}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <Button.Background>
-                <ImageBrush ImageSource="/Siftables;component/Images/tilt_vertical.png" Stretch="UniformToFill">
+                <ImageBrush ImageSource="/Siftables;component/Images/tilt.png" Stretch="UniformToFill">
                     <ImageBrush.Transform>
-                        <RotateTransform Angle="180" CenterX="50" CenterY="12.5"/>
+                        <RotateTransform Angle="270" CenterX="16" CenterY="16"/>
                     </ImageBrush.Transform>
                 </ImageBrush>
             </Button.Background>

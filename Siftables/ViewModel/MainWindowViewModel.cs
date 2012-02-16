@@ -226,10 +226,10 @@ namespace Siftables.ViewModel
                     CubeView bV = Cubes[j];
                     // If anybody knows a better way to do this, please fix it.  The only way I could get
                     // the DP to expose its value is through its ToString method...
-                    int aLeft = Int32.Parse(aV.GetValue(Canvas.LeftProperty).ToString());
-                    int aTop = Int32.Parse(aV.GetValue(Canvas.TopProperty).ToString());
-                    int bLeft = Int32.Parse(bV.GetValue(Canvas.LeftProperty).ToString());
-                    int bTop = Int32.Parse(bV.GetValue(Canvas.TopProperty).ToString());
+                    int aLeft = (int) Double.Parse(aV.GetValue(Canvas.LeftProperty).ToString());
+                    int aTop = (int) Double.Parse(aV.GetValue(Canvas.TopProperty).ToString());
+                    int bLeft = (int) Double.Parse(bV.GetValue(Canvas.LeftProperty).ToString());
+                    int bTop = (int) Double.Parse(bV.GetValue(Canvas.TopProperty).ToString());
                     Cube aC = ((CubeViewModel)aV.LayoutRoot.DataContext).CubeModel;
                     Cube bC = ((CubeViewModel)bV.LayoutRoot.DataContext).CubeModel;
                     if ((Math.Abs(aLeft - bLeft) <= (Neighbors.GAP_TOLERANCE + Cube.dimension)) && (Math.Abs(aTop - bTop) <= (Cube.dimension - Neighbors.SHARED_EDGE_MINIMUM)))

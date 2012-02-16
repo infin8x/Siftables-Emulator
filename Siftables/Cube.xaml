@@ -7,39 +7,75 @@
     xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
     xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
     xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-    xmlns:vm="clr-namespace:Siftables.ViewModel"
+    xmlns:vm="clr-namespace:Siftables.ViewModel" x:Name="userControl"
     x:Class="Siftables.CubeView"
     xmlns:sift="clr-namespace:Siftables.Sifteo"
     xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.SL5" 
-    mc:Ignorable="d" Height="196" Width="196"><!-- Loaded="UserControl_Loaded">-->
+    mc:Ignorable="d" Height="196" Width="196" RenderTransformOrigin="0.5,0.5">
+    <!-- Loaded="UserControl_Loaded">-->
 
     <UserControl.Resources>
         <vm:CubeViewModel x:Key="CubeViewModel"/>
-        <Storyboard x:Name="FlipStoryboard"/>
+        <Storyboard x:Name="FlipStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="userControl">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="180"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="360"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
         <Storyboard x:Name="RotateCcwStoryboard">
-            <DoubleAnimation Duration="0:0:0.5" By="-90" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="cube">
+            <DoubleAnimation Duration="0:0:0.5" By="-90" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="userControl" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
                     <SineEase EasingMode="EaseInOut"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Name="RotateCwStoryboard">
-            <DoubleAnimation Duration="0:0:0.5" By="90" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="cube">
+            <DoubleAnimation Duration="0:0:0.5" By="90" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="userControl" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
                     <SineEase EasingMode="EaseInOut"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
+        <ImageBrush ImageSource="/Siftables;component/Images/cube.png" Stretch="Uniform" x:Name="CubeFront"/>
+
+        <Storyboard x:Name="TiltLeftStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="userControl">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="45"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="TiltUpStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationX)" Storyboard.TargetName="userControl">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="-45"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="TiltRightStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="userControl">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="-45"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="TiltDownStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationX)" Storyboard.TargetName="userControl">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="45"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
+    <UserControl.RenderTransform>
+        <CompositeTransform/>
+    </UserControl.RenderTransform>
+    <UserControl.Projection>
+        <PlaneProjection/>
+    </UserControl.Projection>
 
     <Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource CubeViewModel}}" >
-        <Canvas Height="168" HorizontalAlignment="Center" Margin="0,0,0,0" x:Name="cube" VerticalAlignment="Center" Width="168" RenderTransformOrigin="0.5,0.5">
+        <Canvas Height="168" HorizontalAlignment="Center" Margin="0,0,0,0" x:Name="cube" VerticalAlignment="Center" Width="168" RenderTransformOrigin="0.5,0.5" Background="{StaticResource CubeFront}">
             <Canvas.RenderTransform>
                 <CompositeTransform/>
             </Canvas.RenderTransform>
-            <Canvas.Background>
-                <ImageBrush ImageSource="/Siftables;component/Images/cube.png" Stretch="Uniform" />
-            </Canvas.Background>
             <!--Emulator Screen-->
             <ItemsControl ItemsSource="{Binding Path=ScreenItems}" Margin="20">
                 <ItemsControl.ItemsPanel>
@@ -50,8 +86,12 @@
             </ItemsControl>
         </Canvas>
 
-        <!--Emulator Buttons-->
         <Button Height="32" x:Name="flipButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ImageButton}" Command="{Binding CubeFlipCommand}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:ControlStoryboardAction Storyboard="{StaticResource FlipStoryboard}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <Button.Background>
                 <ImageBrush ImageSource="/Siftables;component/Images/flip.png" Stretch="UniformToFill" />
             </Button.Background>
@@ -76,5 +116,59 @@
                 <ImageBrush ImageSource="/Siftables;component/Images/rotate_cw.png" Stretch="UniformToFill" />
             </Button.Background>
         </Button>
+
+        <Button Height="32" Width="32" x:Name="tiltLeftButton" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ImageButton}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:ControlStoryboardAction Storyboard="{StaticResource TiltLeftStoryboard}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Button.Background>
+                <ImageBrush ImageSource="/Siftables;component/Images/tilt.png" Stretch="UniformToFill"/>
+            </Button.Background>
+        </Button>
+        <Button Height="32" Width="32" x:Name="tiltUpButton" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource ImageButton}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:ControlStoryboardAction Storyboard="{StaticResource TiltUpStoryboard}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Button.Background>
+                <ImageBrush ImageSource="/Siftables;component/Images/tilt.png" Stretch="UniformToFill">
+                    <ImageBrush.Transform>
+                        <RotateTransform Angle="90" CenterX="16" CenterY="16"/>
+                    </ImageBrush.Transform>
+                </ImageBrush>
+            </Button.Background>
+        </Button>
+        <Button Height="32" Width="32" x:Name="tiltRightButton" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource ImageButton}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:ControlStoryboardAction Storyboard="{StaticResource TiltRightStoryboard}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Button.Background>
+                <ImageBrush ImageSource="/Siftables;component/Images/tilt.png" Stretch="UniformToFill">
+                    <ImageBrush.Transform>
+                        <RotateTransform Angle="180" CenterX="16" CenterY="16"/>
+                    </ImageBrush.Transform>
+                </ImageBrush>
+            </Button.Background>
+        </Button>
+        <Button Height="32" Width="32" x:Name="tiltDownButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ImageButton}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:ControlStoryboardAction Storyboard="{StaticResource TiltDownStoryboard}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Button.Background>
+                <ImageBrush ImageSource="/Siftables;component/Images/tilt.png" Stretch="UniformToFill">
+                    <ImageBrush.Transform>
+                        <RotateTransform Angle="270" CenterX="16" CenterY="16"/>
+                    </ImageBrush.Transform>
+                </ImageBrush>
+            </Button.Background>
+        </Button>
+
     </Grid>
 </UserControl>

@@ -72,7 +72,6 @@
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="mscorlib" />
-    <Reference Include="SiftDomain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -130,6 +129,12 @@
     <Resource Include="Images\rotate_ccw.png" />
     <Resource Include="Images\rotate_cw.png" />
     <Resource Include="Images\tilt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sifteo\Sifteo.csproj">
+      <Project>{84BBD50D-7C3F-40FD-A48E-6CECBA4297C7}</Project>
+      <Name>Sifteo</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

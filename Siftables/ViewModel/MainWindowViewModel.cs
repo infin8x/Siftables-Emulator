@@ -115,7 +115,7 @@ namespace Siftables.ViewModel
                         SnapToGridCommand.Execute(null);
                         if (ARunner.Running)
                         {
-                            this.ARunner.App.AssociateCubes(SiftCubeSet);
+                            ARunner.App.AssociateCubes(SiftCubeSet);
                         }
                     }
                     Status = ReadyStatus;
@@ -161,9 +161,16 @@ namespace Siftables.ViewModel
                     // Process input if the user clicked OK.
                     if (userClickedOK == true)
                     {
-                        Status = openFileDialog.File.Name + " was loaded.";
-                        ARunner.LoadAssembly(openFileDialog.File.FullName);
-                        ARunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
+                        bool loaded = ARunner.LoadAssembly(openFileDialog.File.OpenRead());
+                        if (loaded)
+                        {
+                            Status = openFileDialog.File.Name + " was loaded.";
+                            ARunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
+                        }
+                        else
+                        {
+                            Status = openFileDialog.File.Name + " does not contain a subclass of BaseApp.";
+                        }
                     }
                     else
                     {

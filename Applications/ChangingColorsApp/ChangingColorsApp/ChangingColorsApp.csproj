@@ -38,21 +38,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SifteoDomain">
-      <HintPath>..\..\..\..\SifteoDomain\SifteoDomain\bin\Debug\SifteoDomain.dll</HintPath>
+    <Reference Include="SiftDomain">
+      <HintPath>..\..\..\..\SiftDomain\SiftDomain\Bin\Debug\SiftDomain.dll</HintPath>
     </Reference>
     <Reference Include="System">
-    </Reference>
-    <Reference Include="Sifteo, Version=0.1.4259.19161, Culture=neutral, PublicKeyToken=0e958af9dbfb2cb7">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\bin\Runtimes\mono\Current\sifteo\Sifteo.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChangingColorsApp.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

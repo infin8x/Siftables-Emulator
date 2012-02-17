@@ -72,6 +72,7 @@
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="mscorlib" />
+    <Reference Include="SiftDomain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -85,19 +86,14 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.cs" />
     <Compile Include="Behaviors\NeighborRefreshBehavior.cs" />
     <Compile Include="Behaviors\ClipBehavior.cs" />
     <Compile Include="AppRunner.cs" />
-    <Compile Include="Sifteo\Color.cs" />
-    <Compile Include="Sifteo\CubeSet.cs" />
-    <Compile Include="Sifteo\Cube.cs" />
-    <Compile Include="Sifteo\MyApp.cs" />
     <Compile Include="ViewModel\CubeViewModel.cs" />
     <Compile Include="Siftables.xaml.cs">
       <DependentUpon>Siftables.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sifteo\BaseApp.cs" />
-    <Compile Include="Sifteo\Neighbors.cs" />
     <Compile Include="Behaviors\DragAndDropBehavior.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -134,9 +130,6 @@
     <Resource Include="Images\rotate_ccw.png" />
     <Resource Include="Images\rotate_cw.png" />
     <Resource Include="Images\tilt.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\tilt_vertical.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -78,14 +78,6 @@ namespace Siftables.ViewModel
             {
                 return this._appRunner;
             }
-            set
-            {
-                if (this._appRunner == value) { return; }
-                else
-                {
-                    this._appRunner = value;
-                }
-            }
         }
 
         public MainWindowViewModel()
@@ -156,10 +148,10 @@ namespace Siftables.ViewModel
                     openFileDialog.Multiselect = false;
 
                     // Call the ShowDialog method to show the dialog box.
-                    bool? userClickedOK = openFileDialog.ShowDialog();
+                    bool? userClickedOk = openFileDialog.ShowDialog();
 
                     // Process input if the user clicked OK.
-                    if (userClickedOK == true)
+                    if (userClickedOk == true)
                     {
                         bool loaded = ARunner.LoadAssembly(openFileDialog.File.OpenRead());
                         if (loaded)
@@ -198,7 +190,7 @@ namespace Siftables.ViewModel
             SnapToGridCommand.Execute(null);
             #endregion
 
-            ARunner = AppRunner.getInstance();
+            this._appRunner = AppRunner.GetInstance();
             Status = ReadyStatus;
         }
 

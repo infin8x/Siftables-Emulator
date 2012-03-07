@@ -28,9 +28,9 @@ namespace Siftables
 
         private Dispatcher _uiDispatcher;
 
-        private App _app;
+        private BaseApp _app;
 
-        public App App
+        public BaseApp App
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Siftables
 
         private static AppRunner _appRunner;
 
-        public static AppRunner getInstance()
+        public static AppRunner GetInstance()
         {
             if (_appRunner == null)
             {
@@ -95,8 +95,7 @@ namespace Siftables
             {
                 if (allTypes[i].BaseType == typeof(BaseApp))
                 {
-                    Object o = Activator.CreateInstance(allTypes[i]);
-                    this._app = new App(o);
+                    this._app = (BaseApp) Activator.CreateInstance(allTypes[i]);
                     foundApp = true;
                 }
                 i++;

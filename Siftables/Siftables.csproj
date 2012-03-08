@@ -88,6 +88,7 @@
     <Compile Include="Behaviors\NeighborRefreshBehavior.cs" />
     <Compile Include="Behaviors\ClipBehavior.cs" />
     <Compile Include="AppRunner.cs" />
+    <Compile Include="Behaviors\ShakeDetectionBehavior.cs" />
     <Compile Include="Sifteo\Color.cs" />
     <Compile Include="Sifteo\CubeSet.cs" />
     <Compile Include="Sifteo\Cube.cs" />
@@ -134,9 +135,6 @@
     <Resource Include="Images\rotate_ccw.png" />
     <Resource Include="Images\rotate_cw.png" />
     <Resource Include="Images\tilt.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\tilt_vertical.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

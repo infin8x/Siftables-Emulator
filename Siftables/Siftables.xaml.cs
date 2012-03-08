@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace Siftables
 {
-    public partial class Siftables : Application
+    public partial class Siftables : System.Windows.Application
     {
 
         public Siftables()

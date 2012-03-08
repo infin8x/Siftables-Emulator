@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Windows;
 using System.IO;
 using System.Net;
+using System.Collections.ObjectModel;
 
 namespace Siftables
 {
@@ -46,20 +47,6 @@ namespace Siftables
 
         private Thread _runner;
 
-        private String _appPath;
-
-        public String AppPath
-        {
-            get
-            {
-                return this._appPath;
-            }
-        }
-
-        private delegate void SetupMethod();
-
-        public delegate void TickMethod();
-
         private AppRunner()
         {
             this._isRunning = false;
@@ -67,7 +54,7 @@ namespace Siftables
 
         private static AppRunner _appRunner;
 
-        public static AppRunner getInstance()
+        public static AppRunner GetInstance()
         {
             if (_appRunner == null)
             {
@@ -78,8 +65,8 @@ namespace Siftables
 
         public void Run()
         {
-            this._app = new MyApp();
             this._app.AssociateCubes(Cubes);
+
             _uiDispatcher.BeginInvoke(delegate()
             {
                 this._app.Setup();
@@ -95,40 +82,26 @@ namespace Siftables
             }
         }
 
-        private void OnAssemblyOpened(object sender, OpenReadCompletedEventArgs e)
+        public bool LoadAssembly(Stream appStream)
         {
             AssemblyPart assemblyPart = new AssemblyPart();
-            MessageBox.Show(e.Error.ToString());
-        }
+            Assembly ass = assemblyPart.Load(appStream);
 
-        public void LoadAssembly(String appPath)
-        {
-            this._appPath = appPath;
-            //String pathToAppDLL = @"C:\Users\zimmerka\Siftables-Emulator\Applications\ChangingColorsApp\ChangingColorsApp\bin\Debug\ChangingColorsApp.dll";
-            /*String pathToAppDLL = "ChangingColorsApp.dll";
+            int i = 0;
+            bool foundApp = false;
+            Type[] allTypes = ass.GetTypes();
 
-            WebClient downloader = new WebClient();
-            downloader.OpenReadCompleted += new OpenReadCompletedEventHandler(OnAssemblyOpened);
-            downloader.OpenReadAsync(new Uri(pathToAppDLL, UriKind.Relative));
-            // Where the generated assembly will reside
-            String pathToAppDLL = @"C:\Users\zimmerka\Siftables-Emulator\Applications\ChangingColorsApp\ChangingColorsApp\bin\Debug\ChangingColorsApp.dll";
-            //File.Move(pathToAppDLL, "ChangingColorsApp.dll");
-
-            AssemblyPart ap = new AssemblyPart();
-            Assembly appSpace = Assembly.Load("ChangingColorsApp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
-            Type baseApp = typeof(Sifteo.BaseApp);
-
-            Type appType = appSpace.GetType();
-            foreach (Type type in appSpace.GetTypes())
+            while ((i < allTypes.Length) && !foundApp)
             {
-                // Look for any classes which subclass BaseApp - this is the application code
-                if (type.IsSubclassOf(baseApp))
+                if (allTypes[i].BaseType == typeof(BaseApp))
                 {
-                    MessageBox.Show("Found " + type.FullName);
-                    this._app = (BaseApp) Activator.CreateInstance(type);
-                    appType = type;
+                    this._app = (BaseApp) Activator.CreateInstance(allTypes[i]);
+                    foundApp = true;
                 }
-            }*/
+                i++;
+            }
+
+            return foundApp;
         }
 
         public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher)

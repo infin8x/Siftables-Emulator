@@ -5,20 +5,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Siftables", "Siftables\Sift
 EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Models", "Models\Models.modelproj", "{6D665E88-631D-40A4-B712-A0A01940157D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sifteo", "Sifteo\Sifteo.csproj", "{84BBD50D-7C3F-40FD-A48E-6CECBA4297C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6990EDEC-2BD3-45EA-AF60-EA08088A4539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6990EDEC-2BD3-45EA-AF60-EA08088A4539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6990EDEC-2BD3-45EA-AF60-EA08088A4539}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{6990EDEC-2BD3-45EA-AF60-EA08088A4539}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{6990EDEC-2BD3-45EA-AF60-EA08088A4539}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6990EDEC-2BD3-45EA-AF60-EA08088A4539}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D665E88-631D-40A4-B712-A0A01940157D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D665E88-631D-40A4-B712-A0A01940157D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D665E88-631D-40A4-B712-A0A01940157D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D665E88-631D-40A4-B712-A0A01940157D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84BBD50D-7C3F-40FD-A48E-6CECBA4297C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84BBD50D-7C3F-40FD-A48E-6CECBA4297C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84BBD50D-7C3F-40FD-A48E-6CECBA4297C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84BBD50D-7C3F-40FD-A48E-6CECBA4297C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -78,14 +78,6 @@ namespace Siftables.ViewModel
             {
                 return this._appRunner;
             }
-            set
-            {
-                if (this._appRunner == value) { return; }
-                else
-                {
-                    this._appRunner = value;
-                }
-            }
         }
 
         public MainWindowViewModel()
@@ -115,7 +107,7 @@ namespace Siftables.ViewModel
                         SnapToGridCommand.Execute(null);
                         if (ARunner.Running)
                         {
-                            this.ARunner.App.AssociateCubes(SiftCubeSet);
+                            ARunner.App.AssociateCubes(SiftCubeSet);
                         }
                     }
                     Status = ReadyStatus;
@@ -156,14 +148,21 @@ namespace Siftables.ViewModel
                     openFileDialog.Multiselect = false;
 
                     // Call the ShowDialog method to show the dialog box.
-                    bool? userClickedOK = openFileDialog.ShowDialog();
+                    bool? userClickedOk = openFileDialog.ShowDialog();
 
                     // Process input if the user clicked OK.
-                    if (userClickedOK == true)
+                    if (userClickedOk == true)
                     {
-                        Status = openFileDialog.File.Name + " was loaded.";
-                        ARunner.LoadAssembly(openFileDialog.File.FullName);
-                        ARunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
+                        bool loaded = ARunner.LoadAssembly(openFileDialog.File.OpenRead());
+                        if (loaded)
+                        {
+                            Status = openFileDialog.File.Name + " was loaded.";
+                            ARunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
+                        }
+                        else
+                        {
+                            Status = openFileDialog.File.Name + " does not contain a subclass of BaseApp.";
+                        }
                     }
                     else
                     {
@@ -191,7 +190,7 @@ namespace Siftables.ViewModel
             SnapToGridCommand.Execute(null);
             #endregion
 
-            ARunner = AppRunner.getInstance();
+            this._appRunner = AppRunner.GetInstance();
             Status = ReadyStatus;
         }
 
@@ -226,10 +225,10 @@ namespace Siftables.ViewModel
                     CubeView bV = Cubes[j];
                     // If anybody knows a better way to do this, please fix it.  The only way I could get
                     // the DP to expose its value is through its ToString method...
-                    int aLeft = Int32.Parse(aV.GetValue(Canvas.LeftProperty).ToString());
-                    int aTop = Int32.Parse(aV.GetValue(Canvas.TopProperty).ToString());
-                    int bLeft = Int32.Parse(bV.GetValue(Canvas.LeftProperty).ToString());
-                    int bTop = Int32.Parse(bV.GetValue(Canvas.TopProperty).ToString());
+                    int aLeft = (int) Double.Parse(aV.GetValue(Canvas.LeftProperty).ToString());
+                    int aTop = (int) Double.Parse(aV.GetValue(Canvas.TopProperty).ToString());
+                    int bLeft = (int) Double.Parse(bV.GetValue(Canvas.LeftProperty).ToString());
+                    int bTop = (int) Double.Parse(bV.GetValue(Canvas.TopProperty).ToString());
                     Cube aC = ((CubeViewModel)aV.LayoutRoot.DataContext).CubeModel;
                     Cube bC = ((CubeViewModel)bV.LayoutRoot.DataContext).CubeModel;
                     if ((Math.Abs(aLeft - bLeft) <= (Neighbors.GAP_TOLERANCE + Cube.dimension)) && (Math.Abs(aTop - bTop) <= (Cube.dimension - Neighbors.SHARED_EDGE_MINIMUM)))

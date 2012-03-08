@@ -97,8 +97,6 @@
     <Compile Include="Siftables.xaml.cs">
       <DependentUpon>Siftables.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sifteo\BaseApp.cs" />
-    <Compile Include="Sifteo\Neighbors.cs" />
     <Compile Include="Behaviors\DragAndDropBehavior.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -135,6 +133,12 @@
     <Resource Include="Images\rotate_ccw.png" />
     <Resource Include="Images\rotate_cw.png" />
     <Resource Include="Images\tilt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sifteo\Sifteo.csproj">
+      <Project>{84BBD50D-7C3F-40FD-A48E-6CECBA4297C7}</Project>
+      <Name>Sifteo</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

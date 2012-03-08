@@ -86,8 +86,7 @@
             </ItemsControl>
         </Canvas>
 
-        <!--Emulator Buttons-->
-        <Button Height="32" x:Name="flipButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ImageButton}">
+        <Button Height="32" x:Name="flipButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ImageButton}" Command="{Binding CubeFlipCommand}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource FlipStoryboard}"/>
@@ -97,7 +96,7 @@
                 <ImageBrush ImageSource="/Siftables;component/Images/flip.png" Stretch="UniformToFill" />
             </Button.Background>
         </Button>
-        <Button Height="32" x:Name="rotateCcwButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}">
+        <Button Height="32" x:Name="rotateCcwButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}" Command="{Binding RotateCCWCommand}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource RotateCcwStoryboard}"/>
@@ -107,7 +106,7 @@
                 <ImageBrush ImageSource="/Siftables;component/Images/rotate_ccw.png" Stretch="UniformToFill" />
             </Button.Background>
         </Button>
-        <Button Height="32" x:Name="rotateCwButton" Width="32" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}">
+        <Button Height="32" x:Name="rotateCwButton" Width="32" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}" Command="{Binding RotateCWCommand}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource RotateCwStoryboard}"/>

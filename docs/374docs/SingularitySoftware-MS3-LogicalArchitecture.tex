@@ -1,0 +1,80 @@
+\title{Singularity Software}
+\date{\today}
+
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{lscape}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[final]{pdfpages}
+\usepackage{grffile}
+
+\geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
+
+\setlength{\parindent}{0pt} % Fixes the paragraph spacing problem
+
+\renewcommand*\arraystretch{1.5}
+
+\begin{document}
+\vspace*{\fill}
+        \begin{center}
+                \LARGE{Siftables Emulator} \\
+                \LARGE{\textit{Singularity Software}} \\
+                \vspace{.15in}
+                \large{\today} \\
+                \vspace{4in}
+                        Alex Mullans \\
+                        Ethan Veatch \\
+                        Eric Vernon \\
+                        Kurtis Zimmerman
+        \end{center}
+\vspace*{\fill}
+\thispagestyle{empty}
+
+\section{System Sequence Diagrams}
+One system sequence diagram was created to describe the action of loading and beginning the execution of an application in the workspace.  No further system sequence diagrams were deemed necessary because the rest of the user-system interactions are trivial.
+\begin{center}
+        \includegraphics[scale=1]{./pdfs/Models/SSD - RunProgram.pdf}
+\end{center}
+
+\section{Operation Contracts}
+\begin{tabular*}{\textwidth}{r | l}
+  \multicolumn{2}{l}{\textbf{OC1: SelectFileAndClickOpen}} \\ \hline
+  \textbf{Operation} & SelectFileAndClickOpen(filePath : String) \\
+  \textbf{Cross-references} & UC1: Load  program, UC2: Reload program \\
+  \textbf{Preconditions} & The OpenFileDialog is open. \\
+  \textbf{Post-conditions} & The file name was parsed. \\
+                            & The emulator opened the file. \\ \hline
+\end{tabular*} \\\\
+
+\begin{tabular*}{\textwidth}{r | l}
+  \multicolumn{2}{l}{\textbf{OC2: ZoomSliderChanged}} \\ \hline
+  \textbf{Operation} & ZoomSliderChanged(zoomLevel : int) \\
+  \textbf{Cross-references} & UC3: Zoom screen \\
+  \textbf{Preconditions} & There is an application running in the workspace. \\
+  \textbf{Post-conditions} & The workspace canvas has been magnified appropriately. \\
+                           & The workspace zoomLevel attribute was updated. \\ \hline
+\end{tabular*} \\\\
+
+Additional operation contracts for the remaining use cases were not pursued because of their trivial nature. The basic format of this operation contract --- user changes UI element, UI adjusts accordingly, and program updates relevant attributes --- applies to the other use cases.
+
+\clearpage
+
+\section{Design Class Diagram}
+\begin{center}
+        \includegraphics[scale=1]{./pdfs/Models/Class Diagram.pdf}
+\end{center}
+At this stage in the design of the emulator, there are a few basic entities designed to show the relationship between the UI objects and the domain layer. Cube in the UI layer is responsible for rendering the graphics on a screen; applications, which must extend BaseApp, are responsible for sending messages to the Cubes to make changes.
+
+\section{Sequence Diagrams}
+The following sequence diagrams, despite appearing fairly trivial, depict the general functionality of the system in a level of detail sufficient to begin implementation. 
+\begin{center}
+        \includegraphics[scale=1]{./pdfs/Models/SD - AppRun.pdf}
+\end{center}
+The AppRun SD shows the pattern followed by about 75 percent of the system commands and is thus crucial for moving into product development.
+\begin{center}
+        \includegraphics[scale=1]{./pdfs/Models/SD - ErrorAnnounce.pdf}
+\end{center}
+The ErrorAnnounce SD shows the error handling lifecycle pattern we expect to use throughout the project.
+        
+\end{document}

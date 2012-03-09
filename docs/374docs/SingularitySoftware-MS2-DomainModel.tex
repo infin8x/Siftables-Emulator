@@ -1,0 +1,103 @@
+\title{Singularity Software}
+\date{\today}
+
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{makeidx}
+\usepackage[acronym]{glossaries}
+\usepackage{lscape}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[final]{pdfpages}
+
+\geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
+
+\setlength{\parindent}{0pt} % Fixes the paragraph spacing problem
+
+% This is all for formatting and making the Table of Contents according to 
+% spec. Don't play with it.
+\makeatletter
+\renewcommand\l@section[2]{%
+  \ifnum \c@tocdepth >\z@
+    \addpenalty\@secpenalty
+    \addvspace{1.0em \@plus\p@}%
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\ 
+      \leaders\hbox{$\m@th\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}
+     \hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+    \endgroup
+  \fi}
+\makeatother
+
+\renewcommand*\arraystretch{1.5}
+
+\begin{document}
+\vspace*{\fill}
+        \begin{center}
+                \LARGE{Siftables Emulator} \\
+                \LARGE{\textit{Singularity Software}} \\
+                \vspace{.15in}
+                \large{\today} \\
+                \vspace{4in}
+                        Alex Mullans \\
+                        Ethan Veatch \\
+                        Eric Vernon \\
+                        Kurtis Zimmerman
+        \end{center}
+\vspace*{\fill}
+\thispagestyle{empty}
+
+\section{Domain Model}
+\includegraphics[scale=.8]{pdfs/DomainModel.pdf}
+
+\section{Who Done What}
+\begin{center}
+\begin{tabular}{| c | c | c |}
+            \hline
+
+            \textbf{Team Member} &
+            \textbf{Task} &
+            \textbf{Time (hours)} \\ \hline
+
+            Team &
+            Generated domain model &
+            1 \\ \hline
+
+            Alex Mullans &
+            Diagrammed domain model &
+            .5 \\ \hline
+
+            Kurtis Zimmerman &
+            Document layout &
+            .5 \\ \hline
+
+            Alex Mullans &
+            Updated engineering journal &
+            .5 \\ \hline
+
+            Eric Vernon &
+            Solicited feedback from PM &
+            .5 \\ \hline
+
+            Team &
+            Solicited feedback from client &
+            .5 \\ \hline
+
+            Ethan Veatch &
+            Updated project plan &
+            .5 \\ \hline
+
+            Alex Mullans &
+            Revised domain model diagram &
+            .5 \\ \hline
+
+\end{tabular}
+\end{center}
+        
+\end{document}

@@ -89,10 +89,6 @@
     <Compile Include="Behaviors\ClipBehavior.cs" />
     <Compile Include="AppRunner.cs" />
     <Compile Include="Behaviors\ShakeDetectionBehavior.cs" />
-    <Compile Include="Sifteo\Color.cs" />
-    <Compile Include="Sifteo\CubeSet.cs" />
-    <Compile Include="Sifteo\Cube.cs" />
-    <Compile Include="Sifteo\MyApp.cs" />
     <Compile Include="ViewModel\CubeViewModel.cs" />
     <Compile Include="Siftables.xaml.cs">
       <DependentUpon>Siftables.xaml</DependentUpon>

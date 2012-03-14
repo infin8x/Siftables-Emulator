@@ -6,7 +6,7 @@
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DC1B27F4-E8DF-4B23-AABB-80E7BF11A4C1}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>Game</RootNamespace>
     <AssemblyName>Game</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
@@ -33,12 +33,14 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System">
+    <Reference Include="SiftDomain">
+      <HintPath>..\..\Sifteo\Bin\Debug\SiftDomain.dll</HintPath>
     </Reference>
-    <Reference Include="Sifteo, Version=0.1.4259.19161, Culture=neutral, PublicKeyToken=0e958af9dbfb2cb7">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\bin\Runtimes\mono\Current\sifteo\Sifteo.dll</HintPath>
+    <Reference Include="System">
     </Reference>
   </ItemGroup>
   <ItemGroup>

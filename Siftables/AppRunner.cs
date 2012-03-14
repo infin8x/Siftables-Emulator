@@ -1,59 +1,30 @@
 ﻿using System;
+using System.Reflection;
 using Siftables.Sifteo;
 using System.Windows.Threading;
 using System.Threading;
-using System.Reflection;
 using System.Windows;
 using System.IO;
-using System.Net;
-using System.Collections.ObjectModel;
 
 namespace Siftables
 {
     public class AppRunner
     {
-        private CubeSet _cubes;
+        public CubeSet Cubes { get; set; }
 
-        public CubeSet Cubes
-        {
-            get
-            {
-                return this._cubes;
-            }
-            set
-            {
-                this._cubes = value;
-            }
-        }
+        public BaseApp App { get; private set; }
 
+        public bool IsRunning { get; private set; }
+
+        public const int TimeBetweenTicks = 500;
+
+        // Dispatcher is used to invoke methods on the UI layer.
         private Dispatcher _uiDispatcher;
 
-        private BaseApp _app;
-
-        public BaseApp App
-        {
-            get
-            {
-                return this._app;
-            }
-        }
-
-        private bool _isRunning;
-
-        public bool Running
-        {
-            get { return this._isRunning; }
-        }
-
+        // A new thread is used to execute the application logic.
         private Thread _runner;
 
-        private AppRunner()
-        {
-            this._isRunning = false;
-        }
-
         private static AppRunner _appRunner;
-
         public static AppRunner GetInstance()
         {
             if (_appRunner == null)
@@ -63,68 +34,71 @@ namespace Siftables
             return _appRunner;
         }
 
-        public void Run()
+        private AppRunner()
         {
-            this._app.AssociateCubes(Cubes);
+            this.IsRunning = false;
+        }
 
-            _uiDispatcher.BeginInvoke(delegate()
-            {
-                this._app.Setup();
-            });
+        public void RunAppInThread()
+        {
+            this.App.AssociateCubes(Cubes);
 
-            while (this._isRunning)
+            _uiDispatcher.BeginInvoke(() => this.App.Setup());
+
+            while (IsRunning)
             {
-                _uiDispatcher.BeginInvoke(delegate()
-                {
-                    this._app.Tick();
-                });
-                Thread.Sleep(500);
+                _uiDispatcher.BeginInvoke(() => this.App.Tick());
+                Thread.Sleep(TimeBetweenTicks);
             }
         }
 
-        public bool LoadAssembly(Stream appStream)
+        public void LoadAssembly(Stream appStream)
         {
-            AssemblyPart assemblyPart = new AssemblyPart();
-            Assembly ass = assemblyPart.Load(appStream);
+            var assemblyPart = new AssemblyPart();
+            var loadedAssembly = assemblyPart.Load(appStream);
+            appStream.Dispose();
 
-            int i = 0;
-            bool foundApp = false;
-            Type[] allTypes = ass.GetTypes();
+            var i = 0;
+            var foundApp = false;
+            var assemblyTypes = loadedAssembly.GetTypes();
 
-            while ((i < allTypes.Length) && !foundApp)
+            while ((i < assemblyTypes.Length) && !foundApp)
             {
-                if (allTypes[i].BaseType == typeof(BaseApp))
+                if (assemblyTypes[i].BaseType == typeof(BaseApp))
                 {
-                    this._app = (BaseApp) Activator.CreateInstance(allTypes[i]);
+                    App = (BaseApp) Activator.CreateInstance(assemblyTypes[i]);
                     foundApp = true;
                 }
                 i++;
             }
 
-            return foundApp;
+            if (!foundApp)
+            {
+                throw new TypeLoadException();
+            }
         }
 
         public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher)
         {
             Cubes = cubes;
             this._uiDispatcher = uiDispatcher;
-            if (!_isRunning)
+            if (!IsRunning)
             {
-                this._runner = new Thread(Run);
-                this._isRunning = true;
+                this._runner = new Thread(RunAppInThread);
+                this.IsRunning = true;
                 this._runner.Start();
             }
         }
 
         public void StopExecution()
         {
-            this._isRunning = false;
+            this.IsRunning = false;
             this._runner.Join();
         }
 
         public void PauseExecution()
         {
-            StopExecution();
+            throw new NotImplementedException();
         }
     }
 }

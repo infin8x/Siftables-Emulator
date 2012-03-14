@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SiftDomain">
-      <HintPath>..\..\..\SifteoDomain\SiftDomain\Bin\Release\SiftDomain.dll</HintPath>
+      <HintPath>..\..\Sifteo\Bin\Debug\SiftDomain.dll</HintPath>
     </Reference>
     <Reference Include="System">
     </Reference>

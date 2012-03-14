@@ -1,5 +1,4 @@
 using Siftables.Sifteo;
-using System;
 
 namespace ChangingColorsApp
 {
@@ -11,7 +10,7 @@ namespace ChangingColorsApp
         override public void Setup()
         {
             this._currentCubeIndex = 0;
-            foreach (Cube cube in Cubes)
+            foreach (var cube in Cubes)
             {
                 cube.FillScreen(Color.White);
             }
@@ -19,14 +18,27 @@ namespace ChangingColorsApp
 
         public override void Tick()
         {
-            foreach (Cube c in this.Cubes)
+            foreach (var c in this.Cubes)
             {
-                int num = c.Neighbors.Count;
-                if (num == 0) c.FillScreen(Color.Black);
-                else if (num == 1) c.FillScreen(new Color(255, 0, 0)); // red
-                else if (num == 2) c.FillScreen(new Color(255, 255, 0)); // yellow
-                else if (num == 3) c.FillScreen(new Color(0, 0, 255)); // blue
-                else if (num == 4) c.FillScreen(new Color(0, 255, 0)); // green
+                var num = c.Neighbors.Count;
+                switch (num)
+                {
+                    case 0:
+                        c.FillScreen(Color.Black);
+                        break;
+                    case 1:
+                        c.FillScreen(new Color(255, 0, 0)); // red
+                        break;
+                    case 2:
+                        c.FillScreen(new Color(255, 255, 0)); // yellow
+                        break;
+                    case 3:
+                        c.FillScreen(new Color(0, 0, 255)); // blue
+                        break;
+                    case 4:
+                        c.FillScreen(new Color(0, 255, 0)); // green
+                        break;
+                }
             }
 
 /*		override public void Tick()

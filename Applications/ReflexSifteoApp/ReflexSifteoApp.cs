@@ -1,4 +1,4 @@
-using Sifteo;
+using Siftables.Sifteo;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +15,7 @@ namespace ReflexSifteoApp
       private int framesBetweenUpdates;
       private bool lost;
 
-    override public int FrameRate
+    public int FrameRate
     {
       get { return 20; }
     }
@@ -29,7 +29,7 @@ namespace ReflexSifteoApp
         this.rand = new Random();
         this.lost = false;
 
-        foreach (Cube cube in this.CubeSet) 
+        foreach (Cube cube in this.Cubes) 
         {
             CubeWrapper wrapper = new CubeWrapper(this, cube);
             CubeWrapperSet.Add(wrapper);
@@ -65,7 +65,7 @@ namespace ReflexSifteoApp
         foreach (CubeWrapper cubeWrapper in this.CubeWrapperSet)
         {
             cubeWrapper.cube.FillScreen(losingColor);
-            cubeWrapper.cube.Paint();
+            //cubeWrapper.cube.Paint();
         }
         this.lost = true;
         Console.WriteLine(reason);
@@ -74,7 +74,7 @@ namespace ReflexSifteoApp
     public void ResetCube(CubeWrapper cubeWrapper)
     {
         cubeWrapper.cube.FillScreen(new Color(0, 0, 0));
-        cubeWrapper.cube.Paint();
+        //cubeWrapper.cube.Paint();
     }
 
     public void Repaint()
@@ -88,9 +88,9 @@ namespace ReflexSifteoApp
         int b = (this.currentFrame * 3 % 206) + 50;
         CubeWrapper[] arrCubes = this.CubeWrapperSet.ToArray();
         this.coloredCubeWrapper = arrCubes[this.rand.Next(0, arrCubes.Length)];
-        Color color = new Color(r, g, b);
+        Color color = new Color((byte)r, (byte)g, (byte)b);
         this.coloredCubeWrapper.cube.FillScreen(color);
-        this.coloredCubeWrapper.cube.Paint();
+        //this.coloredCubeWrapper.cube.Paint();
     }
 
     public void Answer(Cube cube)
@@ -108,9 +108,9 @@ namespace ReflexSifteoApp
         }
     }
 
-    // development mode only
+    /* development mode only
     // start ReflexSifteoApp as an executable and run it, waiting for Siftrunner to connect
-    static void Main(string[] args) { new ReflexSifteoApp().Run(); }
+    static void Main(string[] args) { new ReflexSifteoApp().Run(); }*/
   }
 
   public class CubeWrapper
@@ -123,7 +123,7 @@ namespace ReflexSifteoApp
       {
           this.app = app;
           this.cube = cube;
-          this.cube.ButtonEvent += this.OnPress;
+          //this.cube.ButtonEvent += this.OnPress;
       }
 
       private void OnPress(Cube cube, bool press)

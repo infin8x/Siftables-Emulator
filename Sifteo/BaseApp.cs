@@ -28,7 +28,6 @@
         public void AssociateCubes(CubeSet cubes)
         {
             this._cubes = cubes;
-            System.Diagnostics.Debug.WriteLine("Here");
         }
 
         virtual public void Setup()

@@ -5,6 +5,7 @@ using Siftables.Sifteo;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight.Command;
 using System.ComponentModel;
+using System.IO;
 
 namespace Siftables.ViewModel
 {
@@ -62,13 +63,17 @@ namespace Siftables.ViewModel
 
         #endregion
 
-        private AppRunner _appRunner;
+        public AppRunner AppRunner { get; private set; }
 
-        public AppRunner ARunner
+        private String _appLibraryPath;
+
+        private bool _appLoaded;
+        public bool AppLoaded
         {
-            get
-            {
-                return this._appRunner;
+            get { return this._appLoaded; }
+            set { 
+                this._appLoaded = value;
+                NotifyPropertyChanged("AppLoaded");
             }
         }
 
@@ -79,27 +84,27 @@ namespace Siftables.ViewModel
             ChangeNumberOfCubesCommand = new RelayCommand<EventArgs>(e =>
                 {
                     Status = "Changing number of cubes";
-                    RoutedPropertyChangedEventArgs<double> args = e as RoutedPropertyChangedEventArgs<double>;
-                    int numToChange = Convert.ToInt32(Math.Abs(Cubes.Count - args.NewValue));
+                    var args = e as RoutedPropertyChangedEventArgs<double>;
+                    var numToChange = Convert.ToInt32(Math.Abs(Cubes.Count - args.NewValue));
                     if (args.NewValue < Cubes.Count) // removing cubes
                     {
                         for (int i = 0; i < numToChange; i++) {
                             Cubes.RemoveAt(Cubes.Count - 1);
                         }
-                        this.CalculateNeighbors();
+                        CalculateNeighbors();
                     }
                     else if (args.NewValue > Cubes.Count) // adding cubes
                     {
                         for (int i = 0; i < numToChange; i++) {
-                            CubeView cv = new CubeView();
-                            ((CubeViewModel)cv.LayoutRoot.DataContext).CubeModel.NotifyCubeMoved += (sender, arguments) => { this.CalculateNeighbors(); };
+                            var cv = new CubeView();
+                            ((CubeViewModel)cv.LayoutRoot.DataContext).CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
                             Cubes.Add(cv); 
                         }
                         Status = ReadyStatus;
                         SnapToGridCommand.Execute(null);
-                        if (ARunner.Running)
+                        if (AppRunner.IsRunning)
                         {
-                            ARunner.App.AssociateCubes(SiftCubeSet);
+                            AppRunner.App.AssociateCubes(SiftCubeSet);
                         }
                     }
                     Status = ReadyStatus;
@@ -113,47 +118,44 @@ namespace Siftables.ViewModel
                     {
                         for (int j = 0; j < 4; j++)
                         {
-                            if ((i * 4) + j > Cubes.Count - 1) { this.CalculateNeighbors(); Status = ReadyStatus; return; }
+                            if ((i * 4) + j > Cubes.Count - 1) { CalculateNeighbors(); Status = ReadyStatus; return; }
                             Canvas.SetLeft(Cubes[(i * 4) + j], 200 * j);
                             Canvas.SetTop(Cubes[(i * 4) + j], 200 * i);
                         }
                     }
-                    this.CalculateNeighbors();
+                    CalculateNeighbors();
                     Status = ReadyStatus;
                 });
             #endregion
             #region LoadAFileCommand
             LoadAFileCommand = new RelayCommand(() =>
                 {
-                    if (ARunner.Running)
+                    if (AppRunner.IsRunning)
                     {
-                        ARunner.PauseExecution();
+                        AppRunner.StopExecution();
                     }
-                    Status = "Loading a file";
-                    // Create an instance of the open file dialog box.
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
 
-                    // Set filter options and filter index.
-                    openFileDialog.Filter = "C# Library (*.dll)|*.dll|All Files (*.*)|*.*";
-                    openFileDialog.FilterIndex = 1;
+                    Status = "Select the application to run.";
 
-                    openFileDialog.Multiselect = false;
+                    var openFileDialog = new OpenFileDialog { Filter = "C# Library (*.dll)|*.dll|All Files (*.*)|*.*", FilterIndex = 1, Multiselect = false};
 
-                    // Call the ShowDialog method to show the dialog box.
-                    bool? userClickedOk = openFileDialog.ShowDialog();
+                    var userClickedOk = openFileDialog.ShowDialog();
 
-                    // Process input if the user clicked OK.
                     if (userClickedOk == true)
                     {
-                        bool loaded = ARunner.LoadAssembly(openFileDialog.File.OpenRead());
-                        if (loaded)
+                        Status = "Loading application...";
+                        try
                         {
+                            AppRunner.LoadAssembly(openFileDialog.File.OpenRead());
                             Status = openFileDialog.File.Name + " was loaded.";
-                            ARunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
+                            AppRunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
+                            this._appLibraryPath = openFileDialog.File.FullName;
+                            AppLoaded = true;
                         }
-                        else
+                        catch (TypeLoadException)
                         {
-                            Status = openFileDialog.File.Name + " does not contain a subclass of BaseApp.";
+                            MessageBox.Show(openFileDialog.File.Name + " does not contain a subclass of BaseApp.");
+                            Status = "No application found.";
                         }
                     }
                     else
@@ -162,12 +164,34 @@ namespace Siftables.ViewModel
                     }
                 });
             #endregion
-            // This does nothing more than restart the thread, so right now it looks like nothing is happening
+
             #region ReloadAFileCommand
             ReloadAFileCommand = new RelayCommand(() =>
             {
-                ARunner.StopExecution();
-                ARunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
+                if (AppRunner.IsRunning)
+                {
+                    AppRunner.StopExecution();
+                }
+
+                foreach(var cube in SiftCubeSet)
+                {
+                    cube.FillScreen(Color.Black);
+                }
+
+                Status = "Reloading application...";
+                var assemblyStream = new FileStream(this._appLibraryPath, FileMode.Open);
+                try
+                {
+                    AppRunner.LoadAssembly(assemblyStream);
+                    Status = "Application was reloaded.";
+                    AppRunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
+                    AppLoaded = true;
+                }
+                catch (TypeLoadException)
+                {
+                    MessageBox.Show("Application does not contain a subclass of BaseApp.");
+                    Status = "No application found.";
+                }
             });
             #endregion
             #endregion
@@ -175,23 +199,24 @@ namespace Siftables.ViewModel
             #region CreateCubes
             Cubes = new ObservableCollection<CubeView>();
             for (int i = 0; i < 6; i++) {
-                CubeView cv = new CubeView();
-                ((CubeViewModel)cv.LayoutRoot.DataContext).CubeModel.NotifyCubeMoved += (sender, arguments) => { CalculateNeighbors(); };
+                var cv = new CubeView();
+                ((CubeViewModel)cv.LayoutRoot.DataContext).CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
                 Cubes.Add(cv); 
             }
             SnapToGridCommand.Execute(null);
             #endregion
 
-            this._appRunner = AppRunner.GetInstance();
+            AppRunner = AppRunner.GetInstance();
             Status = ReadyStatus;
+            AppLoaded = false;
         }
 
         public CubeSet SiftCubeSet
         {
             get
             {
-                CubeSet cubes = new CubeSet();
-                foreach (CubeView cube in Cubes)
+                var cubes = new CubeSet();
+                foreach (var cube in Cubes)
                 {
                     cubes.Add(((CubeViewModel)cube.LayoutRoot.DataContext).CubeModel);
                 }
@@ -202,27 +227,27 @@ namespace Siftables.ViewModel
 
         public void CalculateNeighbors()
         {
-            int count = Cubes.Count;
+            var count = Cubes.Count;
             // I'd like to eliminate this loop... but we have to reset everything before we can start processing neighbors
             for (int i = 0; i < count; i++)
             {
-                Cube c = ((CubeViewModel)Cubes[i].LayoutRoot.DataContext).CubeModel;
+                var c = ((CubeViewModel)Cubes[i].LayoutRoot.DataContext).CubeModel;
                 c.Neighbors = new Neighbors();
             }
             for (int i = 0; i < count - 1; i++)
             {
-                CubeView aV = Cubes[i];
+                var aV = Cubes[i];
                 for (int j = i + 1; j < count; j++)
                 {
                     CubeView bV = Cubes[j];
                     // If anybody knows a better way to do this, please fix it.  The only way I could get
                     // the DP to expose its value is through its ToString method...
-                    int aLeft = (int) Double.Parse(aV.GetValue(Canvas.LeftProperty).ToString());
-                    int aTop = (int) Double.Parse(aV.GetValue(Canvas.TopProperty).ToString());
-                    int bLeft = (int) Double.Parse(bV.GetValue(Canvas.LeftProperty).ToString());
-                    int bTop = (int) Double.Parse(bV.GetValue(Canvas.TopProperty).ToString());
-                    Cube aC = ((CubeViewModel)aV.LayoutRoot.DataContext).CubeModel;
-                    Cube bC = ((CubeViewModel)bV.LayoutRoot.DataContext).CubeModel;
+                    var aLeft = (int) Double.Parse(aV.GetValue(Canvas.LeftProperty).ToString());
+                    var aTop = (int) Double.Parse(aV.GetValue(Canvas.TopProperty).ToString());
+                    var bLeft = (int) Double.Parse(bV.GetValue(Canvas.LeftProperty).ToString());
+                    var bTop = (int) Double.Parse(bV.GetValue(Canvas.TopProperty).ToString());
+                    var aC = ((CubeViewModel)aV.LayoutRoot.DataContext).CubeModel;
+                    var bC = ((CubeViewModel)bV.LayoutRoot.DataContext).CubeModel;
                     if ((Math.Abs(aLeft - bLeft) <= (Neighbors.GAP_TOLERANCE + Cube.dimension)) && (Math.Abs(aTop - bTop) <= (Cube.dimension - Neighbors.SHARED_EDGE_MINIMUM)))
                     {
                         if (aLeft < bLeft)

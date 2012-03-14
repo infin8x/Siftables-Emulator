@@ -1,7 +1,7 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangingColorsApp", "ChangingColorsApp\ChangingColorsApp.csproj", "{DC1B27F4-E8DF-4B23-AABB-80E7BF11A4C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangingColorsApp", "ChangingColorsApp.csproj", "{DC1B27F4-E8DF-4B23-AABB-80E7BF11A4C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,9 +13,6 @@ Global
 		{DC1B27F4-E8DF-4B23-AABB-80E7BF11A4C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC1B27F4-E8DF-4B23-AABB-80E7BF11A4C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC1B27F4-E8DF-4B23-AABB-80E7BF11A4C1}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = ChangingColorsApp\ChangingColorsApp.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -56,26 +56,22 @@ namespace Siftables
         {
             var assemblyPart = new AssemblyPart();
             var loadedAssembly = assemblyPart.Load(appStream);
-            appStream.Dispose();
-
-            var i = 0;
-            var foundApp = false;
             var assemblyTypes = loadedAssembly.GetTypes();
 
-            while ((i < assemblyTypes.Length) && !foundApp)
+            App = FindBaseApp(assemblyTypes);
+        }
+
+        public BaseApp FindBaseApp(Type[] assemblyTypes)
+        {
+            foreach (var t in assemblyTypes)
             {
-                if (assemblyTypes[i].BaseType == typeof(BaseApp))
+                if (t.BaseType == typeof(BaseApp))
                 {
-                    App = (BaseApp) Activator.CreateInstance(assemblyTypes[i]);
-                    foundApp = true;
+                    return (BaseApp) Activator.CreateInstance(t);
                 }
-                i++;
             }
 
-            if (!foundApp)
-            {
-                throw new TypeLoadException();
-            }
+            throw new TypeLoadException();
         }
 
         public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher)
@@ -94,6 +90,15 @@ namespace Siftables
         {
             this.IsRunning = false;
             this._runner.Join();
+            ResetCubes();
+        }
+
+        public void ResetCubes()
+        {
+            foreach (var cube in Cubes)
+            {
+                cube.FillScreen(Color.Black);
+            }
         }
 
         public void PauseExecution()

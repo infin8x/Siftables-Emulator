@@ -5,7 +5,6 @@ using Siftables.Sifteo;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight.Command;
 using System.ComponentModel;
-using System.IO;
 
 namespace Siftables.ViewModel
 {
@@ -64,18 +63,6 @@ namespace Siftables.ViewModel
         #endregion
 
         public AppRunner AppRunner { get; private set; }
-
-        private String _appLibraryPath;
-
-        private bool _appLoaded;
-        public bool AppLoaded
-        {
-            get { return this._appLoaded; }
-            set { 
-                this._appLoaded = value;
-                NotifyPropertyChanged("AppLoaded");
-            }
-        }
 
         public MainWindowViewModel()
         {
@@ -146,11 +133,12 @@ namespace Siftables.ViewModel
                         Status = "Loading application...";
                         try
                         {
-                            AppRunner.LoadAssembly(openFileDialog.File.OpenRead());
+                            using (var fileStream = openFileDialog.File.OpenRead())
+                            {
+                                AppRunner.LoadAssembly(fileStream);
+                            }
                             Status = openFileDialog.File.Name + " was loaded.";
                             AppRunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
-                            this._appLibraryPath = openFileDialog.File.FullName;
-                            AppLoaded = true;
                         }
                         catch (TypeLoadException)
                         {
@@ -168,30 +156,7 @@ namespace Siftables.ViewModel
             #region ReloadAFileCommand
             ReloadAFileCommand = new RelayCommand(() =>
             {
-                if (AppRunner.IsRunning)
-                {
-                    AppRunner.StopExecution();
-                }
-
-                foreach(var cube in SiftCubeSet)
-                {
-                    cube.FillScreen(Color.Black);
-                }
-
-                Status = "Reloading application...";
-                var assemblyStream = new FileStream(this._appLibraryPath, FileMode.Open);
-                try
-                {
-                    AppRunner.LoadAssembly(assemblyStream);
-                    Status = "Application was reloaded.";
-                    AppRunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
-                    AppLoaded = true;
-                }
-                catch (TypeLoadException)
-                {
-                    MessageBox.Show("Application does not contain a subclass of BaseApp.");
-                    Status = "No application found.";
-                }
+                throw new NotImplementedException();
             });
             #endregion
             #endregion
@@ -208,7 +173,6 @@ namespace Siftables.ViewModel
 
             AppRunner = AppRunner.GetInstance();
             Status = ReadyStatus;
-            AppLoaded = false;
         }
 
         public CubeSet SiftCubeSet

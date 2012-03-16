@@ -55,7 +55,7 @@
             <Button x:Name="loadAProgramButton" Margin="10" Grid.Column="1" Command="{Binding LoadAFileCommand, Mode=OneWay}">
                 <sdk:Label Content="Load A Program"/>
             </Button>
-            <Button x:Name="reloadThisProgramButton" Margin="10" Grid.Column="2" Command="{Binding ReloadAFileCommand, Mode=OneWay}" IsEnabled="{Binding AppLoaded, Mode=OneWay}">
+            <Button x:Name="reloadThisProgramButton" Margin="10" Grid.Column="2" Command="{Binding ReloadAFileCommand, Mode=OneWay}" IsEnabled="False">
                 <sdk:Label Content="Reload This Program"/>
             </Button>
             <Slider x:Name="zoomSlider" Margin="10" Grid.Column="3" VerticalAlignment="Top" LargeChange="0.1" Minimum="1" Maximum="2" Value="1" SmallChange="0.05" />

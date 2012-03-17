@@ -1,115 +1,127 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
+using System.Windows.Media.Imaging;
 
 namespace Siftables.Sifteo
 {
-
     public class BackgroundEventArgs : EventArgs
     {
-        private Color _backgroundColor;
-
-        public Color BackgroundColor
-        {
-            get
-            {
-                return this._backgroundColor;
-            }
-        }
+        public Color BackgroundColor { get; private set; }
 
         public BackgroundEventArgs(Color backgroundColor)
         {
-            this._backgroundColor = backgroundColor;
+            BackgroundColor = backgroundColor;
         }
     }
 
     public class RectangleEventArgs : EventArgs
     {
-        private int _x;
-        private int _y;
-        private int _w;
-        private int _h;
-        private Color _c;
+        public int X { get; private set; }
+        public int Y { get; private set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+        public Color Color { get; private set; }
 
-        public int X { get { return this._x; } }
-        public int Y { get { return this._y; } }
-        public int W { get { return this._w; } }
-        public int H { get { return this._h; } }
-        public Color C { get { return this._c; } }
-
-        public RectangleEventArgs(Color c, int x, int y, int w, int h)
+        public RectangleEventArgs(Color color, int x, int y, int width, int height)
         {
-            this._c = c;
-            this._x = x;
-            this._y = y;
-            this._w = w;
-            this._h = h;
+            Color = color;
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+        }
+    }
+
+    public class ImageEventArgs : EventArgs
+    {
+        public string ImageName { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int SourceX { get; set; }
+        public int SourceY { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public int Scale { get; set; }
+        public int Rotation { get; set; }
+
+        public ImageEventArgs(string imageName, int x, int y, int sourceX, int sourceY, int width, int height, int scale, int rotation)
+        {
+            ImageName = imageName;
+            X = x;
+            Y = y;
+            SourceX = sourceX;
+            SourceY = sourceY;
+            Width = width;
+            Height = height;
+            Scale = scale;
+            Rotation = rotation;
         }
     }
 
     public class Cube
     {
 
-        #region Public Sifteo Members
-
         public static int dimension = 128;
 
-        public const int SCREEN_WIDTH = 128;
-
-        public const int SCREEN_HEIGHT = 128;
-
-        public const int SCREEN_MAX_X = SCREEN_WIDTH - 1;
-
-        public const int SCREEN_MAX_Y = SCREEN_HEIGHT - 1;
-
-        public const int SCREEN_MIN_X = 0;
-
-        public const int SCREEN_MIN_Y = 0;
-
-        public enum Side { TOP = 0, LEFT = 1, BOTTOM = 2, RIGHT = 3, NONE = 4 }
-
-        #endregion
-
-        private Neighbors _neighbors;
-        public Neighbors Neighbors
+        public void OnMove()
         {
-            get
-            {
-                if (this._neighbors == null) this._neighbors = new Neighbors();
-                return this._neighbors;
-            }
-            set
-            {
-                this._neighbors = value;
-            }
+            NotifyCubeMoved(this, new EventArgs());
         }
 
-        #region Member Change Event Handling
+        public void OnFlip()
+        {
+            NotifyCubeFlip(this, true);
+        }
 
-        public delegate void EventHandler(object sender, EventArgs args);
-        public event EventHandler NotifyBackgroundColorChanged = delegate { };
-        public event EventHandler NotifyScreenItemsChanged = delegate { };
-        public event EventHandler NotifyScreenItemsEmptied = delegate { };
-        public event EventHandler NotifyCubeMoved = delegate { };
-        public delegate void FlipEventHandler(Cube c, bool newOrientationIsUp);
-        public event FlipEventHandler NotifyCubeFlip = delegate { };
-        
+        #region Public Types
+        public enum Side { TOP = 0, LEFT = 1, BOTTOM = 2, RIGHT = 3, NONE = 4 }
         #endregion
-        
+
+        #region Public Member Functions
         public void FillScreen(Color color)
         {
             NotifyScreenItemsEmptied(this, new EventArgs());
             NotifyBackgroundColorChanged(this, new BackgroundEventArgs(color));
+
+            Image("flip.png");
         }
 
-        public void FillRect(Color c, int x, int y, int w, int h)
+        public void FillRect(Color color, int x, int y, int width, int height)
         {
             if ((x > SCREEN_WIDTH) || (y > SCREEN_HEIGHT)) return;
 
-            Rectangle r = new Rectangle();
-            r.Fill = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, c.R, c.G, c.B));
+            if (x < SCREEN_MIN_X)
+            {
+                width += x;
+                x = 0;
+            }
+
+            if (y < SCREEN_MIN_Y)
+            {
+                height += y;
+                y = 0;
+            }
+
+            if (width > SCREEN_WIDTH)
+            {
+                width = SCREEN_WIDTH;
+            }
+
+            if (y > SCREEN_HEIGHT)
+            {
+                height = SCREEN_HEIGHT;
+            }
+
+            NotifyNewRectangle(this, new RectangleEventArgs(color, x, y, width, height));
+        }
+
+        // scale and rotation not taken into account yet
+        public void Image(String name, int x = 0, int y = 0, int sourceX = 0, int sourceY = 0, int w = SCREEN_WIDTH, int h = SCREEN_HEIGHT, int scale = 1, int rotation = 0)
+        {
+            if ((x > SCREEN_WIDTH) || (y > SCREEN_HEIGHT)) return;
 
             if (x < SCREEN_MIN_X)
             {
@@ -133,41 +145,67 @@ namespace Siftables.Sifteo
                 h = SCREEN_HEIGHT;
             }
 
-            r.Width = w;
-            r.Height = h;
-            Canvas.SetTop(r, y);
-            Canvas.SetLeft(r, x);
-
-            NotifyScreenItemsChanged(this, new RectangleEventArgs(c, x, y, w, h));
+            NotifyNewImage(this, new ImageEventArgs(name, x, y, sourceX, sourceY, w, h, scale, rotation));
         }
 
-        // scale and rotation not taken into account yet
-        public void Image(String name, int x = 0, int y = 0, int sourceX = 0, int sourceY = 0, int w = SCREEN_WIDTH, int h = SCREEN_HEIGHT, int scale = 1, int rotation = 0)
+        public void Paint()
         {
-            /* This needs to be abstracted like rectangle and background are at this level, and propagated via events to the viewmodel
-            Image newImg = new Image();
-            newImg.Source = new BitmapImage(new Uri(@"/Siftables;component/Images/" + name, UriKind.RelativeOrAbsolute));
-            newImg.Width = w;
-            newImg.Height = h;
-            Canvas.SetLeft(newImg, x);
-            Canvas.SetTop(newImg, y);
-            RectangleGeometry clip = new RectangleGeometry();
-            clip.Rect = new Rect(sourceX, sourceY, w, h);
-            newImg.Clip = clip;
-            */
+            NotifyPaint(this, new EventArgs());
         }
+        #endregion
 
-        public void OnMove()
+        #region Public Attributes
+
+        public object userData;
+
+        public const int SCREEN_WIDTH = 128;
+
+        public const int SCREEN_HEIGHT = 128;
+
+        public const int SCREEN_MAX_X = SCREEN_WIDTH - 1;
+
+        public const int SCREEN_MAX_Y = SCREEN_HEIGHT - 1;
+
+        public const int SCREEN_MIN_X = 0;
+
+        public const int SCREEN_MIN_Y = 0;
+
+        #endregion
+
+        #region Properties
+
+        public Neighbors Neighbors
         {
-            NotifyCubeMoved(this, new EventArgs());
+            get; set;
         }
 
-        public void OnFlip()
-        {
-            NotifyCubeFlip(this, true);
-        }
+        public string UniqueId { get; set; }
 
-        
+        public Side Orientation { get; set; }
 
+        public bool ButtonIsPressed { get; set; }
+
+        public bool IsShaking { get; set; }
+
+        #endregion
+
+        #region Events
+        public delegate void FlipEventHandler(Cube c, bool newOrientationIsUp);
+        public event FlipEventHandler NotifyCubeFlip = delegate { };
+
+        #endregion
+
+        #region Member Change Event Handling
+
+        public delegate void EventHandler(object sender, EventArgs args);
+        public event EventHandler NotifyBackgroundColorChanged = delegate { };
+        public event EventHandler NotifyNewRectangle = delegate { };
+        public event EventHandler NotifyScreenItemsEmptied = delegate { };
+        public event EventHandler NotifyNewImage = delegate { };
+        public event EventHandler NotifyPaint = delegate { }; 
+
+        public event EventHandler NotifyCubeMoved = delegate { };
+
+        #endregion
     }
 }

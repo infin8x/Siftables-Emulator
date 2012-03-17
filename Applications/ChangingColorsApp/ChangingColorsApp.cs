@@ -9,10 +9,11 @@ namespace ChangingColorsApp
 
         override public void Setup()
         {
-            this._currentCubeIndex = 0;
+            _currentCubeIndex = 0;
             foreach (var cube in Cubes)
             {
                 cube.FillScreen(Color.White);
+                cube.Paint();
             }
         }
 
@@ -39,6 +40,7 @@ namespace ChangingColorsApp
                         c.FillScreen(new Color(0, 255, 0)); // green
                         break;
                 }
+                c.Paint();
             }
 
 /*		override public void Tick()

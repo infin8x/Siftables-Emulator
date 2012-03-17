@@ -96,7 +96,7 @@
                 <ImageBrush ImageSource="/Siftables;component/Images/flip.png" Stretch="UniformToFill" />
             </Button.Background>
         </Button>
-        <Button Height="32" x:Name="rotateCcwButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}" Command="{Binding RotateCCWCommand}">
+        <Button Height="32" x:Name="rotateCcwButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}" Command="{Binding RotateCcwCommand}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource RotateCcwStoryboard}"/>
@@ -106,7 +106,7 @@
                 <ImageBrush ImageSource="/Siftables;component/Images/rotate_ccw.png" Stretch="UniformToFill" />
             </Button.Background>
         </Button>
-        <Button Height="32" x:Name="rotateCwButton" Width="32" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}" Command="{Binding RotateCWCommand}">
+        <Button Height="32" x:Name="rotateCwButton" Width="32" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Style="{StaticResource ImageButton}" Command="{Binding RotateCwCommand}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource RotateCwStoryboard}"/>

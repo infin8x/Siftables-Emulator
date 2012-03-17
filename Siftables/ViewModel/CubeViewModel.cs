@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Media.Imaging;
 using Siftables.Sifteo;
 using System.Windows.Shapes;
 using System.Windows.Controls;
@@ -16,26 +17,24 @@ namespace Siftables.ViewModel
         #region BindingDefinitions
 
         private Brush _backgroundColor;
-
         public Brush BackgroundColor
         {
             get
             {
-                return this._backgroundColor;
+                return _backgroundColor;
             }
 
             set
             {
-                if (value != this._backgroundColor)
+                if (value != _backgroundColor)
                 {
-                    this._backgroundColor = value;
+                    _backgroundColor = value;
                     NotifyPropertyChanged("BackgroundColor");
                 }
             }
         }
 
         private ObservableCollection<FrameworkElement> _screenItems;
-
         public ObservableCollection<FrameworkElement> ScreenItems
         {
             get { return _screenItems; }
@@ -48,8 +47,8 @@ namespace Siftables.ViewModel
 
         }
 
-        public RelayCommand RotateCCWCommand { get; private set; }
-        public RelayCommand RotateCWCommand { get; private set; }
+        public RelayCommand RotateCcwCommand { get; private set; }
+        public RelayCommand RotateCwCommand { get; private set; }
         public RelayCommand CubeFlipCommand { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -63,64 +62,99 @@ namespace Siftables.ViewModel
         }
         #endregion
 
-        private Cube _cube;
+        public Cube CubeModel { get; private set; }
 
-        public Cube CubeModel
-        {
-            get
-            {
-                return this._cube;
-            }
-        }
+        private readonly Collection<FrameworkElement> _pendingScreenItems;
+        private SolidColorBrush _pendingBackgroundColor;
 
         public CubeViewModel()
         {
             #region RelayCommandDefinitions
             #region CubeFlipCommand
-            CubeFlipCommand = new RelayCommand(() =>
-            {
-                this._cube.OnFlip();
-            });
+            CubeFlipCommand = new RelayCommand(() => CubeModel.OnFlip());
             #endregion
             #region RotateCWCommand
-            RotateCWCommand = new RelayCommand(() =>
+            RotateCwCommand = new RelayCommand(() =>
             {
                 
             });
             #endregion
             #region RotateCCWCommand
-            RotateCCWCommand = new RelayCommand(() =>
+            RotateCcwCommand = new RelayCommand(() =>
             {
                 
             });
             #endregion
             #endregion
-            this._cube = new Cube();
+
+            CubeModel = new Cube();
             ScreenItems = new ObservableCollection<FrameworkElement>();
-            this._cube.NotifyBackgroundColorChanged += (sender, args) => { UpdateBackgroundColor((BackgroundEventArgs) args); };
-            this._cube.NotifyScreenItemsChanged += (sender, args) => { UpdateScreenItems((RectangleEventArgs) args); };
-            this._cube.NotifyScreenItemsEmptied += (sender, args) => { EmptyScreenItems(); };
+            _pendingScreenItems = new Collection<FrameworkElement>();
+
+            CubeModel.NotifyBackgroundColorChanged += (sender, args) => UpdatePendingBackgroundColor((BackgroundEventArgs) args);
+            CubeModel.NotifyNewRectangle += (sender, args) => AddPendingRectangle((RectangleEventArgs) args);
+            CubeModel.NotifyScreenItemsEmptied += (sender, args) => EmptyScreenItems();
+            CubeModel.NotifyNewImage += (sender, args) => AddPendingImage((ImageEventArgs) args);
+            CubeModel.NotifyPaint += (sender, args) => PaintPendingGraphics();
         }
 
-        public void UpdateBackgroundColor(BackgroundEventArgs bArgs)
+        public void PaintPendingGraphics()
         {
-            BackgroundColor = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, bArgs.BackgroundColor.R, bArgs.BackgroundColor.G, bArgs.BackgroundColor.B));
+            if (_pendingBackgroundColor != null)
+            {
+                ScreenItems.Clear();
+                BackgroundColor = _pendingBackgroundColor;
+                _pendingBackgroundColor = null;
+            }
+
+            if (_pendingScreenItems.Count > 0)
+            {
+                foreach (var screenItem in _pendingScreenItems)
+                {
+                    ScreenItems.Add(screenItem);
+                }
+                _pendingScreenItems.Clear();
+            }
         }
 
-        public void UpdateScreenItems(RectangleEventArgs sArgs)
+        public void UpdatePendingBackgroundColor(BackgroundEventArgs backgroundEventArgs)
         {
-            Rectangle r = new Rectangle();
-            r.Fill = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, sArgs.C.R, sArgs.C.G, sArgs.C.B));
-            r.Width = sArgs.W;
-            r.Height = sArgs.H;
-            Canvas.SetTop(r, sArgs.Y);
-            Canvas.SetLeft(r, sArgs.X);
-            ScreenItems.Add(r);
+            _pendingScreenItems.Clear();
+            _pendingBackgroundColor = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, backgroundEventArgs.BackgroundColor.R, backgroundEventArgs.BackgroundColor.G, backgroundEventArgs.BackgroundColor.B));
+        }
+
+        public void AddPendingRectangle(RectangleEventArgs rectangleEventArgs)
+        {
+            var r = new Rectangle();
+            r.Fill = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, rectangleEventArgs.Color.R, rectangleEventArgs.Color.G, rectangleEventArgs.Color.B));
+            r.Width = rectangleEventArgs.Width;
+            r.Height = rectangleEventArgs.Height;
+            Canvas.SetTop(r, rectangleEventArgs.Y);
+            Canvas.SetLeft(r, rectangleEventArgs.X);
+            _pendingScreenItems.Add(r);
+        }
+
+        public void EmptyPendingScreenItems()
+        {
+            ScreenItems.Clear();
         }
 
         public void EmptyScreenItems()
         {
             ScreenItems.Clear();
+        }
+
+        public void AddPendingImage(ImageEventArgs imageEventArgs)
+        {
+            var image = new Image();
+            image.Source = new BitmapImage(new Uri(@"/Siftables;component/Images/" + imageEventArgs.ImageName, UriKind.RelativeOrAbsolute));
+            image.Width = imageEventArgs.Width;
+            image.Height = imageEventArgs.Height;
+            Canvas.SetLeft(image, imageEventArgs.X);
+            Canvas.SetTop(image, imageEventArgs.Y);
+            var clip = new RectangleGeometry {Rect = new Rect(imageEventArgs.SourceX, imageEventArgs.SourceY, imageEventArgs.Width, imageEventArgs.Height)};
+            image.Clip = clip;
+            _pendingScreenItems.Add(image);
         }
     }
 

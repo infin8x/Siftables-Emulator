@@ -59,12 +59,9 @@
     <Compile Include="Color.cs" />
     <Compile Include="Cube.cs" />
     <Compile Include="CubeSet.cs" />
-<<<<<<< HEAD
     <Compile Include="ImageInfo.cs" />
     <Compile Include="ImageSet.cs" />
-=======
     <Compile Include="Data.cs" />
->>>>>>> eaecb46a362839c93cb9c932fffd528051a0aaf8
     <Compile Include="Neighbors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

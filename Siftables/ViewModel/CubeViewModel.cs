@@ -67,6 +67,8 @@ namespace Siftables.ViewModel
         private readonly Collection<FrameworkElement> _pendingScreenItems;
         private SolidColorBrush _pendingBackgroundColor;
 
+        private ImageManager _imageManager;
+
         public CubeViewModel()
         {
             #region RelayCommandDefinitions
@@ -96,6 +98,11 @@ namespace Siftables.ViewModel
             CubeModel.NotifyScreenItemsEmptied += (sender, args) => EmptyScreenItems();
             CubeModel.NotifyNewImage += (sender, args) => AddPendingImage((ImageEventArgs) args);
             CubeModel.NotifyPaint += (sender, args) => PaintPendingGraphics();
+        }
+
+        public void AssociateImageManager(ImageManager imageManager)
+        {
+            _imageManager = imageManager;
         }
 
         public void PaintPendingGraphics()
@@ -134,11 +141,6 @@ namespace Siftables.ViewModel
             _pendingScreenItems.Add(r);
         }
 
-        public void EmptyPendingScreenItems()
-        {
-            ScreenItems.Clear();
-        }
-
         public void EmptyScreenItems()
         {
             ScreenItems.Clear();
@@ -146,14 +148,17 @@ namespace Siftables.ViewModel
 
         public void AddPendingImage(ImageEventArgs imageEventArgs)
         {
-            var image = new Image();
-            image.Source = new BitmapImage(new Uri(@"/Siftables;component/Images/" + imageEventArgs.ImageName, UriKind.RelativeOrAbsolute));
-            image.Width = imageEventArgs.Width;
-            image.Height = imageEventArgs.Height;
+            var image = new Image
+                            {
+                                Source = _imageManager.GetBitmapImage(imageEventArgs.ImageName),
+                                Width = imageEventArgs.Width,
+                                Height = imageEventArgs.Height
+                            };
             Canvas.SetLeft(image, imageEventArgs.X);
             Canvas.SetTop(image, imageEventArgs.Y);
             var clip = new RectangleGeometry {Rect = new Rect(imageEventArgs.SourceX, imageEventArgs.SourceY, imageEventArgs.Width, imageEventArgs.Height)};
             image.Clip = clip;
+
             _pendingScreenItems.Add(image);
         }
     }

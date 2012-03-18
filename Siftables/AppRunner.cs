@@ -52,7 +52,7 @@ namespace Siftables
             }
         }
 
-        public void LoadAssembly(Stream appStream)
+        public void LoadApplication(Stream appStream)
         {
             var assemblyPart = new AssemblyPart();
             var loadedAssembly = assemblyPart.Load(appStream);
@@ -72,6 +72,18 @@ namespace Siftables
             }
 
             throw new TypeLoadException();
+        }
+
+        public ImageSet LoadImages(string imagePath)
+        {
+            var directoryInfo = new DirectoryInfo(imagePath);
+            var imageList = directoryInfo.EnumerateFiles("*.png");
+            foreach (var file in imageList)
+            {
+                MessageBox.Show(file.ToString());
+            }
+
+            return null;
         }
 
         public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher)

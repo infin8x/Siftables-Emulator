@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Siftables.Sifteo
 {
@@ -37,15 +32,15 @@ namespace Siftables.Sifteo
 
     public class ImageEventArgs : EventArgs
     {
-        public string ImageName { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int SourceX { get; set; }
-        public int SourceY { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public int Scale { get; set; }
-        public int Rotation { get; set; }
+        public string ImageName { get; private set; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
+        public int SourceX { get; private set; }
+        public int SourceY { get; private set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+        public int Scale { get; private set; }
+        public int Rotation { get; private set; }
 
         public ImageEventArgs(string imageName, int x, int y, int sourceX, int sourceY, int width, int height, int scale, int rotation)
         {
@@ -85,8 +80,6 @@ namespace Siftables.Sifteo
         {
             NotifyScreenItemsEmptied(this, new EventArgs());
             NotifyBackgroundColorChanged(this, new BackgroundEventArgs(color));
-
-            Image("flip.png");
         }
 
         public void FillRect(Color color, int x, int y, int width, int height)

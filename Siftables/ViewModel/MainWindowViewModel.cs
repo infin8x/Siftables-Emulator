@@ -11,31 +11,16 @@ namespace Siftables.ViewModel
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region BindingDefinitions
-        private ObservableCollection<CubeView> _cubes;
-
-        public ObservableCollection<CubeView> Cubes
-        {
-            get { return _cubes; }
-
-            set
-            {
-                if (_cubes == value) { return; }
-                _cubes = value;
-            }
-        }
+        public ObservableCollection<CubeView> Cubes { get; set; }
 
         public RelayCommand SnapToGridCommand { get; private set; }
-
         public RelayCommand LoadAFileCommand { get; private set; }
-
         public RelayCommand ReloadAFileCommand { get; private set; }
-
         public RelayCommand<EventArgs> ChangeNumberOfCubesCommand { get; private set; }
 
         public RelayCommand RefreshNeighborsCommand { get; private set; }
 
         private String _status;
-
         public String Status
         {
             get { return _status; }
@@ -47,11 +32,9 @@ namespace Siftables.ViewModel
                 NotifyPropertyChanged("Status");
             }
         }
-
         public const String ReadyStatus = "Ready";
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         private void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)
@@ -63,6 +46,8 @@ namespace Siftables.ViewModel
         #endregion
 
         public AppRunner AppRunner { get; private set; }
+
+        private ImageManager _imageManager;
 
         public MainWindowViewModel()
         {
@@ -92,6 +77,7 @@ namespace Siftables.ViewModel
                         if (AppRunner.IsRunning)
                         {
                             AppRunner.App.AssociateCubes(SiftCubeSet);
+                            AssociateImageManager();
                         }
                     }
                     Status = ReadyStatus;
@@ -135,8 +121,11 @@ namespace Siftables.ViewModel
                         {
                             using (var fileStream = openFileDialog.File.OpenRead())
                             {
-                                AppRunner.LoadAssembly(fileStream);
+                                AppRunner.LoadApplication(fileStream);
                             }
+                            _imageManager = new ImageManager(openFileDialog.File.Directory.FullName + "../../../assets/images");
+                            AppRunner.App.Images = _imageManager.GetImageSet();
+                            AssociateImageManager();
                             Status = openFileDialog.File.Name + " was loaded.";
                             AppRunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
                         }
@@ -152,7 +141,6 @@ namespace Siftables.ViewModel
                     }
                 });
             #endregion
-
             #region ReloadAFileCommand
             ReloadAFileCommand = new RelayCommand(() =>
             {
@@ -173,6 +161,14 @@ namespace Siftables.ViewModel
 
             AppRunner = AppRunner.GetInstance();
             Status = ReadyStatus;
+        }
+
+        public void AssociateImageManager()
+        {
+            foreach (var c in Cubes)
+            {
+                ((CubeViewModel) c.LayoutRoot.DataContext).AssociateImageManager(_imageManager);
+            }
         }
 
         public CubeSet SiftCubeSet

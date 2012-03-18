@@ -1,35 +1,41 @@
-﻿namespace Siftables.Sifteo
+﻿using System.IO;
+
+namespace Siftables.Sifteo
 {
     public class BaseApp
     {
+        #region Properties
 
-        private CubeSet _cubes;
+        public ImageSet Images { get; set; }
 
-        public CubeSet Cubes
-        {
-            get { return this._cubes; }
-        }
+        public string ResourcePath { get; private set; }
 
-        private int _frameRate;
+        public string AppID { get; set; }
 
-        public int FrameRate
-        {
-            get
-            {
-                return this._frameRate;
-            }
-        }
+        public bool IsIdle { get; set; }
+
+        public virtual int FrameRate { get; private set; }
+
+        public float TargetDeltaTime { get; private set; }
+
+        public float DeltaTime { get; private set; }
+
+        public float Time { get; private set; }
+
+        public CubeSet CubeSet { get; private set; }
+        #endregion
 
         public BaseApp()
         {
-            this._frameRate = 20;
+            FrameRate = 20;
         }
 
         public void AssociateCubes(CubeSet cubes)
         {
-            this._cubes = cubes;
+            CubeSet = cubes;
         }
 
+        #region Public Member Functions
         virtual public void Setup()
         {
             // Should be overridden by application
@@ -39,5 +45,6 @@
         {
             // Should be overridden by application
         }
+        #endregion
     }
 }

@@ -59,6 +59,7 @@
     <Compile Include="Color.cs" />
     <Compile Include="Cube.cs" />
     <Compile Include="CubeSet.cs" />
+    <Compile Include="Data.cs" />
     <Compile Include="Neighbors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

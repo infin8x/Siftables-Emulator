@@ -39,7 +39,9 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Sift:CubeView DataContext="{Binding}"></Sift:CubeView>
+                        <Canvas>
+                            <Sift:CubeView DataContext="{Binding}" Canvas.Left="{Binding PositionX, Mode=TwoWay}" Canvas.Top="{Binding PositionY, Mode=TwoWay}"></Sift:CubeView>
+                        </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

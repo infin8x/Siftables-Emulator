@@ -11,7 +11,6 @@ namespace Siftables.ViewModel
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region BindingDefinitions
-        //public ObservableCollection<CubeView> Cubes { get; set; }
         public ObservableCollection<CubeViewModel> CubeViewModels { get; set; } 
 
         public RelayCommand SnapToGridCommand { get; private set; }
@@ -61,16 +60,14 @@ namespace Siftables.ViewModel
                     var numToChange = Convert.ToInt32(Math.Abs(CubeViewModels.Count - args.NewValue));
                     if (args.NewValue < CubeViewModels.Count) // removing cubes
                     {
-                        for (int i = 0; i < numToChange; i++) {
+                        for (var i = 0; i < numToChange; i++) {
                             CubeViewModels.RemoveAt(CubeViewModels.Count - 1);
                         }
                         CalculateNeighbors();
                     }
                     else if (args.NewValue > CubeViewModels.Count) // adding cubes
                     {
-                        for (int i = 0; i < numToChange; i++) {
-                            //var cv = new CubeView();
-                            //((CubeViewModel)cv.LayoutRoot.DataContext).CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
+                        for (var i = 0; i < numToChange; i++) {
                             var cubeViewModel = new CubeViewModel();
                             cubeViewModel.CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
                             CubeViewModels.Add(cubeViewModel); 
@@ -79,8 +76,8 @@ namespace Siftables.ViewModel
                         SnapToGridCommand.Execute(null);
                         if (AppRunner.IsRunning)
                         {
-                            AppRunner.App.AssociateCubes(SiftCubeSet);
-                            AssociateImageManager();
+                            AppRunner.App.AssociateCubes(CubeSet);
+                            AssociateImageManagerWithCubes();
                         }
                     }
                     Status = ReadyStatus;
@@ -90,9 +87,9 @@ namespace Siftables.ViewModel
             SnapToGridCommand = new RelayCommand(() =>
                 {
                     Status = "Snapping to grid";
-                    for (int i = 0; i < Math.Ceiling(CubeViewModels.Count / 4.0); i++)
+                    for (var i = 0; i < Math.Ceiling(CubeViewModels.Count / 4.0); i++)
                     {
-                        for (int j = 0; j < 4; j++)
+                        for (var j = 0; j < 4; j++)
                         {
                             if ((i * 4) + j > CubeViewModels.Count - 1) { CalculateNeighbors(); Status = ReadyStatus; return; }
                             CubeViewModels[(i * 4) + j].PositionX = 200 * j;
@@ -128,9 +125,9 @@ namespace Siftables.ViewModel
                             }
                             _imageManager = new ImageManager(openFileDialog.File.Directory.FullName + "../../../assets/images");
                             AppRunner.App.Images = _imageManager.GetImageSet();
-                            AssociateImageManager();
+                            AssociateImageManagerWithCubes();
                             Status = openFileDialog.File.Name + " was loaded.";
-                            AppRunner.StartExecution(SiftCubeSet, Application.Current.MainWindow.Dispatcher);
+                            AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher);
                         }
                         catch (TypeLoadException)
                         {
@@ -153,13 +150,11 @@ namespace Siftables.ViewModel
             #endregion
 
             #region CreateCubes
-            //Cubes = new ObservableCollection<CubeView>();
             CubeViewModels = new ObservableCollection<CubeViewModel>();
-            for (int i = 0; i < 6; i++) {
-                //var cv = new CubeView();
-                //((CubeViewModel)cv.LayoutRoot.DataContext).CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
-                //Cubes.Add(cv);
-                CubeViewModels.Add(new CubeViewModel());
+            for (var i = 0; i < 6; i++) {
+                var cubeViewModel = new CubeViewModel();
+                cubeViewModel.CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
+                CubeViewModels.Add(cubeViewModel);
             }
             SnapToGridCommand.Execute(null);
             #endregion
@@ -168,7 +163,7 @@ namespace Siftables.ViewModel
             Status = ReadyStatus;
         }
 
-        public void AssociateImageManager()
+        public void AssociateImageManagerWithCubes()
         {
             foreach (var c in CubeViewModels)
             {
@@ -176,7 +171,7 @@ namespace Siftables.ViewModel
             }
         }
 
-        public CubeSet SiftCubeSet
+        public CubeSet CubeSet
         {
             get
             {

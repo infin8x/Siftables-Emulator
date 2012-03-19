@@ -11,7 +11,8 @@ namespace Siftables.ViewModel
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region BindingDefinitions
-        public ObservableCollection<CubeView> Cubes { get; set; }
+        //public ObservableCollection<CubeView> Cubes { get; set; }
+        public ObservableCollection<CubeViewModel> CubeViewModels { get; set; } 
 
         public RelayCommand SnapToGridCommand { get; private set; }
         public RelayCommand LoadAFileCommand { get; private set; }
@@ -57,20 +58,22 @@ namespace Siftables.ViewModel
                 {
                     Status = "Changing number of cubes";
                     var args = e as RoutedPropertyChangedEventArgs<double>;
-                    var numToChange = Convert.ToInt32(Math.Abs(Cubes.Count - args.NewValue));
-                    if (args.NewValue < Cubes.Count) // removing cubes
+                    var numToChange = Convert.ToInt32(Math.Abs(CubeViewModels.Count - args.NewValue));
+                    if (args.NewValue < CubeViewModels.Count) // removing cubes
                     {
                         for (int i = 0; i < numToChange; i++) {
-                            Cubes.RemoveAt(Cubes.Count - 1);
+                            CubeViewModels.RemoveAt(CubeViewModels.Count - 1);
                         }
                         CalculateNeighbors();
                     }
-                    else if (args.NewValue > Cubes.Count) // adding cubes
+                    else if (args.NewValue > CubeViewModels.Count) // adding cubes
                     {
                         for (int i = 0; i < numToChange; i++) {
-                            var cv = new CubeView();
-                            ((CubeViewModel)cv.LayoutRoot.DataContext).CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
-                            Cubes.Add(cv); 
+                            //var cv = new CubeView();
+                            //((CubeViewModel)cv.LayoutRoot.DataContext).CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
+                            var cubeViewModel = new CubeViewModel();
+                            cubeViewModel.CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
+                            CubeViewModels.Add(cubeViewModel); 
                         }
                         Status = ReadyStatus;
                         SnapToGridCommand.Execute(null);
@@ -87,13 +90,13 @@ namespace Siftables.ViewModel
             SnapToGridCommand = new RelayCommand(() =>
                 {
                     Status = "Snapping to grid";
-                    for (int i = 0; i < Math.Ceiling(Cubes.Count / 4.0); i++)
+                    for (int i = 0; i < Math.Ceiling(CubeViewModels.Count / 4.0); i++)
                     {
                         for (int j = 0; j < 4; j++)
                         {
-                            if ((i * 4) + j > Cubes.Count - 1) { CalculateNeighbors(); Status = ReadyStatus; return; }
-                            Canvas.SetLeft(Cubes[(i * 4) + j], 200 * j);
-                            Canvas.SetTop(Cubes[(i * 4) + j], 200 * i);
+                            if ((i * 4) + j > CubeViewModels.Count - 1) { CalculateNeighbors(); Status = ReadyStatus; return; }
+                            CubeViewModels[(i * 4) + j].PositionX = 200 * j;
+                            CubeViewModels[(i * 4) + j].PositionY = 200 * i;
                         }
                     }
                     CalculateNeighbors();
@@ -127,7 +130,7 @@ namespace Siftables.ViewModel
                             AppRunner.App.Images = _imageManager.GetImageSet();
                             AssociateImageManager();
                             Status = openFileDialog.File.Name + " was loaded.";
-                            AppRunner.StartExecution(SiftCubeSet, Cubes[0].Dispatcher);
+                            AppRunner.StartExecution(SiftCubeSet, Application.Current.MainWindow.Dispatcher);
                         }
                         catch (TypeLoadException)
                         {
@@ -150,11 +153,13 @@ namespace Siftables.ViewModel
             #endregion
 
             #region CreateCubes
-            Cubes = new ObservableCollection<CubeView>();
+            //Cubes = new ObservableCollection<CubeView>();
+            CubeViewModels = new ObservableCollection<CubeViewModel>();
             for (int i = 0; i < 6; i++) {
-                var cv = new CubeView();
-                ((CubeViewModel)cv.LayoutRoot.DataContext).CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
-                Cubes.Add(cv); 
+                //var cv = new CubeView();
+                //((CubeViewModel)cv.LayoutRoot.DataContext).CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
+                //Cubes.Add(cv);
+                CubeViewModels.Add(new CubeViewModel());
             }
             SnapToGridCommand.Execute(null);
             #endregion
@@ -165,9 +170,9 @@ namespace Siftables.ViewModel
 
         public void AssociateImageManager()
         {
-            foreach (var c in Cubes)
+            foreach (var c in CubeViewModels)
             {
-                ((CubeViewModel) c.LayoutRoot.DataContext).AssociateImageManager(_imageManager);
+                c.AssociateImageManager(_imageManager);
             }
         }
 
@@ -176,9 +181,9 @@ namespace Siftables.ViewModel
             get
             {
                 var cubes = new CubeSet();
-                foreach (var cube in Cubes)
+                foreach (var cube in CubeViewModels)
                 {
-                    cubes.Add(((CubeViewModel)cube.LayoutRoot.DataContext).CubeModel);
+                    cubes.Add(cube.CubeModel);
                 }
 
                 return cubes;
@@ -187,27 +192,34 @@ namespace Siftables.ViewModel
 
         public void CalculateNeighbors()
         {
-            var count = Cubes.Count;
+            var count = CubeViewModels.Count;
             // I'd like to eliminate this loop... but we have to reset everything before we can start processing neighbors
             for (int i = 0; i < count; i++)
             {
-                var c = ((CubeViewModel)Cubes[i].LayoutRoot.DataContext).CubeModel;
+                var c = CubeViewModels[i].CubeModel;
                 c.Neighbors = new Neighbors();
             }
             for (int i = 0; i < count - 1; i++)
             {
-                var aV = Cubes[i];
+                var aV = CubeViewModels[i];
                 for (int j = i + 1; j < count; j++)
                 {
-                    CubeView bV = Cubes[j];
+                    var bV = CubeViewModels[j];
                     // If anybody knows a better way to do this, please fix it.  The only way I could get
                     // the DP to expose its value is through its ToString method...
+                    var aLeft = aV.PositionX;
+                    var aTop = aV.PositionY;
+                    var bLeft = bV.PositionX;
+                    var bTop = bV.PositionY;
+                    var aC = aV.CubeModel;
+                    var bC = bV.CubeModel;
+                    /*
                     var aLeft = (int) Double.Parse(aV.GetValue(Canvas.LeftProperty).ToString());
                     var aTop = (int) Double.Parse(aV.GetValue(Canvas.TopProperty).ToString());
                     var bLeft = (int) Double.Parse(bV.GetValue(Canvas.LeftProperty).ToString());
                     var bTop = (int) Double.Parse(bV.GetValue(Canvas.TopProperty).ToString());
                     var aC = ((CubeViewModel)aV.LayoutRoot.DataContext).CubeModel;
-                    var bC = ((CubeViewModel)bV.LayoutRoot.DataContext).CubeModel;
+                    var bC = ((CubeViewModel)bV.LayoutRoot.DataContext).CubeModel;*/
                     if ((Math.Abs(aLeft - bLeft) <= (Neighbors.GAP_TOLERANCE + Cube.dimension)) && (Math.Abs(aTop - bTop) <= (Cube.dimension - Neighbors.SHARED_EDGE_MINIMUM)))
                     {
                         if (aLeft < bLeft)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Media.Imaging;
@@ -11,11 +10,6 @@ namespace Siftables
     {
 
         public Dictionary<string, CubeImage> ImageNameToImageInfo { get; private set; }
-
-        public ImageManager()
-        {
-            ImageNameToImageInfo = new Dictionary<string, CubeImage>();
-        }
 
         public ImageManager(string imagePath)
         {

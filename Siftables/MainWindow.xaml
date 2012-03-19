@@ -27,7 +27,7 @@
 
         <!--Row 1-->
         <Border x:Name="workspaceBorder" BorderBrush="Black" BorderThickness="3" Margin="5" Grid.Row="1" behave:ClipBehavior.ToBounds="True">
-            <ItemsControl ItemsSource="{Binding Path=Cubes}" Margin="0" x:Name="workspace" behave:ClipBehavior.ToBounds="True">
+            <ItemsControl ItemsSource="{Binding Path=CubeViewModels}" Margin="0" x:Name="workspace" behave:ClipBehavior.ToBounds="True">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas Background="SkyBlue" Margin="0">
@@ -37,6 +37,11 @@
                         </Canvas>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Sift:CubeView DataContext="{Binding}"></Sift:CubeView>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Border>
 
@@ -63,7 +68,7 @@
 
             <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Stretch">
                 <sdk:Label Margin="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"># of Cubes:</sdk:Label>
-                <toolkit:NumericUpDown x:Name="numberOfCubesUpDown" IsEnabled="True" Maximum="9" Minimum="1" Style="{StaticResource ButtonSpinnerHorizontalStyle}" Value="{Binding Path=Cubes.Count, Mode=TwoWay}" Height="30" FontSize="14">
+                <toolkit:NumericUpDown x:Name="numberOfCubesUpDown" IsEnabled="True" Maximum="9" Minimum="1" Style="{StaticResource ButtonSpinnerHorizontalStyle}" Value="{Binding Path=CubeViewModels.Count, Mode=TwoWay}" Height="30" FontSize="14">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="ValueChanged">
                             <cmd:EventToCommand Command="{Binding ChangeNumberOfCubesCommand}" PassEventArgsToCommand="True"></cmd:EventToCommand>

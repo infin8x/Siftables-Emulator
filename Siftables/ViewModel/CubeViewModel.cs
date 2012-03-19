@@ -34,6 +34,28 @@ namespace Siftables.ViewModel
             }
         }
 
+        private int _positionX;
+        public int PositionX
+        {
+            get { return _positionX; }
+            set
+            { 
+                _positionX = value;
+                NotifyPropertyChanged("PositionX");
+            }
+        }
+
+        private int _positionY;
+        public int PositionY
+        {
+            get { return _positionY; }
+            set 
+            { 
+                _positionY = value;
+                NotifyPropertyChanged("PositionY");
+            }
+        }
+
         private ObservableCollection<FrameworkElement> _screenItems;
         public ObservableCollection<FrameworkElement> ScreenItems
         {

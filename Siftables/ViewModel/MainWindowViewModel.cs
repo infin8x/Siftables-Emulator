@@ -208,13 +208,6 @@ namespace Siftables.ViewModel
                     var bTop = bV.PositionY;
                     var aC = aV.CubeModel;
                     var bC = bV.CubeModel;
-                    /*
-                    var aLeft = (int) Double.Parse(aV.GetValue(Canvas.LeftProperty).ToString());
-                    var aTop = (int) Double.Parse(aV.GetValue(Canvas.TopProperty).ToString());
-                    var bLeft = (int) Double.Parse(bV.GetValue(Canvas.LeftProperty).ToString());
-                    var bTop = (int) Double.Parse(bV.GetValue(Canvas.TopProperty).ToString());
-                    var aC = ((CubeViewModel)aV.LayoutRoot.DataContext).CubeModel;
-                    var bC = ((CubeViewModel)bV.LayoutRoot.DataContext).CubeModel;*/
                     if ((Math.Abs(aLeft - bLeft) <= (Neighbors.GAP_TOLERANCE + Cube.dimension)) && (Math.Abs(aTop - bTop) <= (Cube.dimension - Neighbors.SHARED_EDGE_MINIMUM)))
                     {
                         if (aLeft < bLeft)

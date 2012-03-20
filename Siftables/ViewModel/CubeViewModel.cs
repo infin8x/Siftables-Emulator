@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Media.Imaging;
 using Siftables.Sifteo;
 using System.Windows.Shapes;
 using System.Windows.Controls;
@@ -31,6 +30,28 @@ namespace Siftables.ViewModel
                     _backgroundColor = value;
                     NotifyPropertyChanged("BackgroundColor");
                 }
+            }
+        }
+
+        private int _positionX;
+        public int PositionX
+        {
+            get { return _positionX; }
+            set
+            { 
+                _positionX = value;
+                NotifyPropertyChanged("PositionX");
+            }
+        }
+
+        private int _positionY;
+        public int PositionY
+        {
+            get { return _positionY; }
+            set 
+            { 
+                _positionY = value;
+                NotifyPropertyChanged("PositionY");
             }
         }
 

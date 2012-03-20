@@ -42,18 +42,6 @@ namespace Siftables.Behaviors
             this.AssociatedObject.CaptureMouse();
         }
 
-        void DragAndDropBehavior_MouseEnter(object sender, MouseEventArgs e)
-        {
-            this._isDragging = true;
-        }
-
-        void DragAndDropBehavior_MouseLeave(object sender, MouseEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("in mouseleave.");
-            this._isDragging = false;
-        }
-
-
         void AssociatedObject_MouseMove(object sender, MouseEventArgs e)
         {
             if (_isDragging)

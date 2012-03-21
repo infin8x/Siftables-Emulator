@@ -74,18 +74,6 @@ namespace Siftables
             throw new TypeLoadException();
         }
 
-        public ImageSet LoadImages(string imagePath)
-        {
-            var directoryInfo = new DirectoryInfo(imagePath);
-            var imageList = directoryInfo.EnumerateFiles("*.png");
-            foreach (var file in imageList)
-            {
-                MessageBox.Show(file.ToString());
-            }
-
-            return null;
-        }
-
         public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher)
         {
             Cubes = cubes;

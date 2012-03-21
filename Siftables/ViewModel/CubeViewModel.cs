@@ -88,7 +88,16 @@ namespace Siftables.ViewModel
         private readonly Collection<FrameworkElement> _pendingScreenItems;
         private SolidColorBrush _pendingBackgroundColor;
 
-        private ImageManager _imageManager;
+        private ImageSources _imageSources;
+        public ImageSources ImageSources
+        {
+            get { return _imageSources; }
+            set
+            {
+                _imageSources = value;
+                CubeModel.NotifyNewImage += (sender, args) => AddPendingImage((ImageEventArgs)args);
+            }
+        }
 
         public CubeViewModel()
         {
@@ -117,13 +126,7 @@ namespace Siftables.ViewModel
             CubeModel.NotifyBackgroundColorChanged += (sender, args) => UpdatePendingBackgroundColor((BackgroundEventArgs) args);
             CubeModel.NotifyNewRectangle += (sender, args) => AddPendingRectangle((RectangleEventArgs) args);
             CubeModel.NotifyScreenItemsEmptied += (sender, args) => EmptyScreenItems();
-            CubeModel.NotifyNewImage += (sender, args) => AddPendingImage((ImageEventArgs) args);
             CubeModel.NotifyPaint += (sender, args) => PaintPendingGraphics();
-        }
-
-        public void AssociateImageManager(ImageManager imageManager)
-        {
-            _imageManager = imageManager;
         }
 
         public void PaintPendingGraphics()
@@ -169,18 +172,26 @@ namespace Siftables.ViewModel
 
         public void AddPendingImage(ImageEventArgs imageEventArgs)
         {
-            var image = new Image
-                            {
-                                Source = _imageManager.GetBitmapImage(imageEventArgs.ImageName),
-                                Width = imageEventArgs.Width,
-                                Height = imageEventArgs.Height
-                            };
-            Canvas.SetLeft(image, imageEventArgs.X);
-            Canvas.SetTop(image, imageEventArgs.Y);
-            var clip = new RectangleGeometry {Rect = new Rect(imageEventArgs.SourceX, imageEventArgs.SourceY, imageEventArgs.Width, imageEventArgs.Height)};
-            image.Clip = clip;
+            if (ImageSources.Contains(imageEventArgs.ImageName))
+            {
+                var image = new Image
+                                {
+                                    Source = ImageSources.GetBitmapImage(imageEventArgs.ImageName),
+                                    Width = imageEventArgs.Width,
+                                    Height = imageEventArgs.Height
+                                };
+                Canvas.SetLeft(image, imageEventArgs.X);
+                Canvas.SetTop(image, imageEventArgs.Y);
+                var clip = new RectangleGeometry
+                               {
+                                   Rect =
+                                       new Rect(imageEventArgs.SourceX, imageEventArgs.SourceY, imageEventArgs.Width,
+                                                imageEventArgs.Height)
+                               };
+                image.Clip = clip;
 
-            _pendingScreenItems.Add(image);
+                _pendingScreenItems.Add(image);
+            }
         }
     }
 

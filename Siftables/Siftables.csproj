@@ -89,8 +89,7 @@
     <Compile Include="Behaviors\ClipBehavior.cs" />
     <Compile Include="AppRunner.cs" />
     <Compile Include="Behaviors\ShakeDetectionBehavior.cs" />
-    <Compile Include="CubeImage.cs" />
-    <Compile Include="ImageManager.cs" />
+    <Compile Include="ImageSources.cs" />
     <Compile Include="ViewModel\CubeViewModel.cs" />
     <Compile Include="Siftables.xaml.cs">
       <DependentUpon>Siftables.xaml</DependentUpon>

@@ -10,6 +10,8 @@ namespace Siftables.ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        public const int NumInitialCubes = 6;
+
         #region BindingDefinitions
         public ObservableCollection<CubeViewModel> CubeViewModels { get; set; } 
 
@@ -47,7 +49,7 @@ namespace Siftables.ViewModel
 
         public AppRunner AppRunner { get; private set; }
 
-        private ImageManager _imageManager;
+        private ImageSources _imageSources;
 
         public MainWindowViewModel()
         {
@@ -70,14 +72,18 @@ namespace Siftables.ViewModel
                         for (var i = 0; i < numToChange; i++) {
                             var cubeViewModel = new CubeViewModel();
                             cubeViewModel.CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
-                            CubeViewModels.Add(cubeViewModel); 
+                            CubeViewModels.Add(cubeViewModel);
+
+                            if (AppRunner.IsRunning)
+                            {
+                                cubeViewModel.ImageSources = _imageSources;
+                            }
                         }
                         Status = ReadyStatus;
                         SnapToGridCommand.Execute(null);
                         if (AppRunner.IsRunning)
                         {
                             AppRunner.App.AssociateCubes(CubeSet);
-                            AssociateImageManagerWithCubes();
                         }
                     }
                     Status = ReadyStatus;
@@ -112,9 +118,7 @@ namespace Siftables.ViewModel
 
                     var openFileDialog = new OpenFileDialog { Filter = "C# Library (*.dll)|*.dll|All Files (*.*)|*.*", FilterIndex = 1, Multiselect = false};
 
-                    var userClickedOk = openFileDialog.ShowDialog();
-
-                    if (userClickedOk == true)
+                    if (openFileDialog.ShowDialog() == true)
                     {
                         Status = "Loading application...";
                         try
@@ -123,9 +127,16 @@ namespace Siftables.ViewModel
                             {
                                 AppRunner.LoadApplication(fileStream);
                             }
-                            _imageManager = new ImageManager(openFileDialog.File.Directory.FullName + "../../../assets/images");
-                            AppRunner.App.Images = _imageManager.GetImageSet();
-                            AssociateImageManagerWithCubes();
+
+                            Status = "Loading image resources...";
+                            _imageSources = new ImageSources(openFileDialog.File.Directory.FullName + "/assets/images");
+                            AppRunner.App.Images = _imageSources.GetImageSet();
+                            
+                            foreach (var cubeViewModel in CubeViewModels)
+                            {
+                                cubeViewModel.ImageSources = _imageSources;
+                            }
+
                             Status = openFileDialog.File.Name + " was loaded.";
                             AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher);
                         }
@@ -151,7 +162,7 @@ namespace Siftables.ViewModel
 
             #region CreateCubes
             CubeViewModels = new ObservableCollection<CubeViewModel>();
-            for (var i = 0; i < 6; i++) {
+            for (var i = 0; i < NumInitialCubes; i++) {
                 var cubeViewModel = new CubeViewModel();
                 cubeViewModel.CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
                 CubeViewModels.Add(cubeViewModel);
@@ -163,25 +174,17 @@ namespace Siftables.ViewModel
             Status = ReadyStatus;
         }
 
-        public void AssociateImageManagerWithCubes()
-        {
-            foreach (var c in CubeViewModels)
-            {
-                c.AssociateImageManager(_imageManager);
-            }
-        }
-
         public CubeSet CubeSet
         {
             get
             {
-                var cubes = new CubeSet();
+                var cubeSet = new CubeSet();
                 foreach (var cube in CubeViewModels)
                 {
-                    cubes.Add(cube.CubeModel);
+                    cubeSet.Add(cube.CubeModel);
                 }
 
-                return cubes;
+                return cubeSet;
             }
         }
 
@@ -189,15 +192,15 @@ namespace Siftables.ViewModel
         {
             var count = CubeViewModels.Count;
             // I'd like to eliminate this loop... but we have to reset everything before we can start processing neighbors
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 var c = CubeViewModels[i].CubeModel;
                 c.Neighbors = new Neighbors();
             }
-            for (int i = 0; i < count - 1; i++)
+            for (var i = 0; i < count - 1; i++)
             {
                 var aV = CubeViewModels[i];
-                for (int j = i + 1; j < count; j++)
+                for (var j = i + 1; j < count; j++)
                 {
                     var bV = CubeViewModels[j];
                     // If anybody knows a better way to do this, please fix it.  The only way I could get

@@ -1,18 +1,29 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-
-namespace SiftDomain
+﻿namespace SiftDomain
 {
     public class Data
     {
+        #region Properties
 
+        public bool IsValid { get; private set; }
+
+        #endregion
+
+        #region Public Member Functions
+
+        #endregion
+
+        #region Public Member Functions
+
+        public virtual void Setup()
+        {
+            // Should be overridden by application
+        }
+
+        public virtual void Tick()
+        {
+            // Should be overridden by application
+        }
+
+        #endregion
     }
 }

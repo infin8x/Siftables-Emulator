@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using SiftDomain;
 
 namespace Siftables.Sifteo
 {
@@ -23,6 +24,9 @@ namespace Siftables.Sifteo
         public float Time { get; private set; }
 
         public CubeSet CubeSet { get; private set; }
+
+        public Data StoredData { get; set; }
+
         #endregion
 
         public BaseApp()

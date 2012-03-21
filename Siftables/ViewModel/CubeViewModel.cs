@@ -71,6 +71,12 @@ namespace Siftables.ViewModel
         public RelayCommand RotateCcwCommand { get; private set; }
         public RelayCommand RotateCwCommand { get; private set; }
         public RelayCommand CubeFlipCommand { get; private set; }
+        public RelayCommand TiltLeftCommand { get; private set; }
+        public RelayCommand TiltRightCommand { get; private set; }
+        public RelayCommand TiltUpCommand { get; private set; }
+        public RelayCommand TiltDownCommand { get; private set; }
+        public RelayCommand ButtonPressCommand { get; private set; }
+        public RelayCommand ButtonReleaseCommand { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -105,17 +111,21 @@ namespace Siftables.ViewModel
             #region CubeFlipCommand
             CubeFlipCommand = new RelayCommand(() => CubeModel.OnFlip());
             #endregion
+            #region CubeTiltCommands
+            TiltLeftCommand = new RelayCommand(() => CubeModel.OnTilt(Cube.Side.LEFT));
+            TiltRightCommand = new RelayCommand(() => CubeModel.OnTilt(Cube.Side.RIGHT));
+            TiltUpCommand = new RelayCommand(() => CubeModel.OnTilt(Cube.Side.TOP));
+            TiltDownCommand = new RelayCommand(() => CubeModel.OnTilt(Cube.Side.BOTTOM));
+            #endregion
             #region RotateCWCommand
-            RotateCwCommand = new RelayCommand(() =>
-            {
-                
-            });
+            RotateCwCommand = new RelayCommand(() => CubeModel.OnRotateCW());
             #endregion
             #region RotateCCWCommand
-            RotateCcwCommand = new RelayCommand(() =>
-            {
-                
-            });
+            RotateCcwCommand = new RelayCommand(() => CubeModel.OnRotateCCW());
+            #endregion
+            #region ButtonCommands
+            ButtonPressCommand = new RelayCommand(() => CubeModel.OnButtonPress());
+            ButtonReleaseCommand = new RelayCommand(() => CubeModel.OnButtonRelease());
             #endregion
             #endregion
 

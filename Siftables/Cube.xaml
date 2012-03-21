@@ -112,7 +112,7 @@
             </Button.Background>
         </Button>
 
-        <Button Height="32" Width="32" x:Name="tiltLeftButton" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ImageButton}">
+        <Button Height="32" Width="32" x:Name="tiltLeftButton" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ImageButton}" Command="{Binding TiltLeftCommand}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource TiltLeftStoryboard}"/>
@@ -122,7 +122,7 @@
                 <ImageBrush ImageSource="/Siftables;component/Images/tilt.png" Stretch="UniformToFill"/>
             </Button.Background>
         </Button>
-        <Button Height="32" Width="32" x:Name="tiltUpButton" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource ImageButton}">
+        <Button Height="32" Width="32" x:Name="tiltUpButton" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource ImageButton}" Command="{Binding TiltUpCommand}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource TiltUpStoryboard}"/>
@@ -136,7 +136,7 @@
                 </ImageBrush>
             </Button.Background>
         </Button>
-        <Button Height="32" Width="32" x:Name="tiltRightButton" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource ImageButton}">
+        <Button Height="32" Width="32" x:Name="tiltRightButton" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource ImageButton}" Command="{Binding TiltRightCommand}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource TiltRightStoryboard}"/>
@@ -150,7 +150,7 @@
                 </ImageBrush>
             </Button.Background>
         </Button>
-        <Button Height="32" Width="32" x:Name="tiltDownButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ImageButton}">
+        <Button Height="32" Width="32" x:Name="tiltDownButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ImageButton}" Command="{Binding TiltDownCommand}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource TiltDownStoryboard}"/>

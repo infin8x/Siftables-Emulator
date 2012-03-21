@@ -69,6 +69,67 @@ namespace Siftables.Sifteo
         public void OnFlip()
         {
             NotifyCubeFlip(this, true);
+        } 
+ 
+        public void OnTilt(Side direction)
+        {
+
+                NotifyCubeTilt(this, direction);
+        }
+        
+        public void OnRotateCW()
+        {
+            if(Orientation == Side.TOP)
+            {
+                Orientation = Side.LEFT;
+            } else if(Orientation == Side.LEFT)
+            {
+                Orientation = Side.BOTTOM;
+            } else if(Orientation == Side.BOTTOM)
+            {
+                Orientation = Side.RIGHT;
+            } else
+            {
+                Orientation = Side.TOP;
+            }
+
+            NotifyRotateCW(this, Orientation);
+
+        }
+
+        
+        public void OnRotateCCW()
+        {
+            if (Orientation == Side.TOP)
+            {
+                Orientation = Side.RIGHT;
+            }
+            else if (Orientation == Side.RIGHT)
+            {
+                Orientation = Side.BOTTOM;
+            }
+            else if (Orientation == Side.BOTTOM)
+            {
+                Orientation = Side.LEFT;
+            }
+            else
+            {
+                Orientation = Side.TOP;
+            }
+
+            NotifyRotateCCW(this, Orientation);
+        }
+
+        public void OnButtonPress()
+        {
+            ButtonIsPressed = true;
+            NotifyButtonPressed(this, true);
+        }
+
+        public void OnButtonRelease()
+        {
+            ButtonIsPressed = false;
+            NotifyButtonPressed(this, false);
         }
 
         #region Public Types
@@ -174,7 +235,7 @@ namespace Siftables.Sifteo
 
         public string UniqueId { get; set; }
 
-        public Side Orientation { get; set; }
+        public Side Orientation { get; set; } //The side of the cube that is currently treated as top
 
         public bool ButtonIsPressed { get; set; }
 
@@ -185,7 +246,16 @@ namespace Siftables.Sifteo
         #region Events
         public delegate void FlipEventHandler(Cube c, bool newOrientationIsUp);
         public event FlipEventHandler NotifyCubeFlip = delegate { };
+        public delegate void RotateEventHandler(Cube cube, Side orientation);
+        public event RotateEventHandler NotifyRotateCW = delegate { };
+        public event RotateEventHandler NotifyRotateCCW = delegate { };
+        public delegate void TiltEventHandler(Cube c, Side direction);
+        public event TiltEventHandler NotifyCubeTilt = delegate { };
 
+        public delegate void ButtonEvenHandler(Cube cube, bool pressed);
+
+        public event ButtonEvenHandler NotifyButtonPressed = delegate { };
+        public event ButtonEvenHandler NotifyButtonReleased = delegate { }; 
         #endregion
 
         #region Member Change Event Handling
@@ -200,5 +270,7 @@ namespace Siftables.Sifteo
         public event EventHandler NotifyCubeMoved = delegate { };
 
         #endregion
+
+ 
     }
 }

@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="SiftDomain.Data">
+    <Position X="6.25" Y="5.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAABAAAAAAAAAgAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Data.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.Sifteo.BaseApp">
+    <Position X="4" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AACAAABACAAAAAABAABCAAQAAAAABBAAACAAAAAAQQQ=</HashCode>
+      <FileName>BaseApp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.Sifteo.BackgroundEventArgs">
+    <Position X="6.25" Y="3.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cube.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.Sifteo.RectangleEventArgs">
+    <Position X="4" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAgAAAYAA=</HashCode>
+      <FileName>Cube.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.Sifteo.ImageEventArgs">
+    <Position X="9.25" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAIAAAAIAAEAGAAAABAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Cube.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.Sifteo.Cube">
+    <Position X="0.5" Y="0.5" Width="3.25" />
+    <NestedTypes>
+      <Enum Name="Siftables.Sifteo.Cube.Side" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Cube.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Delegate Name="Siftables.Sifteo.Cube.FlipEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Cube.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Siftables.Sifteo.Cube.RotateEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Cube.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Siftables.Sifteo.Cube.TiltEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Cube.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Siftables.Sifteo.Cube.ButtonEvenHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Cube.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Siftables.Sifteo.Cube.EventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Cube.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>YE5AAgBhAwIAAAAAABIAQwBgAAEAAFEEIAgAAAAI4AA=</HashCode>
+      <FileName>Cube.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.Sifteo.ImageSet">
+    <Position X="6.25" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAIAAAAAAAAAAAAABQAAA=</HashCode>
+      <FileName>ImageSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Siftables.Sifteo.Neighbors">
+    <Position X="0.5" Y="9.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAACAIAgAAABABAAQAAAAQAAAgCAACAAAQAkA=</HashCode>
+      <FileName>Neighbors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Siftables.Sifteo.Color">
+    <Position X="4" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAIBAABAAAAAAAACAACAEAAQA=</HashCode>
+      <FileName>Color.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Siftables.Sifteo.ImageInfo">
+    <Position X="9.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAQAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ImageInfo.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

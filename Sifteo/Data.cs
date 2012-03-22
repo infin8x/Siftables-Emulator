@@ -6,22 +6,25 @@
 
         public bool IsValid { get; private set; }
 
-        #endregion
-
-        #region Public Member Functions
+        private string _data;
 
         #endregion
 
         #region Public Member Functions
 
-        public virtual void Setup()
+        #endregion
+
+        #region Public Member Functions
+
+        public string Load()
         {
-            // Should be overridden by application
+            return _data;
         }
 
-        public virtual void Tick()
+        public void Store(string data)
         {
-            // Should be overridden by application
+            _data = data;
+            IsValid = true;
         }
 
         #endregion

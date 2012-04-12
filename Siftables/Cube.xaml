@@ -73,6 +73,9 @@
             </Canvas.RenderTransform>
             <!--Emulator Screen-->
             <ItemsControl ItemsSource="{Binding Path=ScreenItems}" Margin="20">
+                <ItemsControl.Clip>
+                    <RectangleGeometry Rect="0, 0, 128, 128" />
+                </ItemsControl.Clip>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas Background="{Binding BackgroundColor}" Width="128" Height="128"  />

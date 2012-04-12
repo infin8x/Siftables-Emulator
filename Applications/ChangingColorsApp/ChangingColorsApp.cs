@@ -1,4 +1,5 @@
 using System;
+using SiftDomain.Util;
 using Siftables.Sifteo;
 
 namespace ChangingColorsApp
@@ -43,7 +44,13 @@ namespace ChangingColorsApp
                       c.FillScreen(new Color(0, 255, 0)); // green
                       break;
               }
-              c.Image(_imageNames[_random.Next(_imageNames.Length)]);
+              var spriteData = new SpriteData(_imageNames[_random.Next(_imageNames.Length)], 50, 50, 128, 64);
+              var sprite = new Sprite(spriteData);
+              //sprite.Orientation = Cube.Side.RIGHT;
+              sprite.scale = 1;
+              sprite.Paint(c);
+
+              //c.Image("tilt.png", 10, 10, 50, 50, 118, 118, 1, 2);
               c.Paint();
           }
       }

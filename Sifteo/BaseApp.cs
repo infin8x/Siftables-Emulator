@@ -1,7 +1,4 @@
-﻿using System.IO;
-using SiftDomain;
-
-namespace Siftables.Sifteo
+﻿namespace Siftables.Sifteo
 {
     public class BaseApp
     {

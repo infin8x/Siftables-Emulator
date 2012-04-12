@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Media.Imaging;
 using Siftables.Sifteo;
 using System.Windows.Shapes;
 using System.Windows.Controls;
@@ -184,21 +185,67 @@ namespace Siftables.ViewModel
         {
             if (ImageSources.Contains(imageEventArgs.ImageName))
             {
+                var imageSource = ImageSources.GetBitmapImage(imageEventArgs.ImageName);
+                var width = imageEventArgs.Width;
+                var height = imageEventArgs.Height;
+                if (imageEventArgs.Rotation % 2 != 0)
+                {
+                    width = imageEventArgs.Height;
+                    height = imageEventArgs.Width;
+                }
                 var image = new Image
                                 {
-                                    Source = ImageSources.GetBitmapImage(imageEventArgs.ImageName),
-                                    Width = imageEventArgs.Width,
-                                    Height = imageEventArgs.Height
+                                    Source = imageSource,
+                                    Width = width,
+                                    Height = height
                                 };
                 Canvas.SetLeft(image, imageEventArgs.X);
                 Canvas.SetTop(image, imageEventArgs.Y);
-                var clip = new RectangleGeometry
-                               {
-                                   Rect =
-                                       new Rect(imageEventArgs.SourceX, imageEventArgs.SourceY, imageEventArgs.Width,
-                                                imageEventArgs.Height)
-                               };
-                image.Clip = clip;
+
+                image.Clip = new RectangleGeometry
+                                 {
+                                     Rect =
+                                         new Rect(imageEventArgs.SourceX, imageEventArgs.SourceY, imageSource.PixelWidth - imageEventArgs.SourceX,
+                                                  imageSource.PixelHeight - imageEventArgs.SourceY)
+                                 };
+
+
+                var transformGroup = new TransformGroup();
+
+                var scaleTransform = new ScaleTransform
+                {
+                    ScaleX = imageEventArgs.Scale,
+                    ScaleY = imageEventArgs.Scale,
+                    CenterX = 0,
+                    CenterY = 0
+                };
+                transformGroup.Children.Add(scaleTransform);
+
+                var translateTransform = new TranslateTransform
+                {
+                    X = -1 * imageEventArgs.SourceX,
+                    Y = -1 * imageEventArgs.SourceY
+                };
+                transformGroup.Children.Add(translateTransform);
+
+                var fitTransform = new ScaleTransform
+                                         {
+                                             ScaleX = ((double) width) / (imageSource.PixelWidth * imageEventArgs.Scale - imageEventArgs.SourceX),
+                                             ScaleY = ((double) height) / (imageSource.PixelHeight * imageEventArgs.Scale - imageEventArgs.SourceY),
+                                             CenterX = 0,
+                                             CenterY = 0
+                                         };
+                transformGroup.Children.Add(fitTransform);
+
+                var rotateTransform = new RotateTransform
+                {
+                    Angle = imageEventArgs.Rotation * 90,
+                    CenterX = width / 2,
+                    CenterY = height / 2
+                };
+                transformGroup.Children.Add(rotateTransform);
+
+                image.RenderTransform = transformGroup;
 
                 _pendingScreenItems.Add(image);
             }

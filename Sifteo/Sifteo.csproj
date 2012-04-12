@@ -62,13 +62,17 @@
     <Compile Include="ImageInfo.cs" />
     <Compile Include="ImageSet.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="MathExt\AABB.cs" />
+    <Compile Include="MathExt\Int2.cs" />
     <Compile Include="Neighbors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\StateMachine.cs" />
+    <Compile Include="Util\Sprite.cs" />
+    <Compile Include="Util\SpriteData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

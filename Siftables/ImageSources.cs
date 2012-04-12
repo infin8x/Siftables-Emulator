@@ -70,6 +70,10 @@ namespace Siftables
 
         public bool Contains(string imageName)
         {
+            if (imageName == null)
+            {
+                return false;
+            }
             return ImageSource.ContainsKey(imageName);
         }
     }

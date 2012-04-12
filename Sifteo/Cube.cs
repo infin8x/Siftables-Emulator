@@ -251,6 +251,7 @@ namespace Siftables.Sifteo
         public event RotateEventHandler NotifyRotateCCW = delegate { };
         public delegate void TiltEventHandler(Cube c, Side direction);
         public event TiltEventHandler NotifyCubeTilt = delegate { };
+        
 
         public delegate void ButtonEvenHandler(Cube cube, bool pressed);
 

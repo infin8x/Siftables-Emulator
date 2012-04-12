@@ -1,4 +1,4 @@
-﻿namespace SiftDomain
+﻿namespace Siftables.Sifteo
 {
     public class Data
     {

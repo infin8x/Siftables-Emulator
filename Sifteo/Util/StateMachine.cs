@@ -6,7 +6,7 @@ namespace Sifteo.Util
     {
         public Dictionary<string, IStateController> States;
 
-        public IStateController CurrentState {  get {} }
+        //public IStateController CurrentState {  get {} }
 
         public StateMachine()
         {

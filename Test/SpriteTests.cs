@@ -18,7 +18,7 @@ namespace Test
 
         private CubeViewModel _cubeViewModel;
 
-        [TestInitialize]
+        [TestInitialize] 
         public void SetUp()
         {
             _emptySprite = new Sprite();

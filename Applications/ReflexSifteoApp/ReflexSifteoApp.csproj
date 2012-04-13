@@ -37,8 +37,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SiftDomain">
-      <HintPath>..\..\Sifteo\Bin\Debug\SiftDomain.dll</HintPath>
+    <Reference Include="Sifteo">
+      <HintPath>..\..\Sifteo\Bin\Debug\Sifteo.dll</HintPath>
     </Reference>
     <Reference Include="System">
     </Reference>

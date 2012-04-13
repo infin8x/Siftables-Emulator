@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sifteo;
 using Sifteo.Util;
 
 namespace Test
@@ -19,21 +21,59 @@ namespace Test
         }
 
         [TestMethod]
-        public void TestState()
+        public void TestStateWithIStateController()
         {
-            _sm.State("State1", state1Controller);
+            var state1Controller = new State1Controller();
+            var returned = _sm.State("State1", state1Controller);
+            Assert.IsTrue(_sm.States.ContainsKey("State1"));
+            Assert.AreEqual(returned, _sm);
         }
 
         [TestMethod]
-        public void TestStateFunction()
+        public void TestStateWithIStateControllerDuplicateKeyInsertion()
         {
-            
+            var state1Controller = new State1Controller();
+            var returned = _sm.State("State1", state1Controller);
+            _sm.State("State1", state1Controller);
+            Assert.IsTrue(_sm.States.ContainsKey("State1"));
+            Assert.AreEqual(1, _sm.States.Count);
+            Assert.AreEqual(returned, _sm);
+        }
+
+        [TestMethod]
+        public void TestStateWithStateFunction()
+        {
+            var state2Function = new StateMachine.StateFunction(delegate(string transitionId) { return transitionId; });
+            _sm.State("State2", state2Function);
         }
 
         [TestMethod]
         public void TestCurrentStateGet()
         {
-            Assert.Inconclusive();
+            Assert.IsNotNull(_sm.CurrentState);
+        }
+    }
+
+    public class State1Controller : IStateController
+    {
+        public void OnSetup(string transitionId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnTick(float dt)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnPaint(bool canvasDirty)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnDispose()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

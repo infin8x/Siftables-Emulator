@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Siftables.Sifteo
+namespace Sifteo
 {
     public class ImageSet
     {

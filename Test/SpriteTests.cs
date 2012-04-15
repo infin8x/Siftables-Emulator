@@ -1,10 +1,10 @@
 ﻿using System.Windows.Controls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SiftDomain.Util;
 using Siftables;
-using Siftables.Sifteo;
+using Sifteo;
 using Siftables.ViewModel;
 using Sifteo.MathExt;
+using Sifteo.Util;
 
 namespace Test
 {

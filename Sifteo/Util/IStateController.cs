@@ -1,5 +1,4 @@
-﻿
-namespace Sifteo.Util
+﻿namespace Sifteo.Util
 {
     public interface IStateController
     {

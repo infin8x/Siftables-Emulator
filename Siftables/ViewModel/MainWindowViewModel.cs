@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using Siftables.Sifteo;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight.Command;
 using System.ComponentModel;
+using Sifteo;
 
 namespace Siftables.ViewModel
 {

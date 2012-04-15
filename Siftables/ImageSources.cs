@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
 using Sifteo;
 
@@ -12,7 +11,7 @@ namespace Siftables
     {
 
         public Dictionary<string, BitmapImage> ImageSource { get; private set; }
-        private static readonly string[] ValidImageExtensions = new string[] {".png", ".PNG", ".gif", ".GIF"};
+        private static readonly string[] ValidImageExtensions = new[] {".png", ".PNG", ".gif", ".GIF"};
 
         public ImageSources(string imagePath)
         {
@@ -23,7 +22,6 @@ namespace Siftables
         public void LoadImages(string imagePath)
         {
             var directoryInfo = new DirectoryInfo(imagePath);
-            var pngAndGifPattern = new Regex(@"png|PNG|gif|GIF");
             try
             {
                 var imageList = directoryInfo.EnumerateFiles("*").Where(file => ValidImageExtensions.Contains(file.Extension));

@@ -6,6 +6,8 @@ namespace Sifteo
 
         public ImageSet Images { get; set; }
 
+        //public SoundSet Sounds { get; set; }
+
         public string ResourcePath { get; private set; }
 
         public string AppID { get; set; }

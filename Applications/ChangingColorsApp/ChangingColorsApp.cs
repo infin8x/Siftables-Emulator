@@ -1,6 +1,6 @@
 using System;
-using SiftDomain.Util;
-using Siftables.Sifteo;
+using Sifteo;
+using Sifteo.Util;
 
 namespace ChangingColorsApp
 {
@@ -16,9 +16,15 @@ namespace ChangingColorsApp
           {
               cube.FillScreen(Color.White);
               cube.Paint();
+              cube.NotifyCubeFlip += OnFlip;
           }
           _imageNames = new string[] {"flip.png", "cube.png", "tilt.png", "rotate_cw.png", "rotate_ccw.png"};
           _random = new Random();
+      }
+
+      private void OnFlip(Cube cube, bool flippedUp)
+      {
+          cube.FillScreen(new Color(50, 50, 50));
       }
 
       public override void Tick()
@@ -44,13 +50,6 @@ namespace ChangingColorsApp
                       c.FillScreen(new Color(0, 255, 0)); // green
                       break;
               }
-              var spriteData = new SpriteData(_imageNames[_random.Next(_imageNames.Length)], 50, 50, 128, 64);
-              var sprite = new Sprite(spriteData);
-              //sprite.Orientation = Cube.Side.RIGHT;
-              sprite.scale = 1;
-              sprite.Paint(c);
-
-              //c.Image("tilt.png", 10, 10, 50, 50, 118, 118, 1, 2);
               c.Paint();
           }
       }

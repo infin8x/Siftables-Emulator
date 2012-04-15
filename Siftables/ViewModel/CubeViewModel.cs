@@ -3,11 +3,10 @@ using System.Windows;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Media.Imaging;
-using Siftables.Sifteo;
 using System.Windows.Shapes;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
+using Sifteo;
 
 namespace Siftables.ViewModel
 {

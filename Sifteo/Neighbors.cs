@@ -1,5 +1,5 @@
 ﻿
-namespace Siftables.Sifteo
+namespace Sifteo
 {
     public class Neighbors
     {

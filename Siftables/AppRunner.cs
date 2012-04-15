@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection;
-using Siftables.Sifteo;
 using System.Windows.Threading;
 using System.Threading;
 using System.Windows;
@@ -37,18 +35,18 @@ namespace Siftables
 
         private AppRunner()
         {
-            this.IsRunning = false;
+            IsRunning = false;
         }
 
         public void RunAppInThread()
         {
-            this.App.AssociateCubes(Cubes);
+            App.AssociateCubes(Cubes);
 
-            _uiDispatcher.BeginInvoke(() => this.App.Setup());
+            _uiDispatcher.BeginInvoke(() => App.Setup());
 
             while (IsRunning)
             {
-                _uiDispatcher.BeginInvoke(() => this.App.Tick());
+                _uiDispatcher.BeginInvoke(() => App.Tick());
                 Thread.Sleep(TimeBetweenTicks);
             }
         }
@@ -78,19 +76,19 @@ namespace Siftables
         public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher)
         {
             Cubes = cubes;
-            this._uiDispatcher = uiDispatcher;
+            _uiDispatcher = uiDispatcher;
             if (!IsRunning)
             {
-                this._runner = new Thread(RunAppInThread);
-                this.IsRunning = true;
-                this._runner.Start();
+                _runner = new Thread(RunAppInThread);
+                IsRunning = true;
+                _runner.Start();
             }
         }
 
         public void StopExecution()
         {
-            this.IsRunning = false;
-            this._runner.Join();
+            IsRunning = false;
+            _runner.Join();
             ResetCubes();
         }
 

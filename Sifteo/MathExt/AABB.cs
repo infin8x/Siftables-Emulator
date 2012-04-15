@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace Sifteo.MathExt
 {

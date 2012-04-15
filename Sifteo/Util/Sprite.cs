@@ -1,7 +1,6 @@
-﻿using Siftables.Sifteo;
-using Sifteo.MathExt;
+﻿using Sifteo.MathExt;
 
-namespace SiftDomain.Util
+namespace Sifteo.Util
 {
     public enum PivotMode
     {

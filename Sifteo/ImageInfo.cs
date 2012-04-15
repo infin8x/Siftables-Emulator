@@ -1,4 +1,4 @@
-﻿namespace Siftables.Sifteo
+﻿namespace Sifteo
 {
     public struct ImageInfo
     {

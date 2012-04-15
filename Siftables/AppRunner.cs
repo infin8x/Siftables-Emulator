@@ -5,6 +5,7 @@ using System.Windows.Threading;
 using System.Threading;
 using System.Windows;
 using System.IO;
+using Sifteo;
 
 namespace Siftables
 {

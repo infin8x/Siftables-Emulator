@@ -1,15 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using Siftables.Sifteo;
+﻿using Sifteo;
 
 namespace CubeTestApp
 {
     public class CubeTestApp : BaseApp
     {
-        
+        public override void Setup()
+        {
+            foreach (var c in CubeSet)
+            {
+                c.FillScreen(Color.White);
+            }
+        }
+
+        public override void Tick()
+        {
+            
+        }
     }
 
-    public class CubeWrapper
+    /*public class CubeWrapper
     {
         private readonly CubeTestApp app;
         public Cube cube;
@@ -20,41 +29,39 @@ namespace CubeTestApp
             this.app = app;
             this.cube = cube;
             
-            this.cube.ButtonEvent += this.OnPress;
-            this.cube.TiltEvent += this.OnTilt;
-            this.cube.FlipEvent += this.onFlip;
+            this.cube.NotifyButtonPressed += this.OnPress;
+//            this.cube.NotifyCubeTilt += this.OnTilt;
+//            this.cube.NotifyCubeFlip += this.onFlip;
         }
 
-        private void OnPress(Cube cube, bool press)
+        private void OnPress(Cube cube, bool pressed)
         {
             if (!justPressed)
             {
-                Console.WriteLine("Button was pressed");
+                cube.FillScreen(new Color(255, 0, 0)); // red
             }
 
             justPressed = !justPressed;
         }
 
-        private void OnTilt(Cube cube, bool tilt)
-        {
-            if (!justTilted)
-            {
-                Console.WriteLine("Cube was tilted");
-            }
-
-            justTilted = !justTilted;
-        }
-
-        private void OnFlip(Cube cube, bool flip)
-        {
-            if (!justFlipped)
-            {
-                Console.WriteLine("Cube was flipped");
-            }
-
-            justFlipped = !justFlipped;
-        }
-    }
-}
-
+//        private void OnTilt(Cube cube, Cube.Side direction)
+//        {
+//            if (!justTilted)
+//            {
+//                Console.WriteLine("Cube was tilted");
+//            }
+//
+//            justTilted = !justTilted;
+//        }
+//
+//        private void OnFlip(Cube cube, bool newOrientationIsUp)
+//        {
+//            if (!justFlipped)
+//            {
+//                Console.WriteLine("Cube was flipped");
+//            }
+//
+//            justFlipped = !justFlipped;
+//        }
+    }*/
 }

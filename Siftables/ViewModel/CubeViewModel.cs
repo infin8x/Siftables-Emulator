@@ -38,7 +38,7 @@ namespace Siftables.ViewModel
         {
             get { return _positionX; }
             set
-            { 
+            {
                 _positionX = value;
                 NotifyPropertyChanged("PositionX");
             }
@@ -48,8 +48,8 @@ namespace Siftables.ViewModel
         public int PositionY
         {
             get { return _positionY; }
-            set 
-            { 
+            set
+            {
                 _positionY = value;
                 NotifyPropertyChanged("PositionY");
             }
@@ -133,8 +133,8 @@ namespace Siftables.ViewModel
             ScreenItems = new ObservableCollection<FrameworkElement>();
             _pendingScreenItems = new Collection<FrameworkElement>();
 
-            CubeModel.NotifyBackgroundColorChanged += (sender, args) => UpdatePendingBackgroundColor((BackgroundEventArgs) args);
-            CubeModel.NotifyNewRectangle += (sender, args) => AddPendingRectangle((RectangleEventArgs) args);
+            CubeModel.NotifyBackgroundColorChanged += (sender, args) => UpdatePendingBackgroundColor((BackgroundEventArgs)args);
+            CubeModel.NotifyNewRectangle += (sender, args) => AddPendingRectangle((RectangleEventArgs)args);
             CubeModel.NotifyScreenItemsEmptied += (sender, args) => EmptyScreenItems();
             CubeModel.NotifyPaint += (sender, args) => PaintPendingGraphics();
         }
@@ -161,13 +161,17 @@ namespace Siftables.ViewModel
         public void UpdatePendingBackgroundColor(BackgroundEventArgs backgroundEventArgs)
         {
             _pendingScreenItems.Clear();
-            _pendingBackgroundColor = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, backgroundEventArgs.BackgroundColor.R, backgroundEventArgs.BackgroundColor.G, backgroundEventArgs.BackgroundColor.B));
+            //TODO: fixme!!!!!
+            byte data = backgroundEventArgs.BackgroundColor.Data;
+            _pendingBackgroundColor = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, Convert.ToByte((data >> 5)), Convert.ToByte((data >> 2)), data));
         }
 
         public void AddPendingRectangle(RectangleEventArgs rectangleEventArgs)
         {
             var r = new Rectangle();
-            r.Fill = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, rectangleEventArgs.Color.R, rectangleEventArgs.Color.G, rectangleEventArgs.Color.B));
+            //TODO: fixme!!!!!
+            byte data = rectangleEventArgs.Color.Data;
+            r.Fill = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, data,Convert.ToByte((data >> 2)), Convert.ToByte((data >> 5))));
             r.Width = rectangleEventArgs.Width;
             r.Height = rectangleEventArgs.Height;
             Canvas.SetTop(r, rectangleEventArgs.Y);
@@ -229,8 +233,8 @@ namespace Siftables.ViewModel
 
                 var fitTransform = new ScaleTransform
                                          {
-                                             ScaleX = ((double) width) / (imageSource.PixelWidth * imageEventArgs.Scale - imageEventArgs.SourceX),
-                                             ScaleY = ((double) height) / (imageSource.PixelHeight * imageEventArgs.Scale - imageEventArgs.SourceY),
+                                             ScaleX = ((double)width) / (imageSource.PixelWidth * imageEventArgs.Scale - imageEventArgs.SourceX),
+                                             ScaleY = ((double)height) / (imageSource.PixelHeight * imageEventArgs.Scale - imageEventArgs.SourceY),
                                              CenterX = 0,
                                              CenterY = 0
                                          };

@@ -215,26 +215,26 @@ namespace Siftables.ViewModel
                     {
                         if (aLeft < bLeft)
                         {
-                            aC.Neighbors.RIGHT = bC;
-                            bC.Neighbors.LEFT = aC;
+                            aC.Neighbors.Right = bC;
+                            bC.Neighbors.Left = aC;
                         }
                         else
                         {
-                            aC.Neighbors.LEFT = bC;
-                            bC.Neighbors.RIGHT = aC;
+                            aC.Neighbors.Left = bC;
+                            bC.Neighbors.Right = aC;
                         }
                     }
                     if ((Math.Abs(aTop - bTop) <= (Neighbors.GAP_TOLERANCE + Cube.dimension)) && (Math.Abs(aLeft - bLeft) <= (Cube.dimension - Neighbors.SHARED_EDGE_MINIMUM)))
                     {
                         if (aTop < bTop)
                         {
-                            aC.Neighbors.TOP = bC;
-                            bC.Neighbors.BOTTOM = aC;
+                            aC.Neighbors.Top = bC;
+                            bC.Neighbors.Bottom = aC;
                         }
                         else
                         {
-                            aC.Neighbors.BOTTOM = bC;
-                            bC.Neighbors.TOP = aC;
+                            aC.Neighbors.Bottom = bC;
+                            bC.Neighbors.Top = aC;
                         }
                     }
                 }

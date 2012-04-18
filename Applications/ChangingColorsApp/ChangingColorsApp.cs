@@ -1,6 +1,5 @@
 using System;
 using Sifteo;
-using Sifteo.Util;
 
 namespace ChangingColorsApp
 {

@@ -7,6 +7,7 @@ using System.Windows.Shapes;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
 using Sifteo;
+using Color = System.Windows.Media.Color;
 
 namespace Siftables.ViewModel
 {
@@ -158,20 +159,26 @@ namespace Siftables.ViewModel
             }
         }
 
+        public static Color ByteToColor(byte colorByte)
+        {
+            var r = Convert.ToByte(((colorByte >> 5) & 7) * byte.MaxValue / 7);
+            var g = Convert.ToByte(((colorByte >> 2) & 7) * byte.MaxValue / 7);
+            var b = Convert.ToByte((colorByte & 3) * byte.MaxValue / 3);
+            return Color.FromArgb(255, r, g, b);
+        }
+
         public void UpdatePendingBackgroundColor(BackgroundEventArgs backgroundEventArgs)
         {
             _pendingScreenItems.Clear();
-            //TODO: fixme!!!!!
-            byte data = backgroundEventArgs.BackgroundColor.Data;
-            _pendingBackgroundColor = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, Convert.ToByte((data >> 5)), Convert.ToByte((data >> 2)), data));
+            var data = backgroundEventArgs.BackgroundColor.Data;
+            _pendingBackgroundColor = new SolidColorBrush(ByteToColor(data));
         }
 
         public void AddPendingRectangle(RectangleEventArgs rectangleEventArgs)
         {
             var r = new Rectangle();
-            //TODO: fixme!!!!!
-            byte data = rectangleEventArgs.Color.Data;
-            r.Fill = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, data,Convert.ToByte((data >> 2)), Convert.ToByte((data >> 5))));
+            var data = rectangleEventArgs.Color.Data;
+            r.Fill = new SolidColorBrush(ByteToColor(data));
             r.Width = rectangleEventArgs.Width;
             r.Height = rectangleEventArgs.Height;
             Canvas.SetTop(r, rectangleEventArgs.Y);

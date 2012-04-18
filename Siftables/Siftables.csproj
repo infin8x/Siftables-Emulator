@@ -72,7 +72,9 @@
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="mscorlib" />
-    <Reference Include="SifteoExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="SifteoExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\SifteoExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />

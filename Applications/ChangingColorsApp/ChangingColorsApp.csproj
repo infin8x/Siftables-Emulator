@@ -43,7 +43,7 @@
       <HintPath>..\..\Sifteo\Bin\Debug\Sifteo.dll</HintPath>
     </Reference>
     <Reference Include="SifteoExtensions">
-      <HintPath>..\..\..\..\CSSE375\Sifteo\Bin\Debug\SifteoExtensions.dll</HintPath>
+      <HintPath>..\..\SifteoExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System">
     </Reference>

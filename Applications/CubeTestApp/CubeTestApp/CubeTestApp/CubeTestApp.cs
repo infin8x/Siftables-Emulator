@@ -6,62 +6,71 @@ namespace CubeTestApp
     {
         public override void Setup()
         {
-            foreach (var c in CubeSet)
+            foreach (Cube cube in CubeSet)
             {
-                c.FillScreen(Color.White);
+                cube.FillScreen(Color.White);
+                cube.Paint();
+                cube.NotifyButtonPressed += OnPress;
+                cube.NotifyCubeTilt += OnTilt;
+                cube.NotifyCubeFlip += OnFlip;
             }
-        }
-
-        public override void Tick()
-        {
-            
-        }
-    }
-
-    /*public class CubeWrapper
-    {
-        private readonly CubeTestApp app;
-        public Cube cube;
-        private bool justPressed;
-
-        public CubeWrapper(CubeTestApp app, Cube cube)
-        {
-            this.app = app;
-            this.cube = cube;
-            
-            this.cube.NotifyButtonPressed += this.OnPress;
-//            this.cube.NotifyCubeTilt += this.OnTilt;
-//            this.cube.NotifyCubeFlip += this.onFlip;
         }
 
         private void OnPress(Cube cube, bool pressed)
         {
-            if (!justPressed)
-            {
-                cube.FillScreen(new Color(255, 0, 0)); // red
-            }
-
-            justPressed = !justPressed;
+            cube.FillScreen(new Color(255, 0, 0)); // red
+            cube.Paint();
         }
 
+        private void OnTilt(Cube cube, Cube.Side direction)
+        {
+            cube.FillScreen(new Color(0, 255, 0)); // green
+            cube.Paint();
+        }
+
+        private void OnFlip(Cube cube, bool newOrientationIsUp)
+        {
+            cube.FillScreen(new Color(0, 0, 255)); // blue
+            cube.Paint();
+        }
+
+        public override void Tick()
+        {
+        }
+    }
+
+//    public class CubeWrapper
+//    {
+//        private readonly CubeTestApp app;
+//        public Cube cube;
+//        private bool justPressed;
+//
+//        public CubeWrapper(CubeTestApp app, Cube cube)
+//        {
+//            this.app = app;
+//            this.cube = cube;
+//            
+//            this.cube.NotifyButtonPressed += OnPress;
+//            this.cube.NotifyCubeTilt += OnTilt;
+//            this.cube.NotifyCubeFlip += OnFlip;
+//        }
+//
+//        private void OnPress(Cube cube, bool pressed)
+//        {
+//            cube.FillScreen(new Color(255, 0, 0)); // red
+//            cube.Paint();
+//        }
+//
 //        private void OnTilt(Cube cube, Cube.Side direction)
 //        {
-//            if (!justTilted)
-//            {
-//                Console.WriteLine("Cube was tilted");
-//            }
-//
-//            justTilted = !justTilted;
+//            cube.FillScreen(new Color(0, 255, 0)); // green
+//            cube.Paint();
 //        }
 //
 //        private void OnFlip(Cube cube, bool newOrientationIsUp)
 //        {
-//            if (!justFlipped)
-//            {
-//                Console.WriteLine("Cube was flipped");
-//            }
-//
-//            justFlipped = !justFlipped;
+//            cube.FillScreen(new Color(0, 0, 255)); // blue
+//            cube.Paint();
 //        }
-    }*/
+//    }
 }

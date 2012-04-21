@@ -122,13 +122,19 @@ namespace Sifteo
 
         public void OnButtonPress()
         {
-            NotifyButtonPressed(this, true);
+            NotifyButtonPressed(this);
         }
 
-        public object OnShake()
+        public void OnShakeStarted()
         {
-            throw new NotImplementedException();
+            NotifyShakeStarted(this);
         }
+
+        public void OnShakeStopped(int duration)
+        {
+            NotifyShakeStopped(this, duration);
+        }
+
 
         #region Public Types
         public enum Side { TOP = 0, LEFT = 1, BOTTOM = 2, RIGHT = 3, NONE = 4 }
@@ -247,11 +253,12 @@ namespace Sifteo
         public event RotateEventHandler NotifyRotateCCW = delegate { };
         public delegate void TiltEventHandler(Cube c, Side direction);
         public event TiltEventHandler NotifyCubeTilt = delegate { };
-        
-
-        public delegate void ButtonEvenHandler(Cube cube, bool pressed);
-
+        public delegate void ButtonEvenHandler(Cube cube);
         public event ButtonEvenHandler NotifyButtonPressed = delegate { };
+        public delegate void ShakeStartedHandler(Cube cube);
+        public event ShakeStartedHandler NotifyShakeStarted = delegate { };
+        public delegate void ShakeStoppedHandler(Cube cube, int duration);
+        public event ShakeStoppedHandler NotifyShakeStopped = delegate { };
         #endregion
 
         #region Member Change Event Handling

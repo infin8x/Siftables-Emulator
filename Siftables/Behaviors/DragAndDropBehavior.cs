@@ -18,8 +18,8 @@ namespace Siftables.Behaviors
         private Point _mouseClickPosition;
         private DateTime _captureEnd;
         private DateTime _captureStart;
-        private DependencyObject dependencyObject;
         private CubeViewModel vm;
+        private bool _isShaking;
 
         public DragAndDropBehavior(object p)
         {
@@ -60,6 +60,12 @@ namespace Siftables.Behaviors
 
                 AssociatedObject.SetValue(Canvas.TopProperty, point.Y - _mouseClickPosition.Y);
                 AssociatedObject.SetValue(Canvas.LeftProperty, point.X - _mouseClickPosition.X);
+                if (!_isShaking && CheckShake(e))
+                {
+                    vm.ShakeStartCommand.Execute(null);
+                    _isShaking = true;
+                    Debug.WriteLine("shaking");
+                }
             }
         }
 
@@ -70,9 +76,13 @@ namespace Siftables.Behaviors
                 AssociatedObject.ReleaseMouseCapture();
                 _isDragging = false;
 
-                if (CheckShake(e)) vm.ShakeCommand.Execute(null);
                 ShakePoints.Clear();
                 _captureEnd = DateTime.Now;
+            }
+            if (_isShaking)
+            {
+                vm.ShakeStopCommand.Execute(_captureEnd.Subtract(_captureStart).Milliseconds);
+                _isShaking = false;
             }
         }
 
@@ -84,16 +94,16 @@ namespace Siftables.Behaviors
                 Point avg = GetAveragePoint(ShakePoints);
 
                 //Calculate difference of average point to current position
-                var deltaPoint = new Point {X = point.X - avg.X, Y = point.Y - avg.Y};
+                var deltaPoint = new Point { X = point.X - avg.X, Y = point.Y - avg.Y };
 
                 //Calculate the number of milliseconds that spanned while the window moved
                 //Note: Only uses seconds and milliseconds
                 TimeSpan movementTime = _captureEnd.Subtract(_captureStart);
-                int msSpan = (movementTime.Seconds*1000 + movementTime.Milliseconds);
+                int msSpan = (movementTime.Seconds * 1000 + movementTime.Milliseconds);
 
                 //If values fall within a certain range, then the window was shaken
                 return msSpan <= 1000 && //speed of the shake in milliseconds
-                       ShakePoints.Count >= 20 && //amount of movements in the shake
+                       ShakePoints.Count >= 80 && //amount of movements in the shake
                        Math.Abs(deltaPoint.X) <= 40 && Math.Abs(deltaPoint.Y) <= 40; //average "size" of shake
             }
 

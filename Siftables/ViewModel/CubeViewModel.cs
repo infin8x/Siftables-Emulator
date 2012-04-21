@@ -77,7 +77,8 @@ namespace Siftables.ViewModel
         public RelayCommand TiltUpCommand { get; private set; }
         public RelayCommand TiltDownCommand { get; private set; }
         public RelayCommand ButtonPressCommand { get; private set; }
-        public RelayCommand ShakeCommand { get; private set; }
+        public RelayCommand ShakeStartCommand { get; private set; }
+        public RelayCommand<int> ShakeStopCommand { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -117,7 +118,8 @@ namespace Siftables.ViewModel
             RotateCwCommand = new RelayCommand(() => CubeModel.OnRotateCW());
             RotateCcwCommand = new RelayCommand(() => CubeModel.OnRotateCCW());
             ButtonPressCommand = new RelayCommand(() => CubeModel.OnButtonPress());
-            ShakeCommand = new RelayCommand(() => CubeModel.OnShake());
+            ShakeStartCommand = new RelayCommand(() => CubeModel.OnShakeStarted());
+            ShakeStopCommand = new RelayCommand<int>((duration) => CubeModel.OnShakeStopped(duration));
             #endregion
 
             CubeModel = new Cube();

@@ -77,7 +77,6 @@ namespace Siftables.ViewModel
         public RelayCommand TiltUpCommand { get; private set; }
         public RelayCommand TiltDownCommand { get; private set; }
         public RelayCommand ButtonPressCommand { get; private set; }
-        public RelayCommand ButtonReleaseCommand { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -124,9 +123,8 @@ namespace Siftables.ViewModel
             #region RotateCCWCommand
             RotateCcwCommand = new RelayCommand(() => CubeModel.OnRotateCCW());
             #endregion
-            #region ButtonCommands
+            #region ButtonCommand
             ButtonPressCommand = new RelayCommand(() => CubeModel.OnButtonPress());
-            ButtonReleaseCommand = new RelayCommand(() => CubeModel.OnButtonRelease());
             #endregion
             #endregion
 

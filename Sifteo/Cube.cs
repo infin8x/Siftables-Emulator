@@ -126,12 +126,6 @@ namespace Sifteo
             NotifyButtonPressed(this, true);
         }
 
-        public void OnButtonRelease()
-        {
-            ButtonIsPressed = false;
-            NotifyButtonPressed(this, false);
-        }
-
         #region Public Types
         public enum Side { TOP = 0, LEFT = 1, BOTTOM = 2, RIGHT = 3, NONE = 4 }
         #endregion

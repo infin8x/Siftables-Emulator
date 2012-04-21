@@ -122,7 +122,6 @@ namespace Sifteo
 
         public void OnButtonPress()
         {
-            ButtonIsPressed = true;
             NotifyButtonPressed(this, true);
         }
 
@@ -231,8 +230,6 @@ namespace Sifteo
 
         public Side Orientation { get; set; } //The side of the cube that is currently treated as top
 
-        public bool ButtonIsPressed { get; set; }
-
         public bool IsShaking { get; set; }
 
         #endregion
@@ -250,7 +247,6 @@ namespace Sifteo
         public delegate void ButtonEvenHandler(Cube cube, bool pressed);
 
         public event ButtonEvenHandler NotifyButtonPressed = delegate { };
-        public event ButtonEvenHandler NotifyButtonReleased = delegate { }; 
         #endregion
 
         #region Member Change Event Handling

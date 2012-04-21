@@ -77,6 +77,7 @@ namespace Siftables.ViewModel
         public RelayCommand TiltUpCommand { get; private set; }
         public RelayCommand TiltDownCommand { get; private set; }
         public RelayCommand ButtonPressCommand { get; private set; }
+        public RelayCommand ShakeCommand { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -108,24 +109,15 @@ namespace Siftables.ViewModel
         public CubeViewModel()
         {
             #region RelayCommandDefinitions
-            #region CubeFlipCommand
             CubeFlipCommand = new RelayCommand(() => CubeModel.OnFlip());
-            #endregion
-            #region CubeTiltCommands
             TiltLeftCommand = new RelayCommand(() => CubeModel.OnTilt(Cube.Side.LEFT));
             TiltRightCommand = new RelayCommand(() => CubeModel.OnTilt(Cube.Side.RIGHT));
             TiltUpCommand = new RelayCommand(() => CubeModel.OnTilt(Cube.Side.TOP));
             TiltDownCommand = new RelayCommand(() => CubeModel.OnTilt(Cube.Side.BOTTOM));
-            #endregion
-            #region RotateCWCommand
             RotateCwCommand = new RelayCommand(() => CubeModel.OnRotateCW());
-            #endregion
-            #region RotateCCWCommand
             RotateCcwCommand = new RelayCommand(() => CubeModel.OnRotateCCW());
-            #endregion
-            #region ButtonCommand
             ButtonPressCommand = new RelayCommand(() => CubeModel.OnButtonPress());
-            #endregion
+            ShakeCommand = new RelayCommand(() => CubeModel.OnShake());
             #endregion
 
             CubeModel = new Cube();

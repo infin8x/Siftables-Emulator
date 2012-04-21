@@ -89,7 +89,6 @@
     <Compile Include="Behaviors\NeighborRefreshBehavior.cs" />
     <Compile Include="Behaviors\ClipBehavior.cs" />
     <Compile Include="AppRunner.cs" />
-    <Compile Include="Behaviors\ShakeDetectionBehavior.cs" />
     <Compile Include="ImageSources.cs" />
     <Compile Include="ViewModel\CubeViewModel.cs" />
     <Compile Include="Siftables.xaml.cs">

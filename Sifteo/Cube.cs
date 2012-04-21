@@ -125,6 +125,11 @@ namespace Sifteo
             NotifyButtonPressed(this, true);
         }
 
+        public object OnShake()
+        {
+            throw new NotImplementedException();
+        }
+
         #region Public Types
         public enum Side { TOP = 0, LEFT = 1, BOTTOM = 2, RIGHT = 3, NONE = 4 }
         #endregion
@@ -257,11 +262,8 @@ namespace Sifteo
         public event EventHandler NotifyScreenItemsEmptied = delegate { };
         public event EventHandler NotifyNewImage = delegate { };
         public event EventHandler NotifyPaint = delegate { }; 
-
         public event EventHandler NotifyCubeMoved = delegate { };
 
         #endregion
-
- 
     }
 }

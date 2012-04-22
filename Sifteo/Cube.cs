@@ -253,8 +253,8 @@ namespace Sifteo
         public event RotateEventHandler NotifyRotateCCW = delegate { };
         public delegate void TiltEventHandler(Cube c, Side direction);
         public event TiltEventHandler NotifyCubeTilt = delegate { };
-        public delegate void ButtonEvenHandler(Cube cube);
-        public event ButtonEvenHandler NotifyButtonPressed = delegate { };
+        public delegate void ButtonEventHandler(Cube cube);
+        public event ButtonEventHandler NotifyButtonPressed = delegate { };
         public delegate void ShakeStartedHandler(Cube cube);
         public event ShakeStartedHandler NotifyShakeStarted = delegate { };
         public delegate void ShakeStoppedHandler(Cube cube, int duration);

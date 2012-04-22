@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CubeTestApp", "CubeTestApp\CubeTestApp.csproj", "{EDC2B809-905E-4A0C-B93E-9D7E16DEF478}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CubeTestApp", "CubeTestApp.csproj", "{EDC2B809-905E-4A0C-B93E-9D7E16DEF478}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

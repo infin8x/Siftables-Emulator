@@ -1,64 +1,128 @@
 ﻿using System;
-using System.Net;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Windows.Interactivity;
+using Siftables.ViewModel;
 
 namespace Siftables.Behaviors
 {
-    // This code comes largely from: http://shirl9141.wordpress.com/2010/01/16/silverlight-drag-n-drop-behaviors-and-custom-controls/
+    // Drag-and-drop code comes largely from: http://shirl9141.wordpress.com/2010/01/16/silverlight-drag-n-drop-behaviors-and-custom-controls/
+    // Shake detection code comes largely from: Visual C# Kicks - http://www.vcskicks.com/  | License - http://www.vcskicks.com/license.html 
     public class DragAndDropBehavior : Behavior<UIElement>
     {
-        private Point mouseClickPosition;
+        private static readonly List<Point> ShakePoints = new List<Point>();
         private bool _isDragging;
-        private DependencyObject parent;
+        private Point _mouseClickPosition;
+        private DateTime _captureEnd;
+        private DateTime _captureStart;
+        private CubeViewModel vm;
+        private bool _isShaking;
+
+        public DragAndDropBehavior(object p)
+        {
+            vm = p as CubeViewModel;
+        }
 
         protected override void OnAttached()
         {
             base.OnAttached();
-            this.AssociatedObject.MouseLeftButtonDown += new MouseButtonEventHandler(AssociatedObject_MouseLeftButtonDown);
-            this.AssociatedObject.MouseLeftButtonUp += new MouseButtonEventHandler(AssociatedObject_MouseLeftButtonUp);
-            this.AssociatedObject.MouseMove += new MouseEventHandler(AssociatedObject_MouseMove);
+            AssociatedObject.MouseLeftButtonDown += AssociatedObjectMouseLeftButtonDown;
+            AssociatedObject.MouseLeftButtonUp += AssociatedObjectMouseLeftButtonUp;
+            AssociatedObject.MouseMove += AssociatedObjectMouseMove;
         }
+
         protected override void OnDetaching()
         {
             base.OnAttached();
-            this.AssociatedObject.MouseLeftButtonDown -= AssociatedObject_MouseLeftButtonDown;
-            this.AssociatedObject.MouseLeftButtonUp -= AssociatedObject_MouseLeftButtonUp;
-            this.AssociatedObject.MouseMove -= AssociatedObject_MouseMove;
+            AssociatedObject.MouseLeftButtonDown -= AssociatedObjectMouseLeftButtonDown;
+            AssociatedObject.MouseLeftButtonUp -= AssociatedObjectMouseLeftButtonUp;
+            AssociatedObject.MouseMove -= AssociatedObjectMouseMove;
         }
 
-        void AssociatedObject_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void AssociatedObjectMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.parent = VisualTreeHelper.GetParent(AssociatedObject);
-            this._isDragging = true;
-            this.mouseClickPosition = e.GetPosition(this.AssociatedObject);
-            this.AssociatedObject.CaptureMouse();
+            _isDragging = true;
+            _mouseClickPosition = e.GetPosition(AssociatedObject);
+            AssociatedObject.CaptureMouse();
+            _captureStart = DateTime.Now;
         }
 
-        void AssociatedObject_MouseMove(object sender, MouseEventArgs e)
+        private void AssociatedObjectMouseMove(object sender, MouseEventArgs e)
         {
             if (_isDragging)
             {
                 Point point = e.GetPosition(null);
-                AssociatedObject.SetValue(Canvas.TopProperty, point.Y - this.mouseClickPosition.Y);
-                AssociatedObject.SetValue(Canvas.LeftProperty, point.X - this.mouseClickPosition.X);
+
+                ShakePoints.Add(point);
+
+                AssociatedObject.SetValue(Canvas.TopProperty, point.Y - _mouseClickPosition.Y);
+                AssociatedObject.SetValue(Canvas.LeftProperty, point.X - _mouseClickPosition.X);
+                if (!_isShaking && CheckShake(e))
+                {
+                    vm.ShakeStartCommand.Execute(null);
+                    _isShaking = true;
+                    Debug.WriteLine("shaking");
+                }
             }
         }
 
-        void AssociatedObject_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void AssociatedObjectMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (_isDragging)
             {
-                this.AssociatedObject.ReleaseMouseCapture();
-                this._isDragging = false;
+                AssociatedObject.ReleaseMouseCapture();
+                _isDragging = false;
+
+                ShakePoints.Clear();
+                _captureEnd = DateTime.Now;
             }
+            if (_isShaking)
+            {
+                vm.ShakeStopCommand.Execute(_captureEnd.Subtract(_captureStart).Milliseconds);
+                _isShaking = false;
+            }
+        }
+
+        private bool CheckShake(MouseEventArgs e)
+        {
+            Point point = e.GetPosition(null);
+            if (ShakePoints != null)
+            {
+                Point avg = GetAveragePoint(ShakePoints);
+
+                //Calculate difference of average point to current position
+                var deltaPoint = new Point { X = point.X - avg.X, Y = point.Y - avg.Y };
+
+                //Calculate the number of milliseconds that spanned while the window moved
+                //Note: Only uses seconds and milliseconds
+                TimeSpan movementTime = _captureEnd.Subtract(_captureStart);
+                int msSpan = (movementTime.Seconds * 1000 + movementTime.Milliseconds);
+
+                //If values fall within a certain range, then the window was shaken
+                return msSpan <= 1000 &&  //speed of the shake in milliseconds
+                       ShakePoints.Count >= 80 && //amount of movements in the shake
+                       Math.Abs(deltaPoint.X) <= 80 && Math.Abs(deltaPoint.Y) <= 10; //average "size" of shake
+            }
+
+            return false;
+        }
+
+        private Point GetAveragePoint(List<Point> points)
+        {
+            var avg = new Point();
+            foreach (Point p in points)
+            {
+                avg.X += p.X;
+                avg.Y += p.Y;
+            }
+
+            avg.X /= points.Count;
+            avg.Y /= points.Count;
+
+            return avg;
         }
     }
 }

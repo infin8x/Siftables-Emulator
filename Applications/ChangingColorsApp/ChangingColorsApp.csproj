@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Sifteo\Bin\Debug\Sifteo.dll</HintPath>
     </Reference>
+    <Reference Include="SifteoExtensions">
+      <HintPath>..\..\SifteoExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="System">
     </Reference>
   </ItemGroup>

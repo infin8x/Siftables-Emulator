@@ -17,7 +17,7 @@ namespace CubeTestApp
             }
         }
 
-        private void OnPress(Cube cube, bool pressed)
+        private void OnPress(Cube cube)
         {
             cube.FillScreen(new Color(255, 0, 0)); // red
             cube.Paint();

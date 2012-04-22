@@ -7,6 +7,7 @@ using System.Windows.Shapes;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
 using Sifteo;
+using Color = System.Windows.Media.Color;
 
 namespace Siftables.ViewModel
 {
@@ -38,7 +39,7 @@ namespace Siftables.ViewModel
         {
             get { return _positionX; }
             set
-            { 
+            {
                 _positionX = value;
                 NotifyPropertyChanged("PositionX");
             }
@@ -48,8 +49,8 @@ namespace Siftables.ViewModel
         public int PositionY
         {
             get { return _positionY; }
-            set 
-            { 
+            set
+            {
                 _positionY = value;
                 NotifyPropertyChanged("PositionY");
             }
@@ -76,7 +77,8 @@ namespace Siftables.ViewModel
         public RelayCommand TiltUpCommand { get; private set; }
         public RelayCommand TiltDownCommand { get; private set; }
         public RelayCommand ButtonPressCommand { get; private set; }
-        public RelayCommand ButtonReleaseCommand { get; private set; }
+        public RelayCommand ShakeStartCommand { get; private set; }
+        public RelayCommand<int> ShakeStopCommand { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -108,33 +110,24 @@ namespace Siftables.ViewModel
         public CubeViewModel()
         {
             #region RelayCommandDefinitions
-            #region CubeFlipCommand
             CubeFlipCommand = new RelayCommand(() => CubeModel.OnFlip());
-            #endregion
-            #region CubeTiltCommands
             TiltLeftCommand = new RelayCommand(() => CubeModel.OnTilt(Cube.Side.LEFT));
             TiltRightCommand = new RelayCommand(() => CubeModel.OnTilt(Cube.Side.RIGHT));
             TiltUpCommand = new RelayCommand(() => CubeModel.OnTilt(Cube.Side.TOP));
             TiltDownCommand = new RelayCommand(() => CubeModel.OnTilt(Cube.Side.BOTTOM));
-            #endregion
-            #region RotateCWCommand
             RotateCwCommand = new RelayCommand(() => CubeModel.OnRotateCW());
-            #endregion
-            #region RotateCCWCommand
             RotateCcwCommand = new RelayCommand(() => CubeModel.OnRotateCCW());
-            #endregion
-            #region ButtonCommands
             ButtonPressCommand = new RelayCommand(() => CubeModel.OnButtonPress());
-            ButtonReleaseCommand = new RelayCommand(() => CubeModel.OnButtonRelease());
-            #endregion
+            ShakeStartCommand = new RelayCommand(() => CubeModel.OnShakeStarted());
+            ShakeStopCommand = new RelayCommand<int>((duration) => CubeModel.OnShakeStopped(duration));
             #endregion
 
             CubeModel = new Cube();
             ScreenItems = new ObservableCollection<FrameworkElement>();
             _pendingScreenItems = new Collection<FrameworkElement>();
 
-            CubeModel.NotifyBackgroundColorChanged += (sender, args) => UpdatePendingBackgroundColor((BackgroundEventArgs) args);
-            CubeModel.NotifyNewRectangle += (sender, args) => AddPendingRectangle((RectangleEventArgs) args);
+            CubeModel.NotifyBackgroundColorChanged += (sender, args) => UpdatePendingBackgroundColor((BackgroundEventArgs)args);
+            CubeModel.NotifyNewRectangle += (sender, args) => AddPendingRectangle((RectangleEventArgs)args);
             CubeModel.NotifyScreenItemsEmptied += (sender, args) => EmptyScreenItems();
             CubeModel.NotifyPaint += (sender, args) => PaintPendingGraphics();
         }
@@ -158,16 +151,26 @@ namespace Siftables.ViewModel
             }
         }
 
+        public static Color ByteToColor(byte colorByte)
+        {
+            var r = Convert.ToByte(((colorByte >> 5) & 7) * byte.MaxValue / 7);
+            var g = Convert.ToByte(((colorByte >> 2) & 7) * byte.MaxValue / 7);
+            var b = Convert.ToByte((colorByte & 3) * byte.MaxValue / 3);
+            return Color.FromArgb(255, r, g, b);
+        }
+
         public void UpdatePendingBackgroundColor(BackgroundEventArgs backgroundEventArgs)
         {
             _pendingScreenItems.Clear();
-            _pendingBackgroundColor = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, backgroundEventArgs.BackgroundColor.R, backgroundEventArgs.BackgroundColor.G, backgroundEventArgs.BackgroundColor.B));
+            var data = backgroundEventArgs.BackgroundColor.Data;
+            _pendingBackgroundColor = new SolidColorBrush(ByteToColor(data));
         }
 
         public void AddPendingRectangle(RectangleEventArgs rectangleEventArgs)
         {
             var r = new Rectangle();
-            r.Fill = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, rectangleEventArgs.Color.R, rectangleEventArgs.Color.G, rectangleEventArgs.Color.B));
+            var data = rectangleEventArgs.Color.Data;
+            r.Fill = new SolidColorBrush(ByteToColor(data));
             r.Width = rectangleEventArgs.Width;
             r.Height = rectangleEventArgs.Height;
             Canvas.SetTop(r, rectangleEventArgs.Y);
@@ -229,8 +232,8 @@ namespace Siftables.ViewModel
 
                 var fitTransform = new ScaleTransform
                                          {
-                                             ScaleX = ((double) width) / (imageSource.PixelWidth * imageEventArgs.Scale - imageEventArgs.SourceX),
-                                             ScaleY = ((double) height) / (imageSource.PixelHeight * imageEventArgs.Scale - imageEventArgs.SourceY),
+                                             ScaleX = ((double)width) / (imageSource.PixelWidth * imageEventArgs.Scale - imageEventArgs.SourceX),
+                                             ScaleY = ((double)height) / (imageSource.PixelHeight * imageEventArgs.Scale - imageEventArgs.SourceY),
                                              CenterX = 0,
                                              CenterY = 0
                                          };

@@ -11,7 +11,7 @@ namespace Siftables
         {
             InitializeComponent();
 
-            Interaction.GetBehaviors(this).Add(new DragAndDropBehavior());
+            Interaction.GetBehaviors(this).Add(new DragAndDropBehavior(this.Resources["CubeViewModel"]));
             Interaction.GetBehaviors(this).Add(new NeighborRefreshBehavior());
         }
     }

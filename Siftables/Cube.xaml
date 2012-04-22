@@ -82,6 +82,11 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
+            <Button Height="128" x:Name="screenClickButton" Width="128" Canvas.Left="20" Canvas.Top="20" Style="{StaticResource ImageButton}" Command="{Binding ButtonPressCommand}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Siftables;component/Images/transparent.png" Stretch="UniformToFill" />
+                </Button.Background>
+            </Button>
         </Canvas>
 
         <Button Height="32" x:Name="flipButton" Width="32" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ImageButton}" Command="{Binding CubeFlipCommand}">

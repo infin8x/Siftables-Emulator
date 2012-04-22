@@ -48,7 +48,10 @@
   <ItemGroup>
     <Reference Include="Sifteo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Sifteo\Bin\Debug\Sifteo.dll</HintPath>
+      <HintPath>..\..\Siftables\Bin\Debug\Sifteo.dll</HintPath>
+    </Reference>
+    <Reference Include="SifteoExtensions">
+      <HintPath>..\..\Siftables\Bin\Debug\SifteoExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>

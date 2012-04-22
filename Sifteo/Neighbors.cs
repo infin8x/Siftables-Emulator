@@ -41,25 +41,25 @@ namespace Sifteo
             return this._neighbors[(int)s];
         }
 
-        public Cube TOP
+        public Cube Top
         {
             get { return this._neighbors[(int)Cube.Side.TOP]; }
             set { this.sideUtil(Cube.Side.TOP, value); }
         }
 
-        public Cube RIGHT
+        public Cube Right
         {
             get { return this._neighbors[(int)Cube.Side.RIGHT]; }
             set { this.sideUtil(Cube.Side.RIGHT, value); }
         }
 
-        public Cube BOTTOM
+        public Cube Bottom
         {
             get { return this._neighbors[(int)Cube.Side.BOTTOM]; }
             set { this.sideUtil(Cube.Side.BOTTOM, value); }
         }
 
-        public Cube LEFT
+        public Cube Left
         {
             get { return this._neighbors[(int)Cube.Side.LEFT]; }
             set { this.sideUtil(Cube.Side.LEFT, value); }

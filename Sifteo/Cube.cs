@@ -122,15 +122,19 @@ namespace Sifteo
 
         public void OnButtonPress()
         {
-            ButtonIsPressed = true;
-            NotifyButtonPressed(this, true);
+            NotifyButtonPressed(this);
         }
 
-        public void OnButtonRelease()
+        public void OnShakeStarted()
         {
-            ButtonIsPressed = false;
-            NotifyButtonPressed(this, false);
+            NotifyShakeStarted(this);
         }
+
+        public void OnShakeStopped(int duration)
+        {
+            NotifyShakeStopped(this, duration);
+        }
+
 
         #region Public Types
         public enum Side { TOP = 0, LEFT = 1, BOTTOM = 2, RIGHT = 3, NONE = 4 }
@@ -237,8 +241,6 @@ namespace Sifteo
 
         public Side Orientation { get; set; } //The side of the cube that is currently treated as top
 
-        public bool ButtonIsPressed { get; set; }
-
         public bool IsShaking { get; set; }
 
         #endregion
@@ -251,12 +253,12 @@ namespace Sifteo
         public event RotateEventHandler NotifyRotateCCW = delegate { };
         public delegate void TiltEventHandler(Cube c, Side direction);
         public event TiltEventHandler NotifyCubeTilt = delegate { };
-        
-
-        public delegate void ButtonEvenHandler(Cube cube, bool pressed);
-
-        public event ButtonEvenHandler NotifyButtonPressed = delegate { };
-        public event ButtonEvenHandler NotifyButtonReleased = delegate { }; 
+        public delegate void ButtonEventHandler(Cube cube);
+        public event ButtonEventHandler NotifyButtonPressed = delegate { };
+        public delegate void ShakeStartedHandler(Cube cube);
+        public event ShakeStartedHandler NotifyShakeStarted = delegate { };
+        public delegate void ShakeStoppedHandler(Cube cube, int duration);
+        public event ShakeStoppedHandler NotifyShakeStopped = delegate { };
         #endregion
 
         #region Member Change Event Handling
@@ -267,11 +269,8 @@ namespace Sifteo
         public event EventHandler NotifyScreenItemsEmptied = delegate { };
         public event EventHandler NotifyNewImage = delegate { };
         public event EventHandler NotifyPaint = delegate { }; 
-
         public event EventHandler NotifyCubeMoved = delegate { };
 
         #endregion
-
- 
     }
 }

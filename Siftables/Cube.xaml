@@ -66,7 +66,7 @@
         <PlaneProjection/>
     </UserControl.Projection>
 
-    <Grid x:Name="LayoutRoot" Canvas.Left="300" Canvas.Top="{Binding PositionY, Mode=TwoWay}" DataContext="{Binding Source={StaticResource CubeViewModel}}">
+    <Grid x:Name="LayoutRoot" Canvas.Left="300" Canvas.Top="{Binding PositionY, Mode=TwoWay}">
         <Canvas Height="168" HorizontalAlignment="Center" Margin="0,0,0,0" x:Name="cube" VerticalAlignment="Center" Width="168" RenderTransformOrigin="0.5,0.5" Background="{StaticResource CubeFront}">
             <Canvas.RenderTransform>
                 <CompositeTransform/>

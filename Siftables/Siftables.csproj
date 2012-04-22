@@ -22,7 +22,7 @@
     <XapFilename>Siftables.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <SilverlightAppEntry>Siftables.Siftables</SilverlightAppEntry>
-    <TestPageFileName>SLDemoTestPage.html</TestPageFileName>
+    <TestPageFileName>SiftablesEmulator.html</TestPageFileName>
     <CreateTestPage>true</CreateTestPage>
     <ValidateXaml>true</ValidateXaml>
     <EnableOutOfBrowser>true</EnableOutOfBrowser>

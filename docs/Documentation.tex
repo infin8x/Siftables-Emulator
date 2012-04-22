@@ -1,0 +1,49 @@
+\title{Siftables Emulator: Deployment and Usage}
+\author{Singularity Software}
+\date{\today}
+
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{makeidx}
+\usepackage{lscape}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[final]{pdfpages}
+
+\geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
+
+\setlength{\parindent}{0pt} % Fixes the paragraph spacing problem
+
+\renewcommand*\arraystretch{1.5}
+
+\begin{document}
+
+\begin{center}
+	\LARGE{Siftables Emulator} \\
+	\LARGE{\textit{Deployment and Usage}}\\
+	\Large{\textit{Singularity Software}} \\
+	\vspace{.05in}
+	\normalsize{\today} \\
+\end{center}
+
+\section{Deployment/installation instructions}
+Siftables Emulator is a cross-platform Silverlight application. To install it for the first time:
+\begin{enumerate}
+\item Build the project using the Release configuration in Visual Studio.
+\item Open [project root]/Siftables/Bin/Release/SiftablesEmulator.html in a Silverlight-compatible web browser.
+\item When the app loads, right click anywhere and choose "Install Siftables Emulator onto this computer..."
+\item Follow the install wizard, choosing your preferred shortcut locations.
+\item Siftables Emulator should launch automatically. If not, it can be launched from wherever you opted to install shortcuts in the previous step.
+\end{enumerate}
+
+\section{Programming for the emulator}
+\subsection{Application Programming Interface}
+The Siftables Emulator can be programmed using the official Sifteo API available at http://developer.sifteo.com/. The team believes that our implementation of the API outlined there is complete and is functionally on par with the native Sifteo.dll provided for use with the physical Sifteo cubes. This implementation is a combination of work done by the team specifically for Silverlight and the Siftables project and work done by the Sifteo team. The latter part comes in the form of SifteoExtensions.dll, a partial version of Sifteo.dll decompiled and retargeted to Silverlight with Sifteo's permission.
+
+\subsection{Targeting Siftables Emulator}
+To target an application targeted for Sifteo Cubes to run in Siftables Emulator, make the following 2 changes:
+\begin{enumerate}
+\item Create a new Silverlight Application Project and add your existing project files to it.
+\item Add references in that project to [project root]/Siftables/Bin/Release/Sifteo.dll and /SifteoExtensions.dll. Note that those DLLs will only exist if you have already built the Release configuration of the emulator as specified in the Deployment/installation instructions.
+\end{enumerate}
+\end{document}

@@ -102,9 +102,9 @@ namespace Siftables.Behaviors
                 int msSpan = (movementTime.Seconds * 1000 + movementTime.Milliseconds);
 
                 //If values fall within a certain range, then the window was shaken
-                return msSpan <= 1000 && //speed of the shake in milliseconds
+                return msSpan <= 1000 &&  //speed of the shake in milliseconds
                        ShakePoints.Count >= 80 && //amount of movements in the shake
-                       Math.Abs(deltaPoint.X) <= 40 && Math.Abs(deltaPoint.Y) <= 40; //average "size" of shake
+                       Math.Abs(deltaPoint.X) <= 80 && Math.Abs(deltaPoint.Y) <= 10; //average "size" of shake
             }
 
             return false;

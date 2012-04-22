@@ -1,4 +1,4 @@
-<OutOfBrowserSettings ShortName="Siftables Emulator" EnableGPUAcceleration="False" ShowInstallMenuItem="True">
+<OutOfBrowserSettings ShortName="Siftables Emulator" EnableGPUAcceleration="True" ShowInstallMenuItem="True">
   <OutOfBrowserSettings.Blurb>Siftables Emulator.</OutOfBrowserSettings.Blurb>
   <OutOfBrowserSettings.WindowSettings>
     <WindowSettings Title="Siftables Emulator" Height="800" Width="900" />

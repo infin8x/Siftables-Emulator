@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractionOrderingApp", "FractionOrderingApp\FractionOrderingApp.csproj", "{26372223-1DED-4F8E-B6ED-BC5891FF58F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26372223-1DED-4F8E-B6ED-BC5891FF58F8}.Debug|x86.ActiveCfg = Debug|x86
+		{26372223-1DED-4F8E-B6ED-BC5891FF58F8}.Debug|x86.Build.0 = Debug|x86
+		{26372223-1DED-4F8E-B6ED-BC5891FF58F8}.Release|x86.ActiveCfg = Release|x86
+		{26372223-1DED-4F8E-B6ED-BC5891FF58F8}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

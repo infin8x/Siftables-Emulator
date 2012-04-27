@@ -37,10 +37,34 @@ Siftables Emulator is a cross-platform Silverlight application. To install it fo
 \end{enumerate}
 
 \section{Walkthrough: Interact with the emulator}
+The following reference maps actions on the physical Sifteo Cubes to their digital equivalents.
+\begin{center}\includegraphics[width=2.5in]{interact}\end{center}
+\begin{center}
+	\begin{tabular}{ | p{1.5in} | p{4.5in} | }
+	\hline
+	\textbf{If you want to...} &  \\\hline
+	Flip the cube  & Click the flip button \\\hline
+	Tilt the cube & Click the tilt button for the direction to tilt [left, up, right, down] \\\hline
+	Rotate the cube & Click the rotate button for the direction to rotate [counterclockwise, clockwise] \\\hline
+	Shake the cube & Drag the cube horizontally back and forth rapidly \\\hline
+	Press the cube & Click the virtual screen \\\hline
+	\end{tabular}\\
+
+	\begin{tabular}{ | p{1.5in} | p{4.5in} | }
+	\hline
+	\textbf{If you click...} &  \\\hline
+	Snap to Grid & The emulator rearranges the cubes into a 4-cube wide grid based on order of cube creation \\\hline
+	Load a Program & The emulator opens the Load dialog for running a Siftables application DLL \\\hline
+	Zoom  & The emulator zooms the canvas in (right) or out (left) to a maximum of 2x zoom \\\hline
+	\# of Cubes & The emulator changes the number of cubes available on the emulator ``screen" to a maximum of 9, minimum of 1 cubes \\\hline
+	\end{tabular}
+
+\end{center}
+
 
 \section{Program for the emulator}
 \subsection{Application Programming Interface}
-The Siftables Emulator can be programmed using the official Sifteo API available at http://developer.sifteo.com/. The team believes that our implementation of the API outlined there is complete and is functionally on par with the native Sifteo.dll provided for use with the physical Sifteo cubes. This implementation is a combination of work done by the team specifically for Silverlight and the Siftables project and work done by the Sifteo team. The latter part comes in the form of SifteoExtensions.dll, a partial version of Sifteo.dll decompiled and retargeted to Silverlight with Sifteo's permission.
+Siftables Emulator can be programmed using the official Sifteo API available at\\ http://developer.sifteo.com/. The team believes that our implementation of the API outlined there is complete and is functionally on par with the native Sifteo.dll provided for use with the physical Sifteo cubes. This implementation is a combination of work done by the team specifically for Silverlight and the Siftables project and work done by the Sifteo team. The latter part comes in the form of SifteoExtensions.dll, a partial version of Sifteo.dll decompiled and retargeted to Silverlight with Sifteo's permission.
 
 \subsection{Target the emulator}
 To target an application targeted for Sifteo Cubes to run in Siftables Emulator, make the following 2 changes:

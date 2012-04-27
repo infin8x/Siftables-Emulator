@@ -1,8 +1,6 @@
-﻿using System.Windows.Controls;
-
-namespace Siftables
+﻿namespace Siftables
 {
-    public partial class MainWindowView : UserControl
+    public partial class MainWindowView
     {
         public MainWindowView()
         {

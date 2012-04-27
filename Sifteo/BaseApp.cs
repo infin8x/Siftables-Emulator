@@ -1,3 +1,5 @@
+using System;
+
 namespace Sifteo
 {
     public class BaseApp
@@ -6,7 +8,7 @@ namespace Sifteo
 
         public ImageSet Images { get; set; }
 
-        //public SoundSet Sounds { get; set; }
+        public SoundSet Sounds { get; set; }
 
         public string ResourcePath { get; private set; }
 
@@ -38,16 +40,19 @@ namespace Sifteo
             CubeSet = cubes;
         }
 
-        #region Public Member Functions
+        public void AssociateSounds(SoundSet sounds)
+        {
+            Sounds = sounds;
+        }
+
         virtual public void Setup()
         {
-            // Should be overridden by application
         }
 
         virtual public void Tick()
         {
-            // Should be overridden by application
         }
-        #endregion
+
+        public delegate void EventHandler(object sender, EventArgs args);
     }
 }

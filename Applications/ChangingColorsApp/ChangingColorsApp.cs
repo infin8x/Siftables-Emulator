@@ -7,7 +7,7 @@ namespace ChangingColorsApp
   {
 
       private string[] _imageNames;
-      private Random _random;
+      private Sound _fourSound;
 
       override public void Setup()
       {
@@ -15,15 +15,8 @@ namespace ChangingColorsApp
           {
               cube.FillScreen(Color.White);
               cube.Paint();
-              cube.NotifyCubeFlip += OnFlip;
           }
           _imageNames = new string[] {"flip.png", "cube.png", "tilt.png", "rotate_cw.png", "rotate_ccw.png"};
-          _random = new Random();
-      }
-
-      private void OnFlip(Cube cube, bool flippedUp)
-      {
-          cube.FillScreen(new Color(50, 50, 50));
       }
 
       public override void Tick()
@@ -35,6 +28,10 @@ namespace ChangingColorsApp
               {
                   case 0:
                       c.FillScreen(Color.Black);
+                      if (_fourSound != null && !_fourSound.IsPaused)
+                      {
+                          _fourSound.Pause();
+                      }
                       break;
                   case 1:
                       c.FillScreen(new Color(255, 0, 0)); // red
@@ -47,6 +44,14 @@ namespace ChangingColorsApp
                       break;
                   case 4:
                       c.FillScreen(new Color(0, 255, 0)); // green
+                      if (_fourSound == null)
+                      {
+                          _fourSound = Sounds.CreateSound("scoobydoo.mp3");
+                          _fourSound.Play((float) 0.75);
+                      } else if (_fourSound.IsPaused)
+                      {
+                          _fourSound.Resume();
+                      }
                       break;
               }
               c.Paint();

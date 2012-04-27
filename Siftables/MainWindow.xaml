@@ -9,8 +9,7 @@
     x:Class="Siftables.MainWindowView"
     xmlns:vm="clr-namespace:Siftables.ViewModel"
     xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.SL5" 
-    xmlns:behave="clr-namespace:Siftables.Behaviors"
-    mc:Ignorable="d"
+    xmlns:behave="clr-namespace:Siftables.Behaviors" mc:Ignorable="d"
     d:DesignHeight="600" d:DesignWidth="900">
 
     <UserControl.Resources>
@@ -26,7 +25,19 @@
         </Grid.RowDefinitions>
         <!--Row 0-->
         <sdk:Label x:Name="title" Margin="5" Foreground="SkyBlue" FontSize="24" Content="Siftables Emulator" FontFamily="Arial Black"/>
-
+        <ItemsControl ItemsSource="{Binding Path=ActiveSounds}" x:Name="sounds">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <MediaElement x:Name="sound" Source="{Binding Path, Mode=TwoWay}" AutoPlay="True" Volume="{Binding VolumeLeft, Mode=TwoWay}"  Position="{Binding Position, Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MediaOpened">
+                                <cmd:EventToCommand Command="{Binding Path=SetPosition}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MediaElement>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
         <!--Row 1-->
         <Border x:Name="workspaceBorder" BorderBrush="Black" BorderThickness="3" Margin="5" Grid.Row="1" behave:ClipBehavior.ToBounds="True">
             <ItemsControl ItemsSource="{Binding Path=CubeViewModels}" Margin="0" x:Name="workspace" behave:ClipBehavior.ToBounds="True">

@@ -10,6 +10,7 @@ namespace Siftables
     public class AppRunner
     {
         public CubeSet Cubes { get; set; }
+        public SoundSet Sounds { get; set; }
 
         public BaseApp App { get; private set; }
 
@@ -41,6 +42,7 @@ namespace Siftables
         public void RunAppInThread()
         {
             App.AssociateCubes(Cubes);
+            App.AssociateSounds(Sounds);
 
             _uiDispatcher.BeginInvoke(() => App.Setup());
 
@@ -73,9 +75,10 @@ namespace Siftables
             throw new TypeLoadException();
         }
 
-        public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher)
+        public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher, SoundSet sounds)
         {
             Cubes = cubes;
+            Sounds = sounds;
             _uiDispatcher = uiDispatcher;
             if (!IsRunning)
             {

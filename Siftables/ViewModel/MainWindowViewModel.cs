@@ -13,7 +13,10 @@ namespace Siftables.ViewModel
         public const int NumInitialCubes = 6;
 
         #region BindingDefinitions
-        public ObservableCollection<CubeViewModel> CubeViewModels { get; set; } 
+        public ObservableCollection<CubeViewModel> CubeViewModels { get; set; }
+        public ObservableCollection<SoundViewModel> InactiveSounds { get; set; }
+        public ObservableCollection<SoundViewModel> ActiveSounds { get; set; }
+        public Collection<SoundViewModel> PausedSounds { get; set; }
 
         public RelayCommand SnapToGridCommand { get; private set; }
         public RelayCommand LoadAFileCommand { get; private set; }
@@ -36,6 +39,17 @@ namespace Siftables.ViewModel
         }
         public const String ReadyStatus = "Ready";
 
+        private Uri _soundPath;
+        public Uri SoundPath
+        {
+            get { return _soundPath; }
+            set
+            {
+                _soundPath = value;
+                NotifyPropertyChanged("SoundPath");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String info)
         {
@@ -50,6 +64,7 @@ namespace Siftables.ViewModel
         public AppRunner AppRunner { get; private set; }
 
         private ImageSources _imageSources;
+        private SoundSources _soundSources;
 
         public MainWindowViewModel()
         {
@@ -130,6 +145,34 @@ namespace Siftables.ViewModel
 
                             Status = "Loading image resources...";
                             _imageSources = new ImageSources(openFileDialog.File.Directory.FullName + "/assets/images");
+                            _soundSources = new SoundSources(openFileDialog.File.Directory.FullName + "/assets/sounds");
+                            _soundSources.NotifyNewSound += InitializeSound;
+                                    
+                            Sound.NotifyPauseAllSounds += () =>
+                                                              {
+                                                                  foreach (var sound in ActiveSounds)
+                                                                  {
+                                                                      InactiveSounds.Add(sound);
+                                                                  }
+                                                                  ActiveSounds.Clear();
+                                                              };
+                            Sound.NotifyResumeAllSounds += () =>
+                                                               {
+                                                                   foreach (var sound in InactiveSounds)
+                                                                   {
+                                                                       ActiveSounds.Add(sound);
+                                                                   }
+                                                                   InactiveSounds.Clear();
+                                                               };
+                            Sound.NotifyStopAllSounds += () =>
+                                                             {
+                                                                 foreach (var sound in ActiveSounds)
+                                                                 {
+                                                                     sound.Position = TimeSpan.Zero;
+                                                                     InactiveSounds.Add(sound);
+                                                                 }
+                                                                 ActiveSounds.Clear();
+                                                             };
                             AppRunner.App.Images = _imageSources.GetImageSet();
                             
                             foreach (var cubeViewModel in CubeViewModels)
@@ -138,7 +181,7 @@ namespace Siftables.ViewModel
                             }
 
                             Status = openFileDialog.File.Name + " was loaded.";
-                            AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher);
+                            AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher, _soundSources.GetSoundSet());
                         }
                         catch (TypeLoadException)
                         {
@@ -151,12 +194,6 @@ namespace Siftables.ViewModel
                         Status = "Program loader was closed.";
                     }
                 });
-            #endregion
-            #region ReloadAFileCommand
-            ReloadAFileCommand = new RelayCommand(() =>
-            {
-                throw new NotImplementedException();
-            });
             #endregion
             #endregion
 
@@ -172,6 +209,47 @@ namespace Siftables.ViewModel
 
             AppRunner = AppRunner.GetInstance();
             Status = ReadyStatus;
+            ActiveSounds = new ObservableCollection<SoundViewModel>();
+            InactiveSounds = new ObservableCollection<SoundViewModel>();
+            PausedSounds = new ObservableCollection<SoundViewModel>();
+
+        }
+
+        public void InitializeSound(Sound sound)
+        {
+            var soundViewModel = new SoundViewModel(sound, GetSoundPath(sound.Name).Replace(@"\", @"/"));
+            InactiveSounds.Add(soundViewModel);
+            soundViewModel.NotifyPlay += () =>
+                                                {
+                                                    InactiveSounds.Remove(soundViewModel);
+                                                    ActiveSounds.Add(soundViewModel);
+                                                };
+            soundViewModel.NotifyPause += () =>
+            {
+                ActiveSounds.Remove(soundViewModel);
+                if (!InactiveSounds.Contains(soundViewModel))
+                {
+                    InactiveSounds.Add(soundViewModel);
+                }
+            };
+            soundViewModel.NotifyResume += () =>
+            {
+                InactiveSounds.Remove(soundViewModel);
+                if (!ActiveSounds.Contains(soundViewModel))
+                {
+                    ActiveSounds.Add(soundViewModel);
+                }
+            };
+        }
+
+        public void AddSound(Sound sound)
+        {
+            ActiveSounds.Add(new SoundViewModel(sound, GetSoundPath(sound.Name)));
+        }
+
+        public string GetSoundPath(string name)
+        {
+            return _soundSources.GetSoundPath(name);
         }
 
         public CubeSet CubeSet

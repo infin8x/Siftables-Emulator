@@ -6,10 +6,6 @@ namespace Siftables
 {
     public partial class CubeView : UserControl
     {
-        //private ItemsControl _workspaceCubes;
-
-        //public ItemsControl WorkspaceCubes { get { return _workspaceCubes; } set { value = _workspaceCubes; } }
-
         public CubeView()
         {
             InitializeComponent();

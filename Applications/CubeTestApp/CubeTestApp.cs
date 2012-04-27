@@ -1,4 +1,5 @@
-﻿using Sifteo;
+﻿using System;
+using Sifteo;
 
 namespace CubeTestApp
 {
@@ -14,6 +15,8 @@ namespace CubeTestApp
                 cube.NotifyButtonPressed += OnPress;
                 cube.NotifyCubeTilt += OnTilt;
                 cube.NotifyCubeFlip += OnFlip;
+                cube.NotifyShakeStarted += OnShake;
+                cube.NotifyShakeStopped += OffShake;
             }
         }
 
@@ -56,8 +59,44 @@ namespace CubeTestApp
             cube.Paint();
         }
 
+        private void OnShake(Cube cube)
+        {
+            Random rand = new Random();
+            cube.FillScreen(new Color(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256)));
+            cube.Paint();
+        }
+
+        private void OffShake(Cube cube, int duration)
+        {
+            cube.FillScreen(Color.White);
+            cube.Paint();
+        }
+
         public override void Tick()
         {
+            foreach (var c in this.CubeSet)
+            {
+                var num = c.Neighbors.Count;
+                switch (num)
+                {
+                    case 0:
+                        c.FillScreen(Color.Black);
+                        break;
+                    case 1:
+                        c.FillScreen(new Color(255, 255, 0)); // yellow
+                        break;
+                    case 2:
+                        c.FillScreen(new Color(255, 255, 50)); // color?
+                        break;
+                    case 3:
+                        c.FillScreen(new Color(255, 255, 100)); // color?
+                        break;
+                    case 4:
+                        c.FillScreen(new Color(255, 255, 150)); // color?
+                        break;
+                }
+                c.Paint();
+            }
         }
     }
 }

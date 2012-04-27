@@ -31,22 +31,22 @@ namespace CubeTestApp
             switch (direction)
             {
                 case Cube.Side.TOP:
-                    cube.FillScreen(new Color(0, 200, 0)); // increasingly dark green
+                    cube.FillRect(new Color(0, 200, 0), 54, 54, 20, 20); // increasingly dark green
                     break;
 
                 case Cube.Side.BOTTOM:
-                    cube.FillScreen(new Color(0, 150, 0));
+                    cube.FillRect(new Color(0, 150, 0), 54, 54, 20, 20);
                     break;
 
                 case Cube.Side.LEFT:
-                    cube.FillScreen(new Color(0, 100, 0));
+                    cube.FillRect(new Color(0, 100, 0), 54, 54, 20, 20);
                     break;
 
                 case Cube.Side.RIGHT:
-                    cube.FillScreen(new Color(0, 50, 0));
+                    cube.FillRect(new Color(0, 50, 0), 54, 54, 20, 20);
                     break;
                 default:
-                    cube.FillScreen(Color.White); // extremely light green
+                    cube.FillRect(Color.White, 54, 54, 20, 20); // extremely light green
                     break;
             }
 
@@ -55,14 +55,14 @@ namespace CubeTestApp
 
         private void OnFlip(Cube cube, bool newOrientationIsUp)
         {
-            cube.FillScreen(new Color(0, 0, 255)); // blue
+            cube.FillRect(new Color(0, 0, 255), 54, 54, 20, 20); // blue
             cube.Paint();
         }
 
         private void OnShake(Cube cube)
         {
             Random rand = new Random();
-            cube.FillScreen(new Color(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256)));
+            cube.FillRect(new Color(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256)), 54, 54, 20, 20);
             cube.Paint();
         }
 

@@ -117,7 +117,13 @@ namespace Siftables
 
         public void PauseExecution()
         {
-            throw new NotImplementedException();
+            IsRunning = false;
+            _runner.Join();
+        }
+
+        public void ResumeExecution()
+        {
+            StartExecution(Cubes, _uiDispatcher, Sounds);
         }
     }
 }

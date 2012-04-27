@@ -21,6 +21,7 @@ namespace Siftables.ViewModel
         public RelayCommand SnapToGridCommand { get; private set; }
         public RelayCommand LoadAFileCommand { get; private set; }
         public RelayCommand ReloadAFileCommand { get; private set; }
+        public RelayCommand PauseOrResumeCommand { get; private set; }
         public RelayCommand<EventArgs> ChangeNumberOfCubesCommand { get; private set; }
 
         public RelayCommand RefreshNeighborsCommand { get; private set; }
@@ -65,6 +66,14 @@ namespace Siftables.ViewModel
 
         private ImageSources _imageSources;
         private SoundSources _soundSources;
+
+        public string PlayOrResumeText
+        {
+            get
+            {
+                return AppRunner.IsRunning ? "Pause" : "Resume";
+            }
+        }
 
         public MainWindowViewModel()
         {
@@ -189,6 +198,7 @@ namespace Siftables.ViewModel
                             Status = openFileDialog.File.Name + " was loaded.";
                             AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher,
                                                         _soundSources.GetSoundSet());
+                            NotifyPropertyChanged("PlayOrResumeText");
                         }
                     }
                     else
@@ -196,6 +206,20 @@ namespace Siftables.ViewModel
                         Status = "Program loader was closed.";
                     }
                 });
+            #endregion
+            #region PauseOrResumeButton
+
+            PauseOrResumeCommand = new RelayCommand(() =>
+            {
+                if (AppRunner.IsRunning)
+                {
+                    AppRunner.PauseExecution();
+                } else
+                {
+                    AppRunner.ResumeExecution();
+                }
+                NotifyPropertyChanged("PlayOrResumeText");
+            });
             #endregion
             #endregion
 

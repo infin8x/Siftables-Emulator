@@ -54,6 +54,8 @@ namespace ChangingColorsApp
                       }
                       break;
               }
+              var rand = new Random();
+              c.FillRect(new Color(rand.Next(256), rand.Next(256), rand.Next(256)), 50, 50, 50, 50);
               c.Paint();
           }
       }

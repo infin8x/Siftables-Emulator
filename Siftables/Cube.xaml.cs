@@ -6,7 +6,6 @@ namespace Siftables
 {
     public partial class CubeView : UserControl
     {
-
         public CubeView()
         {
             InitializeComponent();

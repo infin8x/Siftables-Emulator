@@ -18,7 +18,7 @@
 
     <Grid x:Name="LayoutRoot" Background="White" DataContext="{Binding Source={StaticResource MainWindowViewModel}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="0" />
             <RowDefinition />
             <RowDefinition Height="45" />
             <RowDefinition Height="25" />

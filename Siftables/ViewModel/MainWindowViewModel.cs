@@ -135,57 +135,60 @@ namespace Siftables.ViewModel
                     if (openFileDialog.ShowDialog() == true)
                     {
                         Status = "Loading application...";
-                        try
+                        using (var fileStream = openFileDialog.File.OpenRead())
                         {
-                            using (var fileStream = openFileDialog.File.OpenRead())
+                            try
                             {
                                 AppRunner.LoadApplication(fileStream);
+                            } catch (TypeLoadException e)
+                            {
+                                Status = "Application load failed: " + e.Message;
                             }
-
+                        }
+                        if (AppRunner.IsLoaded)
+                        {
                             Status = "Loading image resources...";
-                            _imageSources = new ImageSources(openFileDialog.File.Directory.FullName + "/assets/images");
-                            _soundSources = new SoundSources(openFileDialog.File.Directory.FullName + "/assets/sounds");
+                            _imageSources =
+                                new ImageSources(openFileDialog.File.Directory.FullName + "/assets/images");
+                            _soundSources =
+                                new SoundSources(openFileDialog.File.Directory.FullName + "/assets/sounds");
                             _soundSources.NotifyNewSound += InitializeSound;
-                                    
+
                             Sound.NotifyPauseAllSounds += () =>
-                                                              {
-                                                                  foreach (var sound in ActiveSounds)
-                                                                  {
-                                                                      InactiveSounds.Add(sound);
-                                                                  }
-                                                                  ActiveSounds.Clear();
-                                                              };
+                                                                {
+                                                                    foreach (var sound in ActiveSounds)
+                                                                    {
+                                                                        InactiveSounds.Add(sound);
+                                                                    }
+                                                                    ActiveSounds.Clear();
+                                                                };
                             Sound.NotifyResumeAllSounds += () =>
-                                                               {
-                                                                   foreach (var sound in InactiveSounds)
-                                                                   {
-                                                                       ActiveSounds.Add(sound);
-                                                                   }
-                                                                   InactiveSounds.Clear();
-                                                               };
+                                                                {
+                                                                    foreach (var sound in InactiveSounds)
+                                                                    {
+                                                                        ActiveSounds.Add(sound);
+                                                                    }
+                                                                    InactiveSounds.Clear();
+                                                                };
                             Sound.NotifyStopAllSounds += () =>
-                                                             {
-                                                                 foreach (var sound in ActiveSounds)
-                                                                 {
-                                                                     sound.Position = TimeSpan.Zero;
-                                                                     InactiveSounds.Add(sound);
-                                                                 }
-                                                                 ActiveSounds.Clear();
-                                                             };
+                                                                {
+                                                                    foreach (var sound in ActiveSounds)
+                                                                    {
+                                                                        sound.Position = TimeSpan.Zero;
+                                                                        InactiveSounds.Add(sound);
+                                                                    }
+                                                                    ActiveSounds.Clear();
+                                                                };
                             AppRunner.App.Images = _imageSources.GetImageSet();
-                            
+
                             foreach (var cubeViewModel in CubeViewModels)
                             {
                                 cubeViewModel.ImageSources = _imageSources;
                             }
 
                             Status = openFileDialog.File.Name + " was loaded.";
-                            AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher, _soundSources.GetSoundSet());
-                        }
-                        catch (TypeLoadException)
-                        {
-                            MessageBox.Show(openFileDialog.File.Name + " does not contain a subclass of BaseApp.");
-                            Status = "No application found.";
+                            AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher,
+                                                        _soundSources.GetSoundSet());
                         }
                     }
                     else

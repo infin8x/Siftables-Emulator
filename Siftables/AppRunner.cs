@@ -15,13 +15,12 @@ namespace Siftables
         public BaseApp App { get; private set; }
 
         public bool IsRunning { get; private set; }
+        public bool IsLoaded { get; private set; }
 
-        public const int TimeBetweenTicks = 500;
+        public const int MillisecondsBetweenTicks = 500;
 
-        // Dispatcher is used to invoke methods on the UI layer.
         private Dispatcher _uiDispatcher;
 
-        // A new thread is used to execute the application logic.
         private Thread _runner;
 
         private static AppRunner _appRunner;
@@ -37,6 +36,7 @@ namespace Siftables
         private AppRunner()
         {
             IsRunning = false;
+            IsLoaded = false;
         }
 
         public void RunAppInThread()
@@ -49,7 +49,7 @@ namespace Siftables
             while (IsRunning)
             {
                 _uiDispatcher.BeginInvoke(() => App.Tick());
-                Thread.Sleep(TimeBetweenTicks);
+                Thread.Sleep(MillisecondsBetweenTicks);
             }
         }
 
@@ -57,9 +57,21 @@ namespace Siftables
         {
             var assemblyPart = new AssemblyPart();
             var loadedAssembly = assemblyPart.Load(appStream);
-            var assemblyTypes = loadedAssembly.GetTypes();
+            Type[] assemblyTypes;
+            if (loadedAssembly == null)
+            {
+                throw new TypeLoadException("Invalid class library specified");
+            }
+            try
+            {
+                assemblyTypes = loadedAssembly.GetTypes();
+            } catch (Exception)
+            {
+                throw new TypeLoadException("Unable to load library types");
+            }
 
             App = FindBaseApp(assemblyTypes);
+            IsLoaded = true;
         }
 
         public BaseApp FindBaseApp(Type[] assemblyTypes)
@@ -72,7 +84,7 @@ namespace Siftables
                 }
             }
 
-            throw new TypeLoadException();
+            throw new TypeLoadException("No class found subclassing BaseApp");
         }
 
         public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher, SoundSet sounds)

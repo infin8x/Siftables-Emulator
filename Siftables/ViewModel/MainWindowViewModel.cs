@@ -132,7 +132,6 @@ namespace Siftables.ViewModel
                     Status = "Select the application to run.";
 
                     var openFileDialog = new OpenFileDialog { Filter = "C# Library (*.dll)|*.dll|All Files (*.*)|*.*", FilterIndex = 1, Multiselect = false};
-
                     if (openFileDialog.ShowDialog() == true)
                     {
                         Status = "Loading application...";

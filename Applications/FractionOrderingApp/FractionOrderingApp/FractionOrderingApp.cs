@@ -5,13 +5,13 @@ namespace FractionOrderingApp
 {
     public class FractionOrderingApp : BaseApp
     {
-        public Random rand = new Random();
+        public Random Rand = new Random();
 
         public override void Setup()
         {
             foreach (Cube cube in CubeSet)
             {
-                int img = rand.Next(0, 11);
+                int img = Rand.Next(0, 11);
                 ChangeCubeImg(cube, img, Color.White);
             }
         }
@@ -76,18 +76,30 @@ namespace FractionOrderingApp
         {
             foreach (Cube cube in CubeSet)
             {
-                if ((null == cube.Neighbors.Left ||
-                     (int) cube.Neighbors.Left.userData <= (int) cube.userData) &&
-                    (null == cube.Neighbors.Right ||
-                     (int) cube.Neighbors.Right.userData >= (int) cube.userData))
-                {
-                    ChangeCubeImg(cube, (int) cube.userData, new Color(0, 255, 0)); // green
-                }
-                else
-                {
-                    ChangeCubeImg(cube, (int) cube.userData, new Color(255, 0, 0)); // red
-                }
+                CheckNeighbors(cube);
             }
+        }
+
+        private void CheckNeighbors(Cube cube)
+        {
+            if ((null == cube.Neighbors.Left ||
+                 (int)cube.Neighbors.Left.userData <= (int)cube.userData) &&
+                (null == cube.Neighbors.Right ||
+                 (int)cube.Neighbors.Right.userData >= (int)cube.userData))
+            {
+                ChangeCubeImg(cube, (int)cube.userData, new Color(0, 255, 0)); // green
+                PlaySuccessSound();
+            }
+            else
+            {
+                ChangeCubeImg(cube, (int)cube.userData, new Color(255, 0, 0)); // red
+            }
+        }
+
+        private void PlaySuccessSound()
+        {
+            Sound s = Sounds.CreateSound("gliss");
+            s.Play(1);
         }
     }
 }

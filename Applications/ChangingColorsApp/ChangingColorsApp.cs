@@ -11,8 +11,6 @@ namespace ChangingColorsApp
 
       override public void Setup()
       {
-          var b = 0;
-          var a = 3 / b;
           foreach (var cube in CubeSet)
           {
               cube.FillScreen(Color.White);

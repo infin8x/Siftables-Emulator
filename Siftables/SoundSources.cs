@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Siftables.ViewModel;
 using Sifteo;
 
 namespace Siftables
@@ -9,8 +11,8 @@ namespace Siftables
     {
 
         public Dictionary<string, string> SoundSource { get; private set; }
-        private static readonly string[] ValidSoundExtensions = new[] { ".mp3", ".MP3" };
-        private readonly SoundSet _soundSet;
+        private static readonly string[] ValidSoundExtensions = new[] { ".mp3" };
+        public SoundSet SoundSet { get; private set; }
 
         public delegate void NewSoundHandler(Sound sound);
         public event NewSoundHandler NotifyNewSound = delegate { };
@@ -19,16 +21,16 @@ namespace Siftables
         {
             SoundSource = new Dictionary<string, string>();
             LoadSounds(soundPath);
-            _soundSet = new SoundSet(SoundSource.Keys);
-            _soundSet.NotifyNewSound += sound => NotifyNewSound(sound);
+            SoundSet = new SoundSet(SoundSource.Keys);
+            SoundSet.NotifyNewSound += sound => NotifyNewSound(sound);
         }
 
-        public void LoadSounds(string soundPath)
+        private void LoadSounds(string soundPath)
         {
             var directoryInfo = new DirectoryInfo(soundPath);
             try
             {
-                var imageList = directoryInfo.EnumerateFiles("*").Where(file => ValidSoundExtensions.Contains(file.Extension));
+                var imageList = directoryInfo.EnumerateFiles("*").Where(file => ValidSoundExtensions.Contains(file.Extension.ToLower()));
                 foreach (var file in imageList)
                 {
                     SoundSource.Add(file.Name, file.FullName);
@@ -44,9 +46,61 @@ namespace Siftables
             return SoundSource[soundName];
         }
 
-        public SoundSet GetSoundSet()
+        public void InitializeSound(Sound sound, ICollection<SoundViewModel> activeSounds, ICollection<SoundViewModel> inactiveSounds)
         {
-            return _soundSet;
+            var soundViewModel = new SoundViewModel(sound, GetSoundPath(sound.Name).Replace(@"\", @"/"));
+            inactiveSounds.Add(soundViewModel);
+            soundViewModel.NotifyPlay += () =>
+            {
+                inactiveSounds.Remove(soundViewModel);
+                activeSounds.Add(soundViewModel);
+            };
+            soundViewModel.NotifyPause += () =>
+            {
+                activeSounds.Remove(soundViewModel);
+                if (!inactiveSounds.Contains(soundViewModel))
+                {
+                    inactiveSounds.Add(soundViewModel);
+                }
+            };
+            soundViewModel.NotifyResume += () =>
+            {
+                inactiveSounds.Remove(soundViewModel);
+                if (!activeSounds.Contains(soundViewModel))
+                {
+                    activeSounds.Add(soundViewModel);
+                }
+            };
+        }
+
+        public void StopAllSounds(ICollection<SoundViewModel> activeSounds, ICollection<SoundViewModel> inactiveSounds)
+        {
+            foreach (var sound in activeSounds)
+            {
+                sound.Position = TimeSpan.Zero;
+                inactiveSounds.Add(sound);
+            }
+            activeSounds.Clear();
+        }
+
+        public void ResumeAllSounds(ICollection<SoundViewModel> activeSounds, ICollection<SoundViewModel> inactiveSounds)
+        {
+            foreach (var sound in inactiveSounds)
+            {
+                activeSounds.Add(sound);
+                sound.RestoreResumeSpot();
+            }
+            inactiveSounds.Clear();
+        }
+
+        public void PauseAllSounds(ICollection<SoundViewModel> activeSounds, ICollection<SoundViewModel> inactiveSounds)
+        {
+            foreach (var sound in activeSounds)
+            {
+                sound.SetResumeSpot();
+                inactiveSounds.Add(sound);
+            }
+            activeSounds.Clear();
         }
     }
 }

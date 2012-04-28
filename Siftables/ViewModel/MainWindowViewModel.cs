@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
@@ -12,9 +13,9 @@ namespace Siftables.ViewModel
         public const int NumInitialCubes = 6;
 
         #region BindingDefinitions
-        public ObservableCollection<CubeViewModel> CubeViewModels { get; set; }
-        public Collection<SoundViewModel> InactiveSounds { get; set; }
-        public ObservableCollection<SoundViewModel> ActiveSounds { get; set; }
+        public ObservableCollection<CubeViewModel> CubeViewModels { get; private set; }
+        public ICollection<SoundViewModel> InactiveSounds { get; private set; }
+        public ObservableCollection<SoundViewModel> ActiveSounds { get; private set; }
 
         public RelayCommand SnapToGridCommand { get; private set; }
         public RelayCommand LoadAFileCommand { get; private set; }
@@ -49,11 +50,6 @@ namespace Siftables.ViewModel
             }
         }
 
-        public bool PauseOrResumeEnabled
-        {
-            get { return AppRunner.IsRunning; }
-        }
-
         public MainWindowViewModel()
         {
             #region ChangeNumberOfCubesCommand
@@ -69,7 +65,7 @@ namespace Siftables.ViewModel
                             for (var i = 0; i < numToChange; i++) {
                                 CubeViewModels.RemoveAt(CubeViewModels.Count - 1);
                             }
-                            CalculateNeighbors();
+                            NeighborCalculator.CalculateNeighbors(CubeViewModels);
                         }
                         else if (args.NewValue > CubeViewModels.Count) // adding cubes
                         {
@@ -93,12 +89,12 @@ namespace Siftables.ViewModel
                     {
                         for (var j = 0; j < 4; j++)
                         {
-                            if ((i * 4) + j > CubeViewModels.Count - 1) { CalculateNeighbors(); Status = ReadyStatus; return; }
+                            if ((i * 4) + j > CubeViewModels.Count - 1) { NeighborCalculator.CalculateNeighbors(CubeViewModels); Status = ReadyStatus; return; }
                             CubeViewModels[(i * 4) + j].PositionX = 200 * j;
                             CubeViewModels[(i * 4) + j].PositionY = 200 * i;
                         }
                     }
-                    CalculateNeighbors();
+                    NeighborCalculator.CalculateNeighbors(CubeViewModels);
                     Status = ReadyStatus;
                 });
             #endregion
@@ -135,11 +131,13 @@ namespace Siftables.ViewModel
                                     new ImageSources(openFileDialog.File.Directory.FullName + "/assets/images");
                                 _soundSources =
                                     new SoundSources(openFileDialog.File.Directory.FullName + "/assets/sounds");
-                                _soundSources.NotifyNewSound += InitializeSound;
 
-                                Sound.NotifyPauseAllSounds += PauseAllSounds;
-                                Sound.NotifyResumeAllSounds += ResumeAllSounds;
-                                Sound.NotifyStopAllSounds += StopAllSounds;
+                                _soundSources.NotifyNewSound +=
+                                    sound => _soundSources.InitializeSound(sound, ActiveSounds, InactiveSounds);
+                                Sound.NotifyPauseAllSounds += () => _soundSources.PauseAllSounds(ActiveSounds, InactiveSounds);
+                                Sound.NotifyResumeAllSounds += () => _soundSources.ResumeAllSounds(ActiveSounds, InactiveSounds);
+                                Sound.NotifyStopAllSounds += () => _soundSources.StopAllSounds(ActiveSounds, InactiveSounds);
+
                                 AppRunner.App.Images = _imageSources.GetImageSet();
 
                                 foreach (var cubeViewModel in CubeViewModels)
@@ -149,7 +147,7 @@ namespace Siftables.ViewModel
 
                                 Status = openFileDialog.File.Name + " was loaded.";
                                 AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher,
-                                                            _soundSources.GetSoundSet());
+                                                            _soundSources.SoundSet);
                                 NotifyPropertyChanged("PauseOrResumeText");
                             } else
                             {
@@ -163,18 +161,18 @@ namespace Siftables.ViewModel
                     }
                 });
             #endregion
-            #region PauseOrResumeButton
+            #region PauseOrResumeCommand
 
             PauseOrResumeCommand = new RelayCommand(() =>
             {
                 if (AppRunner.IsRunning)
                 {
                     AppRunner.PauseExecution();
-                    PauseAllSounds();
+                    _soundSources.PauseAllSounds(ActiveSounds, InactiveSounds);
                 } else
                 {
                     AppRunner.ResumeExecution();
-                    ResumeAllSounds();
+                    _soundSources.ResumeAllSounds(ActiveSounds, InactiveSounds);
                 }
                 NotifyPropertyChanged("PauseOrResumeText");
             });
@@ -202,79 +200,12 @@ namespace Siftables.ViewModel
         private void AddNewCube()
         {
             var cubeViewModel = new CubeViewModel();
-            cubeViewModel.CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
+            cubeViewModel.CubeModel.NotifyCubeMoved += (sender, arguments) => NeighborCalculator.CalculateNeighbors(CubeViewModels);
             if (AppRunner.IsRunning)
             {
                 cubeViewModel.ImageSources = _imageSources;
             }
             CubeViewModels.Add(cubeViewModel);
-        }
-
-        public void StopAllSounds()
-        {
-            foreach (var sound in ActiveSounds)
-            {
-                sound.Position = TimeSpan.Zero;
-                InactiveSounds.Add(sound);
-            }
-            ActiveSounds.Clear();
-        }
-
-        public void ResumeAllSounds()
-        {
-            foreach (var sound in InactiveSounds)
-            {
-                ActiveSounds.Add(sound);
-                sound.RestoreResumeSpot();
-            }
-            InactiveSounds.Clear();
-        }
-
-        public void PauseAllSounds()
-        {
-            foreach (var sound in ActiveSounds)
-            {
-                sound.SetResumeSpot();
-                InactiveSounds.Add(sound);
-            }
-            ActiveSounds.Clear();
-        }
-
-        public void InitializeSound(Sound sound)
-        {
-            var soundViewModel = new SoundViewModel(sound, GetSoundPath(sound.Name).Replace(@"\", @"/"));
-            InactiveSounds.Add(soundViewModel);
-            soundViewModel.NotifyPlay += () =>
-                                                {
-                                                    InactiveSounds.Remove(soundViewModel);
-                                                    ActiveSounds.Add(soundViewModel);
-                                                };
-            soundViewModel.NotifyPause += () =>
-            {
-                ActiveSounds.Remove(soundViewModel);
-                if (!InactiveSounds.Contains(soundViewModel))
-                {
-                    InactiveSounds.Add(soundViewModel);
-                }
-            };
-            soundViewModel.NotifyResume += () =>
-            {
-                InactiveSounds.Remove(soundViewModel);
-                if (!ActiveSounds.Contains(soundViewModel))
-                {
-                    ActiveSounds.Add(soundViewModel);
-                }
-            };
-        }
-
-        public void AddSound(Sound sound)
-        {
-            ActiveSounds.Add(new SoundViewModel(sound, GetSoundPath(sound.Name)));
-        }
-
-        public string GetSoundPath(string name)
-        {
-            return _soundSources.GetSoundPath(name);
         }
 
         public CubeSet CubeSet
@@ -288,59 +219,6 @@ namespace Siftables.ViewModel
                 }
 
                 return cubeSet;
-            }
-        }
-
-        public void CalculateNeighbors()
-        {
-            var count = CubeViewModels.Count;
-            // I'd like to eliminate this loop... but we have to reset everything before we can start processing neighbors
-            for (var i = 0; i < count; i++)
-            {
-                var c = CubeViewModels[i].CubeModel;
-                c.Neighbors = new Neighbors();
-            }
-            for (var i = 0; i < count - 1; i++)
-            {
-                var aV = CubeViewModels[i];
-                for (var j = i + 1; j < count; j++)
-                {
-                    var bV = CubeViewModels[j];
-                    // If anybody knows a better way to do this, please fix it.  The only way I could get
-                    // the DP to expose its value is through its ToString method...
-                    var aLeft = aV.PositionX;
-                    var aTop = aV.PositionY;
-                    var bLeft = bV.PositionX;
-                    var bTop = bV.PositionY;
-                    var aC = aV.CubeModel;
-                    var bC = bV.CubeModel;
-                    if ((Math.Abs(aLeft - bLeft) <= (Neighbors.GAP_TOLERANCE + Cube.dimension)) && (Math.Abs(aTop - bTop) <= (Cube.dimension - Neighbors.SHARED_EDGE_MINIMUM)))
-                    {
-                        if (aLeft < bLeft)
-                        {
-                            aC.Neighbors.Right = bC;
-                            bC.Neighbors.Left = aC;
-                        }
-                        else
-                        {
-                            aC.Neighbors.Left = bC;
-                            bC.Neighbors.Right = aC;
-                        }
-                    }
-                    if ((Math.Abs(aTop - bTop) <= (Neighbors.GAP_TOLERANCE + Cube.dimension)) && (Math.Abs(aLeft - bLeft) <= (Cube.dimension - Neighbors.SHARED_EDGE_MINIMUM)))
-                    {
-                        if (aTop < bTop)
-                        {
-                            aC.Neighbors.Top = bC;
-                            bC.Neighbors.Bottom = aC;
-                        }
-                        else
-                        {
-                            aC.Neighbors.Bottom = bC;
-                            bC.Neighbors.Top = aC;
-                        }
-                    }
-                }
             }
         }
 

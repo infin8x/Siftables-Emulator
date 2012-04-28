@@ -91,6 +91,7 @@
     <Compile Include="Behaviors\ClipBehavior.cs" />
     <Compile Include="AppRunner.cs" />
     <Compile Include="ImageSources.cs" />
+    <Compile Include="NeighborCalculator.cs" />
     <Compile Include="SoundSources.cs" />
     <Compile Include="ViewModel\CubeViewModel.cs" />
     <Compile Include="Siftables.xaml.cs">

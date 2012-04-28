@@ -75,7 +75,7 @@
             <Button x:Name="loadAProgramButton" Margin="10" Grid.Column="1" Command="{Binding LoadAFileCommand, Mode=TwoWay}">
                 <sdk:Label Content="Load A Program"/>
             </Button>
-            <Button x:Name="pauseOrResume" Margin="10" Grid.Column="2" Command="{Binding PauseOrResumeCommand, Mode=OneWay}">
+            <Button x:Name="pauseOrResume" Margin="10" Grid.Column="2" Command="{Binding PauseOrResumeCommand, Mode=OneWay}" IsEnabled="{Binding CanPauseOrResume}">
                 <sdk:Label Content="{Binding PauseOrResumeText, Mode=TwoWay}"/>
             </Button>
             <Slider x:Name="zoomSlider" Margin="10" Grid.Column="3" VerticalAlignment="Top" LargeChange="0.1" Minimum="1" Maximum="2" Value="1" SmallChange="0.05" />

@@ -34,16 +34,39 @@ namespace Siftables
             IsLoaded = false;
         }
 
+        public delegate void ExceptionHandler(Exception e);
+        public event ExceptionHandler NotifyApplicationException; 
         private void RunAppInThread()
         {
             App.AssociateCubes(Cubes);
             App.AssociateSounds(Sounds);
 
-            _uiDispatcher.BeginInvoke(() => App.Setup());
-
+            _uiDispatcher.BeginInvoke(() =>
+                                          {
+                                              try
+                                              {
+                                                  App.Setup();
+                                              }
+                                              catch (Exception e)
+                                              {
+                                                  NotifyApplicationException(e);
+                                                  _runner.Join();
+                                              }
+                                          });
             while (IsRunning)
             {
-                _uiDispatcher.BeginInvoke(() => App.Tick());
+                _uiDispatcher.BeginInvoke(() =>
+                {
+                    try
+                    {
+                        App.Tick();
+                    }
+                    catch (Exception e)
+                    {
+                        NotifyApplicationException(e);
+                        _runner.Join();
+                    }
+                });
                 Thread.Sleep(MillisecondsBetweenTicks);
             }
         }
@@ -79,12 +102,12 @@ namespace Siftables
             throw new TypeLoadException("No class found subclassing BaseApp");
         }
 
-        public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher, SoundSet sounds)
+        private void ResetCubes()
         {
-            Cubes = cubes;
-            Sounds = sounds;
-            _uiDispatcher = uiDispatcher;
-            StartRunning();
+            foreach (var cube in Cubes)
+            {
+                cube.FillScreen(Color.Black);
+            }
         }
 
         private void StopRunning()
@@ -112,12 +135,12 @@ namespace Siftables
             ResetCubes();
         }
 
-        private void ResetCubes()
+        public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher, SoundSet sounds)
         {
-            foreach (var cube in Cubes)
-            {
-                cube.FillScreen(Color.Black);
-            }
+            Cubes = cubes;
+            Sounds = sounds;
+            _uiDispatcher = uiDispatcher;
+            StartRunning();
         }
 
         public void PauseExecution()

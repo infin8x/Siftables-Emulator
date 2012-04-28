@@ -18,13 +18,13 @@
 
     <Grid x:Name="LayoutRoot" Background="White" DataContext="{Binding Source={StaticResource MainWindowViewModel}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="0" />
             <RowDefinition />
             <RowDefinition Height="45" />
             <RowDefinition Height="25" />
         </Grid.RowDefinitions>
         <!--Row 0-->
-        <sdk:Label x:Name="title" Margin="5" Foreground="SkyBlue" FontSize="24" Content="Siftables Emulator" FontFamily="Arial Black"/>
+        
         <ItemsControl ItemsSource="{Binding Path=ActiveSounds}" x:Name="sounds">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
@@ -75,7 +75,7 @@
             <Button x:Name="loadAProgramButton" Margin="10" Grid.Column="1" Command="{Binding LoadAFileCommand, Mode=TwoWay}">
                 <sdk:Label Content="Load A Program"/>
             </Button>
-            <Button x:Name="pauseOrResume" Margin="10" Grid.Column="2" Command="{Binding PauseOrResumeCommand, Mode=OneWay}">
+            <Button x:Name="pauseOrResume" Margin="10" Grid.Column="2" Command="{Binding PauseOrResumeCommand, Mode=OneWay}" IsEnabled="{Binding PauseOrResumeEnabled, Mode=OneWay}">
                 <sdk:Label Content="{Binding PauseOrResumeText, Mode=TwoWay}"/>
             </Button>
             <Slider x:Name="zoomSlider" Margin="10" Grid.Column="3" VerticalAlignment="Top" LargeChange="0.1" Minimum="1" Maximum="2" Value="1" SmallChange="0.05" />

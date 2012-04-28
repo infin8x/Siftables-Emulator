@@ -49,6 +49,11 @@ namespace Siftables.ViewModel
             }
         }
 
+        public bool PauseOrResumeEnabled
+        {
+            get { return AppRunner.IsRunning; }
+        }
+
         public MainWindowViewModel()
         {
             #region ChangeNumberOfCubesCommand

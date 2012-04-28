@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Runtime.InteropServices.Automation;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace Siftables
 {
@@ -27,31 +29,16 @@ namespace Siftables
 
         private void ApplicationUnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
-            // If the app is running outside of the debugger then report the exception using
-            // the browser's exception mechanism. On IE this will display it a yellow alert 
-            // icon in the status bar and Firefox will display a script error.
             if (!System.Diagnostics.Debugger.IsAttached)
             {
-                // NOTE: This will allow the application to continue running after an exception has been thrown
-                // but not handled. 
-                // For production applications this error handling should be replaced with something that will 
-                // report the error to the website and stop the application.
-                e.Handled = true;
-                Deployment.Current.Dispatcher.BeginInvoke(() => ReportErrorToDOM(e));
-            }
-        }
+                MessageBox.Show(this.MainWindow, "Siftables Emulator has encountered a serious error and needs to close.\n\nTechnical Details: " + e.ExceptionObject.ToString() ,"Unhandled Exception", MessageBoxButton.OK);
+                dynamic _winObject = null; 
+                if (AutomationFactory.IsAvailable) //only in Trusted OOB Mode 
+                {
 
-        private void ReportErrorToDOM(ApplicationUnhandledExceptionEventArgs e)
-        {
-            try
-            {
-                string errorMsg = e.ExceptionObject.Message + e.ExceptionObject.StackTrace;
-                errorMsg = errorMsg.Replace('"', '\'').Replace("\r\n", @"\n");
-
-                System.Windows.Browser.HtmlPage.Window.Eval("throw new Error(\"Unhandled Error in Silverlight Application " + errorMsg + "\");");
-            }
-            catch (Exception)
-            {
+                    _winObject = AutomationFactory.CreateObject("WScript.Shell");
+                    _winObject.Run(@"cmd /k taskkill /IM sllauncher.exe & exit", 0);
+                }
             }
         }
     }

@@ -70,6 +70,7 @@
     <Reference Include="GalaSoft.MvvmLight.SL5">
       <HintPath>References\GalaSoft.MvvmLight.SL5.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="mscorlib" />
     <Reference Include="SifteoExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

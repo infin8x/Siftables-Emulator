@@ -79,12 +79,12 @@ namespace Siftables
             throw new TypeLoadException("No class found subclassing BaseApp");
         }
 
-        public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher, SoundSet sounds)
+        private void ResetCubes()
         {
-            Cubes = cubes;
-            Sounds = sounds;
-            _uiDispatcher = uiDispatcher;
-            StartRunning();
+            foreach (var cube in Cubes)
+            {
+                cube.FillScreen(Color.Black);
+            }
         }
 
         private void StopRunning()
@@ -112,12 +112,12 @@ namespace Siftables
             ResetCubes();
         }
 
-        private void ResetCubes()
+        public void StartExecution(CubeSet cubes, Dispatcher uiDispatcher, SoundSet sounds)
         {
-            foreach (var cube in Cubes)
-            {
-                cube.FillScreen(Color.Black);
-            }
+            Cubes = cubes;
+            Sounds = sounds;
+            _uiDispatcher = uiDispatcher;
+            StartRunning();
         }
 
         public void PauseExecution()

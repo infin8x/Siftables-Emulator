@@ -66,7 +66,8 @@ namespace Siftables.ViewModel
                         var numToChange = Math.Abs(Convert.ToInt32(CubeViewModels.Count - args.NewValue));
                         if (args.NewValue < CubeViewModels.Count) // removing cubes
                         {
-                            for (var i = 0; i < numToChange; i++) {
+                            for (var i = 0; i < numToChange; i++)
+                            {
                                 CubeViewModels.RemoveAt(CubeViewModels.Count - 1);
                             }
                             CalculateNeighbors();
@@ -107,12 +108,20 @@ namespace Siftables.ViewModel
                 {
                     if (AppRunner.IsRunning)
                     {
-                        AppRunner.StopExecution();
+                        try
+                        {
+                            AppRunner.StopExecution();
+                        }
+                        catch (Exception e)
+                        {
+                            Status = "Unable to stop application.";
+                            MessageBox.Show(Application.Current.MainWindow, "Siftables Emulator was unable to stop the running application.\n\nTechnical Details: " + e, "Unhandled Exception", MessageBoxButton.OK);
+                        }
                     }
 
                     Status = "Select the application to run.";
 
-                    var openFileDialog = new OpenFileDialog { Filter = "C# Library (*.dll)|*.dll|All Files (*.*)|*.*", FilterIndex = 1, Multiselect = false};
+                    var openFileDialog = new OpenFileDialog { Filter = "C# Library (*.dll)|*.dll|All Files (*.*)|*.*", FilterIndex = 1, Multiselect = false };
                     if (openFileDialog.ShowDialog() == true)
                     {
                         Status = "Loading application...";
@@ -121,9 +130,11 @@ namespace Siftables.ViewModel
                             try
                             {
                                 AppRunner.LoadApplication(fileStream);
-                            } catch (TypeLoadException e)
+                            }
+                            catch (TypeLoadException e)
                             {
-                                Status = "Application load failed: " + e.Message;
+                                Status = "Unable to load application.";
+                                MessageBox.Show(Application.Current.MainWindow, "Siftables Emulator was unable to load the application.\n\nTechnical Details: " + e, "Unhandled Exception", MessageBoxButton.OK);
                             }
                         }
                         if (AppRunner.IsLoaded)
@@ -148,10 +159,19 @@ namespace Siftables.ViewModel
                                 }
 
                                 Status = openFileDialog.File.Name + " was loaded.";
-                                AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher,
-                                                            _soundSources.GetSoundSet());
+                                try
+                                {
+                                    AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher,
+                                                             _soundSources.GetSoundSet());
+                                }
+                                catch (Exception e)
+                                {
+                                    Status = "Unable to load application.";
+                                    MessageBox.Show(Application.Current.MainWindow, "Siftables Emulator was unable to stop the application.\n\nTechnical Details: " + e, "Unhandled Exception", MessageBoxButton.OK);
+                                }
                                 NotifyPropertyChanged("PauseOrResumeText");
-                            } else
+                            }
+                            else
                             {
                                 Status = "Application loading failed.";
                             }
@@ -169,11 +189,29 @@ namespace Siftables.ViewModel
             {
                 if (AppRunner.IsRunning)
                 {
-                    AppRunner.PauseExecution();
+                    try
+                    {
+                        AppRunner.PauseExecution();
+                    }
+                    catch(Exception e)
+                    {
+                        Status = "Unable to pause application.";
+                        MessageBox.Show(Application.Current.MainWindow, "Siftables Emulator was unable to pause the application.\n\nTechnical Details: " + e, "Unhandled Exception", MessageBoxButton.OK);
+                    }
                     PauseAllSounds();
-                } else
+                }
+                else
                 {
-                    AppRunner.ResumeExecution();
+                    try
+                    {
+                        AppRunner.ResumeExecution();
+                    }
+                    catch (Exception e)
+                    {
+                        Status = "Unable to resume application.";
+                        MessageBox.Show(Application.Current.MainWindow, "Siftables Emulator was unable to resume the application.\n\nTechnical Details: " + e, "Unhandled Exception", MessageBoxButton.OK);
+                    }
+
                     ResumeAllSounds();
                 }
                 NotifyPropertyChanged("PauseOrResumeText");

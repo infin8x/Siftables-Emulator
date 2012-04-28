@@ -3,28 +3,23 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight.Command;
-using System.ComponentModel;
 using Sifteo;
 
 namespace Siftables.ViewModel
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : ViewModelNotifier
     {
         public const int NumInitialCubes = 6;
 
         #region BindingDefinitions
         public ObservableCollection<CubeViewModel> CubeViewModels { get; set; }
-        public ObservableCollection<SoundViewModel> InactiveSounds { get; set; }
+        public Collection<SoundViewModel> InactiveSounds { get; set; }
         public ObservableCollection<SoundViewModel> ActiveSounds { get; set; }
-        public Collection<SoundViewModel> PausedSounds { get; set; }
 
         public RelayCommand SnapToGridCommand { get; private set; }
         public RelayCommand LoadAFileCommand { get; private set; }
-        public RelayCommand ReloadAFileCommand { get; private set; }
         public RelayCommand PauseOrResumeCommand { get; private set; }
         public RelayCommand<EventArgs> ChangeNumberOfCubesCommand { get; private set; }
-
-        public RelayCommand RefreshNeighborsCommand { get; private set; }
 
         private String _status;
         public String Status
@@ -33,32 +28,11 @@ namespace Siftables.ViewModel
 
             set
             {
-                if (_status == value) { return; }
                 _status = value;
                 NotifyPropertyChanged("Status");
             }
         }
         public const String ReadyStatus = "Ready";
-
-        private Uri _soundPath;
-        public Uri SoundPath
-        {
-            get { return _soundPath; }
-            set
-            {
-                _soundPath = value;
-                NotifyPropertyChanged("SoundPath");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
 
         #endregion
 
@@ -67,7 +41,7 @@ namespace Siftables.ViewModel
         private ImageSources _imageSources;
         private SoundSources _soundSources;
 
-        public string PlayOrResumeText
+        public string PauseOrResumeText
         {
             get
             {
@@ -77,37 +51,30 @@ namespace Siftables.ViewModel
 
         public MainWindowViewModel()
         {
-            #region RelayCommandDefinitions
             #region ChangeNumberOfCubesCommand
             ChangeNumberOfCubesCommand = new RelayCommand<EventArgs>(e =>
                 {
                     Status = "Changing number of cubes";
                     var args = e as RoutedPropertyChangedEventArgs<double>;
-                    var numToChange = Convert.ToInt32(Math.Abs(CubeViewModels.Count - args.NewValue));
-                    if (args.NewValue < CubeViewModels.Count) // removing cubes
+                    if (args != null)
                     {
-                        for (var i = 0; i < numToChange; i++) {
-                            CubeViewModels.RemoveAt(CubeViewModels.Count - 1);
+                        var numToChange = Math.Abs(Convert.ToInt32(CubeViewModels.Count - args.NewValue));
+                        if (args.NewValue < CubeViewModels.Count) // removing cubes
+                        {
+                            for (var i = 0; i < numToChange; i++) {
+                                CubeViewModels.RemoveAt(CubeViewModels.Count - 1);
+                            }
+                            CalculateNeighbors();
                         }
-                        CalculateNeighbors();
-                    }
-                    else if (args.NewValue > CubeViewModels.Count) // adding cubes
-                    {
-                        for (var i = 0; i < numToChange; i++) {
-                            var cubeViewModel = new CubeViewModel();
-                            cubeViewModel.CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
-                            CubeViewModels.Add(cubeViewModel);
-
+                        else if (args.NewValue > CubeViewModels.Count) // adding cubes
+                        {
+                            AddNewCubes(numToChange);
+                            Status = ReadyStatus;
+                            SnapToGridCommand.Execute(null);
                             if (AppRunner.IsRunning)
                             {
-                                cubeViewModel.ImageSources = _imageSources;
+                                AppRunner.App.AssociateCubes(CubeSet);
                             }
-                        }
-                        Status = ReadyStatus;
-                        SnapToGridCommand.Execute(null);
-                        if (AppRunner.IsRunning)
-                        {
-                            AppRunner.App.AssociateCubes(CubeSet);
                         }
                     }
                     Status = ReadyStatus;
@@ -157,26 +124,32 @@ namespace Siftables.ViewModel
                         if (AppRunner.IsLoaded)
                         {
                             Status = "Loading image resources...";
-                            _imageSources =
-                                new ImageSources(openFileDialog.File.Directory.FullName + "/assets/images");
-                            _soundSources =
-                                new SoundSources(openFileDialog.File.Directory.FullName + "/assets/sounds");
-                            _soundSources.NotifyNewSound += InitializeSound;
-
-                            Sound.NotifyPauseAllSounds += PauseAllSounds;
-                            Sound.NotifyResumeAllSounds += ResumeAllSounds;
-                            Sound.NotifyStopAllSounds += StopAllSounds;
-                            AppRunner.App.Images = _imageSources.GetImageSet();
-
-                            foreach (var cubeViewModel in CubeViewModels)
+                            if (openFileDialog.File.Directory != null)
                             {
-                                cubeViewModel.ImageSources = _imageSources;
-                            }
+                                _imageSources =
+                                    new ImageSources(openFileDialog.File.Directory.FullName + "/assets/images");
+                                _soundSources =
+                                    new SoundSources(openFileDialog.File.Directory.FullName + "/assets/sounds");
+                                _soundSources.NotifyNewSound += InitializeSound;
 
-                            Status = openFileDialog.File.Name + " was loaded.";
-                            AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher,
-                                                        _soundSources.GetSoundSet());
-                            NotifyPropertyChanged("PlayOrResumeText");
+                                Sound.NotifyPauseAllSounds += PauseAllSounds;
+                                Sound.NotifyResumeAllSounds += ResumeAllSounds;
+                                Sound.NotifyStopAllSounds += StopAllSounds;
+                                AppRunner.App.Images = _imageSources.GetImageSet();
+
+                                foreach (var cubeViewModel in CubeViewModels)
+                                {
+                                    cubeViewModel.ImageSources = _imageSources;
+                                }
+
+                                Status = openFileDialog.File.Name + " was loaded.";
+                                AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher,
+                                                            _soundSources.GetSoundSet());
+                                NotifyPropertyChanged("PauseOrResumeText");
+                            } else
+                            {
+                                Status = "Application loading failed.";
+                            }
                         }
                     }
                     else
@@ -198,27 +171,38 @@ namespace Siftables.ViewModel
                     AppRunner.ResumeExecution();
                     ResumeAllSounds();
                 }
-                NotifyPropertyChanged("PlayOrResumeText");
+                NotifyPropertyChanged("PauseOrResumeText");
             });
-            #endregion
-            #endregion
-
-            #region CreateCubes
-            CubeViewModels = new ObservableCollection<CubeViewModel>();
-            for (var i = 0; i < NumInitialCubes; i++) {
-                var cubeViewModel = new CubeViewModel();
-                cubeViewModel.CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
-                CubeViewModels.Add(cubeViewModel);
-            }
-            SnapToGridCommand.Execute(null);
             #endregion
 
             AppRunner = AppRunner.GetInstance();
+
+            CubeViewModels = new ObservableCollection<CubeViewModel>();
+            AddNewCubes(NumInitialCubes);
+            SnapToGridCommand.Execute(null);
+
             Status = ReadyStatus;
             ActiveSounds = new ObservableCollection<SoundViewModel>();
-            InactiveSounds = new ObservableCollection<SoundViewModel>();
-            PausedSounds = new ObservableCollection<SoundViewModel>();
+            InactiveSounds = new Collection<SoundViewModel>();
+        }
 
+        private void AddNewCubes(int n)
+        {
+            for (var i = 0; i < n; i++)
+            {
+                AddNewCube();
+            }
+        }
+
+        private void AddNewCube()
+        {
+            var cubeViewModel = new CubeViewModel();
+            cubeViewModel.CubeModel.NotifyCubeMoved += (sender, arguments) => CalculateNeighbors();
+            if (AppRunner.IsRunning)
+            {
+                cubeViewModel.ImageSources = _imageSources;
+            }
+            CubeViewModels.Add(cubeViewModel);
         }
 
         public void StopAllSounds()

@@ -105,6 +105,7 @@
     </Compile>
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SoundViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelNotifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="Siftables.xaml">

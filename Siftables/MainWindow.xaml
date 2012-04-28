@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
         <!--Row 0-->
         <sdk:Label x:Name="title" Margin="5" Foreground="SkyBlue" FontSize="24" Content="Siftables Emulator" FontFamily="Arial Black"/>
-        <ItemsControl ItemsSource="{Binding Path=SoundSources.ActiveSounds}" x:Name="sounds">
+        <ItemsControl ItemsSource="{Binding ActiveSounds}" x:Name="sounds">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <MediaElement x:Name="sound" Source="{Binding Path, Mode=TwoWay}" AutoPlay="True" Volume="{Binding VolumeLeft, Mode=TwoWay}"  Position="{Binding Position, Mode=TwoWay}">

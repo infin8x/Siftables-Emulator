@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
@@ -14,8 +13,6 @@ namespace Siftables.ViewModel
 
         #region BindingDefinitions
         public ObservableCollection<CubeViewModel> CubeViewModels { get; private set; }
-        public ICollection<SoundViewModel> InactiveSounds { get; private set; }
-        public ObservableCollection<SoundViewModel> ActiveSounds { get; private set; }
 
         public RelayCommand SnapToGridCommand { get; private set; }
         public RelayCommand LoadAFileCommand { get; private set; }
@@ -40,7 +37,7 @@ namespace Siftables.ViewModel
         public AppRunner AppRunner { get; private set; }
 
         private ImageSources _imageSources;
-        private SoundSources _soundSources;
+        public SoundSources SoundSources;
 
         public string PauseOrResumeText
         {
@@ -144,14 +141,14 @@ namespace Siftables.ViewModel
                             {
                                 _imageSources =
                                     new ImageSources(openFileDialog.File.Directory.FullName + "/assets/images");
-                                _soundSources =
+                                SoundSources =
                                     new SoundSources(openFileDialog.File.Directory.FullName + "/assets/sounds");
 
-                                _soundSources.NotifyNewSound +=
-                                    sound => _soundSources.InitializeSound(sound, ActiveSounds, InactiveSounds);
-                                Sound.NotifyPauseAllSounds += () => _soundSources.PauseAllSounds(ActiveSounds, InactiveSounds);
-                                Sound.NotifyResumeAllSounds += () => _soundSources.ResumeAllSounds(ActiveSounds, InactiveSounds);
-                                Sound.NotifyStopAllSounds += () => _soundSources.StopAllSounds(ActiveSounds, InactiveSounds);
+                                SoundSources.NotifyNewSound +=
+                                    sound => SoundSources.InitializeSound(sound);
+                                Sound.NotifyPauseAllSounds += () => SoundSources.PauseAllSounds();
+                                Sound.NotifyResumeAllSounds += () => SoundSources.ResumeAllSounds();
+                                Sound.NotifyStopAllSounds += () => SoundSources.StopAllSounds();
 
                                 AppRunner.App.Images = _imageSources.GetImageSet();
 
@@ -162,11 +159,8 @@ namespace Siftables.ViewModel
 
                                 Status = openFileDialog.File.Name + " was loaded.";
                                 AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher,
-                                                            _soundSources.SoundSet);
-                                AppRunner.NotifyApplicationException += (exception) =>
-                                                                            {
-                                                                                DisplayException(exception);
-                                                                            };
+                                                            SoundSources.SoundSet);
+                                AppRunner.NotifyApplicationException += DisplayException;
                                 NotifyPropertyChanged("PauseOrResumeText");
                                 NotifyPropertyChanged("CanPauseOrResume");
                             }
@@ -189,11 +183,11 @@ namespace Siftables.ViewModel
                 if (AppRunner.IsRunning)
                 {
                     AppRunner.PauseExecution();
-                    _soundSources.PauseAllSounds(ActiveSounds, InactiveSounds);
+                    SoundSources.PauseAllSounds();
                 } else
                 {
                     AppRunner.ResumeExecution();
-                    _soundSources.ResumeAllSounds(ActiveSounds, InactiveSounds);
+                    SoundSources.ResumeAllSounds();
                 }
                 NotifyPropertyChanged("PauseOrResumeText");
             });
@@ -206,8 +200,6 @@ namespace Siftables.ViewModel
             SnapToGridCommand.Execute(null);
 
             Status = ReadyStatus;
-            ActiveSounds = new ObservableCollection<SoundViewModel>();
-            InactiveSounds = new Collection<SoundViewModel>();
         }
 
         public void DisplayException(Exception e)

@@ -102,6 +102,11 @@ namespace Siftables.ViewModel
 
         public ICommand SetPosition { get; set; }
 
+        public void SetResumeSpot()
+        {
+            _resumeSpot = Position;
+        }
+
         public void RestoreResumeSpot()
         {
             Position = _resumeSpot;

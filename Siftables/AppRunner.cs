@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Threading;
 using System.Threading;
 using System.Windows;
@@ -11,7 +12,6 @@ namespace Siftables
     {
         public CubeSet Cubes { get; set; }
         public SoundSet Sounds { get; set; }
-
         public BaseApp App { get; private set; }
 
         public bool IsRunning { get; private set; }
@@ -20,17 +20,12 @@ namespace Siftables
         public const int MillisecondsBetweenTicks = 500;
 
         private Dispatcher _uiDispatcher;
-
         private Thread _runner;
 
         private static AppRunner _appRunner;
         public static AppRunner GetInstance()
         {
-            if (_appRunner == null)
-            {
-                _appRunner = new AppRunner();
-            }
-            return _appRunner;
+            return _appRunner ?? (_appRunner = new AppRunner());
         }
 
         private AppRunner()
@@ -39,7 +34,7 @@ namespace Siftables
             IsLoaded = false;
         }
 
-        public void RunAppInThread()
+        private void RunAppInThread()
         {
             App.AssociateCubes(Cubes);
             App.AssociateSounds(Sounds);
@@ -76,12 +71,9 @@ namespace Siftables
 
         public BaseApp FindBaseApp(Type[] assemblyTypes)
         {
-            foreach (var t in assemblyTypes)
+            foreach (var t in assemblyTypes.Where(t => t.BaseType == typeof(BaseApp)))
             {
-                if (t.BaseType == typeof(BaseApp))
-                {
-                    return (BaseApp) Activator.CreateInstance(t);
-                }
+                return (BaseApp) Activator.CreateInstance(t);
             }
 
             throw new TypeLoadException("No class found subclassing BaseApp");
@@ -92,6 +84,20 @@ namespace Siftables
             Cubes = cubes;
             Sounds = sounds;
             _uiDispatcher = uiDispatcher;
+            StartRunning();
+        }
+
+        private void StopRunning()
+        {
+            if (IsRunning)
+            {
+                IsRunning = false;
+                _runner.Join();
+            }
+        }
+
+        private void StartRunning()
+        {
             if (!IsRunning)
             {
                 _runner = new Thread(RunAppInThread);
@@ -102,12 +108,11 @@ namespace Siftables
 
         public void StopExecution()
         {
-            IsRunning = false;
-            _runner.Join();
+            StopRunning();
             ResetCubes();
         }
 
-        public void ResetCubes()
+        private void ResetCubes()
         {
             foreach (var cube in Cubes)
             {
@@ -117,13 +122,12 @@ namespace Siftables
 
         public void PauseExecution()
         {
-            IsRunning = false;
-            _runner.Join();
+            StopRunning();
         }
 
         public void ResumeExecution()
         {
-            StartExecution(Cubes, _uiDispatcher, Sounds);
+            StartRunning();
         }
     }
 }

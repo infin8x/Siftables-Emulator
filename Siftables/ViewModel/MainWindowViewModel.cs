@@ -163,31 +163,9 @@ namespace Siftables.ViewModel
                                 new SoundSources(openFileDialog.File.Directory.FullName + "/assets/sounds");
                             _soundSources.NotifyNewSound += InitializeSound;
 
-                            Sound.NotifyPauseAllSounds += () =>
-                                                                {
-                                                                    foreach (var sound in ActiveSounds)
-                                                                    {
-                                                                        InactiveSounds.Add(sound);
-                                                                    }
-                                                                    ActiveSounds.Clear();
-                                                                };
-                            Sound.NotifyResumeAllSounds += () =>
-                                                                {
-                                                                    foreach (var sound in InactiveSounds)
-                                                                    {
-                                                                        ActiveSounds.Add(sound);
-                                                                    }
-                                                                    InactiveSounds.Clear();
-                                                                };
-                            Sound.NotifyStopAllSounds += () =>
-                                                                {
-                                                                    foreach (var sound in ActiveSounds)
-                                                                    {
-                                                                        sound.Position = TimeSpan.Zero;
-                                                                        InactiveSounds.Add(sound);
-                                                                    }
-                                                                    ActiveSounds.Clear();
-                                                                };
+                            Sound.NotifyPauseAllSounds += PauseAllSounds;
+                            Sound.NotifyResumeAllSounds += ResumeAllSounds;
+                            Sound.NotifyStopAllSounds += StopAllSounds;
                             AppRunner.App.Images = _imageSources.GetImageSet();
 
                             foreach (var cubeViewModel in CubeViewModels)
@@ -214,9 +192,11 @@ namespace Siftables.ViewModel
                 if (AppRunner.IsRunning)
                 {
                     AppRunner.PauseExecution();
+                    PauseAllSounds();
                 } else
                 {
                     AppRunner.ResumeExecution();
+                    ResumeAllSounds();
                 }
                 NotifyPropertyChanged("PlayOrResumeText");
             });
@@ -239,6 +219,36 @@ namespace Siftables.ViewModel
             InactiveSounds = new ObservableCollection<SoundViewModel>();
             PausedSounds = new ObservableCollection<SoundViewModel>();
 
+        }
+
+        public void StopAllSounds()
+        {
+            foreach (var sound in ActiveSounds)
+            {
+                sound.Position = TimeSpan.Zero;
+                InactiveSounds.Add(sound);
+            }
+            ActiveSounds.Clear();
+        }
+
+        public void ResumeAllSounds()
+        {
+            foreach (var sound in InactiveSounds)
+            {
+                ActiveSounds.Add(sound);
+                sound.RestoreResumeSpot();
+            }
+            InactiveSounds.Clear();
+        }
+
+        public void PauseAllSounds()
+        {
+            foreach (var sound in ActiveSounds)
+            {
+                sound.SetResumeSpot();
+                InactiveSounds.Add(sound);
+            }
+            ActiveSounds.Clear();
         }
 
         public void InitializeSound(Sound sound)

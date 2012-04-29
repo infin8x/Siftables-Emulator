@@ -1,11 +1,13 @@
 ﻿using System;
 using Sifteo;
+using Sifteo.Util;
 
 namespace FractionOrderingApp
 {
     public class FractionOrderingApp : BaseApp
     {
         public Random Rand = new Random();
+        private bool _completelyOrdered;
         private int _cubeX;
         private int _cubeYDen;
         private int _cubeYNum;
@@ -121,16 +123,43 @@ namespace FractionOrderingApp
             cube.Paint();
         }
 
+        private void CheckEverythingOrdered()
+        {
+            int totalCubes = CubeSet.Count;
+            Cube[] row = CubeHelper.FindRow(CubeSet);
+
+            if (row.Length == totalCubes)
+            {
+                foreach (Cube cube in row)
+                {
+                    if (!((CubeData) cube.userData).IsOrdered())
+                    {
+                        _completelyOrdered = false;
+                        return;
+                    }
+                }
+
+                if (!_completelyOrdered)
+                {
+                    _completelyOrdered = true;
+                    PlaySuccessSound();
+                }
+            }
+            else
+            {
+                _completelyOrdered = false;
+            }
+        }
 
         public override void Tick()
         {
             foreach (Cube cube in CubeSet)
             {
-                CheckNeighbors(cube);
+                CheckNeighborsAreOrdered(cube);
             }
         }
 
-        private void CheckNeighbors(Cube cube)
+        private void CheckNeighborsAreOrdered(Cube cube)
         {
             if ((null == cube.Neighbors.Left ||
                  ((CubeData) cube.userData).GreaterThan(((CubeData) cube.Neighbors.Left.userData))) &&
@@ -138,12 +167,7 @@ namespace FractionOrderingApp
                  ((CubeData) cube.Neighbors.Right.userData).GreaterThan((CubeData) cube.userData)))
             {
                 ChangeCubeImg(cube, ((CubeData) cube.userData).GetFraction(), new Color(0, 255, 0)); // green
-
-                if (cube.userData != null && !((CubeData) cube.userData).IsOrdered())
-                {
-                    ((CubeData) cube.userData).setOrder(true);
-                    PlaySuccessSound();
-                }
+                ((CubeData) cube.userData).setOrder(true);
             }
             else
             {

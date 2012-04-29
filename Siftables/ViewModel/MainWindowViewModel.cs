@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
 using Sifteo;
 
@@ -209,6 +210,7 @@ namespace Siftables.ViewModel
             AppRunner.StopExecution();
             NotifyPropertyChanged("CanPauseOrResume");
             NotifyPropertyChanged("PauseOrResumeText");
+            MessageBox.Show(String.Format("Application aborted due to exception:\n{0}", e), "Hello", MessageBoxButton.OK);
         }
 
         private void AddNewCubes(int n)

@@ -9,10 +9,8 @@ using Sifteo;
 
 namespace Siftables
 {
-    public class SoundSources
+    public class SoundSources : ViewModelNotifier
     {
-        public ICollection<SoundViewModel> InactiveSounds { get; private set; }
-        public ObservableCollection<SoundViewModel> ActiveSounds { get; private set; }
 
         public Dictionary<string, string> SoundSource { get; private set; }
         private static readonly string[] ValidSoundExtensions = new[] { ".mp3" };
@@ -27,8 +25,6 @@ namespace Siftables
             LoadSounds(soundPath);
             SoundSet = new SoundSet(SoundSource.Keys);
             SoundSet.NotifyNewSound += sound => NotifyNewSound(sound);
-            ActiveSounds = new ObservableCollection<SoundViewModel>();
-            InactiveSounds = new Collection<SoundViewModel>();
         }
 
         private void LoadSounds(string soundPath)
@@ -52,62 +48,62 @@ namespace Siftables
             return SoundSource[soundName];
         }
 
-        public void InitializeSound(Sound sound)
+        public void InitializeSound(Sound sound, ObservableCollection<SoundViewModel> activeSounds, Collection<SoundViewModel> inactiveSounds)
         {
             var soundViewModel = new SoundViewModel(sound, GetSoundPath(sound.Name).Replace(@"\", @"/"));
-            InactiveSounds.Add(soundViewModel);
+            inactiveSounds.Add(soundViewModel);
+
             soundViewModel.NotifyPlay += () =>
             {
-                InactiveSounds.Remove(soundViewModel);
-                ActiveSounds.Add(soundViewModel);
-                MessageBox.Show(ActiveSounds.Count.ToString());
+                inactiveSounds.Remove(soundViewModel);
+                activeSounds.Add(soundViewModel);
             };
             soundViewModel.NotifyPause += () =>
             {
-                ActiveSounds.Remove(soundViewModel);
-                if (!InactiveSounds.Contains(soundViewModel))
+                activeSounds.Remove(soundViewModel);
+                if (!inactiveSounds.Contains(soundViewModel))
                 {
-                    InactiveSounds.Add(soundViewModel);
+                    inactiveSounds.Add(soundViewModel);
                 }
             };
             soundViewModel.NotifyResume += () =>
             {
-                InactiveSounds.Remove(soundViewModel);
-                if (!ActiveSounds.Contains(soundViewModel))
+                inactiveSounds.Remove(soundViewModel);
+                if (!activeSounds.Contains(soundViewModel))
                 {
-                    ActiveSounds.Add(soundViewModel);
+                    activeSounds.Add(soundViewModel);
                 }
             };
         }
 
-        public void StopAllSounds()
+        public void StopAllSounds(ObservableCollection<SoundViewModel> activeSounds, Collection<SoundViewModel> inactiveSounds)
         {
-            foreach (var sound in ActiveSounds)
+            foreach (var sound in activeSounds)
             {
                 sound.Position = TimeSpan.Zero;
-                InactiveSounds.Add(sound);
+                inactiveSounds.Add(sound);
             }
-            ActiveSounds.Clear();
+            activeSounds.Clear();
         }
 
-        public void ResumeAllSounds()
+        public void ResumeAllSounds(ObservableCollection<SoundViewModel> activeSounds, Collection<SoundViewModel> inactiveSounds)
         {
-            foreach (var sound in InactiveSounds)
+            foreach (var sound in inactiveSounds)
             {
-                ActiveSounds.Add(sound);
+                activeSounds.Add(sound);
                 sound.RestoreResumeSpot();
             }
-            InactiveSounds.Clear();
+            inactiveSounds.Clear();
         }
 
-        public void PauseAllSounds()
+        public void PauseAllSounds(ObservableCollection<SoundViewModel> activeSounds, Collection<SoundViewModel> inactiveSounds)
         {
-            foreach (var sound in ActiveSounds)
+            foreach (var sound in activeSounds)
             {
                 sound.SetResumeSpot();
-                InactiveSounds.Add(sound);
+                inactiveSounds.Add(sound);
             }
-            ActiveSounds.Clear();
+            activeSounds.Clear();
         }
     }
 }

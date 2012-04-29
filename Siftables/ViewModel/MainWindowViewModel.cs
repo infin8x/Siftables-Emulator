@@ -10,9 +10,11 @@ namespace Siftables.ViewModel
     public class MainWindowViewModel : ViewModelNotifier
     {
         public const int NumInitialCubes = 6;
+        public const String ReadyStatus = "Ready";
 
-        #region BindingDefinitions
         public ObservableCollection<CubeViewModel> CubeViewModels { get; private set; }
+        public ObservableCollection<SoundViewModel> ActiveSounds { get; private set; }
+        public Collection<SoundViewModel> InactiveSounds { get; private set; }
 
         public RelayCommand SnapToGridCommand { get; private set; }
         public RelayCommand LoadAFileCommand { get; private set; }
@@ -30,9 +32,6 @@ namespace Siftables.ViewModel
                 NotifyPropertyChanged("Status");
             }
         }
-        public const String ReadyStatus = "Ready";
-
-        #endregion
 
         public AppRunner AppRunner { get; private set; }
 
@@ -91,7 +90,12 @@ namespace Siftables.ViewModel
                     {
                         for (var j = 0; j < 4; j++)
                         {
-                            if ((i * 4) + j > CubeViewModels.Count - 1) { NeighborCalculator.CalculateNeighbors(CubeViewModels); Status = ReadyStatus; return; }
+                            if ((i * 4) + j > CubeViewModels.Count - 1)
+                            {
+                                NeighborCalculator.CalculateNeighbors(CubeViewModels);
+                                Status = ReadyStatus;
+                                return;
+                            }
                             CubeViewModels[(i * 4) + j].PositionX = 200 * j;
                             CubeViewModels[(i * 4) + j].PositionY = 200 * i;
                         }
@@ -105,20 +109,17 @@ namespace Siftables.ViewModel
                 {
                     if (AppRunner.IsRunning)
                     {
-                        try
-                        {
-                            AppRunner.StopExecution();
-                        }
-                        catch (Exception e)
-                        {
-                            Status = "Unable to stop application.";
-                            MessageBox.Show(Application.Current.MainWindow, "Siftables Emulator was unable to stop the running application.\n\nTechnical Details: " + e, "Unhandled Exception", MessageBoxButton.OK);
-                        }
+                        AppRunner.StopExecution();
                     }
 
                     Status = "Select the application to run.";
 
-                    var openFileDialog = new OpenFileDialog { Filter = "C# Library (*.dll)|*.dll|All Files (*.*)|*.*", FilterIndex = 1, Multiselect = false };
+                    var openFileDialog = new OpenFileDialog
+                                             {
+                                                 Filter = "C# Library (*.dll)|*.dll|All Files (*.*)|*.*",
+                                                 FilterIndex = 1,
+                                                 Multiselect = false
+                                             };
                     if (openFileDialog.ShowDialog() == true)
                     {
                         Status = "Loading application...";
@@ -130,8 +131,7 @@ namespace Siftables.ViewModel
                             }
                             catch (TypeLoadException e)
                             {
-                                Status = "Unable to load application.";
-                                MessageBox.Show(Application.Current.MainWindow, "Siftables Emulator was unable to load the application.\n\nTechnical Details: " + e, "Unhandled Exception", MessageBoxButton.OK);
+                                Status = String.Format("Unable to load application: {0}", e.Message);
                             }
                         }
                         if (AppRunner.IsLoaded)
@@ -144,11 +144,11 @@ namespace Siftables.ViewModel
                                 SoundSources =
                                     new SoundSources(openFileDialog.File.Directory.FullName + "/assets/sounds");
 
-                                SoundSources.NotifyNewSound +=
-                                    sound => SoundSources.InitializeSound(sound);
-                                Sound.NotifyPauseAllSounds += () => SoundSources.PauseAllSounds();
-                                Sound.NotifyResumeAllSounds += () => SoundSources.ResumeAllSounds();
-                                Sound.NotifyStopAllSounds += () => SoundSources.StopAllSounds();
+                                SoundSources.NotifyNewSound += sound =>
+                                    SoundSources.InitializeSound(sound, ActiveSounds, InactiveSounds);
+                                Sound.NotifyPauseAllSounds += () => SoundSources.PauseAllSounds(ActiveSounds, InactiveSounds);
+                                Sound.NotifyResumeAllSounds += () => SoundSources.ResumeAllSounds(ActiveSounds, InactiveSounds);
+                                Sound.NotifyStopAllSounds += () => SoundSources.StopAllSounds(ActiveSounds, InactiveSounds);
 
                                 AppRunner.App.Images = _imageSources.GetImageSet();
 
@@ -183,11 +183,11 @@ namespace Siftables.ViewModel
                 if (AppRunner.IsRunning)
                 {
                     AppRunner.PauseExecution();
-                    SoundSources.PauseAllSounds();
+                    SoundSources.PauseAllSounds(ActiveSounds, InactiveSounds);
                 } else
                 {
                     AppRunner.ResumeExecution();
-                    SoundSources.ResumeAllSounds();
+                    SoundSources.ResumeAllSounds(ActiveSounds, InactiveSounds);
                 }
                 NotifyPropertyChanged("PauseOrResumeText");
             });
@@ -198,7 +198,8 @@ namespace Siftables.ViewModel
             CubeViewModels = new ObservableCollection<CubeViewModel>();
             AddNewCubes(NumInitialCubes);
             SnapToGridCommand.Execute(null);
-
+            ActiveSounds = new ObservableCollection<SoundViewModel>();
+            InactiveSounds = new Collection<SoundViewModel>();
             Status = ReadyStatus;
         }
 

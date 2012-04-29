@@ -145,11 +145,13 @@ namespace Siftables
 
         public void PauseExecution()
         {
+            App.PauseEvent();
             StopRunning();
         }
 
         public void ResumeExecution()
         {
+            App.UnpauseEvent();
             StartRunning();
         }
     }

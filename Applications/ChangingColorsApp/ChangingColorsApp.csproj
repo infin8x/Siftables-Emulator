@@ -40,7 +40,7 @@
   <ItemGroup>
     <Reference Include="Sifteo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Siftables\Bin\Debug\Sifteo.dll</HintPath>
+      <HintPath>..\..\Sifteo\Bin\Debug\Sifteo.dll</HintPath>
     </Reference>
     <Reference Include="SifteoExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

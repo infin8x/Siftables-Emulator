@@ -1,5 +1,3 @@
-using System;
-
 namespace Sifteo
 {
     public class BaseApp
@@ -53,6 +51,9 @@ namespace Sifteo
         {
         }
 
-        public delegate void EventHandler(object sender, EventArgs args);
+        public delegate void EventHandler();
+
+        public EventHandler PauseEvent;
+        public EventHandler UnpauseEvent;
     }
 }

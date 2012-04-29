@@ -5,8 +5,6 @@ namespace ChangingColorsApp
 {
   public class ChangingColorsApp : BaseApp
   {
-
-      private string[] _imageNames;
       private Sound _fourSound;
 
       override public void Setup()
@@ -16,12 +14,20 @@ namespace ChangingColorsApp
               cube.FillScreen(Color.White);
               cube.Paint();
           }
-          _imageNames = new string[] {"flip.png", "cube.png", "tilt.png", "rotate_cw.png", "rotate_ccw.png"};
+          PauseEvent += Setup;
+          UnpauseEvent += () =>
+                              {
+                                  foreach (var cube in CubeSet)
+                                  {
+                                      cube.FillScreen(Color.Black);
+                                      cube.Paint();
+                                  }
+                              };
       }
 
       public override void Tick()
       {
-          foreach (var c in this.CubeSet)
+          foreach (var c in CubeSet)
           {
               var num = c.Neighbors.Count;
               switch (num)

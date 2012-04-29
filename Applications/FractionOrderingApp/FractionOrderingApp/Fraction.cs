@@ -31,7 +31,7 @@
             return _Denominator;
         }
 
-        public bool GreaterThen(Fraction fraction)
+        public bool GreaterThan(Fraction fraction)
         {
             return (1.0 * _Numerator/_Denominator) >= (1.0 * fraction.GetNumerator()/fraction.GetDenominator());
         }

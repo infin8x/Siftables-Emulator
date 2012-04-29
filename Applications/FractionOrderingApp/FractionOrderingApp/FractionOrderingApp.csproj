@@ -37,6 +37,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CubeData.cs" />
     <Compile Include="Fraction.cs" />
     <Compile Include="FractionOrderingApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

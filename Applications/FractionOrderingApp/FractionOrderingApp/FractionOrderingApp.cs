@@ -34,10 +34,10 @@ namespace FractionOrderingApp
 
             foreach (Cube cube in CubeSet)
             {
-                Fraction fraction = new Fraction(Rand.Next(0, 11), Rand.Next(1, 11));
-                
+                var fraction = new Fraction(Rand.Next(1, 11), Rand.Next(1, 11));
+
                 ChangeCubeImg(cube, fraction, Color.White);
-                cube.userData = fraction;
+                cube.userData = new CubeData(fraction);
             }
         }
 
@@ -47,79 +47,76 @@ namespace FractionOrderingApp
 
             switch (fraction.GetNumerator())
             {
-                case 0:
-                    _imageSourceNum = "zero.png";
-                    break;
                 case 1:
-                    _imageSourceNum = "one.png";
+                    _imageSourceNum = "1.png";
                     break;
                 case 2:
-                    _imageSourceNum = "two.png";
+                    _imageSourceNum = "2.png";
                     break;
                 case 3:
-                    _imageSourceNum = "three.png";
+                    _imageSourceNum = "3.png";
                     break;
                 case 4:
-                    _imageSourceNum = "four.png";
+                    _imageSourceNum = "4.png";
                     break;
                 case 5:
-                    _imageSourceNum = "five.png";
+                    _imageSourceNum = ".png";
                     break;
                 case 6:
-                    _imageSourceNum = "six.png";
+                    _imageSourceNum = "6.png";
                     break;
                 case 7:
-                    _imageSourceNum = "seven.png";
+                    _imageSourceNum = "7.png";
                     break;
                 case 8:
-                    _imageSourceNum = "eight.png";
+                    _imageSourceNum = "8.png";
                     break;
                 case 9:
-                    _imageSourceNum = "nine.png";
+                    _imageSourceNum = "9.png";
                     break;
                 case 10:
-                    _imageSourceNum = "ten.png";
+                    _imageSourceNum = "10.png";
                     break;
             }
 
             switch (fraction.GetDenominator())
             {
                 case 1:
-                    _imageSourceDen = "one.png";
+                    _imageSourceDen = "1.png";
                     break;
                 case 2:
-                    _imageSourceDen = "two.png";
+                    _imageSourceDen = "2.png";
                     break;
                 case 3:
-                    _imageSourceDen = "three.png";
+                    _imageSourceDen = "3.png";
                     break;
                 case 4:
-                    _imageSourceDen = "four.png";
+                    _imageSourceDen = "4.png";
                     break;
                 case 5:
-                    _imageSourceDen = "five.png";
+                    _imageSourceDen = "5.png";
                     break;
                 case 6:
-                    _imageSourceDen = "six.png";
+                    _imageSourceDen = "6.png";
                     break;
                 case 7:
-                    _imageSourceDen = "seven.png";
+                    _imageSourceDen = "7.png";
                     break;
                 case 8:
-                    _imageSourceDen = "eight.png";
+                    _imageSourceDen = "8.png";
                     break;
                 case 9:
-                    _imageSourceDen = "nine.png";
+                    _imageSourceDen = "9.png";
                     break;
                 case 10:
-                    _imageSourceDen = "ten.png";
+                    _imageSourceDen = "10.png";
                     break;
             }
 
             cube.Image(_imageSourceNum, _cubeX, _cubeYNum, _sourceX, _sourceY, _width, _height, _scale,
-                               _rotation);
+                       _rotation);
             cube.Image(_imageSourceDen, _cubeX, _cubeYDen, _sourceX, _sourceY, _width, _height, _scale,
-                               _rotation);
+                       _rotation);
             cube.FillRect(Color.Black, _cubeX, _cubeYDen - 10, 65, 10);
             cube.Paint();
         }
@@ -136,22 +133,28 @@ namespace FractionOrderingApp
         private void CheckNeighbors(Cube cube)
         {
             if ((null == cube.Neighbors.Left ||
-                 ((Fraction) cube.userData).GreaterThen((Fraction) cube.Neighbors.Left.userData)) &&
+                 ((CubeData) cube.userData).GreaterThan(((CubeData) cube.Neighbors.Left.userData))) &&
                 (null == cube.Neighbors.Right ||
-                 ((Fraction) cube.Neighbors.Right.userData).GreaterThen((Fraction) cube.userData)))
+                 ((CubeData) cube.Neighbors.Right.userData).GreaterThan((CubeData) cube.userData)))
             {
-                ChangeCubeImg(cube, (Fraction) cube.userData, new Color(0, 255, 0)); // green
-//                PlaySuccessSound();
+                ChangeCubeImg(cube, ((CubeData) cube.userData).GetFraction(), new Color(0, 255, 0)); // green
+
+                if (cube.userData != null && !((CubeData) cube.userData).IsOrdered())
+                {
+                    ((CubeData) cube.userData).setOrder(true);
+                    PlaySuccessSound();
+                }
             }
             else
             {
-                ChangeCubeImg(cube, (Fraction) cube.userData, new Color(255, 0, 0)); // red
+                ChangeCubeImg(cube, ((CubeData) cube.userData).GetFraction(), new Color(255, 0, 0)); // red
+                ((CubeData) cube.userData).setOrder(false);
             }
         }
 
         private void PlaySuccessSound()
         {
-            Sound s = Sounds.CreateSound("gliss");
+            Sound s = Sounds.CreateSound("gliss.mp3");
             s.Play(1);
         }
     }

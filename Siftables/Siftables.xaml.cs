@@ -32,11 +32,9 @@ namespace Siftables
             if (!System.Diagnostics.Debugger.IsAttached)
             {
                 MessageBox.Show(this.MainWindow, "Siftables Emulator has encountered a serious error and needs to close.\n\nTechnical Details: " + e.ExceptionObject.ToString() ,"Unhandled Exception", MessageBoxButton.OK);
-                dynamic _winObject = null; 
                 if (AutomationFactory.IsAvailable) //only in Trusted OOB Mode 
                 {
-
-                    _winObject = AutomationFactory.CreateObject("WScript.Shell");
+                    dynamic _winObject = AutomationFactory.CreateObject("WScript.Shell");
                     _winObject.Run(@"cmd /k taskkill /IM sllauncher.exe & exit", 0);
                 }
             }

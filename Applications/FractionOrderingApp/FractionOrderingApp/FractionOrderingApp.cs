@@ -41,6 +41,13 @@ namespace FractionOrderingApp
                 ChangeCubeImg(cube, fraction, Color.White);
                 cube.userData = new CubeData(fraction);
             }
+
+            foreach (Cube cube in CubeSet)
+            {
+                CheckNeighborsAreOrdered(cube);
+            }
+
+            CheckEverythingOrdered();
         }
 
         private void ChangeCubeImg(Cube cube, Fraction fraction, Color color)
@@ -62,7 +69,7 @@ namespace FractionOrderingApp
                     _imageSourceNum = "4.png";
                     break;
                 case 5:
-                    _imageSourceNum = ".png";
+                    _imageSourceNum = "5.png";
                     break;
                 case 6:
                     _imageSourceNum = "6.png";
@@ -157,6 +164,7 @@ namespace FractionOrderingApp
             {
                 CheckNeighborsAreOrdered(cube);
             }
+            CheckEverythingOrdered();
         }
 
         private void CheckNeighborsAreOrdered(Cube cube)
@@ -167,18 +175,38 @@ namespace FractionOrderingApp
                  ((CubeData) cube.Neighbors.Right.userData).GreaterThan((CubeData) cube.userData)))
             {
                 ChangeCubeImg(cube, ((CubeData) cube.userData).GetFraction(), new Color(0, 255, 0)); // green
+                if (!((CubeData) cube.userData).IsOrdered())
+                {
+                    PlayGoodSound();
+                }
                 ((CubeData) cube.userData).setOrder(true);
             }
             else
             {
                 ChangeCubeImg(cube, ((CubeData) cube.userData).GetFraction(), new Color(255, 0, 0)); // red
+                if (((CubeData) cube.userData).IsOrdered())
+                {
+                    PlayBadSound();
+                }
                 ((CubeData) cube.userData).setOrder(false);
             }
         }
 
+        private void PlayGoodSound()
+        {
+            Sound s = Sounds.CreateSound("Good.mp3");
+            s.Play(1);
+        }
+
+        private void PlayBadSound()
+        {
+            Sound s = Sounds.CreateSound("Bad.mp3");
+            s.Play(1);
+        }
+
         private void PlaySuccessSound()
         {
-            Sound s = Sounds.CreateSound("gliss.mp3");
+            Sound s = Sounds.CreateSound("Success.mp3");
             s.Play(1);
         }
     }

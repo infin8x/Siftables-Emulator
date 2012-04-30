@@ -8,6 +8,7 @@
 \usepackage{lscape}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{verbatim}
 \usepackage[final]{pdfpages}
 
 \geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in} % Sets the margins
@@ -19,11 +20,11 @@
 \begin{document}
 
 \begin{center}
-	\LARGE{Siftables Emulator} \\
-	\LARGE{\textit{Deployment and Usage}}\\
-	\Large{\textit{Singularity Software}} \\
-	\vspace{.05in}
-	\normalsize{\today} \\
+    \LARGE{Siftables Emulator} \\
+    \LARGE{\textit{Deployment and Usage}}\\
+    \Large{\textit{Singularity Software}} \\
+    \vspace{.05in}
+    \normalsize{\today} \\
 \end{center}
 
 \section{Install the emulator}
@@ -46,24 +47,24 @@ Once you've launched the emulator, play around! If you get stuck, consult the fo
 
 \begin{center}\includegraphics[width=2.5in]{interact}\end{center}
 \begin{center}
-	\begin{tabular}{ | p{1.5in} | p{4.5in} | }
-	\hline
-	\textbf{If you want to...}   \\\hline
-	Flip the cube,  & click the flip button. \\\hline
-	Tilt the cube, & click the tilt button for the direction to tilt [left, up, right, down]. \\\hline
-	Rotate the cube, & click the rotate button for the direction to rotate [counterclockwise, clockwise]. \\\hline
-	Shake the cube, & drag the cube horizontally back and forth rapidly. \\\hline
-	Press the cube, & click the virtual screen. \\\hline
-	\end{tabular}\\
+    \begin{tabular}{ | p{1.5in} | p{4.5in} | }
+    \hline
+    \textbf{If you want to...}   \\\hline
+    Flip the cube,  & click the flip button. \\\hline
+    Tilt the cube, & click the tilt button for the direction to tilt [left, up, right, down]. \\\hline
+    Rotate the cube, & click the rotate button for the direction to rotate [counterclockwise, clockwise]. \\\hline
+    Shake the cube, & drag the cube horizontally back and forth rapidly. \\\hline
+    Press the cube, & click the virtual screen. \\\hline
+    \end{tabular}\\
 
-	\begin{tabular}{ | p{1.5in} | p{4.5in} | }
-	\hline
-	\textbf{If you click...}   \\\hline
-	Snap to Grid, & the emulator rearranges the cubes into a 4-cube wide grid based on order of cube creation. \\\hline
-	Load a Program, & the emulator opens the Load dialog for running a Siftables application DLL. \\\hline
-	Zoom,  & the emulator zooms the canvas in (right) or out (left) to a maximum of 2x zoom. \\\hline
-	\# of Cubes, & the emulator changes the number of cubes available on the emulator ``screen" to a [maximum of 9, minimum of 1] cubes. \\\hline
-	\end{tabular}
+    \begin{tabular}{ | p{1.5in} | p{4.5in} | }
+    \hline
+    \textbf{If you click...}   \\\hline
+    Snap to Grid, & the emulator rearranges the cubes into a 4-cube wide grid based on order of cube creation. \\\hline
+    Load a Program, & the emulator opens the Load dialog for running a Siftables application DLL. \\\hline
+    Zoom,  & the emulator zooms the canvas in (right) or out (left) to a maximum of 2x zoom. \\\hline
+    \# of Cubes, & the emulator changes the number of cubes available on the emulator ``screen" to a [maximum of 9, minimum of 1] cubes. \\\hline
+    \end{tabular}
 
 \end{center}
 
@@ -110,20 +111,155 @@ At this point, you have a fully runnable Siftables application. It doesn't do an
 
 \end{enumerate}
 
-\subsection{Example: Respond to cube events}
+\subsection{Walkthrough: Create a basic application}
+At the completion of this walkthrough, you will have an application that responds to all cube events (see the next section for a complete list). We suggest starting with the MySiftablesApplication you created in the previous step.
+\begin{enumerate}
+\item Set up the Setup and Paint methods. Setup runs once when your application is first loaded. Tick is called periodically according to the FrameRate (we'll use the default framerate for now).
+\begin{verbatim}
+public override void Setup()
+{
+    foreach (Cube cube in CubeSet)
+    {
+        cube.FillScreen(Color.White);
+        cube.Paint();
+    }
+}
+public override void Tick()
+{
+
+}
+\end{verbatim}
+\item Add methods to describe what happens when each event occurs.
+\begin{enumerate}
+\item Add a method to paint the screen red when the cube is pressed/clicked.
+\begin{verbatim}
+private void OnPress(Cube cube)
+{
+    cube.FillScreen(new Color(255, 0, 0));
+    cube.Paint();
+}
+\end{verbatim}
+\item Add a method to paint the screen various shades of green depending on which tilt direction is activated.
+\begin{verbatim}
+private void OnTilt(Cube cube, Cube.Side direction)
+{
+    switch (direction)
+    {
+        case Cube.Side.TOP:
+            cube.FillRect(new Color(0, 200, 0), 54, 54, 20, 20);
+            break;
+
+        case Cube.Side.BOTTOM:
+            cube.FillRect(new Color(0, 150, 0), 54, 54, 20, 20);
+            break;
+
+        case Cube.Side.LEFT:
+            cube.FillRect(new Color(0, 100, 0), 54, 54, 20, 20);
+            break;
+
+        case Cube.Side.RIGHT:
+            cube.FillRect(new Color(0, 50, 0), 54, 54, 20, 20);
+            break;
+        default:
+            cube.FillRect(Color.White, 54, 54, 20, 20);
+            break;
+    }
+
+    cube.Paint();
+}
+\end{verbatim}
+\item Add a method to paint the screen blue when the cube is flipped.
+\begin{verbatim}
+private void OnFlip(Cube cube, bool newOrientationIsUp)
+{
+    cube.FillRect(new Color(0, 0, 255), 54, 54, 20, 20);
+    cube.Paint();
+}
+\end{verbatim}
+\item Add a method to paint the screen a random color when the cube begins to shake.
+\begin{verbatim}
+private void OnShake(Cube cube)
+{
+    Random rand = new Random();
+    cube.FillRect(new Color(rand.Next(0, 256), rand.Next(0, 256),
+                  rand.Next(0, 256)), 54, 54, 20, 20);
+    cube.Paint();
+}
+\end{verbatim}
+\item Add a method to paint the screen white when the cube stops shaking.
+\begin{verbatim}
+private void OffShake(Cube cube, int duration)
+{
+    cube.FillScreen(Color.White);
+    cube.Paint();
+}
+\end{verbatim}
+\end{enumerate}
+\item Modify the Setup method to add the new methods to the appropriate events on each cube.
+\begin{verbatim}
+public override void Setup()
+{
+    foreach (Cube cube in CubeSet)
+    {
+        cube.FillScreen(Color.White);
+        cube.Paint();
+
+        cube.NotifyButtonPressed += OnPress;
+        cube.NotifyCubeTilt += OnTilt;
+        cube.NotifyCubeFlip += OnFlip;
+        cube.NotifyShakeStarted += OnShake;
+        cube.NotifyShakeStopped += OffShake;
+    }
+}
+\end{verbatim}
+\item Modify the Tick method to paint the screen a different colors based on the amount of neighbors the cube has.
+\begin{verbatim}
+public override void Tick()
+{
+    foreach (var c in this.CubeSet)
+    {
+        var num = c.Neighbors.Count;
+        switch (num)
+        {
+            case 0:
+                c.FillScreen(Color.Black);
+                break;
+            case 1:
+                c.FillScreen(new Color(255, 255, 0));
+                break;
+            case 2:
+                c.FillScreen(new Color(255, 255, 50));
+                break;
+            case 3:
+                c.FillScreen(new Color(255, 255, 100));
+                break;
+            case 4:
+                c.FillScreen(new Color(255, 255, 150));
+                break;
+        }
+        c.Paint();
+    }
+}
+\end{verbatim}
+\end{enumerate}
+
+Build your app, then load MySiftablesApplication/bin/Debug/MySiftablesApplication.dll in the emulator.
+
+
+\subsection{Respond to cube events}
 All cube interactions appear to your program as events. If you want to do something when one of those interactions occurs, simply add a handler to the appropriate event.
 
-	\begin{tabular}{ | p{2in} | p{4in} | }
-	\hline
-	\textbf{If you want to respond when the user...} &  \\\hline
-	Flips the cube,  & bind to cube.NotifyCubeFlip. \\\hline
-	Tilts the cube, & bind to cube.NotifyCubeTilt. \\\hline
-	Rotates the cube, & you can't - at least, you can't directly. The orientation of the cube only affects operations that use neighboring to make multiple cubes interact. \\\hline
-	Shakes the cube, & bind to cube.NotifyShakeStarted and/or cube.NotifyShakeStopped. \\\hline
-	Presses the cube, & bind to cube.NotifyButtonPressed. \\\hline
-	Has neighbored cubes, & access cube.Neighbors. \\\hline
-	\end{tabular}\\
-	
+    \begin{tabular}{ | p{2in} | p{4in} | }
+    \hline
+    \textbf{If you want to respond when the user...} &  \\\hline
+    Flips the cube,  & bind to cube.NotifyCubeFlip. \\\hline
+    Tilts the cube, & bind to cube.NotifyCubeTilt. \\\hline
+    Rotates the cube, & you can't - at least, you can't directly. The orientation of the cube only affects operations that use neighboring to make multiple cubes interact. \\\hline
+    Shakes the cube, & bind to cube.NotifyShakeStarted and/or cube.NotifyShakeStopped. \\\hline
+    Presses the cube, & bind to cube.NotifyButtonPressed. \\\hline
+    Has neighbored cubes, & access cube.Neighbors. \\\hline
+    \end{tabular}\\
+    
 \subsection{Example applications}
 Example applications are located in [project root]/Applications.
 

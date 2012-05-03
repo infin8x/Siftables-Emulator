@@ -90,7 +90,6 @@
     <Compile Include="Behaviors\NeighborRefreshBehavior.cs" />
     <Compile Include="Behaviors\ClipBehavior.cs" />
     <Compile Include="AppRunner.cs" />
-    <Compile Include="Behaviors\PanAndZoomControl.cs" />
     <Compile Include="ImageSources.cs" />
     <Compile Include="NeighborCalculator.cs" />
     <Compile Include="SoundSources.cs" />

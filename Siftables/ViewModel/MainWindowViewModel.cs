@@ -87,18 +87,18 @@ namespace Siftables.ViewModel
             SnapToGridCommand = new RelayCommand(() =>
                 {
                     Status = "Snapping to grid";
-                    for (var i = 0; i < Math.Ceiling(CubeViewModels.Count / 4.0); i++)
+                    for (var i = 0; i < Math.Ceiling(CubeViewModels.Count / 3.0); i++)
                     {
-                        for (var j = 0; j < 4; j++)
+                        for (var j = 0; j < 3; j++)
                         {
-                            if ((i * 4) + j > CubeViewModels.Count - 1)
+                            if ((i * 3) + j > CubeViewModels.Count - 1)
                             {
                                 NeighborCalculator.CalculateNeighbors(CubeViewModels);
                                 Status = ReadyStatus;
                                 return;
                             }
-                            CubeViewModels[(i * 4) + j].PositionX = 200 * j;
-                            CubeViewModels[(i * 4) + j].PositionY = 200 * i;
+                            CubeViewModels[(i * 3) + j].PositionX = (200 * j) + 50;
+                            CubeViewModels[(i * 3) + j].PositionY = 200 * i + 50;
                         }
                     }
                     NeighborCalculator.CalculateNeighbors(CubeViewModels);

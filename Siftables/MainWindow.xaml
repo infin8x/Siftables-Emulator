@@ -16,19 +16,28 @@
         <vm:MainWindowViewModel x:Key="MainWindowViewModel"></vm:MainWindowViewModel>
 
         <Storyboard x:Name="sbScale">
-            <DoubleAnimation x:Name="aniScaleX" Storyboard.TargetName="workspace"
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="0" Duration="0:0:0.2"/>
-            <DoubleAnimation x:Name="aniScaleY" Storyboard.TargetName="workspace"
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="0" Duration="0:0:0.2"/>
-            <DoubleAnimation x:Name="aniCenterX" Storyboard.TargetName="workspace"
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.CenterX)" To="0" Duration="0:0:0.2"/>
-            <DoubleAnimation x:Name="aniCenterY" Storyboard.TargetName="workspace"
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.CenterY)" To="0" Duration="0:0:0.2"/>
+            <DoubleAnimation x:Name="zoomTransformScaleX" Storyboard.TargetName="workspace"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].ScaleTransform.ScaleX" To="0" Duration="0:0:0.2"/>
+            <DoubleAnimation x:Name="zoomTransformScaleY" Storyboard.TargetName="workspace"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].ScaleTransform.ScaleY" To="0" Duration="0:0:0.2"/>
+            <DoubleAnimation x:Name="zoomTransformCenterX" Storyboard.TargetName="workspace"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].ScaleTransform.CenterX" To="0" Duration="0:0:0.2"/>
+            <DoubleAnimation x:Name="zoomTransformCenterY" Storyboard.TargetName="workspace"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].ScaleTransform.CenterY" To="0" Duration="0:0:0.2"/>
+            <DoubleAnimation x:Name="panTransformX" Storyboard.TargetName="workspace"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].TranslateTransform.X" To="0" Duration="0:0:0.2"/>
+            <DoubleAnimation x:Name="panTransformY" Storyboard.TargetName="workspace"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].TranslateTransform.Y" To="0" Duration="0:0:0.2"/>
         </Storyboard>
-        <ScaleTransform x:Name="zoomTransform" ScaleX="1" ScaleY="1"></ScaleTransform>
+        <TransformGroup x:Name="PanAndZoom">
+            <ScaleTransform x:Name="zoomTransform" ScaleX="1" ScaleY="1" />
+            <TranslateTransform x:Name="panTransform" X="0" Y="0" />
+        </TransformGroup>
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="White" DataContext="{Binding Source={StaticResource MainWindowViewModel}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid x:Name="LayoutRoot" Background="SkyBlue" DataContext="{Binding Source={StaticResource MainWindowViewModel}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        MouseWheel="WorkspaceMouseWheel" MouseRightButtonDown="WorkspaceMouseLeftButtonDown" MouseMove="WorkspaceMouseMove" MouseRightButtonUp="WorkspaceMouseLeftButtonUp"
+                      MouseLeave="WorkspaceMouseLeave">
         <Grid.RowDefinitions>
             <RowDefinition Height="0" />
             <RowDefinition />
@@ -50,12 +59,12 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <!--Row 1-->
-        <!--<Border x:Name="workspaceBorder" BorderBrush="Black" BorderThickness="3" Margin="5" Grid.Row="1" behave:ClipBehavior.ToBounds="True">-->
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding Path=CubeViewModels}" Margin="0" x:Name="workspace" behave:ClipBehavior.ToBounds="True" MouseWheel="WorkspaceMouseWheel" RenderTransform="{StaticResource zoomTransform}">
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Path=CubeViewModels}" Margin="0" x:Name="workspace" 
+                      RenderTransform="{StaticResource PanAndZoom}"
+                      >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Background="SkyBlue" Margin="0" x:Name="workspaceBackground">
-                    </Canvas>
+                    <Canvas Background="SkyBlue" Margin="0" x:Name="workspaceBackground" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -66,7 +75,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <!--</Border>-->
 
         <!--Row 2-->
         <Grid x:Name="controlsGrid" Background="Gray" Grid.Row="2">

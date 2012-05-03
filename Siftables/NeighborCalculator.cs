@@ -25,8 +25,6 @@ namespace Siftables
                 for (var j = i + 1; j < cubeViewModels.Count; j++)
                 {
                     var otherCubeViewModel = cubeViewModels.ToArray()[j];
-                    // If anybody knows a better way to do this, please fix it.  The only way I could get
-                    // the DP to expose its value is through its ToString method...
                     var otherCubeViewModelX = otherCubeViewModel.PositionX;
                     var otherCubeViewModelY = otherCubeViewModel.PositionY;
                     var otherCube = otherCubeViewModel.CubeModel;

@@ -13,13 +13,14 @@ namespace Siftables
             Startup += ApplicationStartup;
             Exit += Application_Exit;
             UnhandledException += ApplicationUnhandledException;
-
             InitializeComponent();
         }
 
         private void ApplicationStartup(object sender, StartupEventArgs e)
         {
             RootVisual = new MainWindowView();
+            RootVisual.MouseRightButtonDown += (o, args) => args.Handled = true;
+            
         }
 
         private void Application_Exit(object sender, EventArgs e)

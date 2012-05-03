@@ -14,6 +14,18 @@
 
     <UserControl.Resources>
         <vm:MainWindowViewModel x:Key="MainWindowViewModel"></vm:MainWindowViewModel>
+
+        <Storyboard x:Name="sbScale">
+            <DoubleAnimation x:Name="aniScaleX" Storyboard.TargetName="workspace"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="0" Duration="0:0:0.2"/>
+            <DoubleAnimation x:Name="aniScaleY" Storyboard.TargetName="workspace"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="0" Duration="0:0:0.2"/>
+            <DoubleAnimation x:Name="aniCenterX" Storyboard.TargetName="workspace"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.CenterX)" To="0" Duration="0:0:0.2"/>
+            <DoubleAnimation x:Name="aniCenterY" Storyboard.TargetName="workspace"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.CenterY)" To="0" Duration="0:0:0.2"/>
+        </Storyboard>
+        <ScaleTransform x:Name="zoomTransform" ScaleX="1" ScaleY="1"></ScaleTransform>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" Background="White" DataContext="{Binding Source={StaticResource MainWindowViewModel}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -38,26 +50,23 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <!--Row 1-->
-        <Border x:Name="workspaceBorder" BorderBrush="Black" BorderThickness="3" Margin="5" Grid.Row="1" behave:ClipBehavior.ToBounds="True">
-            <ItemsControl ItemsSource="{Binding Path=CubeViewModels}" Margin="0" x:Name="workspace" behave:ClipBehavior.ToBounds="True">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas Background="SkyBlue" Margin="0">
-                            <Canvas.RenderTransform>
-                            <ScaleTransform x:Name="zoomTransform" ScaleX="{Binding ElementName=zoomSlider, Path=Value}" ScaleY="{Binding ElementName=zoomSlider, Path=Value}"></ScaleTransform>
-                            </Canvas.RenderTransform>
-                        </Canvas>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Canvas>
-                            <Sift:CubeView DataContext="{Binding}" Canvas.Left="{Binding PositionX, Mode=TwoWay}" Canvas.Top="{Binding PositionY, Mode=TwoWay}"></Sift:CubeView>
-                        </Canvas>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Border>
+        <!--<Border x:Name="workspaceBorder" BorderBrush="Black" BorderThickness="3" Margin="5" Grid.Row="1" behave:ClipBehavior.ToBounds="True">-->
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Path=CubeViewModels}" Margin="0" x:Name="workspace" behave:ClipBehavior.ToBounds="True" MouseWheel="WorkspaceMouseWheel" RenderTransform="{StaticResource zoomTransform}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="SkyBlue" Margin="0" x:Name="workspaceBackground">
+                    </Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Canvas>
+                        <Sift:CubeView DataContext="{Binding}" Canvas.Left="{Binding PositionX, Mode=TwoWay}" Canvas.Top="{Binding PositionY, Mode=TwoWay}"></Sift:CubeView>
+                    </Canvas>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!--</Border>-->
 
         <!--Row 2-->
         <Grid x:Name="controlsGrid" Background="Gray" Grid.Row="2">
@@ -65,7 +74,6 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="1.5*" />
                 <ColumnDefinition Width="1.5*" />
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button x:Name="snapToGridButton" Margin="10" Grid.Column="0" Command="{Binding SnapToGridCommand, Mode=OneWay}">
@@ -77,8 +85,6 @@
             <Button x:Name="pauseOrResume" Margin="10" Grid.Column="2" Command="{Binding PauseOrResumeCommand, Mode=OneWay}" IsEnabled="{Binding CanPauseOrResume}">
                 <sdk:Label Content="{Binding PauseOrResumeText, Mode=TwoWay}"/>
             </Button>
-            <Slider x:Name="zoomSlider" Margin="10" Grid.Column="3" VerticalAlignment="Top" LargeChange="0.1" Minimum="1" Maximum="2" Value="1" SmallChange="0.05" />
-            <sdk:Label Grid.Column="3" Margin="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White" Content="Zoom"/>
 
             <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Stretch">
                 <sdk:Label Margin="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"># of Cubes:</sdk:Label>

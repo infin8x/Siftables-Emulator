@@ -4,8 +4,8 @@
     {
         public string CubeChar;
         public int LetterIndex;
-        public string Word;
         public bool SpellChecked;
+        public string Word;
 
         public CubeData(string cubeChar = "", int letterIndex = 0, string word = "", bool spellChecked = false)
         {
@@ -28,6 +28,8 @@
         public void SetCubeChar(string c)
         {
             CubeChar = c;
+            if ("" == Word)
+                Word = c;
         }
 
         public string GetCubeChar()
@@ -50,7 +52,7 @@
             SpellChecked = b;
         }
 
-        public bool GetSpellChecked()
+        public bool IsSpellChecked()
         {
             return SpellChecked;
         }

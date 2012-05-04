@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using Sifteo;
 
 namespace WordApp
@@ -29,7 +27,7 @@ namespace WordApp
                 cube.userData = new CubeData();
                 if ("" != wordToUse)
                 {
-                    ((CubeData)cube.userData).SetCubeChar(c: wordToUse.Substring(0, 1));
+                    ((CubeData) cube.userData).SetCubeChar(c: wordToUse.Substring(0, 1));
                     wordToUse = wordToUse.Remove(0, 1);
                 }
 
@@ -87,7 +85,7 @@ namespace WordApp
 //               sw.WriteLine("Shitty debugger info:");
 //               sw.WriteLine(imageSource);
 //           }
-            
+
             cube.Image(imageSource, x: _cubeX, y: _cubeY, sourceX: _sourceX, sourceY: _sourceY, w: _width, h: _height,
                        scale: _scale, rotation: _rotation);
             cube.Paint();
@@ -105,27 +103,58 @@ namespace WordApp
             _dictionary.Add("car");
             _dictionary.Add("arc");
             _dictionary.Add("at");
+            _dictionary.Add("as");
+            _dictionary.Add("a");
         }
 
         public override void Tick()
         {
-            CheckWord();
+            foreach (var cube in CubeSet)
+            {
+                CheckWord(cube);
+            }
         }
 
-        private static void CheckWord()
+        private void CheckWord(Cube cube)
         {
-            // otherwise, check your right neighbor, does he exist?
-            // if so, what word does it make?
-            // now append that word to ours
+            var myData = (CubeData) cube.userData;
+            var myWord = myData.GetCubeChar();
 
-            // check your left neighbor, does he exist?
-            // if so, then check to see if he's spellchecked.
-            // if he's spellchecked, then we're also spellchecked
-            // if he doesn't exist, then check to see if our word is legit
-            // if it is, then set spellchecked to be true
+            if (null != cube.Neighbors.Right)
+            {
+                var rightData = ((CubeData) cube.Neighbors.Right.userData);
+                myWord += rightData.GetWord();
+            }
 
-            // did we just turn spellchecked?
-            // if so, then turn green + play sound + update points
+            myData.SetWord(myWord);
+
+            if (null != cube.Neighbors.Left)
+            {
+                var leftData = ((CubeData) cube.Neighbors.Left.userData);
+                myData.SetSpellChecked(leftData.IsSpellChecked());
+            }
+            else
+            {
+                myData.SetSpellChecked(_dictionary.Contains(myWord));
+            }
+
+            if (myData.IsSpellChecked())
+            {
+                myData.SetSpellChecked(true);
+                ChangeCubeImage(cube, new Color(0, 200, 0)); // green for good
+                PlaySuccessSound();
+            }
+            else
+            {
+                myData.SetSpellChecked(false);
+                ChangeCubeImage(cube, Color.White);
+            }
+        }
+
+        private void PlaySuccessSound()
+        {
+            var s = Sounds.CreateSound("Success.mp3");
+            s.Play(1);
         }
     }
 }

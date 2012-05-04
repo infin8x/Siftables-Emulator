@@ -5,12 +5,14 @@
         public string CubeChar;
         public int LetterIndex;
         public string Word;
+        public bool SpellChecked;
 
-        public CubeData(string cubeChar = "", int letterIndex = 0, string word = "")
+        public CubeData(string cubeChar = "", int letterIndex = 0, string word = "", bool spellChecked = false)
         {
             CubeChar = cubeChar;
             LetterIndex = letterIndex;
             Word = word;
+            SpellChecked = spellChecked;
         }
 
         public void SetLetterIndex(int i)
@@ -41,6 +43,16 @@
         public string GetWord()
         {
             return Word;
+        }
+
+        public void SetSpellChecked(bool b)
+        {
+            SpellChecked = b;
+        }
+
+        public bool GetSpellChecked()
+        {
+            return SpellChecked;
         }
     }
 }

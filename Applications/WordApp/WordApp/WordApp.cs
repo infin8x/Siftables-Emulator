@@ -109,19 +109,23 @@ namespace WordApp
 
         public override void Tick()
         {
-//            CheckWord();
+            CheckWord();
         }
 
         private static void CheckWord()
         {
-            // set the positioning of each cube so that we know what char to look for
-            // (no left neighbors means you're first)
+            // otherwise, check your right neighbor, does he exist?
+            // if so, what word does it make?
+            // now append that word to ours
 
-            // once you know your position, add your letter to your internal array
-            // of letters
+            // check your left neighbor, does he exist?
+            // if so, then check to see if he's spellchecked.
+            // if he's spellchecked, then we're also spellchecked
+            // if he doesn't exist, then check to see if our word is legit
+            // if it is, then set spellchecked to be true
 
-            // check to see if your internal array matches with a word in the
-            // dictionary.  yes?  turn green + play sound + update points
+            // did we just turn spellchecked?
+            // if so, then turn green + play sound + update points
         }
     }
 }

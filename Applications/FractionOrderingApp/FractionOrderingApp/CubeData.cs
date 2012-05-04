@@ -26,7 +26,7 @@
             return _fraction.GreaterThan(cubeData.GetFraction());
         }
 
-        public void setOrder(bool ordering)
+        public void SetOrder(bool ordering)
         {
             _ordered = ordering;
         }

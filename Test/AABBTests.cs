@@ -141,11 +141,11 @@ namespace Test
             Assert.AreEqual(75, result.Top);
             Assert.AreEqual(100, result.Bottom);
         }
-        //[TestMethod]
-        //public void ImSoBroken()
-        //{
-        //    Assert.IsNotNull(null);
-        //}
+        [TestMethod]
+        public void ImSoBroken()
+        {
+            Assert.IsNotNull(null);
+        }
 
     }
 }

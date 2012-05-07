@@ -74,12 +74,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Silverlight.Testing">
-      <HintPath>..\..\..\..\..\Program Files\Microsoft SDKs\Silverlight\v5.0\Toolkit\dec11\Testing\Microsoft.Silverlight.Testing.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft SDKs\Silverlight\v5.0\Toolkit\dec11\Testing\Microsoft.Silverlight.Testing.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTesting.Silverlight">
-      <HintPath>..\..\..\..\..\Program Files\Microsoft SDKs\Silverlight\v5.0\Toolkit\dec11\Testing\Microsoft.VisualStudio.QualityTools.UnitTesting.Silverlight.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft SDKs\Silverlight\v5.0\Toolkit\dec11\Testing\Microsoft.VisualStudio.QualityTools.UnitTesting.Silverlight.dll</HintPath>
     </Reference>
-    <Reference Include="SifteoExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="SifteoExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+		<HintPath>../SifteoExtensions.dll</HintPath>
+	</Reference>
     <Reference Include="System.Windows" />
     <Reference Include="mscorlib" />
     <Reference Include="system" />

@@ -9,15 +9,17 @@ namespace QuickActionGameApp
     {
         private int _cubeX;
         private int _tickCount;
-        private int _reqTicks;
+        private double _reqTicks;
         private Random _rand;
         private int _score;
+        private bool _winning;
 
         private readonly String[] _imgArray = {
                                                   "tiltRight.png", "tiltLeft.png", "tiltUp.png", "tiltDown.png",
-                                                  "flip.png", "rotate_cw.png",
-                                                  "rotate_ccw.png", "pushButton.png", "shake.png"
+                                                  "flip.png", "pushButton.png"
+                                                  //"shake.png", "rotate_cw.png", "rotate_ccw"
                                               };
+
 
         public override void Setup()
         {
@@ -26,6 +28,7 @@ namespace QuickActionGameApp
             _reqTicks = 10;
             _rand = new Random();
             _score = 0;
+            _winning = true;
 
 
             foreach (var cube in CubeSet)
@@ -33,10 +36,10 @@ namespace QuickActionGameApp
                 cube.NotifyButtonPressed += OnPress;
                 cube.NotifyCubeTilt += OnTilt;
                 cube.NotifyCubeFlip += OnFlip;
-                cube.NotifyShakeStarted += OnShake;
-                cube.NotifyRotateCW += OnRotateCW;
-                cube.NotifyRotateCCW += OnRotateCCW;
-                
+//                cube.NotifyShakeStarted += OnShake;
+//                cube.NotifyRotateCW += OnRotateCW;
+//                cube.NotifyRotateCCW += OnRotateCCW;
+
                 cube.userData = new CubeData(null);
                 cube.FillScreen(Color.White);
                 cube.Paint();
@@ -45,118 +48,138 @@ namespace QuickActionGameApp
 
         private void OnPress(Cube cube)
         {
-            if (String.Equals(((CubeData) cube.userData).ImgSource, _imgArray[7]))
+            if (String.Equals(((CubeData) cube.userData).ImgSource, _imgArray[5]))
             {
                 ClearCubeData(cube);
                 _score += 10;
+                cube.FillScreen(Color.White);
+                cube.Paint();
             }
         }
 
         private void OnTilt(Cube cube, Cube.Side direction)
         {
-            //TODO
+            switch (direction)
+            {
+                case Cube.Side.RIGHT:
+                    if (String.Equals(((CubeData) cube.userData).ImgSource, _imgArray[0]))
+                    {
+                        ClearCubeData(cube);
+                        _score += 10;
+                        cube.FillScreen(Color.White);
+                        cube.Paint();
+                    }
+                    break;
+                case Cube.Side.LEFT:
+                    if (String.Equals(((CubeData) cube.userData).ImgSource, _imgArray[1]))
+                    {
+                        ClearCubeData(cube);
+                        _score += 10;
+                        cube.FillScreen(Color.White);
+                        cube.Paint();
+                    }
+                    break;
+                case Cube.Side.TOP:
+                    if (String.Equals(((CubeData) cube.userData).ImgSource, _imgArray[2]))
+                    {
+                        ClearCubeData(cube);
+                        _score += 10;
+                        cube.FillScreen(Color.White);
+                        cube.Paint();
+                    }
+                    break;
+                case Cube.Side.BOTTOM:
+                    if (String.Equals(((CubeData) cube.userData).ImgSource, _imgArray[3]))
+                    {
+                        ClearCubeData(cube);
+                        _score += 10;
+                        cube.FillScreen(Color.White);
+                        cube.Paint();
+                    }
+                    break;
+                case Cube.Side.NONE:
+                    break;
+            }
         }
 
         private void OnFlip(Cube cube, bool neworientationisup)
         {
-            if (String.Equals(((CubeData)cube.userData).ImgSource, _imgArray[4]))
+            if (String.Equals(((CubeData) cube.userData).ImgSource, _imgArray[4]))
             {
                 ClearCubeData(cube);
                 _score += 10;
+                cube.FillScreen(Color.White);
+                cube.Paint();
             }
         }
 
-        private void OnShake(Cube cube)
-        {
-            if (String.Equals(((CubeData)cube.userData).ImgSource, _imgArray[8]))
-            {
-                ClearCubeData(cube);
-                _score += 10;
-            }
-        }
+//        private void OnShake(Cube cube)
+//        {
+//            if (String.Equals(((CubeData) cube.userData).ImgSource, _imgArray[6]))
+//            {
+//                ClearCubeData(cube);
+//                _score += 10;
+//                cube.FillScreen(Color.White);
+//                cube.Paint();
+//            }
+//        }
 
-        private void OnRotateCW(Cube cube, Cube.Side orientation)
-        {
-            if (String.Equals(((CubeData)cube.userData).ImgSource, _imgArray[5]))
-            {
-                ClearCubeData(cube);
-                _score += 10;
-            }
-        }
-
-        private void OnRotateCCW(Cube cube, Cube.Side orientation)
-        {
-            if (String.Equals(((CubeData)cube.userData).ImgSource, _imgArray[6]))
-            {
-                ClearCubeData(cube);
-                _score += 10;
-            }
-        }
+//        private void OnRotateCW(Cube cube, Cube.Side orientation)
+//        {
+//            if (String.Equals(((CubeData) cube.userData).ImgSource, _imgArray[6]))
+//            {
+//                ClearCubeData(cube);
+//                _score += 10;
+//                cube.FillScreen(Color.White);
+//                cube.Paint();
+//            }
+//        }
+//
+//        private void OnRotateCCW(Cube cube, Cube.Side orientation)
+//        {
+//            if (String.Equals(((CubeData) cube.userData).ImgSource, _imgArray[7]))
+//            {
+//                ClearCubeData(cube);
+//                _score += 10;
+//                cube.FillScreen(Color.White);
+//                cube.Paint();
+//            }
+//        }
 
         public override void Tick()
         {
-            foreach (var cube in CubeSet)
+            if (_winning)
             {
-                string imgSource = ((CubeData) cube.userData).ImgSource;
-                if (imgSource != null)
+                foreach (var cube in CubeSet)
                 {
-                    ((CubeData) cube.userData).Tick();
-                    if (((CubeData) cube.userData).TickLimitReached())
+                    var imgSource = ((CubeData) cube.userData).ImgSource;
+                    if (imgSource != null)
                     {
-                        //TODO Loss conditions
-
-                        ClearCubes();
-                        SetCubeBackgrounds(new Color(255, 0, 0));
+                        ((CubeData) cube.userData).Tick();
+                        if (((CubeData) cube.userData).TickLimitReached())
+                        {
+                            ClearCubes();
+                            SetCubeBackgrounds(new Color(255, 0, 0));
+                            _winning = false;
+                            return;
+                        }
                     }
-
-//                    switch (imgSource)
-//                    {
-//                        case "tiltRight":
-//                            clearImgSource(cube);
-//                            break;
-//                        case "tiltLeft":
-//                            clearImgSource(cube);
-//                            break;
-//                        case "tiltUp":
-//                            clearImgSource(cube);
-//                            break;
-//                        case "tiltDown":
-//                            clearImgSource(cube);
-//                            break;
-//                        case "flip":
-//                            clearImgSource(cube);
-//                            break;
-//                        case "rotateRight":
-//                            clearImgSource(cube);
-//                            break;
-//                        case "rotateLeft":
-//                            clearImgSource(cube);
-//                            break;
-//                        case "pressButton":
-//                            clearImgSource(cube);
-//                            break;
-//                        case "shake":
-//                            clearImgSource(cube);
-//                            break;
-//                    }
                 }
-            }
-            _tickCount++;
+                _tickCount++;
 
-            if (_tickCount >= _reqTicks)
-            {
-                _reqTicks = (int) (_reqTicks*0.95);
-                _tickCount = 0;
-
-                var cubeNumber = _rand.Next(CubeSet.Count);
-                var imgNumber = _rand.Next(_imgArray.Length);
-
-
-                if (((CubeData) CubeSet[cubeNumber].userData).ImgSource == null)
+                if (_tickCount >= _reqTicks)
                 {
-//                    CubeSet[cubeNumber].FillScreen(new Color(0, 0, 255));
-//                    CubeSet[cubeNumber].Paint();
-                    PlaceImage(CubeSet[cubeNumber], _imgArray[imgNumber]);
+                    _reqTicks *= 0.95;
+                    _tickCount = 0;
+
+                    var cubeNumber = _rand.Next(CubeSet.Count);
+                    var imgNumber = _rand.Next(_imgArray.Length);
+
+
+                    if (String.Equals(((CubeData) CubeSet[cubeNumber].userData).ImgSource, null))
+                    {
+                        PlaceImage(CubeSet[cubeNumber], _imgArray[imgNumber]);
+                    }
                 }
             }
         }
@@ -187,7 +210,7 @@ namespace QuickActionGameApp
         private void PlaceImage(Cube cube, String imgSource)
         {
             cube.userData = new CubeData(imgSource);
-            cube.Image(imgSource, _cubeX, 35, 0, 0, 128, 128, 2);
+            cube.Image(((CubeData) cube.userData).ImgSource, _cubeX, 30, 0, 0, 128, 128, 2);
             cube.Paint();
         }
     }

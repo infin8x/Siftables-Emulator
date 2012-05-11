@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using Sifteo;
 using Sifteo.Util;
@@ -55,6 +56,8 @@ namespace FractionOrderingApp
         {
             cube.FillScreen(color);
 
+//            _imageSourceNum = fraction.GetNumerator() + ".png";
+//            _imageSourceDen = fraction.GetDenominator() + ".png";
             switch (fraction.GetNumerator())
             {
                 case 1:

@@ -43,10 +43,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Sifteo">
+    <Reference Include="Sifteo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Sifteo\Bin\Debug\Sifteo.dll</HintPath>
     </Reference>
-    <Reference Include="SifteoExtensions">
+    <Reference Include="SifteoExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Sifteo\Bin\Debug\SifteoExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />

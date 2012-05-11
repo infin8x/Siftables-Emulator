@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Linq;
 using Sifteo;
 using Sifteo.Util;
 
@@ -34,7 +36,7 @@ namespace FractionOrderingApp
             _scale = 1;
             _rotation = 0;
 
-            foreach (Cube cube in CubeSet)
+            foreach (var cube in CubeSet)
             {
                 var fraction = new Fraction(Rand.Next(1, 11), Rand.Next(1, 11));
 
@@ -42,7 +44,7 @@ namespace FractionOrderingApp
                 cube.userData = new CubeData(fraction);
             }
 
-            foreach (Cube cube in CubeSet)
+            foreach (var cube in CubeSet)
             {
                 CheckNeighborsAreOrdered(cube);
             }
@@ -54,6 +56,8 @@ namespace FractionOrderingApp
         {
             cube.FillScreen(color);
 
+//            _imageSourceNum = fraction.GetNumerator() + ".png";
+//            _imageSourceDen = fraction.GetDenominator() + ".png";
             switch (fraction.GetNumerator())
             {
                 case 1:
@@ -132,18 +136,15 @@ namespace FractionOrderingApp
 
         private void CheckEverythingOrdered()
         {
-            int totalCubes = CubeSet.Count;
-            Cube[] row = CubeHelper.FindRow(CubeSet);
+            var totalCubes = CubeSet.Count;
+            var row = CubeHelper.FindRow(CubeSet);
 
             if (row.Length == totalCubes)
             {
-                foreach (Cube cube in row)
+                if (row.Any(cube => !((CubeData) cube.userData).IsOrdered()))
                 {
-                    if (!((CubeData) cube.userData).IsOrdered())
-                    {
-                        _completelyOrdered = false;
-                        return;
-                    }
+                    _completelyOrdered = false;
+                    return;
                 }
 
                 if (!_completelyOrdered)
@@ -160,7 +161,7 @@ namespace FractionOrderingApp
 
         public override void Tick()
         {
-            foreach (Cube cube in CubeSet)
+            foreach (var cube in CubeSet)
             {
                 CheckNeighborsAreOrdered(cube);
             }
@@ -179,7 +180,7 @@ namespace FractionOrderingApp
                 {
                     PlayGoodSound();
                 }
-                ((CubeData) cube.userData).setOrder(true);
+                ((CubeData) cube.userData).SetOrder(true);
             }
             else
             {
@@ -188,25 +189,25 @@ namespace FractionOrderingApp
                 {
                     PlayBadSound();
                 }
-                ((CubeData) cube.userData).setOrder(false);
+                ((CubeData) cube.userData).SetOrder(false);
             }
         }
 
         private void PlayGoodSound()
         {
-            Sound s = Sounds.CreateSound("Good.mp3");
+            var s = Sounds.CreateSound("Good.mp3");
             s.Play(1);
         }
 
         private void PlayBadSound()
         {
-            Sound s = Sounds.CreateSound("Bad.mp3");
+            var s = Sounds.CreateSound("Bad.mp3");
             s.Play(1);
         }
 
         private void PlaySuccessSound()
         {
-            Sound s = Sounds.CreateSound("Success.mp3");
+            var s = Sounds.CreateSound("Success.mp3");
             s.Play(1);
         }
     }

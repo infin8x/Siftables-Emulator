@@ -2,38 +2,34 @@
 {
     internal class Fraction
     {
-        private int _Denominator;
-        private int _Numerator;
+        private readonly int _denominator;
+        private readonly int _numerator;
 
         public Fraction(int numerator)
         {
-            _Numerator = numerator;
-            _Denominator = 1;
+            _numerator = numerator;
+            _denominator = 1;
         }
 
         public Fraction(int numerator, int denominator)
         {
-            _Numerator = numerator;
-
-            if (0 == denominator)
-                _Denominator = 1;
-            else
-                _Denominator = denominator;
+            _numerator = numerator;
+            _denominator = 0 == denominator ? 1 : denominator;
         }
 
         public int GetNumerator()
         {
-            return _Numerator;
+            return _numerator;
         }
 
         public int GetDenominator()
         {
-            return _Denominator;
+            return _denominator;
         }
 
         public bool GreaterThan(Fraction fraction)
         {
-            return (1.0 * _Numerator/_Denominator) >= (1.0 * fraction.GetNumerator()/fraction.GetDenominator());
+            return (1.0 * _numerator/_denominator) >= (1.0 * fraction.GetNumerator()/fraction.GetDenominator());
         }
     }
 }

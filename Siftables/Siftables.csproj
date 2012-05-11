@@ -34,7 +34,7 @@
     <Utf8Output>true</Utf8Output>
     <ExpressionBlendVersion>4.1.10819.0</ExpressionBlendVersion>
     <InBrowserSettingsFile>Properties\InBrowserSettings.xml</InBrowserSettingsFile>
-    <RequireInBrowserElevation>false</RequireInBrowserElevation>
+    <RequireInBrowserElevation>true</RequireInBrowserElevation>
   </PropertyGroup>
   <!-- This property group is only here to support building this project using the 
        MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 

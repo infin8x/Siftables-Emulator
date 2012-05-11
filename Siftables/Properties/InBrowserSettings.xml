@@ -1,5 +1,5 @@
 <InBrowserSettings>
   <InBrowserSettings.SecuritySettings>
-    <SecuritySettings ElevatedPermissions="NotRequired" />
+    <SecuritySettings ElevatedPermissions="Required" />
   </InBrowserSettings.SecuritySettings>
 </InBrowserSettings>

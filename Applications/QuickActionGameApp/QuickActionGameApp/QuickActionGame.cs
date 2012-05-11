@@ -1,5 +1,6 @@
 ﻿using System;
 using Sifteo;
+using Sifteo.Util;
 
 
 namespace QuickActionGameApp
@@ -13,7 +14,8 @@ namespace QuickActionGameApp
         private int _score;
 
         private readonly String[] _imgArray = {
-                                                  "tiltRight.png", "tiltLeft.png", "tiltUp.png", "tiltDown.png", "flip.png", "rotate_cw.png",
+                                                  "tiltRight.png", "tiltLeft.png", "tiltUp.png", "tiltDown.png",
+                                                  "flip.png", "rotate_cw.png",
                                                   "rotate_ccw.png", "pushButton.png", "shake.png"
                                               };
 
@@ -33,6 +35,7 @@ namespace QuickActionGameApp
                 cube.NotifyCubeFlip += OnFlip;
                 cube.NotifyShakeStarted += OnShake;
                 cube.NotifyRotateCW += OnRotateCW;
+                cube.NotifyRotateCCW += OnRotateCCW;
                 
                 cube.userData = new CubeData(null);
                 cube.FillScreen(Color.White);
@@ -40,14 +43,9 @@ namespace QuickActionGameApp
             }
         }
 
-        private void OnRotateCW(Cube cube, Cube.Side orientation)
-        {
-            throw new NotImplementedException();
-        }
-
         private void OnPress(Cube cube)
         {
-            if(((CubeData) cube.userData).ImgSource == _imgArray[7])
+            if (String.Equals(((CubeData) cube.userData).ImgSource, _imgArray[7]))
             {
                 ClearCubeData(cube);
                 _score += 10;
@@ -61,7 +59,7 @@ namespace QuickActionGameApp
 
         private void OnFlip(Cube cube, bool neworientationisup)
         {
-            if (((CubeData)cube.userData).ImgSource == _imgArray[4])
+            if (String.Equals(((CubeData)cube.userData).ImgSource, _imgArray[4]))
             {
                 ClearCubeData(cube);
                 _score += 10;
@@ -70,13 +68,30 @@ namespace QuickActionGameApp
 
         private void OnShake(Cube cube)
         {
-            if (((CubeData)cube.userData).ImgSource == _imgArray[8])
+            if (String.Equals(((CubeData)cube.userData).ImgSource, _imgArray[8]))
             {
                 ClearCubeData(cube);
                 _score += 10;
             }
         }
 
+        private void OnRotateCW(Cube cube, Cube.Side orientation)
+        {
+            if (String.Equals(((CubeData)cube.userData).ImgSource, _imgArray[5]))
+            {
+                ClearCubeData(cube);
+                _score += 10;
+            }
+        }
+
+        private void OnRotateCCW(Cube cube, Cube.Side orientation)
+        {
+            if (String.Equals(((CubeData)cube.userData).ImgSource, _imgArray[6]))
+            {
+                ClearCubeData(cube);
+                _score += 10;
+            }
+        }
 
         public override void Tick()
         {
@@ -139,8 +154,8 @@ namespace QuickActionGameApp
 
                 if (((CubeData) CubeSet[cubeNumber].userData).ImgSource == null)
                 {
-                    CubeSet[cubeNumber].FillScreen(new Color(0, 0, 255));
-                    CubeSet[cubeNumber].Paint();
+//                    CubeSet[cubeNumber].FillScreen(new Color(0, 0, 255));
+//                    CubeSet[cubeNumber].Paint();
                     PlaceImage(CubeSet[cubeNumber], _imgArray[imgNumber]);
                 }
             }
@@ -151,6 +166,7 @@ namespace QuickActionGameApp
             foreach (var cube in CubeSet)
             {
                 cube.FillScreen(c);
+                cube.Paint();
             }
         }
 
@@ -165,12 +181,13 @@ namespace QuickActionGameApp
         private void ClearCubeData(Cube cube)
         {
             cube.userData = new CubeData(null);
+            cube.Paint();
         }
 
         private void PlaceImage(Cube cube, String imgSource)
         {
             cube.userData = new CubeData(imgSource);
-            cube.Image(((CubeData) cube.userData).ImgSource, _cubeX, 0, 0, 0, 128, 128, 2);
+            cube.Image(imgSource, _cubeX, 35, 0, 0, 128, 128, 2);
             cube.Paint();
         }
     }

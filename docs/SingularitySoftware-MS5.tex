@@ -66,6 +66,15 @@ These integration tests cover the major functionality of the Sifteo cubes as int
 \end{center}
 
 \section*{Code Maintenance Plan}
+\subsection*{Likely changes}
+The emulator must support changes to the Sifteo API which may require changes in the Sifteo package or the Siftables ViewModel implementations.  However, if the change is limited to the Sifteo.Util and/or Sifteo.MathExt namespaces, the Sifteo.dll file can simply be decompiled with the necessary pieces recompiled into SifteoExtensions.dll (the Siftables team was previously given permission to do so by Sifteo, Inc.).
+The sample applications provided with the project should not require any changes unless an API-breaking change occurs.
+
+\subsection*{Variation points}
+Since the Emulator is dependent on the Sifteo API, there are no variation points in the emulator project.  However, it is encouraged that the client alter and observe the code for the sample applications in order to better understand how to approach development on the Sifteo cubes.
+	
+\subsection*{Future code maintenance}
+Part of the client’s specification was that the code be licensed with the BSD 2-clause license. Hence, the source code will remain available at https://github.com/alexmullans/Siftables-Emulator.  Other parties, including the client, can clone this GitHub repository and modify the project as they see fit. The final Singularity Software release of the Siftables Emulator project will be tagged in the repository for reference purposes.
 
 \section*{Sprints 4 Backlogs}
 The following pages show the backlog for the previous sprint (sprint 4). \\

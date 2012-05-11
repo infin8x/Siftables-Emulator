@@ -40,14 +40,29 @@ namespace DictionaryCleaner
                 while ((line = sr.ReadLine()) != null)
                 {
                     // RULE: Don't add words with apostrophe's
-                    if (!line.Contains("'"))
+                    bool rule_1 = !line.Contains("'");
+                    // RULE: No words longer than 9 characters
+                    bool rule_2 = line.Length < 10;
+                    // RULE: Only single-letter words are a or i
+                    bool rule_3 = (line.Length > 1) ||
+                                  (line.Contains("a")) ||
+                                  (line.Contains("i"));
+                    // RULE: All words must contain vowels unless it is "why"
+                    bool rule_4 = (line.Contains("a")) ||
+                                  (line.Contains("e")) ||
+                                  (line.Contains("i")) ||
+                                  (line.Contains("o")) ||
+                                  (line.Contains("u")) ||
+                                  (line.Equals("why"));
+
+                    if (rule_1 && rule_2 && rule_3 && rule_4)
                         _dictionaryList.Add(line.ToLower());
                 }
             }
 
             using (var sw = new StreamWriter(outFile))
             {
-                foreach (var word in _dictionaryList)
+                foreach (string word in _dictionaryList)
                 {
                     sw.WriteLine(word);
                 }

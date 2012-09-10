@@ -141,15 +141,9 @@ namespace Siftables.ViewModel
                             if (openFileDialog.File.Directory != null)
                             {
                                 _imageSources =
-                                    new ImageSources(openFileDialog.File.Directory.FullName + "/assets/images");
+                                    new ImageSources(openFileDialog.File.Directory.FullName + "\\assets\\images");
                                 SoundSources =
-                                    new SoundSources(openFileDialog.File.Directory.FullName + "/assets/sounds");
-
-                                SoundSources.NotifyNewSound += sound =>
-                                    SoundSources.InitializeSound(sound, ActiveSounds, InactiveSounds);
-                                Sound.NotifyPauseAllSounds += () => SoundSources.PauseAllSounds(ActiveSounds, InactiveSounds);
-                                Sound.NotifyResumeAllSounds += () => SoundSources.ResumeAllSounds(ActiveSounds, InactiveSounds);
-                                Sound.NotifyStopAllSounds += () => SoundSources.StopAllSounds(ActiveSounds, InactiveSounds);
+                                    new SoundSources(openFileDialog.File.Directory.FullName + "\\assets\\sounds", ActiveSounds, InactiveSounds);
 
                                 AppRunner.App.Images = _imageSources.GetImageSet();
 
@@ -159,8 +153,7 @@ namespace Siftables.ViewModel
                                 }
 
                                 Status = openFileDialog.File.Name + " was loaded.";
-                                AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher,
-                                                            SoundSources.SoundSet);
+                                AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher, SoundSources.SoundSet);
                                 AppRunner.NotifyApplicationException += DisplayException;
                                 NotifyPropertyChanged("PauseOrResumeText");
                                 NotifyPropertyChanged("CanPauseOrResume");

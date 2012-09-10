@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Windows;
 using Siftables.ViewModel;
 using Sifteo;
 
 namespace Siftables
 {
-    public class SoundSources : ViewModelNotifier
+    public class SoundSources : MediaSources
     {
 
         public Dictionary<string, string> SoundSource { get; private set; }
@@ -19,27 +16,20 @@ namespace Siftables
         public delegate void NewSoundHandler(Sound sound);
         public event NewSoundHandler NotifyNewSound = delegate { };
 
-        public SoundSources(string soundPath)
+        public SoundSources(string soundPath, ICollection<SoundViewModel> activeSounds, ICollection<SoundViewModel> inactiveSounds)
         {
             SoundSource = new Dictionary<string, string>();
-            LoadSounds(soundPath);
+            LoadMedia(soundPath);
             SoundSet = new SoundSet(SoundSource.Keys);
             SoundSet.NotifyNewSound += sound => NotifyNewSound(sound);
+            SetHandlers(activeSounds, inactiveSounds);
         }
 
-        private void LoadSounds(string soundPath)
+        private void LoadMedia(string mediaPath)
         {
-            var directoryInfo = new DirectoryInfo(soundPath);
-            try
+            foreach (var file in LoadMediaFiles(mediaPath))
             {
-                var imageList = directoryInfo.EnumerateFiles("*").Where(file => ValidSoundExtensions.Contains(file.Extension.ToLower()));
-                foreach (var file in imageList)
-                {
-                    SoundSource.Add(file.Name, file.FullName);
-                }
-            }
-            catch (DirectoryNotFoundException)
-            {
+                SoundSource.Add(file.Name, file.FullName);
             }
         }
 
@@ -48,7 +38,7 @@ namespace Siftables
             return SoundSource[soundName];
         }
 
-        public void InitializeSound(Sound sound, ObservableCollection<SoundViewModel> activeSounds, Collection<SoundViewModel> inactiveSounds)
+        private void InitializeSound(Sound sound, ICollection<SoundViewModel> activeSounds, ICollection<SoundViewModel> inactiveSounds)
         {
             var soundViewModel = new SoundViewModel(sound, GetSoundPath(sound.Name).Replace(@"\", @"/"));
             inactiveSounds.Add(soundViewModel);
@@ -76,7 +66,7 @@ namespace Siftables
             };
         }
 
-        public void StopAllSounds(ObservableCollection<SoundViewModel> activeSounds, Collection<SoundViewModel> inactiveSounds)
+        private static void StopAllSounds(ICollection<SoundViewModel> activeSounds, ICollection<SoundViewModel> inactiveSounds)
         {
             foreach (var sound in activeSounds)
             {
@@ -86,7 +76,7 @@ namespace Siftables
             activeSounds.Clear();
         }
 
-        public void ResumeAllSounds(ObservableCollection<SoundViewModel> activeSounds, Collection<SoundViewModel> inactiveSounds)
+        internal static void ResumeAllSounds(ICollection<SoundViewModel> activeSounds, ICollection<SoundViewModel> inactiveSounds)
         {
             foreach (var sound in inactiveSounds)
             {
@@ -96,7 +86,7 @@ namespace Siftables
             inactiveSounds.Clear();
         }
 
-        public void PauseAllSounds(ObservableCollection<SoundViewModel> activeSounds, Collection<SoundViewModel> inactiveSounds)
+        internal static void PauseAllSounds(ICollection<SoundViewModel> activeSounds, ICollection<SoundViewModel> inactiveSounds)
         {
             foreach (var sound in activeSounds)
             {
@@ -104,6 +94,19 @@ namespace Siftables
                 inactiveSounds.Add(sound);
             }
             activeSounds.Clear();
+        }
+
+        protected override bool IsValidExtension(string extension)
+        {
+            return ValidSoundExtensions.Contains(extension);
+        }
+
+        private void SetHandlers(ICollection<SoundViewModel> activeSounds, ICollection<SoundViewModel> inactiveSounds)
+        {
+            NotifyNewSound += sound => InitializeSound(sound, activeSounds, inactiveSounds);
+            Sound.NotifyPauseAllSounds += () => PauseAllSounds(activeSounds, inactiveSounds);
+            Sound.NotifyResumeAllSounds += () => ResumeAllSounds(activeSounds, inactiveSounds);
+            Sound.NotifyStopAllSounds += () => StopAllSounds(activeSounds, inactiveSounds);
         }
     }
 }

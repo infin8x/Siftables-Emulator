@@ -2,12 +2,13 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using Sifteo;
 
 namespace Siftables
 {
-    public class ImageSources
+    public class ImageSources : MediaSources
     {
 
         public Dictionary<string, BitmapImage> ImageSource { get; private set; }
@@ -16,24 +17,21 @@ namespace Siftables
         public ImageSources(string imagePath)
         {
             ImageSource = new Dictionary<string, BitmapImage>();
-            LoadImages(imagePath);
+            LoadMedia(imagePath);
         }
 
-        public void LoadImages(string imagePath)
+        protected override bool IsValidExtension(string extension)
         {
-            var directoryInfo = new DirectoryInfo(imagePath);
-            try
+            return ValidImageExtensions.Contains(extension);
+        }
+
+        private void LoadMedia(string mediaPath)
+        {
+            foreach (var file in LoadMediaFiles(mediaPath))
             {
-                var imageList = directoryInfo.EnumerateFiles("*").Where(file => ValidImageExtensions.Contains(file.Extension));
-                foreach (var file in imageList)
-                {
-                    var bitmapImage = new BitmapImage();
-                    bitmapImage.SetSource(new MemoryStream(File.ReadAllBytes(file.FullName)));
-                    ImageSource.Add(file.Name, bitmapImage);
-                }
-            }
-            catch (DirectoryNotFoundException)
-            {
+                var bitmapImage = new BitmapImage();
+                bitmapImage.SetSource(new MemoryStream(File.ReadAllBytes(file.FullName)));
+                ImageSource.Add(file.Name, bitmapImage);
             }
         }
 

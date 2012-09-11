@@ -6,9 +6,9 @@ using System.Windows;
 
 namespace Siftables
 {
-    public abstract class MediaSources
+    public abstract class MediaSources : IMediaSources
     {
-        protected IEnumerable<FileInfo> LoadMediaFiles(string mediaPath)
+        public IEnumerable<FileInfo> LoadMediaFiles(string mediaPath)
         {
             var directoryInfo = new DirectoryInfo(mediaPath);
             try
@@ -22,7 +22,9 @@ namespace Siftables
             return new Collection<FileInfo>();
         }
 
-        protected abstract bool IsValidExtension(string extension);
-
+        public abstract bool IsValidExtension(string extension);
+        public abstract bool Contains(string mediaName);
+        public abstract object GetMediaSet();
+        public abstract object this[string mediaName] { get; }
     }
 }

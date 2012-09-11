@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
-using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
 using Sifteo;
 
@@ -36,8 +35,8 @@ namespace Siftables.ViewModel
 
         public AppRunner AppRunner { get; private set; }
 
-        private ImageSources _imageSources;
-        public SoundSources SoundSources;
+        private MediaSources _imageSources;
+        public MediaSources SoundSources;
 
         public string SnapToGridText
         {
@@ -155,7 +154,7 @@ namespace Siftables.ViewModel
                                 SoundSources =
                                     new SoundSources(openFileDialog.File.Directory.FullName + "\\assets\\sounds", ActiveSounds, InactiveSounds);
 
-                                AppRunner.App.Images = _imageSources.GetImageSet();
+                                AppRunner.App.Images = (ImageSet) _imageSources.GetMediaSet();
 
                                 foreach (var cubeViewModel in CubeViewModels)
                                 {
@@ -163,7 +162,7 @@ namespace Siftables.ViewModel
                                 }
 
                                 Status = openFileDialog.File.Name + " " + Strings.LoadingSuccess;
-                                AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher, SoundSources.SoundSet);
+                                AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher, (SoundSet) SoundSources.GetMediaSet());
                                 AppRunner.NotifyApplicationException += DisplayException;
                                 NotifyPropertyChanged("PauseOrResumeText");
                                 NotifyPropertyChanged("CanPauseOrResume");
@@ -187,12 +186,22 @@ namespace Siftables.ViewModel
                 if (AppRunner.IsRunning)
                 {
                     AppRunner.PauseExecution();
-                    SoundSources.PauseAllSounds(ActiveSounds, InactiveSounds);
+                    foreach (var sound in ActiveSounds)
+                    {
+                        sound.SetResumeSpot();
+                        InactiveSounds.Add(sound);
+                    }
+                    ActiveSounds.Clear();
                 }
                 else
                 {
                     AppRunner.ResumeExecution();
-                    SoundSources.ResumeAllSounds(ActiveSounds, InactiveSounds);
+                    foreach (var sound in InactiveSounds)
+                    {
+                        ActiveSounds.Add(sound);
+                        sound.RestoreResumeSpot();
+                    }
+                    InactiveSounds.Clear();
                 }
                 NotifyPropertyChanged("PauseOrResumeText");
             });

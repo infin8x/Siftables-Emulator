@@ -64,7 +64,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.Extras.SL5, Version=4.0.23.35578, Culture=neutral, PublicKeyToken=e7f91b7703710fe7, processorArchitecture=MSIL" />
-    <Reference Include="GalaSoft.MvvmLight.SL5, Version=4.0.23.35578, Culture=neutral, PublicKeyToken=c114982fcf1a3a2e, processorArchitecture=MSIL" />
+    <Reference Include="GalaSoft.MvvmLight.SL5, Version=4.0.23.35578, Culture=neutral, PublicKeyToken=c114982fcf1a3a2e, processorArchitecture=MSIL">
+      <HintPath>..\..\MathTerminal\MathTerminal\References\GalaSoft.MvvmLight.SL5.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Expression.Interactions">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Expression\Blend\Silverlight\v4.0\Libraries\Microsoft.Expression.Interactions.dll</HintPath>
@@ -92,6 +94,7 @@
     <Compile Include="Behaviors\NeighborRefreshBehavior.cs" />
     <Compile Include="Behaviors\ClipBehavior.cs" />
     <Compile Include="AppRunner.cs" />
+    <Compile Include="IMediaSources.cs" />
     <Compile Include="ImageSources.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MediaSources.cs" />

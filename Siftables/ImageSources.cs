@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Windows;
 using System.Windows.Media.Imaging;
 using Sifteo;
 
@@ -20,7 +19,7 @@ namespace Siftables
             LoadMedia(imagePath);
         }
 
-        protected override bool IsValidExtension(string extension)
+        public override bool IsValidExtension(string extension)
         {
             return ValidImageExtensions.Contains(extension);
         }
@@ -50,7 +49,7 @@ namespace Siftables
             return ImageSource[imageName];
         }
 
-        public ImageSet GetImageSet()
+        public override object GetMediaSet()
         {
             var imageNames = ImageSource.Keys;
             var imageInfosCollection = new Collection<ImageInfo>();
@@ -62,7 +61,12 @@ namespace Siftables
             return imageSet;
         }
 
-        public bool Contains(string imageName)
+        public override object this[string mediaName]
+        {
+            get { return ImageSource[mediaName]; }
+        }
+
+        public override bool Contains(string imageName)
         {
             if (imageName == null)
             {

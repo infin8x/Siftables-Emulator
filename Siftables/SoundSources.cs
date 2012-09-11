@@ -96,9 +96,24 @@ namespace Siftables
             activeSounds.Clear();
         }
 
-        protected override bool IsValidExtension(string extension)
+        public override bool IsValidExtension(string extension)
         {
             return ValidSoundExtensions.Contains(extension);
+        }
+
+        public override bool Contains(string mediaName)
+        {
+            return SoundSource.ContainsKey(mediaName);
+        }
+
+        public override object GetMediaSet()
+        {
+            return SoundSet;
+        }
+
+        public override object this[string mediaName]
+        {
+            get { return SoundSource[mediaName]; }
         }
 
         private void SetHandlers(ICollection<SoundViewModel> activeSounds, ICollection<SoundViewModel> inactiveSounds)

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
@@ -11,7 +12,7 @@ using Color = System.Windows.Media.Color;
 
 namespace Siftables.ViewModel
 {
-    public class CubeViewModel : INotifyPropertyChanged
+    public class CubeViewModel : ViewModelNotifier
     {
 
         #region BindingDefinitions
@@ -96,8 +97,8 @@ namespace Siftables.ViewModel
         private readonly Collection<FrameworkElement> _pendingScreenItems;
         private SolidColorBrush _pendingBackgroundColor;
 
-        private ImageSources _imageSources;
-        public ImageSources ImageSources
+        private MediaSources _imageSources;
+        public MediaSources ImageSources
         {
             get { return _imageSources; }
             set
@@ -187,7 +188,7 @@ namespace Siftables.ViewModel
         {
             if (ImageSources.Contains(imageEventArgs.ImageName))
             {
-                var imageSource = ImageSources.GetBitmapImage(imageEventArgs.ImageName);
+                var imageSource = (BitmapImage) ImageSources[imageEventArgs.ImageName];
                 var width = imageEventArgs.Width;
                 var height = imageEventArgs.Height;
                 if (imageEventArgs.Rotation % 2 != 0)

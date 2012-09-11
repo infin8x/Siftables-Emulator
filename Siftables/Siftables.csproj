@@ -15,8 +15,7 @@
     <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>
-    </SupportedCultures>
+    <SupportedCultures>en-US;</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>Siftables.xap</XapFilename>
@@ -64,15 +63,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GalaSoft.MvvmLight.Extras.SL5">
-      <HintPath>References\GalaSoft.MvvmLight.Extras.SL5.dll</HintPath>
-    </Reference>
-    <Reference Include="GalaSoft.MvvmLight.SL5">
-      <HintPath>References\GalaSoft.MvvmLight.SL5.dll</HintPath>
-    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras.SL5, Version=4.0.23.35578, Culture=neutral, PublicKeyToken=e7f91b7703710fe7, processorArchitecture=MSIL" />
+    <Reference Include="GalaSoft.MvvmLight.SL5, Version=4.0.23.35578, Culture=neutral, PublicKeyToken=c114982fcf1a3a2e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Expression.Interactions" />
+    <Reference Include="Microsoft.Expression.Interactions">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Expression\Blend\Silverlight\v4.0\Libraries\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="Sifteo">
+      <HintPath>..\Sifteo\Bin\Debug\Sifteo.dll</HintPath>
+    </Reference>
     <Reference Include="SifteoExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\SifteoExtensions.dll</HintPath>
     </Reference>
@@ -81,7 +81,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Controls.Data.Input, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Toolkit\dec11\Bin\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
@@ -91,9 +93,15 @@
     <Compile Include="Behaviors\ClipBehavior.cs" />
     <Compile Include="AppRunner.cs" />
     <Compile Include="ImageSources.cs" />
+    <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MediaSources.cs" />
     <Compile Include="NeighborCalculator.cs" />
     <Compile Include="SoundSources.cs" />
+    <Compile Include="Strings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\CubeViewModel.cs" />
     <Compile Include="Siftables.xaml.cs">
       <DependentUpon>Siftables.xaml</DependentUpon>
@@ -125,6 +133,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="ClassDiagram.cd" />
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
@@ -138,13 +147,13 @@
     <Resource Include="Images\tilt.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sifteo\Sifteo.csproj">
-      <Project>{84BBD50D-7C3F-40FD-A48E-6CECBA4297C7}</Project>
-      <Name>Sifteo</Name>
-    </ProjectReference>
+    <Resource Include="Images\transparent.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\transparent.png" />
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -77,17 +77,17 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button x:Name="snapToGridButton" Margin="10" Grid.Column="0" Command="{Binding SnapToGridCommand, Mode=OneWay}">
-                <sdk:Label Content="Snap To Grid"/>
+                <sdk:Label Content="{Binding SnapToGridText, Mode=OneTime}"/>
             </Button>
             <Button x:Name="loadAProgramButton" Margin="10" Grid.Column="1" Command="{Binding LoadAFileCommand, Mode=TwoWay}">
-                <sdk:Label Content="Load A Program"/>
+                <sdk:Label Content="{Binding LoadAProgramText, Mode=OneTime}"/>
             </Button>
             <Button x:Name="pauseOrResume" Margin="10" Grid.Column="2" Command="{Binding PauseOrResumeCommand, Mode=OneWay}" IsEnabled="{Binding CanPauseOrResume}">
                 <sdk:Label Content="{Binding PauseOrResumeText, Mode=TwoWay}"/>
             </Button>
 
             <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Stretch">
-                <sdk:Label Margin="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"># of Cubes:</sdk:Label>
+                <sdk:Label Margin="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" Content="{Binding NumOfCubesText, Mode=OneTime}" />
                 <toolkit:NumericUpDown x:Name="numberOfCubesUpDown" IsEnabled="True" Maximum="9" Minimum="1" Style="{StaticResource ButtonSpinnerHorizontalStyle}" Value="{Binding Path=CubeViewModels.Count, Mode=TwoWay}" Height="30" FontSize="14">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="ValueChanged">

@@ -11,7 +11,7 @@ namespace Siftables.ViewModel
     public class MainWindowViewModel : ViewModelNotifier
     {
         public const int NumInitialCubes = 6;
-        public const String ReadyStatus = "Ready";
+        public String ReadyStatus { get { return Strings.ReadyStatus; } }
 
         public ObservableCollection<CubeViewModel> CubeViewModels { get; private set; }
         public ObservableCollection<SoundViewModel> ActiveSounds { get; private set; }
@@ -39,11 +39,21 @@ namespace Siftables.ViewModel
         private ImageSources _imageSources;
         public SoundSources SoundSources;
 
+        public string SnapToGridText
+        {
+            get { return Strings.SnapToGrid; }
+        }
+        public string LoadAProgramText
+        {
+            get { return Strings.LoadAProgram; }
+        }
+        public string NumOfCubesText { get { return Strings.NumOfCubes; } }
+
         public string PauseOrResumeText
         {
             get
             {
-                return AppRunner.IsRunning ? "Pause" : "Resume";
+                return AppRunner.IsRunning ? Strings.Pause : Strings.Resume;
             }
         }
         public bool CanPauseOrResume
@@ -56,7 +66,7 @@ namespace Siftables.ViewModel
             #region ChangeNumberOfCubesCommand
             ChangeNumberOfCubesCommand = new RelayCommand<EventArgs>(e =>
                 {
-                    Status = "Changing number of cubes";
+                    Status = Strings.ChangingNumberStatus;
                     var args = e as RoutedPropertyChangedEventArgs<double>;
                     if (args != null)
                     {
@@ -86,7 +96,7 @@ namespace Siftables.ViewModel
             #region SnapToGridCommand
             SnapToGridCommand = new RelayCommand(() =>
                 {
-                    Status = "Snapping to grid";
+                    Status = Strings.SnappingStatus;
                     for (var i = 0; i < Math.Ceiling(CubeViewModels.Count / 4.0); i++)
                     {
                         for (var j = 0; j < 4; j++)
@@ -113,7 +123,7 @@ namespace Siftables.ViewModel
                         AppRunner.StopExecution();
                     }
 
-                    Status = "Select the application to run.";
+                    Status = Strings.SelectAppStatus;
 
                     var openFileDialog = new OpenFileDialog
                                              {
@@ -123,7 +133,7 @@ namespace Siftables.ViewModel
                                              };
                     if (openFileDialog.ShowDialog() == true)
                     {
-                        Status = "Loading application...";
+                        Status = Strings.LoadingStatus;
                         using (var fileStream = openFileDialog.File.OpenRead())
                         {
                             try
@@ -132,12 +142,12 @@ namespace Siftables.ViewModel
                             }
                             catch (TypeLoadException e)
                             {
-                                Status = String.Format("Unable to load application: {0}", e.Message);
+                                Status = String.Format(Strings.LoadingError + ": {0}", e.Message);
                             }
                         }
                         if (AppRunner.IsLoaded)
                         {
-                            Status = "Loading image resources...";
+                            Status = Strings.LoadingImagesStatus;
                             if (openFileDialog.File.Directory != null)
                             {
                                 _imageSources =
@@ -152,7 +162,7 @@ namespace Siftables.ViewModel
                                     cubeViewModel.ImageSources = _imageSources;
                                 }
 
-                                Status = openFileDialog.File.Name + " was loaded.";
+                                Status = openFileDialog.File.Name + " " + Strings.LoadingSuccess;
                                 AppRunner.StartExecution(CubeSet, Application.Current.MainWindow.Dispatcher, SoundSources.SoundSet);
                                 AppRunner.NotifyApplicationException += DisplayException;
                                 NotifyPropertyChanged("PauseOrResumeText");
@@ -160,13 +170,13 @@ namespace Siftables.ViewModel
                             }
                             else
                             {
-                                Status = "Application loading failed.";
+                                Status = Strings.LoadingFail;
                             }
                         }
                     }
                     else
                     {
-                        Status = "Program loader was closed.";
+                        Status = Strings.LoaderClosed;
                     }
                 });
             #endregion
@@ -178,7 +188,8 @@ namespace Siftables.ViewModel
                 {
                     AppRunner.PauseExecution();
                     SoundSources.PauseAllSounds(ActiveSounds, InactiveSounds);
-                } else
+                }
+                else
                 {
                     AppRunner.ResumeExecution();
                     SoundSources.ResumeAllSounds(ActiveSounds, InactiveSounds);
@@ -199,11 +210,11 @@ namespace Siftables.ViewModel
 
         public void DisplayException(Exception e)
         {
-            Status = String.Format("Application aborted ({0}: {1})", e.GetType(), e.Message);
+            Status = String.Format(Strings.AppAbortedStatus + " ({0}: {1})", e.GetType(), e.Message);
             AppRunner.StopExecution();
             NotifyPropertyChanged("CanPauseOrResume");
             NotifyPropertyChanged("PauseOrResumeText");
-            MessageBox.Show(String.Format("Application aborted due to exception:\n{0}", e), "Hello", MessageBoxButton.OK);
+            MessageBox.Show(String.Format(Strings.AppAbortedMessage + ":\n{0}", e), Strings.AppAbortedCaption, MessageBoxButton.OK);
         }
 
         private void AddNewCubes(int n)
